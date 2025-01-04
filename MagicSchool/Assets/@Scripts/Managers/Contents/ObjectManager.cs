@@ -18,7 +18,7 @@ public class ObjectManager // ID 부여하는 함수, Object들 들고 있는 등
         if (type == typeof(PlayerController))
         {
             // ToDo - Data 연동
-            GameObject go = Managers.Resource.Instantiate("Slime_01.prefab", pooling: true);
+            GameObject go = Managers.Resource.Instantiate("Magicion_01.prefab", pooling: true);
             go.name = "player";
             go.transform.position = position;
 

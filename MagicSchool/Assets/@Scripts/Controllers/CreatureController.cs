@@ -4,6 +4,51 @@ using UnityEngine;
 
 public class CreatureController : BaseController
 {
+    #region State Pattern
+
+    Define.CreatureState _creatureState = Define.CreatureState.Idle;
+    public virtual Define.CreatureState CreatureState
+    {
+        get { return _creatureState; }
+        set
+        {
+            _creatureState = value;
+            UpdateAnimation();
+        }
+    }
+
+    protected Animator _animator;
+
+    public virtual void UpdateAnimation() { }
+
+    public override void UpdateController()
+    {
+        base.UpdateController();
+
+        switch (CreatureState)
+        {
+            case Define.CreatureState.Idle:
+                UpdateIdle();
+                break;
+            case Define.CreatureState.Skill:
+                UpdateSkill();
+                break;
+            case Define.CreatureState.Moving:
+                UpdateMoving();
+                break;
+            case Define.CreatureState.Dead:
+                UpdateDead();
+                break;
+        }
+    }
+
+    protected virtual void UpdateIdle() { }
+    protected virtual void UpdateSkill() { }
+    protected virtual void UpdateMoving() { }
+    protected virtual void UpdateDead() { }
+
+    #endregion
+
     protected float _speed = 1.0f;
 
     public int Hp { get; set; } = 100;

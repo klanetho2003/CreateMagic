@@ -33,6 +33,9 @@ public class PlayerController : CreatureController
         _speed = 5.0f;
         Managers.Game.OnMoveDirChanged += HandleOnMoveDirChange; // 객체 참조값과 함께 함수를 전달하기에 가능한 구독
 
+        ObjectType = Define.ObjectType.Player;
+        CreatureState = Define.CreatureState.Idle;
+
         // To Do
         FireBallSkill fireBallSkill = Skills.AddSkill<FireBallSkill>(_indicator.position); //받아서 추가 수정 가능
 
@@ -50,10 +53,25 @@ public class PlayerController : CreatureController
         _moveDir = dir;
     }
 
-    void Update()
+    public override void UpdateController()
+    {
+        base.UpdateController();
+
+        CollectEnv();
+    }
+
+    protected override void UpdateIdle()
+    {
+        
+    }
+    protected override void UpdateSkill()
+    {
+        
+    }
+
+    protected override void UpdateMoving()
     {
         MovePlayer();
-        CollectEnv();
     }
 
     void MovePlayer()
