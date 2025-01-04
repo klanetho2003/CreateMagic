@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<SkillDatas>
+	<SkillData templateID="1" name="화염구" type="Projectile" prefab="FireProjectile.prefab" damage="100" speed="2">
+		<ProjectileData speed="3" damage="10" hitCount="1">
+			<OnHit>
+				<OnHitEffect type="buff" buffType="12" templateID="30"></OnHitEffect>
+				<OnHitEffect type="buff" buffType="12" templateID="30"></OnHitEffect>
+				<OnHitEffect type="buff" buffType="12" templateID="30"></OnHitEffect>
+				<OnHitEffect type="buff" buffType="12" templateID="30"></OnHitEffect>
+			</OnHit>
+		</ProjectileData>	
+	</SkillData>
+	
+		
+	
+	
+	<SkillData templateID="1" nectID="1" name="평타" type="melee" prefab="" damage="100">
+	</SkillData>
+	<SkillData templateID="1" nectID="2" name="평타" type="melee" prefab="" damage="100">
+	</SkillData>
+	<SkillData templateID="1" nectID="3" name="평타" type="melee" prefab="" damage="100">
+	</SkillData>
+	<SkillData templateID="1" nectID="4" name="평타" type="melee" prefab="" damage="100">
+	</SkillData>
+
+</SkillDatas>

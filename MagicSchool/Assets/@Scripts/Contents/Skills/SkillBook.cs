@@ -1,0 +1,88 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class SkillBook : MonoBehaviour // 스폰하려는 스킬의 위치를 활용할 수도 있고, 스킬을 프리펩으로 만들어둔 경우도 있기에 monobehavior를 사용
+                                       // >> Hierarchy에 등장할 필요가 있는 친구들이 많으니 유니티에서 제공하는 함수를 사용하는 경우가 많을 것으로 예성
+                                       // cf. 버프류는 projectile이나 egoSword 처럼 직접 등장해서 피격 판정을 하지는 않을 것이니, monobehaiviour를 상속 받지 않는 형태로 관리해도 괜찮겠지
+{
+    // 일종의 스킬 매니저
+    public List<SkillBase> Skills { get; } = new List<SkillBase>();
+
+    public List<RepeatSkill> RepeatSkills { get; } = new List<RepeatSkill>();
+    public List<SequenceSkill> SequenceSkills { get; } = new List<SequenceSkill>();
+
+    public T AddSkill<T>(Vector3 position, Transform parent = null) where T : SkillBase // 탕탕은 한 번 얻은 스킬은 무조건 반복 사용되어야 하기에, 아래 코드는 스킬 획득과 시전이 동시에 진행되도록 만듦
+    {
+        System.Type type = typeof(T); // templateID를 확인해서 dataSeet에 접근한 후 그 안에 있는 프리팹 경로를 활용하는 방법이 좋지만, 빠르게 만들기 위해 리플렉션을 사용
+
+        if (type == typeof(EgoSword)) // ToDo : spawn만 여기서하고 반복되는 코드는 다른 함수로 진행 // ToDo : Lv 0 처리(배움처리)
+        {
+            var egoSword = Managers.Object.Spawn<EgoSword>(position, (int)Define.SkillID.EGO_SWORD_ID);
+
+            //egoSword.transform.SetParent(parent); // parent 세팅 안 했는데, 왜 플레이어 위치에서 스킬이 시전되는가
+            egoSword.ActivateSkill();
+
+            Skills.Add(egoSword);
+            RepeatSkills.Add(egoSword);
+
+            return egoSword as T;
+        }
+        else if (type == typeof(FireBallSkill))
+        {
+            var fireBallGenerater = Managers.Object.Spawn<FireBallSkill>(position, (int)Define.SkillID.Fire_Ball_ID);
+            fireBallGenerater.GetComponent<SpriteRenderer>().enabled = false; // 일단 이미지 끄는 걸로 만들어 두었는데, 더 이상적인 코드가 필요
+
+            //fireBall.transform.SetParent(parent); // 함수로 뺄 때는 parent 유무 체크해서 분기 처리
+            fireBallGenerater.ActivateSkill();
+
+            Skills.Add(fireBallGenerater);
+            RepeatSkills.Add(fireBallGenerater);
+
+            return fireBallGenerater as T;
+        }
+        else if (type.IsSubclassOf(typeof(SequenceSkill)))
+        {
+            var skill = gameObject.GetOrAddComponent<T>();
+            Skills.Add(skill);
+            SequenceSkills.Add(skill as SequenceSkill);
+
+            return skill as T;
+        }
+
+        return null;
+    }
+
+    // 인공지능에서 판단을 하건, 순차적으로 여기 skillbook에서 등록된 sequenceskill을 사용을 하건 > 기획의 영역이다
+
+    #region SequenceSkill을 틀어주는 예제
+    int _sequenceIndex = 0;
+
+    public void StartNextSequenceSkill()
+    {
+        if (_stopped)
+            return;
+        if (SequenceSkills.Count == 0)
+            return;
+
+        SequenceSkills[_sequenceIndex].DoSkill(OnFinishedSequenceSkill);
+    }
+
+    void OnFinishedSequenceSkill()
+    {
+        _sequenceIndex = (_sequenceIndex + 1) % SequenceSkills.Count;
+        StartNextSequenceSkill();
+    }
+    #endregion
+
+    bool _stopped = false;
+    public void StopSkills() //시퀀스 스킬 전용
+    {
+        _stopped = true;
+
+        foreach (var skill in SequenceSkills)
+        {
+            skill.StopAllCoroutines(); // stop하는 함수들을 스킬마다 가지고 있게 만들어서 호출하는 게 좋겠다
+        }
+    }
+}
