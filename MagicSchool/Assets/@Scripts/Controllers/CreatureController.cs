@@ -55,6 +55,7 @@ public class CreatureController : BaseController
     public int MaxHp { get; set; } = 100;
 
     public SkillBook Skills { get; protected set; }
+    protected SpriteRenderer _spriteRenderer;
 
     public override bool Init()
     {
@@ -62,6 +63,7 @@ public class CreatureController : BaseController
             return false;
 
         Skills = gameObject.GetOrAddComponent<SkillBook>();
+        _spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
 
         return true;
     }

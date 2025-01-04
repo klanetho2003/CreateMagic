@@ -51,27 +51,39 @@ public class PlayerController : CreatureController
     void HandleOnMoveDirChange(Vector2 dir)
     {
         _moveDir = dir;
+        _spriteRenderer.flipX = dir.x > 0;
     }
 
     public override void UpdateController()
     {
         base.UpdateController();
-
+        
         CollectEnv();
+
+        // TEMP
+        MovePlayer();
+    }
+
+    public override void UpdateAnimation()
+    {
+        
     }
 
     protected override void UpdateIdle()
     {
-        
-    }
-    protected override void UpdateSkill()
-    {
-        
+        if (_moveDir != Vector2.zero) { CreatureState = Define.CreatureState.Moving; return; }
     }
 
     protected override void UpdateMoving()
     {
+        if (_moveDir == Vector2.zero) { CreatureState = Define.CreatureState.Idle; return; }
+
         MovePlayer();
+    }
+
+    protected override void UpdateSkill()
+    {
+        
     }
 
     void MovePlayer()
@@ -115,6 +127,8 @@ public class PlayerController : CreatureController
         MonsterController target = collision.gameObject.GetComponent<MonsterController>();
         if (target == null)
             return;
+
+        // To Do : 닿기만 해도 피격 판정이 있으면 여기에 OnDamaged() 추가
     }
 
     public override void OnDamaged(BaseController attacker, int damage)

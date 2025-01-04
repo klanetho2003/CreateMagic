@@ -25,7 +25,11 @@ public class UI_Joystick : MonoBehaviour, IPointerClickHandler, IPointerDownHand
     // Update is called once per frame
     void Update()
     {
-        GetDirInput();
+
+        if (Input.anyKey == false)
+            Managers.Game.MoveDir = Vector2.zero;
+        else
+            GetDirInput();
     }
 
     void GetDirInput()
@@ -35,7 +39,8 @@ public class UI_Joystick : MonoBehaviour, IPointerClickHandler, IPointerDownHand
 
         if (horizontal == 0 && vertical == 0)
         {
-            Managers.Game.MoveDir = Vector2.zero;
+            return;
+            //Managers.Game.MoveDir = Vector2.zero;
         }
 
         switch (horizontal)
