@@ -51,6 +51,9 @@ public class PlayerController : CreatureController
     void HandleOnMoveDirChange(Vector2 dir)
     {
         _moveDir = dir;
+
+        if (dir.x == 0)
+            return;
         _spriteRenderer.flipX = dir.x > 0;
     }
 
