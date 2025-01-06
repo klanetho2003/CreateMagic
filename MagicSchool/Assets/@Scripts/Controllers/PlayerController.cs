@@ -33,6 +33,9 @@ public class PlayerController : CreatureController
         _speed = 5.0f;
         Managers.Game.OnMoveDirChanged += HandleOnMoveDirChange; // 객체 참조값과 함께 함수를 전달하기에 가능한 구독
 
+        ObjectType = Define.ObjectType.Player;
+        CreatureState = Define.CreatureState.Idle;
+
         // To Do
         FireBallSkill fireBallSkill = Skills.AddSkill<FireBallSkill>(_indicator.position); //받아서 추가 수정 가능
 
@@ -48,12 +51,42 @@ public class PlayerController : CreatureController
     void HandleOnMoveDirChange(Vector2 dir)
     {
         _moveDir = dir;
+
+        if (dir.x == 0)
+            return;
+        _spriteRenderer.flipX = dir.x > 0;
     }
 
-    void Update()
+    public override void UpdateController()
     {
-        MovePlayer();
+        base.UpdateController();
+        
         CollectEnv();
+
+        // TEMP
+        MovePlayer();
+    }
+
+    public override void UpdateAnimation()
+    {
+        
+    }
+
+    protected override void UpdateIdle()
+    {
+        if (_moveDir != Vector2.zero) { CreatureState = Define.CreatureState.Moving; return; }
+    }
+
+    protected override void UpdateMoving()
+    {
+        if (_moveDir == Vector2.zero) { CreatureState = Define.CreatureState.Idle; return; }
+
+        MovePlayer();
+    }
+
+    protected override void UpdateSkill()
+    {
+        
     }
 
     void MovePlayer()
@@ -97,6 +130,8 @@ public class PlayerController : CreatureController
         MonsterController target = collision.gameObject.GetComponent<MonsterController>();
         if (target == null)
             return;
+
+        // To Do : 닿기만 해도 피격 판정이 있으면 여기에 OnDamaged() 추가
     }
 
     public override void OnDamaged(BaseController attacker, int damage)
