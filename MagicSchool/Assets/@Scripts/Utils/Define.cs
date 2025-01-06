@@ -4,6 +4,13 @@ using UnityEngine;
 
 public static class Define
 {
+    public enum KeyEvent
+    {
+        KeyDown_1,
+        KeyDown_Q,
+        KeyDown_A,
+    }
+
     public enum Scene
     {
 

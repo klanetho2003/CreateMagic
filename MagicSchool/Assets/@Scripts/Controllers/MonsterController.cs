@@ -6,7 +6,7 @@ public class MonsterController : CreatureController
 {
     public override bool Init()
     {
-        if (base.Init())
+        if (base.Init() == false)
             return false; // 두 번 초기화하지 않도록 끊어주는 부분
 
         _animator = GetComponent<Animator>();

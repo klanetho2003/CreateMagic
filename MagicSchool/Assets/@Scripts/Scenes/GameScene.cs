@@ -54,9 +54,6 @@ public class GameScene : MonoBehaviour
 
         var player = Managers.Object.Spawn<PlayerController>(Vector3.zero);
 
-        var joystick = Managers.Resource.Instantiate("UI_Joystick.prefab");
-        joystick.name = "@UI_Joystick";
-
         var map = Managers.Resource.Instantiate("Map_01.prefab");
         map.name = "@Map";
 

@@ -1,38 +1,44 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.EventSystems;
-using UnityEngine.UI;
 
-public class UI_Joystick : MonoBehaviour, IPointerClickHandler, IPointerDownHandler, IPointerUpHandler, IDragHandler
+public class InputManager : IPointerClickHandler, IPointerDownHandler, IPointerUpHandler, IDragHandler
 {
-    [SerializeField]
-    Image _background;
+    public event Action<Define.KeyEvent> OnKeyHandler = null;
 
-	[SerializeField]
-	Image _handler;
-
-	float _joystickRadius;
-	Vector2 _touchPosition;
-	Vector2 _moveDir;
-
-    void Start()
+    public void OnUpdate()
     {
-		_joystickRadius = _background.gameObject.GetComponent<RectTransform>().sizeDelta.y / 2;
-	}
-
-    // Update is called once per frame
-    void Update()
-    {
-
         if (Input.anyKey == false)
             Managers.Game.MoveDir = Vector2.zero;
         else
-            GetDirInput();
+        {
+            OnKeyInput();
+            OnDirInput();
+        }
+    }
+    void OnKeyInput()
+    {
+        if (OnKeyHandler == null)
+            return;
+
+        if (Input.GetKeyDown(KeyCode.Alpha1))
+        {
+            OnKeyHandler.Invoke(Define.KeyEvent.KeyDown_1);
+        }
+        else if (Input.GetKeyDown(KeyCode.Q))
+        {
+            OnKeyHandler.Invoke(Define.KeyEvent.KeyDown_Q);
+        }
+        else if (Input.GetKeyDown(KeyCode.A))
+        {
+            OnKeyHandler.Invoke(Define.KeyEvent.KeyDown_A);
+        }
     }
 
-    void GetDirInput()
+    void OnDirInput()
     {
         float horizontal = Input.GetAxisRaw("Horizontal");
         float vertical = Input.GetAxisRaw("Vertical");
@@ -40,7 +46,6 @@ public class UI_Joystick : MonoBehaviour, IPointerClickHandler, IPointerDownHand
         if (horizontal == 0 && vertical == 0)
         {
             return;
-            //Managers.Game.MoveDir = Vector2.zero;
         }
 
         switch (horizontal)

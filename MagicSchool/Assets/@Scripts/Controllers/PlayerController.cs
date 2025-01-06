@@ -6,8 +6,6 @@ using static Define;
 
 public class PlayerController : CreatureController
 {
-    Vector2 _moveDir = Vector2.zero;
-
     float EnvCollectDist { get; set; } = 1.0f;
 
     [SerializeField]
@@ -19,10 +17,55 @@ public class PlayerController : CreatureController
     public Vector3 FireSocket { get { return _fireSocket.position; } }
     public Vector3 ShootDir { get { return (_fireSocket.position - _indicator.position).normalized; } }
 
+    bool _isFront = true;
+    Vector2 _moveDir = Vector2.zero;
     public Vector2 MoveDir
     {
         get { return _moveDir; }
-        set { _moveDir = value.normalized; }
+        set
+        {
+            if (_moveDir == value) // 중복일 때 두 번들어가서 lastDir이 바뀌는 것을 방지
+                return;
+
+            Vector2 lastDir = _moveDir;
+            _moveDir = value.normalized;
+
+            #region 애니메이션 Update
+            if (value.x == 0 && value.y == 0)
+                return;
+
+            _spriteRenderer.flipX = (value.x == 0) ? lastDir.x > 0 : value.x > 0;
+            if (value.y != 0) { _isFront = value.y < 0; }
+            UpdateAnimation();
+            #endregion
+        }
+    }
+
+    public override void UpdateAnimation()
+    {
+        string dir = (_isFront == true) ? "Front" : "Back";
+
+        switch (CreatureState)
+        {
+            case Define.CreatureState.Idle:
+                _animator.Play($"Idle{dir}");
+                break;
+            case Define.CreatureState.Moving:
+                _animator.Play($"Moving{dir}");
+                break;
+            case Define.CreatureState.Skill:
+                //_animator.Play("Attack");
+                break;
+            case Define.CreatureState.Dead:
+                _animator.Play($"Death{dir}");
+                break;
+        }
+        
+    }
+
+    void HandleOnMoveDirChange(Vector2 dir)
+    {
+        MoveDir = dir;
     }
 
     public override bool Init()
@@ -32,6 +75,9 @@ public class PlayerController : CreatureController
 
         _speed = 5.0f;
         Managers.Game.OnMoveDirChanged += HandleOnMoveDirChange; // 객체 참조값과 함께 함수를 전달하기에 가능한 구독
+
+        _animator = GetComponent<Animator>();
+        Skills = gameObject.GetOrAddComponent<PlayerSkillBook>();
 
         ObjectType = Define.ObjectType.Player;
         CreatureState = Define.CreatureState.Idle;
@@ -48,15 +94,6 @@ public class PlayerController : CreatureController
             Managers.Game.OnMoveDirChanged -= HandleOnMoveDirChange;
     }
 
-    void HandleOnMoveDirChange(Vector2 dir)
-    {
-        _moveDir = dir;
-
-        if (dir.x == 0)
-            return;
-        _spriteRenderer.flipX = dir.x > 0;
-    }
-
     public override void UpdateController()
     {
         base.UpdateController();
@@ -65,11 +102,6 @@ public class PlayerController : CreatureController
 
         // TEMP
         MovePlayer();
-    }
-
-    public override void UpdateAnimation()
-    {
-        
     }
 
     protected override void UpdateIdle()
@@ -128,7 +160,7 @@ public class PlayerController : CreatureController
     private void OnCollisionEnter2D(Collision2D collision)
     {
         MonsterController target = collision.gameObject.GetComponent<MonsterController>();
-        if (target == null)
+        if (target.IsValid() == false)
             return;
 
         // To Do : 닿기만 해도 피격 판정이 있으면 여기에 OnDamaged() 추가

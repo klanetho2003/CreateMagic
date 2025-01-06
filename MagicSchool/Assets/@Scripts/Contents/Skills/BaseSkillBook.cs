@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SkillBook : MonoBehaviour // 스폰하려는 스킬의 위치를 활용할 수도 있고, 스킬을 프리펩으로 만들어둔 경우도 있기에 monobehavior를 사용
+public class BaseSkillBook : MonoBehaviour // 스폰하려는 스킬의 위치를 활용할 수도 있고, 스킬을 프리펩으로 만들어둔 경우도 있기에 monobehavior를 사용
                                        // >> Hierarchy에 등장할 필요가 있는 친구들이 많으니 유니티에서 제공하는 함수를 사용하는 경우가 많을 것으로 예성
                                        // cf. 버프류는 projectile이나 egoSword 처럼 직접 등장해서 피격 판정을 하지는 않을 것이니, monobehaiviour를 상속 받지 않는 형태로 관리해도 괜찮겠지
 {
@@ -11,6 +11,23 @@ public class SkillBook : MonoBehaviour // 스폰하려는 스킬의 위치를 활용할 수도 �
 
     public List<RepeatSkill> RepeatSkills { get; } = new List<RepeatSkill>();
     public List<SequenceSkill> SequenceSkills { get; } = new List<SequenceSkill>();
+
+    public Define.ObjectType Onwer { get; protected set; }
+
+    void Awake()
+    {
+        Init();
+    }
+
+    bool _init = false;
+    public virtual bool Init() // 최초 실행일 떄는 true를 반환, 한 번이라도 실행한 내역이 있을 경우 false를 반환
+    {
+        if (_init)
+            return false;
+
+        _init = true;
+        return true;
+    }
 
     public T AddSkill<T>(Vector3 position, Transform parent = null) where T : SkillBase // 탕탕은 한 번 얻은 스킬은 무조건 반복 사용되어야 하기에, 아래 코드는 스킬 획득과 시전이 동시에 진행되도록 만듦
     {

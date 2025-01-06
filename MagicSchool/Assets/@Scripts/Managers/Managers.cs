@@ -11,9 +11,11 @@ public class Managers : MonoBehaviour
 
     #region Contents
     GameManager _game = new GameManager();
+    InputManager _input = new InputManager();
     ObjectManager _object = new ObjectManager();
     PoolManager _pool = new PoolManager();
     public static GameManager Game { get { return Instance?._game; } }
+    public static InputManager Input { get { return Instance?._input; } }
     public static ObjectManager Object { get { return Instance?._object; } }
     public static PoolManager Pool { get { return Instance?._pool; } }
     #endregion
@@ -52,5 +54,10 @@ public class Managers : MonoBehaviour
             DontDestroyOnLoad(go);
             s_instance = go.GetComponent<Managers>();
         }
+    }
+
+    private void Update()
+    {
+        s_instance._input.OnUpdate();
     }
 }
