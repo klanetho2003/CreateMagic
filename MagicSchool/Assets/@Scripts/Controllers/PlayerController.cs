@@ -73,8 +73,9 @@ public class PlayerController : CreatureController
         if (base.Init() == false)
             return false;
 
-        _speed = 5.0f;
+        _speed = 7.0f;
         Managers.Game.OnMoveDirChanged += HandleOnMoveDirChange; // 객체 참조값과 함께 함수를 전달하기에 가능한 구독
+        Managers.Input.OnKeyInputHandler += HandleOnKeyInput;
 
         _animator = GetComponent<Animator>();
         Skills = gameObject.GetOrAddComponent<PlayerSkillBook>();
@@ -88,6 +89,12 @@ public class PlayerController : CreatureController
         return true;
     }
 
+    void HandleOnKeyInput(Define.KeyEvent key)
+    {
+        // To Do : Skillbook 내의 BuildSkill() 호출해서 input값 넘겨주기
+        Debug.Log($"{key.ToString()}    ,   {gameObject.name}");
+    }
+
     private void OnDestroy()
     {
         if (Managers.Game != null)
@@ -99,9 +106,6 @@ public class PlayerController : CreatureController
         base.UpdateController();
         
         CollectEnv();
-
-        // TEMP
-        MovePlayer();
     }
 
     protected override void UpdateIdle()
