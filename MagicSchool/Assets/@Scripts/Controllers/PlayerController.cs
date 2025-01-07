@@ -55,8 +55,11 @@ public class PlayerController : CreatureController
             case Define.CreatureState.Moving:
                 _animator.Play($"Moving{dir}");
                 break;
-            case Define.CreatureState.Skill:
-                //_animator.Play("Attack");
+            case Define.CreatureState.Casting:
+                _animator.Play($"Casting{dir}");
+                break;
+            case Define.CreatureState.DoSkill:
+                _animator.Play($"DoSkill{dir}");
                 break;
             case Define.CreatureState.Dead:
                 _animator.Play($"Death{dir}");
@@ -93,6 +96,8 @@ public class PlayerController : CreatureController
 
     void HandleOnKeyDown(Define.KeyDownEvent key)
     {
+        CreatureState = Define.CreatureState.Casting;
+
         Skills.BuildSKillKey($"{key}");
     }
 
@@ -105,7 +110,7 @@ public class PlayerController : CreatureController
     public override void UpdateController()
     {
         base.UpdateController();
-        
+        Debug.Log(CreatureState);
         CollectEnv();
     }
 
@@ -121,7 +126,7 @@ public class PlayerController : CreatureController
         MovePlayer();
     }
 
-    protected override void UpdateSkill()
+    protected override void UpdateDoSkill()
     {
         
     }

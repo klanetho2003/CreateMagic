@@ -10,7 +10,7 @@ public class FireBallSkill : SingleSkill
 
     }
 
-    public override void ActivateSkill()
+    public override void DoSkill(Action callBack)
     {
         if (Managers.Game.Player == null)
             return;
@@ -19,6 +19,8 @@ public class FireBallSkill : SingleSkill
         Vector3 dir = Managers.Game.Player.ShootDir;
 
         GenerateProjectile(Define.Fire_Ball_ID, Owner, spawnPos, dir, Vector3.zero);
+
+        callBack?.Invoke();
     }
 
     // ToDo : Setinfo

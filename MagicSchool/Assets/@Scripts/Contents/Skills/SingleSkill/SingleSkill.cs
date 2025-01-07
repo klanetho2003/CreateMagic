@@ -12,5 +12,15 @@ public abstract class SingleSkill : SkillBase
 
     public string key { get; protected set; }
 
-    public override abstract void ActivateSkill();
+    public abstract void DoSkill(Action callBack = null);
+
+    public override void ActivateSkill()
+    {
+        DoSkill(OnFinishedSingleSkill);
+    }
+
+    void OnFinishedSingleSkill()
+    {
+        Owner.CreatureState = Define.CreatureState.Idle;
+    }
 }

@@ -11,7 +11,7 @@ public class BossController : MonsterController
 
         Hp = 1000;
 
-        CreatureState = Define.CreatureState.Skill;
+        CreatureState = Define.CreatureState.DoSkill;
 
         Skills.AddSkill<Move>(transform.position);
         Skills.AddSkill<Dash>(transform.position); Skills.AddSkill<Dash>(transform.position); Skills.AddSkill<Dash>(transform.position); // 차피 순차적으로 틀어주니 3단 대쉬로 표현될 예정
@@ -30,7 +30,7 @@ public class BossController : MonsterController
             case Define.CreatureState.Moving:
                 _animator.Play("Moving");
                 break;
-            case Define.CreatureState.Skill:
+            case Define.CreatureState.DoSkill:
                 //_animator.Play("Attack");
                 break;
             case Define.CreatureState.Dead:
@@ -66,7 +66,7 @@ public class BossController : MonsterController
         }
     }
 
-    protected override void UpdateSkill()
+    protected override void UpdateDoSkill()
     {
         if (_coWait == null)
             CreatureState = Define.CreatureState.Moving;

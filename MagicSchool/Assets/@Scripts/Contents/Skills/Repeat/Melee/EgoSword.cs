@@ -79,7 +79,7 @@ public class EgoSword : RepeatSkill
 		mc.OnDamaged(Owner, Damage);
 	}
 
-	protected override void DoSkillJob()
+	protected override void DoSkill()
 	{
 
 	}

@@ -25,7 +25,7 @@ public abstract class RepeatSkill : SkillBase
         _coSkill = StartCoroutine(CoStartSkill());
     }
 
-    protected abstract void DoSkillJob();
+    protected abstract void DoSkill();
 
     protected virtual IEnumerator CoStartSkill()
     {
@@ -33,7 +33,7 @@ public abstract class RepeatSkill : SkillBase
 
         while (true)
         {
-            DoSkillJob();
+            DoSkill();
 
             yield return wait;
         }

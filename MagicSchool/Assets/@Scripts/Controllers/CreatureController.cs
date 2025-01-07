@@ -29,11 +29,14 @@ public class CreatureController : BaseController
             case Define.CreatureState.Idle:
                 UpdateIdle();
                 break;
-            case Define.CreatureState.Skill:
-                UpdateSkill();
-                break;
             case Define.CreatureState.Moving:
                 UpdateMoving();
+                break;
+            case Define.CreatureState.Casting:
+                UpdateCasting();
+                break;
+            case Define.CreatureState.DoSkill:
+                UpdateDoSkill();
                 break;
             case Define.CreatureState.Dead:
                 UpdateDead();
@@ -42,8 +45,9 @@ public class CreatureController : BaseController
     }
 
     protected virtual void UpdateIdle() { }
-    protected virtual void UpdateSkill() { }
     protected virtual void UpdateMoving() { }
+    protected virtual void UpdateCasting() { }
+    protected virtual void UpdateDoSkill() { }
     protected virtual void UpdateDead() { }
 
     #endregion

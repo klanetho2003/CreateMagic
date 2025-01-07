@@ -7,12 +7,14 @@ public class PlayerSkillBook : BaseSkillBook
     string _skillKey;
     SingleSkill _skill;
 
+    PlayerController pc;
+
     public override bool Init()
     {
         if (base.Init() == false)
             return false;
         
-        
+        pc = GetComponent<PlayerController>();
 
         return true;
     }
@@ -32,7 +34,15 @@ public class PlayerSkillBook : BaseSkillBook
 
     public void CastSkill()
     {
-        SingleSkillDict.TryGetValue(_skillKey, out _skill);
+        if (SingleSkillDict.TryGetValue(_skillKey, out _skill) == false)
+        {
+            // To Do : 잘 입력하셨습니다. log
+            _skillKey = "";
+            return;
+        }
+
+        pc.CreatureState = Define.CreatureState.DoSkill;
+
         _skill.ActivateSkill();
 
         _skillKey = "";

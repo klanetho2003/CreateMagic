@@ -39,23 +39,20 @@ public class BaseSkillBook : MonoBehaviour // 스폰하려는 스킬의 위치를 활용할 수
         {
             var egoSword = Managers.Object.Spawn<EgoSword>(position, Define.EGO_SWORD_ID);
 
-            //egoSword.transform.SetParent(parent); // parent 세팅 안 했는데, 왜 플레이어 위치에서 스킬이 시전되는가
-            egoSword.ActivateSkill();
-
             Skills.Add(egoSword);
             RepeatSkills.Add(egoSword);
+            egoSword.Owner = gameObject.GetComponent<CreatureController>();
 
             return egoSword as T;
         }
         else if (type == typeof(FireBallSkill))
         {
             var fireBallGenerater = Managers.Object.Spawn<FireBallSkill>(position, Define.Fire_Ball_ID);
-
-            //fireBall.transform.SetParent(parent); // 함수로 뺄 때는 parent 유무 체크해서 분기 처리
-            fireBallGenerater.ActivateSkill();
+            Managers.Object.Despawn(fireBallGenerater); // Dictionary에 넣어주는 용도로 스폰했기에 바로 despawn
 
             Skills.Add(fireBallGenerater);
             SingleSkillDict.Add(Define.Fire_Ball_ID, fireBallGenerater);
+            fireBallGenerater.Owner = gameObject.GetComponent<CreatureController>();
 
             return fireBallGenerater as T;
         }
@@ -64,6 +61,8 @@ public class BaseSkillBook : MonoBehaviour // 스폰하려는 스킬의 위치를 활용할 수
             var skill = gameObject.GetOrAddComponent<T>();
             Skills.Add(skill);
             SequenceSkills.Add(skill as SequenceSkill);
+
+            skill.Owner = gameObject.GetComponent<CreatureController>();
 
             return skill as T;
         }

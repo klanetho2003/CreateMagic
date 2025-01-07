@@ -66,7 +66,8 @@ public static class Define
     {
         Idle,
         Moving,
-        Skill,
+        Casting,
+        DoSkill,
         Dead,
     }
 
