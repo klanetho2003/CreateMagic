@@ -20,7 +20,7 @@ public class ProjectileController : SkillBase
         return true;
     }
 
-    public void SetInfo(int templateID, CreatureController owner, Vector3 moveDir)
+    public void SetInfo(string templateID, CreatureController owner, Vector3 moveDir)
     {
         if (Managers.Data.SkillDic.TryGetValue(templateID, out Data.SkillData data) == false)
         {

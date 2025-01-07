@@ -11,6 +11,41 @@ public class ObjectManager // ID 부여하는 함수, Object들 들고 있는 등
     public HashSet<ProjectileController> ProjectTiles { get; } = new HashSet<ProjectileController>();
     public HashSet<JamController> Jams { get; } = new HashSet<JamController>();
 
+    public T Spawn<T>(Vector3 position, string templateID = null) where T : SkillBase
+    {
+        System.Type type = typeof(T);
+
+        if (typeof(T).IsSubclassOf(typeof(SkillBase)))
+        {
+            if (Managers.Data.SkillDic.TryGetValue(templateID, out Data.SkillData skillData) == false)
+            {
+                Debug.LogError($"ObjectManager Spawn Skill Failed {templateID}");
+                return null;
+            }
+
+            GameObject go = Managers.Resource.Instantiate(skillData.prefab, pooling: true);
+            go.transform.position = position;
+
+            T t = go.GetOrAddComponent<T>();
+            t.Init();
+
+            return t;
+        }
+        else if (type == typeof(ProjectileController))
+        {
+            GameObject go = Managers.Resource.Instantiate(Managers.Data.SkillDic[templateID].prefab, pooling: true);
+            go.transform.position = position;
+
+            ProjectileController pc = go.GetOrAddComponent<ProjectileController>();
+            ProjectTiles.Add(pc);
+            pc.Init();
+
+            return pc as T;
+        }
+
+        return null;
+    }
+
     public T Spawn<T>(Vector3 position, int templateID = 0) where T : BaseController
     {
         System.Type type = typeof(T);
@@ -71,34 +106,6 @@ public class ObjectManager // ID 부여하는 함수, Object들 들고 있는 등
             GameObject.Find("@Grid").GetComponent<GridController>().Add(go);
 
             return jc as T;
-        }
-        else if (type == typeof(ProjectileController))
-        {
-            //ToDo : templateID를 통해서 Prefab의 ID를 불러와야 한다. >> Managers.Data.SkillDic[templateID].prefab
-            GameObject go = Managers.Resource.Instantiate(Managers.Data.SkillDic[templateID].prefab, pooling: true);
-            go.transform.position = position;
-
-            ProjectileController pc = go.GetOrAddComponent<ProjectileController>();
-            ProjectTiles.Add(pc);
-            pc.Init();
-
-            return pc as T;
-        }
-        else if (typeof(T).IsSubclassOf(typeof(SkillBase)))
-        {
-            if (Managers.Data.SkillDic.TryGetValue(templateID, out Data.SkillData skillData) == false)
-            {
-                Debug.LogError($"ObjectManager Spawn Skill Failed {templateID}");
-                return null;
-            }
-
-            GameObject go = Managers.Resource.Instantiate(skillData.prefab, pooling: true);
-            go.transform.position = position;
-
-            T t = go.GetOrAddComponent<T>();
-            t.Init();
-
-            return t;
         }
 
         return null;

@@ -81,7 +81,7 @@ public class BossController : MonsterController
 
     protected override void OnDead()
     {
-        Skills.StopSkills();
+        Skills.StopSkillsAll();
 
         CreatureState = Define.CreatureState.Dead;
 

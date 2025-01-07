@@ -22,10 +22,7 @@ public class UI_SkillCardItem : UI_Base
         SkillCardBackgroundImage,
     }
 
-    // 어떤 스킬?
-    // 몇 레벨?
-    // 데이터 시트?
-    int _templateID;
+    string _templateID;
     Data.SkillData _skillData;
 
     TMP_Text cardNameText;
@@ -35,7 +32,7 @@ public class UI_SkillCardItem : UI_Base
 
     GameObject skillCardBackgroundImage;
 
-    public void SetInfo(int templateID)
+    public void SetInfo(string templateID)
     {
         _templateID = templateID;
 

@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -11,6 +12,7 @@ public class BaseSkillBook : MonoBehaviour // 스폰하려는 스킬의 위치를 활용할 수
 
     public List<RepeatSkill> RepeatSkills { get; } = new List<RepeatSkill>();
     public List<SequenceSkill> SequenceSkills { get; } = new List<SequenceSkill>();
+    public Dictionary<string, SingleSkill> SingleSkillDict { get; } = new Dictionary<string, SingleSkill>();
 
     public Define.ObjectType Onwer { get; protected set; }
 
@@ -35,7 +37,7 @@ public class BaseSkillBook : MonoBehaviour // 스폰하려는 스킬의 위치를 활용할 수
 
         if (type == typeof(EgoSword)) // ToDo : spawn만 여기서하고 반복되는 코드는 다른 함수로 진행 // ToDo : Lv 0 처리(배움처리)
         {
-            var egoSword = Managers.Object.Spawn<EgoSword>(position, (int)Define.SkillID.EGO_SWORD_ID);
+            var egoSword = Managers.Object.Spawn<EgoSword>(position, Define.EGO_SWORD_ID);
 
             //egoSword.transform.SetParent(parent); // parent 세팅 안 했는데, 왜 플레이어 위치에서 스킬이 시전되는가
             egoSword.ActivateSkill();
@@ -47,14 +49,13 @@ public class BaseSkillBook : MonoBehaviour // 스폰하려는 스킬의 위치를 활용할 수
         }
         else if (type == typeof(FireBallSkill))
         {
-            var fireBallGenerater = Managers.Object.Spawn<FireBallSkill>(position, (int)Define.SkillID.Fire_Ball_ID);
-            fireBallGenerater.GetComponent<SpriteRenderer>().enabled = false; // 일단 이미지 끄는 걸로 만들어 두었는데, 더 이상적인 코드가 필요
+            var fireBallGenerater = Managers.Object.Spawn<FireBallSkill>(position, Define.Fire_Ball_ID);
 
             //fireBall.transform.SetParent(parent); // 함수로 뺄 때는 parent 유무 체크해서 분기 처리
             fireBallGenerater.ActivateSkill();
 
             Skills.Add(fireBallGenerater);
-            RepeatSkills.Add(fireBallGenerater);
+            SingleSkillDict.Add(Define.Fire_Ball_ID, fireBallGenerater);
 
             return fireBallGenerater as T;
         }
@@ -92,14 +93,33 @@ public class BaseSkillBook : MonoBehaviour // 스폰하려는 스킬의 위치를 활용할 수
     }
     #endregion
 
+
+    #region StopSkill Methods
+    public void StopSkill<T>() where T : SkillBase
+    {
+        Type skillType = typeof(T);
+
+        if (skillType.IsSubclassOf(typeof(RepeatSkill)))
+        {
+            foreach (var index in RepeatSkills)
+                if (index is T)
+                    index.StopAllCoroutines(); // StopAllCoroutines사용하지 말고 stop하는 함수들을 스킬마다 가지고 있게 만들어서 호출하는 게 좋겠다
+        }
+        else if (skillType.IsSubclassOf(typeof(SequenceSkill)))
+        {
+            foreach (var index in SequenceSkills)
+                if (index is T)
+                    index.StopAllCoroutines(); // stop하는 함수들을 스킬마다 가지고 있게 만들어서 호출하는 게 좋겠다
+        }
+    }
+
     bool _stopped = false;
-    public void StopSkills() //시퀀스 스킬 전용
+    public void StopSkillsAll()
     {
         _stopped = true;
 
-        foreach (var skill in SequenceSkills)
-        {
-            skill.StopAllCoroutines(); // stop하는 함수들을 스킬마다 가지고 있게 만들어서 호출하는 게 좋겠다
-        }
+        foreach (var skill in Skills)
+            skill.StopAllCoroutines(); // StopAllCoroutines사용하지 말고 stop하는 함수들을 스킬마다 가지고 있게 만들어서 호출하는 게 좋겠다
     }
+    #endregion
 }

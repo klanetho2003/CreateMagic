@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class PlayerSkillBook : BaseSkillBook
 {
+    string _skillKey;
+    SingleSkill _skill;
+
     public override bool Init()
     {
         if (base.Init() == false)
@@ -14,6 +17,24 @@ public class PlayerSkillBook : BaseSkillBook
         return true;
     }
 
-    // To Do : void BuildSkill() -> input된 값 모델링 -> 만약 Input된 값이 A, S, D 중 하나면 모델링 최종본을 변수에 저장
-    // To Do : void override?? 스킬사용() -> dictionary.TrygetValue를 사용해서 모델링 최종본과 매칭되는 skill이 있는지 확인 -> 있으면 사용
+    //  To Do : Input되었을 때 근접 공격 함수
+
+    public void BuildSKillKey(string inputKey)
+    {
+        _skillKey = _skillKey + inputKey;
+
+        Debug.Log($"SkillKey -> {_skillKey}");
+
+        if (inputKey != "A" && inputKey != "S" && inputKey != "D")
+            return;
+        CastSkill();
+    }
+
+    public void CastSkill()
+    {
+        SingleSkillDict.TryGetValue(_skillKey, out _skill);
+        _skill.ActivateSkill();
+
+        _skillKey = "";
+    }
 }

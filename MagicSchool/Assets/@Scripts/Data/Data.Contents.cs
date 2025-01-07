@@ -91,7 +91,7 @@ namespace Data
 	public class SkillData
 	{
 		[XmlAttribute]
-		public int templateID;
+		public string templateID;
 		[XmlAttribute]
 		public string name;
 		//[XmlAttribute]
@@ -108,14 +108,14 @@ namespace Data
 	}
 
 	[Serializable, XmlRoot("SkillDatas")]
-	public class SkillDataLoader : ILoader<int, SkillData>
+	public class SkillDataLoader : ILoader<string, SkillData>
 	{
 		[XmlElement("SkillData")]
 		public List<SkillData> skills = new List<SkillData>();
 
-		public Dictionary<int, SkillData> MakeDict()
+		public Dictionary<string, SkillData> MakeDict()
 		{
-			Dictionary<int, SkillData> dict = new Dictionary<int, SkillData>();
+			Dictionary<string, SkillData> dict = new Dictionary<string, SkillData>();
 			foreach (SkillData skill in skills)
 				dict.Add(skill.templateID, skill);
 			return dict;

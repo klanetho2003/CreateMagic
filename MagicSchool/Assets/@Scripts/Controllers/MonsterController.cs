@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class MonsterController : CreatureController
 {
+    public BaseSkillBook Skills { get; protected set; }
+
     public override bool Init()
     {
         if (base.Init() == false)

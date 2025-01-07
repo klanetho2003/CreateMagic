@@ -1,15 +1,16 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class FireBallSkill : RepeatSkill
+public class FireBallSkill : SingleSkill
 {
-    public FireBallSkill()
+    public FireBallSkill() : base("N1QA")
     {
 
     }
 
-    protected override void DoSkillJob()
+    public override void ActivateSkill()
     {
         if (Managers.Game.Player == null)
             return;
@@ -17,7 +18,7 @@ public class FireBallSkill : RepeatSkill
         Vector3 spawnPos = Managers.Game.Player.FireSocket;
         Vector3 dir = Managers.Game.Player.ShootDir;
 
-        GenerateProjectile((int)Define.SkillID.Fire_Ball_ID, Owner, spawnPos, dir, Vector3.zero);
+        GenerateProjectile(Define.Fire_Ball_ID, Owner, spawnPos, dir, Vector3.zero);
     }
 
     // ToDo : Setinfo

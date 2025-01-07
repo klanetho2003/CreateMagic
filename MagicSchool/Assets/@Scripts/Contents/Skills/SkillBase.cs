@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SkillBase : BaseController // 스킬을 스폰 > ActiveSkill 발동 >>> 스킬 시전
+public abstract class SkillBase : BaseController // 스킬을 스폰 > ActiveSkill 발동 >>> 스킬 시전
 {
     public CreatureController Owner { get; set; }
     public Define.SkillType SkillType { get; set; } = Define.SkillType.None;
@@ -20,7 +20,7 @@ public class SkillBase : BaseController // 스킬을 스폰 > ActiveSkill 발동 >>> 스
 
     public virtual void ActivateSkill() { }
 
-    protected virtual void GenerateProjectile(int templateID, CreatureController onwer, Vector3 startPos, Vector3 dir, Vector3 targetPos)
+    protected virtual void GenerateProjectile(string templateID, CreatureController onwer, Vector3 startPos, Vector3 dir, Vector3 targetPos)
     {
         ProjectileController pc = Managers.Object.Spawn<ProjectileController>(startPos, templateID);
         pc.SetInfo(templateID, Owner, dir);

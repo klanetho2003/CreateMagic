@@ -17,6 +17,8 @@ public class PlayerController : CreatureController
     public Vector3 FireSocket { get { return _fireSocket.position; } }
     public Vector3 ShootDir { get { return (_fireSocket.position - _indicator.position).normalized; } }
 
+    public PlayerSkillBook Skills { get; protected set; }
+
     bool _isFront = true;
     Vector2 _moveDir = Vector2.zero;
     public Vector2 MoveDir
@@ -75,7 +77,7 @@ public class PlayerController : CreatureController
 
         _speed = 7.0f;
         Managers.Game.OnMoveDirChanged += HandleOnMoveDirChange; // 객체 참조값과 함께 함수를 전달하기에 가능한 구독
-        Managers.Input.OnKeyInputHandler += HandleOnKeyInput;
+        Managers.Input.OnKeyDownHandler += HandleOnKeyDown;
 
         _animator = GetComponent<Animator>();
         Skills = gameObject.GetOrAddComponent<PlayerSkillBook>();
@@ -85,14 +87,14 @@ public class PlayerController : CreatureController
 
         // To Do
         FireBallSkill fireBallSkill = Skills.AddSkill<FireBallSkill>(_indicator.position); //받아서 추가 수정 가능
+        Skills.AddSkill<EgoSword>(_indicator.position);
 
         return true;
     }
 
-    void HandleOnKeyInput(Define.KeyEvent key)
+    void HandleOnKeyDown(Define.KeyDownEvent key)
     {
-        // To Do : Skillbook 내의 BuildSkill() 호출해서 input값 넘겨주기
-        Debug.Log($"{key.ToString()}    ,   {gameObject.name}");
+        Skills.BuildSKillKey($"{key}");
     }
 
     private void OnDestroy()
@@ -127,8 +129,6 @@ public class PlayerController : CreatureController
 
     void MovePlayer()
     {
-        //_moveDir = Managers.Game.MoveDir; // CallBack으로 대체
-
         Vector3 dir = _moveDir * _speed * Time.deltaTime;
         transform.position += dir;
 

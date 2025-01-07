@@ -7,7 +7,7 @@ using UnityEngine.EventSystems;
 
 public class InputManager : IPointerClickHandler, IPointerDownHandler, IPointerUpHandler, IDragHandler
 {
-    public event Action<Define.KeyEvent> OnKeyInputHandler = null;
+    public event Action<Define.KeyDownEvent> OnKeyDownHandler = null;
 
     public void OnUpdate()
     {
@@ -21,20 +21,20 @@ public class InputManager : IPointerClickHandler, IPointerDownHandler, IPointerU
     }
     void OnKeyInput()
     {
-        if (OnKeyInputHandler == null)
+        if (OnKeyDownHandler == null)
             return;
 
         if (Input.GetKeyDown(KeyCode.Alpha1))
         {
-            OnKeyInputHandler.Invoke(Define.KeyEvent.KeyDown_1);
+            OnKeyDownHandler.Invoke(Define.KeyDownEvent.N1);
         }
         else if (Input.GetKeyDown(KeyCode.Q))
         {
-            OnKeyInputHandler.Invoke(Define.KeyEvent.KeyDown_Q);
+            OnKeyDownHandler.Invoke(Define.KeyDownEvent.Q);
         }
         else if (Input.GetKeyDown(KeyCode.A))
         {
-            OnKeyInputHandler.Invoke(Define.KeyEvent.KeyDown_A);
+            OnKeyDownHandler.Invoke(Define.KeyDownEvent.A);
         }
     }
 
