@@ -45,13 +45,6 @@ public static class Define
         Single,
     }
 
-    /*public enum SkillID
-    {
-        None = 0,
-        Fire_Ball_ID = 1,
-        EGO_SWORD_ID = 10,
-    }*/
-
     public enum UIEvent
     {
         Click,

@@ -17,7 +17,6 @@ public class BossController : MonsterController
         Skills.AddSkill<Dash>(transform.position); Skills.AddSkill<Dash>(transform.position); Skills.AddSkill<Dash>(transform.position); // 차피 순차적으로 틀어주니 3단 대쉬로 표현될 예정
         Skills.StartNextSequenceSkill();
 
-
         return true;
     }
 

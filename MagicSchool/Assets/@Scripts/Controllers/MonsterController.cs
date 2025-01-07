@@ -11,9 +11,10 @@ public class MonsterController : CreatureController
         if (base.Init() == false)
             return false; // 두 번 초기화하지 않도록 끊어주는 부분
 
-        _animator = GetComponent<Animator>();
         ObjectType = Define.ObjectType.Monster;
         CreatureState = Define.CreatureState.Moving;
+
+        Skills = gameObject.GetOrAddComponent<BaseSkillBook>();
 
         return true;
     }

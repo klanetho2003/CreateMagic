@@ -79,7 +79,6 @@ public class PlayerController : CreatureController
         Managers.Game.OnMoveDirChanged += HandleOnMoveDirChange; // 객체 참조값과 함께 함수를 전달하기에 가능한 구독
         Managers.Input.OnKeyDownHandler += HandleOnKeyDown;
 
-        _animator = GetComponent<Animator>();
         Skills = gameObject.GetOrAddComponent<PlayerSkillBook>();
 
         ObjectType = Define.ObjectType.Player;

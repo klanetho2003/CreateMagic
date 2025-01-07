@@ -18,7 +18,6 @@ public class CreatureController : BaseController
     }
 
     protected Animator _animator;
-
     public virtual void UpdateAnimation() { }
 
     public override void UpdateController()
@@ -61,6 +60,7 @@ public class CreatureController : BaseController
         if (base.Init() == false)
             return false;
 
+        _animator = GetComponent<Animator>();
         _spriteRenderer = GetComponent<SpriteRenderer>();
 
         return true;
