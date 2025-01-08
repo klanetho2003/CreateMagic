@@ -23,4 +23,54 @@ public abstract class SingleSkill : SkillBase
     {
         Owner.CreatureState = Define.CreatureState.Idle;
     }
+
+    #region Skill Delay
+    Coroutine _coSkillDelay;
+
+    //¼±µô
+    public void ActivateSkillDelay(float waitSeconds)
+    {
+        if (waitSeconds == 0)
+        {
+            Owner.CreatureState = Define.CreatureState.DoSkill;
+            return;
+        }
+
+        if (_coSkillDelay != null)
+            StopCoroutine(_coSkillDelay);
+
+        _coSkillDelay = StartCoroutine(CoActivateSkillDelay(waitSeconds));
+    }
+
+    IEnumerator CoActivateSkillDelay(float waitSeconds)
+    {
+        yield return new WaitForSeconds(waitSeconds);
+
+        Owner.CreatureState = Define.CreatureState.DoSkill;
+        _coSkillDelay = null;
+    }
+
+    //ÈÄµô
+    public void CompleteSkillDelay(float waitSeconds)
+    {
+        if (waitSeconds == 0)
+        {
+            Owner.CreatureState = Define.CreatureState.Idle;
+            return;
+        }
+
+        if (_coSkillDelay != null)
+            StopCoroutine(_coSkillDelay);
+
+        _coSkillDelay = StartCoroutine(CoCompleteSkillDelay(waitSeconds));
+    }
+
+    IEnumerator CoCompleteSkillDelay(float waitSeconds)
+    {
+        yield return new WaitForSeconds(waitSeconds);
+
+        Owner.CreatureState = Define.CreatureState.Idle;
+        _coSkillDelay = null;
+    }
+    #endregion
 }

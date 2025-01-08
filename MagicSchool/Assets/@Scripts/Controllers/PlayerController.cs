@@ -26,7 +26,7 @@ public class PlayerController : CreatureController
         get { return _moveDir; }
         set
         {
-            if (_moveDir == value) // 중복일 때 두 번들어가서 lastDir이 바뀌는 것을 방지
+            if (_moveDir == value.normalized) // 중복일 때 두 번들어가서 lastDir이 바뀌는 것을 방지
                 return;
 
             Vector2 lastDir = _moveDir;
@@ -60,12 +60,12 @@ public class PlayerController : CreatureController
                 break;
             case Define.CreatureState.DoSkill:
                 _animator.Play($"DoSkill{dir}");
+                if (_coWait == null) Wait(0.45f); // 지팡이 휘두르기 재생 wait
                 break;
             case Define.CreatureState.Dead:
                 _animator.Play($"Death{dir}");
                 break;
         }
-        
     }
 
     void HandleOnMoveDirChange(Vector2 dir)
@@ -126,10 +126,33 @@ public class PlayerController : CreatureController
         MovePlayer();
     }
 
+    protected override void UpdateCasting()
+    {
+        MovePlayer();
+    }
+
     protected override void UpdateDoSkill()
     {
-        
+        if (_coWait == null)
+            Skills.ActiveSkill();
     }
+    #region Wait Coroutine
+    Coroutine _coWait;
+
+    void Wait(float waitSeconds)
+    {
+        if (_coWait != null)
+            StopCoroutine(_coWait);
+
+        _coWait = StartCoroutine(CoWait(waitSeconds));
+    }
+
+    IEnumerator CoWait(float waitSeconds)
+    {
+        yield return new WaitForSeconds(waitSeconds);
+        _coWait = null;
+    }
+    #endregion
 
     void MovePlayer()
     {

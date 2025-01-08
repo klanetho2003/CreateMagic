@@ -12,6 +12,9 @@ public class CreatureController : BaseController
         get { return _creatureState; }
         set
         {
+            if (_creatureState == value)
+                return;
+
             _creatureState = value;
             UpdateAnimation();
         }

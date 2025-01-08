@@ -12,14 +12,17 @@ public class FireBallSkill : SingleSkill
 
     public override void DoSkill(Action callBack)
     {
-        if (Managers.Game.Player == null)
+        PlayerController pc = Managers.Game.Player;
+        if (pc == null)
             return;
 
-        Vector3 spawnPos = Managers.Game.Player.FireSocket;
-        Vector3 dir = Managers.Game.Player.ShootDir;
+        Vector3 spawnPos = pc.FireSocket;
+        Vector3 dir = pc.ShootDir;
 
         GenerateProjectile(Define.Fire_Ball_ID, Owner, spawnPos, dir, Vector3.zero);
 
+        // To Do : 후딜레이용 코루틴
+        CompleteSkillDelay(0.0f);
         callBack?.Invoke();
     }
 

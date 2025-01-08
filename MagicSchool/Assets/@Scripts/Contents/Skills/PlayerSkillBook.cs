@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -29,20 +30,21 @@ public class PlayerSkillBook : BaseSkillBook
 
         if (inputKey != "A" && inputKey != "S" && inputKey != "D")
             return;
-        CastSkill();
-    }
 
-    public void CastSkill()
-    {
         if (SingleSkillDict.TryGetValue(_skillKey, out _skill) == false)
         {
-            // To Do : 잘 입력하셨습니다. log
+            // To Do : 잘 못 입력하셨습니다. log
             _skillKey = "";
             return;
         }
 
-        pc.CreatureState = Define.CreatureState.DoSkill;
+        // To Do : 선딜 위치 //딜레이는 skills 내부에 delay로 빼기
+        _skill.ActivateSkillDelay(0.0f);
+        
+    }
 
+    public void ActiveSkill()
+    {
         _skill.ActivateSkill();
 
         _skillKey = "";

@@ -100,10 +100,7 @@ public class BossController : MonsterController
     void Wait(float waitSeconds)
     {
         if (_coWait != null)
-        {
             StopCoroutine(_coWait);
-            _coWait = null;
-        }
             
         _coWait = StartCoroutine(CoWait(waitSeconds));
     }
@@ -113,6 +110,5 @@ public class BossController : MonsterController
         yield return new WaitForSeconds(waitSeconds);
         _coWait = null;
     }
-
     #endregion
 }
