@@ -57,6 +57,7 @@ public class PlayerController : CreatureController
                 break;
             case Define.CreatureState.Casting:
                 _animator.Play($"Casting{dir}");
+                //OnPlayCastingAnimation(); // To Do : Data ½ÃÆ®
                 break;
             case Define.CreatureState.DoSkill:
                 _animator.Play($"DoSkill{dir}");
@@ -67,6 +68,28 @@ public class PlayerController : CreatureController
                 break;
         }
     }
+
+    /*Coroutine _coOnPlayCastingAnimation;
+    void OnPlayCastingAnimation()
+    {
+        if (_coOnPlayCastingAnimation != null)
+            StopCoroutine(_coOnPlayCastingAnimation);
+
+        StartCoroutine(CoOnPlayCastingAnimation());
+    }
+
+    IEnumerator CoOnPlayCastingAnimation()
+    {
+        while (true)
+        {
+            Vector3 initialPosition = transform.localPosition;
+
+            float newY = Mathf.Sin(Time.time) * 0.3f;
+
+            transform.localPosition = new Vector3(initialPosition.x, initialPosition.y + (newY * Time.fixedDeltaTime * 3), initialPosition.z);
+            yield return null;
+        }
+    }*/
 
     void HandleOnMoveDirChange(Vector2 dir)
     {
