@@ -12,6 +12,8 @@ public class PlayerController : CreatureController
     Transform _indicator;
     [SerializeField]
     Transform _fireSocket;
+    [SerializeField]
+    Transform _shadow;
 
     public Transform Indicator { get { return _indicator; } }
     public Vector3 FireSocket { get { return _fireSocket.position; } }
@@ -47,8 +49,23 @@ public class PlayerController : CreatureController
     {
         base.OnChangeState();
 
-        if (CreatureState == Define.CreatureState.Casting)
-            OnPlayCastingAnimation(3f, 0.007f); // To Do : Data 시트 length는 홀수 여야한다(Cos주기 이슈)
+        switch (CreatureState)
+        {
+            case CreatureState.Casting:
+                {
+                    OnPlayCastingAnimation(1f, 0.008f); // To Do : Data 시트 length는 홀수 여야한다(Cos주기 이슈)
+                }
+                break;
+            default:
+                {
+                    if (_coOnPlayCastingAnimation != null)
+                    {
+                        StopCoroutine(_coOnPlayCastingAnimation);
+                        _coOnPlayCastingAnimation = null;
+                    }
+                }
+                break;
+        }
     }
 
     #region Player Animation
@@ -88,10 +105,24 @@ public class PlayerController : CreatureController
 
     IEnumerator CoOnPlayCastingAnimation(float speed, float length)
     {
+        float fixedTime = 0;
+
         while (true)
         {
             Vector2 position = transform.localPosition;
-            transform.localPosition = new Vector2(position.x, position.y + (-1 * Mathf.Cos(Time.time * speed) * length));
+            fixedTime += Time.deltaTime;
+
+            float weight = Mathf.Cos(fixedTime * speed) * length;
+
+            //수정필요
+            /*if (Mathf.Cos(fixedTime * speed) <= -0.95f)
+                fixedTime = 0;*/
+
+            Vector2 newPosition = new Vector2(position.x, position.y + weight);
+            transform.localPosition = newPosition;
+
+            _shadow.localScale = new Vector2(_shadow.localScale.x - weight, _shadow.localScale.y - weight);
+
             yield return null;
         }
     }
@@ -140,6 +171,8 @@ public class PlayerController : CreatureController
 
     public override void UpdateController()
     {
+        MoveIndicator();
+
         base.UpdateController();
 
         CollectEnv();
@@ -191,12 +224,17 @@ public class PlayerController : CreatureController
         Vector3 dir = _moveDir * _speed * Time.deltaTime;
         transform.position += dir;
 
-        if (_moveDir != Vector2.zero)
-        {
-            _indicator.eulerAngles = new Vector3(0, 0, Mathf.Atan2(-dir.x, dir.y) * 180 / Mathf.PI);
-        }
-
         GetComponent<Rigidbody2D>().velocity = Vector3.zero;
+    }
+
+    void MoveIndicator()
+    {
+        Vector3 dir = _moveDir * _speed * Time.deltaTime;
+
+        if (_moveDir == Vector2.zero)
+            return;
+
+        _indicator.eulerAngles = new Vector3(0, 0, Mathf.Atan2(-dir.x, dir.y) * 180 / Mathf.PI);
     }
 
     void CollectEnv()
