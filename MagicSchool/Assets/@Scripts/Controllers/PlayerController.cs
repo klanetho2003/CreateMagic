@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.UI;
 using static Define;
 
 public class PlayerController : CreatureController
@@ -53,7 +54,7 @@ public class PlayerController : CreatureController
         {
             case CreatureState.Casting:
                 {
-                    OnPlayCastingAnimation(1f, 0.008f); // To Do : Data 시트 length는 홀수 여야한다(Cos주기 이슈)
+                    OnPlayCastingAnimation(5f, 0.005f); // To Do : Data 시트 length는 홀수 여야한다(Cos주기 이슈)
                 }
                 break;
             default:
@@ -109,19 +110,18 @@ public class PlayerController : CreatureController
 
         while (true)
         {
-            Vector2 position = transform.localPosition;
+            Vector2 playerPosition = transform.localPosition;
+            Vector2 shadowScale = _shadow.localScale;
             fixedTime += Time.deltaTime;
 
-            float weight = Mathf.Cos(fixedTime * speed) * length;
+            float playerWeight = Mathf.Cos(fixedTime * speed) * length * 0.5f;
+            float shadowWeight = playerWeight/* * 0.5f*/;
 
-            //수정필요
-            /*if (Mathf.Cos(fixedTime * speed) <= -0.95f)
-                fixedTime = 0;*/
+            Vector2 newPlayerPosition = new Vector2(playerPosition.x, playerPosition.y + playerWeight);
+            Vector2 newShadowScale = new Vector2(shadowScale.x - shadowWeight, shadowScale.y - shadowWeight);
 
-            Vector2 newPosition = new Vector2(position.x, position.y + weight);
-            transform.localPosition = newPosition;
-
-            _shadow.localScale = new Vector2(_shadow.localScale.x - weight, _shadow.localScale.y - weight);
+            transform.localPosition = newPlayerPosition;
+            _shadow.localScale = newShadowScale;
 
             yield return null;
         }
@@ -219,7 +219,7 @@ public class PlayerController : CreatureController
     }
     #endregion
 
-    void MovePlayer()
+    protected void MovePlayer()
     {
         Vector3 dir = _moveDir * _speed * Time.deltaTime;
         transform.position += dir;
