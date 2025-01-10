@@ -48,7 +48,7 @@ public class BaseSkillBook : MonoBehaviour // 스폰하려는 스킬의 위치를 활용할 수
         else if (type == typeof(FireBallSkill))
         {
             var fireBallGenerater = Managers.Object.Spawn<FireBallSkill>(position, Define.Fire_Ball_ID);
-            //처 스폰할 때 꺼야하는 것들이 매번 다를테니 객체 내부에 firstSpawn일 시에 처리하는 함수 넣어서 여기서는 호출만 하자
+            //첫 스폰할 때 꺼야하는 것들이 매번 다를테니 객체 내부에 firstSpawn일 시에 처리하는 함수 넣어서 여기서는 호출만 하자
             fireBallGenerater.GetComponent<BoxCollider2D>().enabled = false;
             fireBallGenerater.GetComponent<Animator>().enabled = false;
             fireBallGenerater.GetComponent<SpriteRenderer>().enabled = false;

@@ -14,10 +14,15 @@ public class CreatureController : BaseController
         {
             if (_creatureState == value)
                 return;
-
+            
             _creatureState = value;
-            UpdateAnimation();
+            OnChangeState();
         }
+    }
+
+    protected virtual void OnChangeState()
+    {
+        UpdateAnimation();
     }
 
     protected Animator _animator;

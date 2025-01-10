@@ -43,6 +43,15 @@ public class PlayerController : CreatureController
         }
     }
 
+    protected override void OnChangeState()
+    {
+        base.OnChangeState();
+
+        if (CreatureState == Define.CreatureState.Casting)
+            OnPlayCastingAnimation(3f, 0.007f); // To Do : Data 시트 length는 홀수 여야한다(Cos주기 이슈)
+    }
+
+    #region Player Animation
     public override void UpdateAnimation()
     {
         string dir = (_isFront == true) ? "Front" : "Back";
@@ -57,7 +66,6 @@ public class PlayerController : CreatureController
                 break;
             case Define.CreatureState.Casting:
                 _animator.Play($"Casting{dir}");
-                //OnPlayCastingAnimation(); // To Do : Data 시트
                 break;
             case Define.CreatureState.DoSkill:
                 _animator.Play($"DoSkill{dir}");
@@ -69,32 +77,39 @@ public class PlayerController : CreatureController
         }
     }
 
-    /*Coroutine _coOnPlayCastingAnimation;
-    void OnPlayCastingAnimation()
+    Coroutine _coOnPlayCastingAnimation;
+    void OnPlayCastingAnimation(float speed, float length)
     {
         if (_coOnPlayCastingAnimation != null)
             StopCoroutine(_coOnPlayCastingAnimation);
 
-        StartCoroutine(CoOnPlayCastingAnimation());
+        _coOnPlayCastingAnimation = StartCoroutine(CoOnPlayCastingAnimation(speed, length));
     }
 
-    IEnumerator CoOnPlayCastingAnimation()
+    IEnumerator CoOnPlayCastingAnimation(float speed, float length)
     {
         while (true)
         {
-            Vector3 initialPosition = transform.localPosition;
-
-            float newY = Mathf.Sin(Time.time) * 0.3f;
-
-            transform.localPosition = new Vector3(initialPosition.x, initialPosition.y + (newY * Time.fixedDeltaTime * 3), initialPosition.z);
+            Vector2 position = transform.localPosition;
+            transform.localPosition = new Vector2(position.x, position.y + (-1 * Mathf.Cos(Time.time * speed) * length));
             yield return null;
         }
-    }*/
+    }
+    #endregion
 
+    #region Event Hadling
     void HandleOnMoveDirChange(Vector2 dir)
     {
         MoveDir = dir;
     }
+
+    void HandleOnKeyDown(Define.KeyDownEvent key)
+    {
+        CreatureState = Define.CreatureState.Casting;
+
+        Skills.BuildSKillKey($"{key}");
+    }
+    #endregion
 
     public override bool Init()
     {
@@ -117,13 +132,6 @@ public class PlayerController : CreatureController
         return true;
     }
 
-    void HandleOnKeyDown(Define.KeyDownEvent key)
-    {
-        CreatureState = Define.CreatureState.Casting;
-
-        Skills.BuildSKillKey($"{key}");
-    }
-
     private void OnDestroy()
     {
         if (Managers.Game != null)
@@ -133,7 +141,7 @@ public class PlayerController : CreatureController
     public override void UpdateController()
     {
         base.UpdateController();
-        Debug.Log(CreatureState);
+
         CollectEnv();
     }
 
@@ -159,6 +167,7 @@ public class PlayerController : CreatureController
         if (_coWait == null)
             Skills.ActiveSkill();
     }
+
     #region Wait Coroutine
     Coroutine _coWait;
 
