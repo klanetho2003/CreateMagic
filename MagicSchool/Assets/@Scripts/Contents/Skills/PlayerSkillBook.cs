@@ -20,17 +20,13 @@ public class PlayerSkillBook : BaseSkillBook
         return true;
     }
 
-    //  To Do : Input되었을 때 근접 공격 함수
-
     public void BuildSKillKey(string inputKey)
     {
         _skillKey = _skillKey + inputKey;
-
         Debug.Log($"SkillKey -> {_skillKey}");
 
         if (inputKey != "A" && inputKey != "S" && inputKey != "D")
             return;
-
         if (SingleSkillDict.TryGetValue(_skillKey, out _skill) == false)
         {
             // To Do : 잘 못 입력하셨습니다. log
@@ -40,7 +36,11 @@ public class PlayerSkillBook : BaseSkillBook
 
         // To Do : 선딜 위치 //딜레이는 skills 내부에 delay로 빼기
         _skill.ActivateSkillDelay(0.0f);
-        
+    }
+
+    public void ActiveImpact(string inputKey)
+    {
+
     }
 
     public void ActiveSkill()
