@@ -17,24 +17,6 @@ MonoBehaviour:
     m_SerializedData: []
   m_GUID: 5b30a63d1f8048645bc1b2edd84d2878
   m_SerializeEntries:
-  - m_GUID: d2985b5e0fe57a84986b326aeb658558
-    m_Address: Goblin_01.prefab
-    m_ReadOnly: 0
-    m_SerializedLabels:
-    - PreLoad
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: a0a5eb6e1379e5749bbb65518109f887
-    m_Address: Snake_01.prefab
-    m_ReadOnly: 0
-    m_SerializedLabels:
-    - PreLoad
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 27bf31f6833d5b742a6b7841e983dd6b
-    m_Address: Slime_01.prefab
-    m_ReadOnly: 0
-    m_SerializedLabels:
-    - PreLoad
-    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 29c72af2c8fb78a43a3ba831c54abe78
     m_Address: EXPJam.prefab
     m_ReadOnly: 0
@@ -43,12 +25,6 @@ MonoBehaviour:
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: c429e5c56afc5cb48ab7d751f1cf7b1c
     m_Address: Map_01.prefab
-    m_ReadOnly: 0
-    m_SerializedLabels:
-    - PreLoad
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: ad03a629ccaefd846a97f64c3b6bec95
-    m_Address: Boss_01.prefab
     m_ReadOnly: 0
     m_SerializedLabels:
     - PreLoad

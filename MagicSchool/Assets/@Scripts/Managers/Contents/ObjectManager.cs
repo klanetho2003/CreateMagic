@@ -65,22 +65,15 @@ public class ObjectManager // ID 부여하는 함수, Object들 들고 있는 등
         }
         else if (type == typeof(MonsterController))
         {
-            //string name = (templateID == 0) ? "Goblin_01" : "Snake_01";
-            string name = ""; // 귀찮으니 하드코딩으로 > To Do : Data시트 연동
-            switch (templateID)
+            Data.MonsterData monsterData;
+
+            if (Managers.Data.MonsterDic.TryGetValue(templateID, out monsterData) == false)
             {
-                case (int)MonsterID.Goblin:
-                    name = "Goblin_01";
-                    break;
-                case (int)MonsterID.Snake:
-                    name = "Snake_01";
-                    break;
-                case (int)MonsterID.Boss:
-                    name = "Boss_01";
-                    break;
+                Debug.LogError($"ObjectManager Spawn MOnster Failed {monsterData.name}");
+                return null;
             }
 
-            GameObject go = Managers.Resource.Instantiate(name + ".prefab", pooling: true);
+            GameObject go = Managers.Resource.Instantiate(monsterData.name, pooling: true);
             go.transform.position = position;
 
             MonsterController mc = go.GetOrAddComponent<MonsterController>();

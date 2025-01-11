@@ -62,10 +62,11 @@ namespace Data
 	#endregion
 
 	#region MonsterData
-
 	public class MonsterData
-	{
-		[XmlAttribute]
+    {
+        [XmlAttribute]
+        public int templateID;
+        [XmlAttribute]
 		public string name;
 		[XmlAttribute]
 		public string prefab;
@@ -81,14 +82,26 @@ namespace Data
 		// - 일정 확률로
 		// - 어떤 아이템을 (보석, 스킬 가차, 골드, 고기)
 		// - 몇 개 드랍할지?
-
-
 	}
 
-	#endregion
+    [Serializable, XmlRoot("MonsterDatas")]
+    public class MonsterDataLoader : ILoader<int, MonsterData>
+    {
+        [XmlElement("MonsterData")]
+        public List<MonsterData> monsters = new List<MonsterData>();
 
-	#region SkillData
-	public class SkillData
+        public Dictionary<int, MonsterData> MakeDict()
+        {
+            Dictionary<int, MonsterData> dict = new Dictionary<int, MonsterData>();
+            foreach (MonsterData monster in monsters)
+                dict.Add(monster.templateID, monster);
+            return dict;
+        }
+    }
+    #endregion
+
+    #region SkillData
+    public class SkillData
 	{
 		[XmlAttribute]
 		public string templateID;

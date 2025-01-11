@@ -15,6 +15,8 @@ public class PlayerController : CreatureController
     Transform _fireSocket;
     [SerializeField]
     Transform _shadow;
+    [SerializeField]
+    SpriteRenderer _stemp;
 
     public Transform Indicator { get { return _indicator; } }
     public Vector3 FireSocket { get { return _fireSocket.position; } }
@@ -39,7 +41,10 @@ public class PlayerController : CreatureController
             if (value.x == 0 && value.y == 0)
                 return;
 
-            _spriteRenderer.flipX = (value.x == 0) ? lastDir.x > 0 : value.x > 0;
+            bool IsFlip = (value.x == 0) ? lastDir.x > 0 : value.x > 0;
+            _spriteRenderer.flipX = IsFlip;
+            _stemp.flipX = IsFlip;
+
             if (value.y != 0) { _isFront = value.y < 0; }
             UpdateAnimation();
             #endregion
@@ -110,18 +115,21 @@ public class PlayerController : CreatureController
 
         while (true)
         {
-            Vector2 playerPosition = transform.localPosition;
-            Vector2 shadowScale = _shadow.localScale;
             fixedTime += Time.deltaTime;
 
-            float playerWeight = Mathf.Cos(fixedTime * speed) * length * 0.5f;
-            float shadowWeight = playerWeight/* * 0.5f*/;
+            Vector2 playerPosition = transform.localPosition;
+            Vector2 shadowScale = _shadow.localScale;
+            Vector2 shadowPosition = _shadow.localPosition;
 
-            Vector2 newPlayerPosition = new Vector2(playerPosition.x, playerPosition.y + playerWeight);
-            Vector2 newShadowScale = new Vector2(shadowScale.x - shadowWeight, shadowScale.y - shadowWeight);
+            float weight = Mathf.Cos(fixedTime * speed) * length * 0.5f;
+
+            Vector2 newPlayerPosition = new Vector2(playerPosition.x, playerPosition.y + weight);
+            Vector2 newShadowScale = new Vector2(shadowScale.x - weight, shadowScale.y - weight);
+            Vector2 newShadowPosition = new Vector2(shadowPosition.x, shadowPosition.y - weight);
 
             transform.localPosition = newPlayerPosition;
             _shadow.localScale = newShadowScale;
+            _shadow.localPosition = newShadowPosition;
 
             yield return null;
         }
@@ -152,6 +160,7 @@ public class PlayerController : CreatureController
         Managers.Input.OnKeyDownHandler += HandleOnKeyDown;
 
         Skills = gameObject.GetOrAddComponent<PlayerSkillBook>();
+        _stemp = gameObject.GetOrAddComponent<SpriteRenderer>();
 
         ObjectType = Define.ObjectType.Player;
         CreatureState = Define.CreatureState.Idle;
