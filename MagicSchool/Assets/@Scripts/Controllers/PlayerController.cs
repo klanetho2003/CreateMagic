@@ -59,7 +59,7 @@ public class PlayerController : CreatureController
         {
             case CreatureState.Casting:
                 {
-                    OnPlayCastingAnimation(5f, 0.005f); // To Do : Data 시트 length는 홀수 여야한다(Cos주기 이슈)
+                    OnPlayCastingAnimation(5f, 0.0005f); // To Do : Data 시트 length는 홀수 여야한다(Cos주기 이슈)
                 }
                 break;
             default:
@@ -68,6 +68,8 @@ public class PlayerController : CreatureController
                     {
                         StopCoroutine(_coOnPlayCastingAnimation);
                         _coOnPlayCastingAnimation = null;
+
+                        InitShadow();
                     }
                 }
                 break;
@@ -113,6 +115,8 @@ public class PlayerController : CreatureController
     {
         float fixedTime = 0;
 
+        _shadow.localPosition = new Vector2(_shadow.localPosition.x, _shadow.localPosition.y - 0.1f);
+
         while (true)
         {
             fixedTime += Time.deltaTime;
@@ -121,11 +125,11 @@ public class PlayerController : CreatureController
             Vector2 shadowScale = _shadow.localScale;
             Vector2 shadowPosition = _shadow.localPosition;
 
-            float weight = Mathf.Cos(fixedTime * speed) * length * 0.5f;
+            float weight = Mathf.Cos(fixedTime * speed) * length;
 
             Vector2 newPlayerPosition = new Vector2(playerPosition.x, playerPosition.y + weight);
             Vector2 newShadowScale = new Vector2(shadowScale.x - weight, shadowScale.y - weight);
-            Vector2 newShadowPosition = new Vector2(shadowPosition.x, shadowPosition.y - weight);
+            Vector2 newShadowPosition = new Vector2(shadowPosition.x, shadowPosition.y - weight * 1.5f);
 
             transform.localPosition = newPlayerPosition;
             _shadow.localScale = newShadowScale;
@@ -155,7 +159,9 @@ public class PlayerController : CreatureController
         if (base.Init() == false)
             return false;
 
-        _speed = 7.0f;
+        Managers.Data.PlayerDic.TryGetValue(1, out Data.PlayerData playerData);
+        _speed = playerData.speed;
+
         Managers.Game.OnMoveDirChanged += HandleOnMoveDirChange; // 객체 참조값과 함께 함수를 전달하기에 가능한 구독
         Managers.Input.OnKeyDownHandler += HandleOnKeyDown;
 
@@ -170,6 +176,10 @@ public class PlayerController : CreatureController
         Skills.AddSkill<EgoSword>(_indicator.position);
 
         return true;
+    }
+    void InitShadow()
+    {
+        _shadow.localPosition = new Vector2(_shadow.localPosition.x, -0.55f);
     }
 
     private void OnDestroy()
@@ -195,13 +205,11 @@ public class PlayerController : CreatureController
     protected override void UpdateMoving()
     {
         if (_moveDir == Vector2.zero) { CreatureState = Define.CreatureState.Idle; return; }
-
-        MovePlayer();
     }
 
     protected override void UpdateCasting()
     {
-        MovePlayer();
+        
     }
 
     protected override void UpdateDoSkill()
@@ -227,6 +235,14 @@ public class PlayerController : CreatureController
         _coWait = null;
     }
     #endregion
+
+    protected override void FixedUpdateMoving()
+    {
+        if (CreatureState != Define.CreatureState.Moving && CreatureState != Define.CreatureState.Casting)
+            return;
+
+        MovePlayer();
+    }
 
     protected void MovePlayer()
     {

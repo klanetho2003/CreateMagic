@@ -54,7 +54,7 @@ public class GameScene : MonoBehaviour
 
         var player = Managers.Object.Spawn<PlayerController>(Vector3.zero);
 
-        var map = Managers.Resource.Instantiate("Map_01.prefab");
+        var map = Managers.Resource.Instantiate("Map_Prototype.prefab");
         map.name = "@Map";
 
         Camera.main.GetComponent<CameraController>().Target = player.gameObject;

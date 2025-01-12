@@ -60,6 +60,14 @@ public class CreatureController : BaseController
 
     #endregion
 
+    public override void FixedUpdateController()
+    {
+        FixedUpdateMoving();
+    }
+
+    protected virtual void FixedUpdateMoving() { }
+
+
     protected float _speed = 1.0f;
 
     public int Hp { get; set; } = 100;

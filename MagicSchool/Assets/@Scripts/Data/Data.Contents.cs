@@ -35,10 +35,16 @@ namespace Data
 	#region PlayerData
 	public class PlayerData
 	{
-		[XmlAttribute]
-		public int level;
-		[XmlAttribute]
-		public int maxHp;
+        [XmlAttribute]
+        public int templateID;
+        [XmlAttribute]
+        public int maxHp;
+        [XmlAttribute]
+        public int maxMp;
+
+        [XmlAttribute]
+		public int speed;
+
 		[XmlAttribute]
 		public int attack;
 		[XmlAttribute]
@@ -55,7 +61,7 @@ namespace Data
 		{
 			Dictionary<int, PlayerData> dict = new Dictionary<int, PlayerData>();
 			foreach (PlayerData stat in stats)
-				dict.Add(stat.level, stat);
+				dict.Add(stat.templateID, stat);
 			return dict;
 		}
 	}

@@ -19,7 +19,7 @@ public class MonsterController : CreatureController
         return true;
     }
 
-    void FixedUpdate() // 물리와 연관돼 있으면
+    protected override void FixedUpdateMoving() // 물리와 연관돼 있으면
     {
         if (CreatureState != Define.CreatureState.Moving)
             return;

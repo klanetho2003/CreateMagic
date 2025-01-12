@@ -28,8 +28,12 @@ public class BaseController : MonoBehaviour
         UpdateController();
     }
 
-    public virtual void UpdateController()
-    {
+    public virtual void UpdateController() { }
 
+    void FixedUpdate()
+    {
+        FixedUpdateController();
     }
+
+    public virtual void FixedUpdateController() { }
 }

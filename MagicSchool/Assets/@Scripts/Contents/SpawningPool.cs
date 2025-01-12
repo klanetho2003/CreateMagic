@@ -35,7 +35,7 @@ public class SpawningPool : MonoBehaviour
             return;
 
         // TEMP : DataID ?
-        Vector3 ranPos = Utils.GenerateMonsterSpawnPosition(Managers.Game.Player.transform.position, 10, 15);
+        Vector3 ranPos = Utils.GenerateMonsterSpawnPosition(Managers.Game.Player.transform.position, 5, 10);
         MonsterController mc = Managers.Object.Spawn<MonsterController>(ranPos, Random.Range(1, 5));
         mc.Hp = mc.MaxHp;
     }

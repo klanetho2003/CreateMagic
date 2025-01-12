@@ -10,11 +10,11 @@ public class CameraController : MonoBehaviour
     {
     }
 
-    void LateUpdate()
+    /*void LateUpdate()
     {
         if (Target == null)
             return;
 
         transform.position = new Vector3(Target.transform.position.x, Target.transform.position.y, -10);
-    }
+    }*/
 }
