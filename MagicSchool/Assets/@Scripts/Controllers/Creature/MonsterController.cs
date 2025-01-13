@@ -17,7 +17,11 @@ public class MonsterController : CreatureController
         CreatureState = Define.CreatureState.Moving;
 
         Skills = gameObject.GetOrAddComponent<BaseSkillBook>();
+<<<<<<< HEAD
         //WayPoint = Managers.Game.WayPoints[Random.Range(0, Managers.Game.WayPoints.Count)];
+=======
+        WayPoint = Managers.Game.WayPoints[Random.Range(0, Managers.Game.WayPoints.Count)];
+>>>>>>> origin/main
 
         return true;
     }
