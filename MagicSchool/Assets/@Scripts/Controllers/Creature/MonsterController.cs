@@ -6,6 +6,8 @@ public class MonsterController : CreatureController
 {
     public BaseSkillBook Skills { get; protected set; }
 
+    public Transform WayPoint { get; protected set; }
+
     public override bool Init()
     {
         if (base.Init() == false)
@@ -15,6 +17,7 @@ public class MonsterController : CreatureController
         CreatureState = Define.CreatureState.Moving;
 
         Skills = gameObject.GetOrAddComponent<BaseSkillBook>();
+        //WayPoint = Managers.Game.WayPoints[Random.Range(0, Managers.Game.WayPoints.Count)];
 
         return true;
     }
@@ -24,8 +27,10 @@ public class MonsterController : CreatureController
         if (CreatureState != Define.CreatureState.Moving)
             return;
 
+        /*if (WayPoint == null)
+            return;*/
         PlayerController pc = Managers.Object.Player;
-        if (pc == null)
+        if (pc.IsValid() == false)
             return;
 
         Vector3 dir = pc.transform.position - transform.position;

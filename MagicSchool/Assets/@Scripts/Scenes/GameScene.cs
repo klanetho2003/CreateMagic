@@ -50,9 +50,9 @@ public class GameScene : MonoBehaviour
 
         Managers.UI.ShowSceneUI<UI_GameScene>();
 
-        _spawningPool = gameObject.GetOrAddComponent<SpawningPool>();
-
         var player = Managers.Object.Spawn<PlayerController>(Vector3.zero);
+
+        _spawningPool = gameObject.GetOrAddComponent<SpawningPool>();
 
         var map = Managers.Resource.Instantiate("Map_Prototype.prefab");
         map.name = "@Map";

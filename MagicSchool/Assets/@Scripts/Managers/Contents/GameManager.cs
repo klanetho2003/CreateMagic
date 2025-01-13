@@ -7,6 +7,9 @@ public class GameManager
 {
     public PlayerController Player { get { return Managers.Object?.Player; } }
 
+    List<Transform> _wayPoints = new List<Transform>();
+    public List<Transform> WayPoints { get { return _wayPoints; }}
+
     #region ÀçÈ­
     public int Gold { get; set; }
 
