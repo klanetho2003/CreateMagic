@@ -16,15 +16,12 @@ public abstract class SingleSkill : SkillBase
 
     public override void ActivateSkill()
     {
-        ActivateSkillDelay(ActivateDelaySecond);
         DoSkill(OnFinishedSingleSkill);
     }
 
     void OnFinishedSingleSkill()
     {
         // To Do : 후딜레이용 코루틴
-        CompleteSkillDelay(CompleteDelaySecond);
-
-        Owner.CreatureState = Define.CreatureState.Idle;
+        CompleteSkillDelay(CompleteDelaySecond); //Idle은 후딜레이 함수에서 Change
     }
 }

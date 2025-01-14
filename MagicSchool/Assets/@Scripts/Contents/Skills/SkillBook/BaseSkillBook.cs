@@ -12,7 +12,7 @@ public class BaseSkillBook : MonoBehaviour // 스폰하려는 스킬의 위치를 활용할 수
 
     public List<RepeatSkill> RepeatSkills { get; } = new List<RepeatSkill>();
     public List<SequenceSkill> SequenceSkills { get; } = new List<SequenceSkill>();
-    public Dictionary<string, SingleSkill> SingleSkillDict { get; } = new Dictionary<string, SingleSkill>();
+    public Dictionary<string, SkillBase> BaseSkillDict { get; } = new Dictionary<string, SkillBase>();
 
     public Define.ObjectType Onwer { get; protected set; }
 
@@ -55,7 +55,7 @@ public class BaseSkillBook : MonoBehaviour // 스폰하려는 스킬의 위치를 활용할 수
             fireBallGenerater.GetComponent<SpriteRenderer>().enabled = false;
 
             Skills.Add(fireBallGenerater);
-            SingleSkillDict.Add(Define.Fire_Ball_ID, fireBallGenerater);
+            BaseSkillDict.Add(Define.Fire_Ball_ID, fireBallGenerater);
             fireBallGenerater.Owner = gameObject.GetComponent<CreatureController>();
 
             return fireBallGenerater as T;

@@ -31,6 +31,8 @@ public class PlayerController : CreatureController
         get { return _moveDir; }
         set
         {
+            if (CreatureState == CreatureState.DoSkill) return;
+
             if (_moveDir == value.normalized) // 중복일 때 두 번들어가서 lastDir이 바뀌는 것을 방지
                 return;
 
@@ -54,6 +56,9 @@ public class PlayerController : CreatureController
     protected override void OnChangeState()
     {
         base.OnChangeState();
+
+        if (_isDoSkill == true)
+            _isDoSkill = false;
 
         switch (CreatureState)
         {
@@ -148,9 +153,10 @@ public class PlayerController : CreatureController
 
     void HandleOnKeyDown(Define.KeyDownEvent key)
     {
-        CreatureState = Define.CreatureState.Casting;
+        if (CreatureState == Define.CreatureState.DoSkill)
+            return;
 
-        Skills.BuildSKillKey($"{key}");
+        CreatureState = Skills.BuildSKillKey($"{key}");
     }
     #endregion
 
@@ -212,10 +218,14 @@ public class PlayerController : CreatureController
         
     }
 
+    bool _isDoSkill = false;
     protected override void UpdateDoSkill()
     {
+        if (_isDoSkill == true)
+            return;
+
         if (_coWait == null)
-            Skills.ActiveSkill();
+            _isDoSkill = Skills.ActiveSkill();
     }
 
     #region Wait Coroutine

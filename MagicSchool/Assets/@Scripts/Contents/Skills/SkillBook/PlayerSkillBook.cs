@@ -6,7 +6,7 @@ using UnityEngine;
 public class PlayerSkillBook : BaseSkillBook
 {
     string _skillKey;
-    SingleSkill _skill;
+    SkillBase _skill;
 
     PlayerController pc;
 
@@ -20,22 +20,31 @@ public class PlayerSkillBook : BaseSkillBook
         return true;
     }
 
-    public void BuildSKillKey(string inputKey)
+    bool _isDoSkill;
+    public Define.CreatureState BuildSKillKey(string inputKey)
     {
+        if (_isDoSkill == true)
+            return pc.CreatureState;
+
         _skillKey = _skillKey + inputKey;
         Debug.Log($"SkillKey -> {_skillKey}");
 
         if (inputKey != "A" && inputKey != "S" && inputKey != "D")
-            return;
-        if (SingleSkillDict.TryGetValue(_skillKey, out _skill) == false)
+            return Define.CreatureState.Casting;
+
+        _isDoSkill = BaseSkillDict.TryGetValue(_skillKey, out _skill);
+        if (_isDoSkill == false)
         {
             // To Do : 잘 못 입력하셨습니다. log
+            Debug.Log($"Player Do not have --{_skillKey}--");
+
             _skillKey = "";
-            return;
+
+            return Define.CreatureState.Idle;
         }
 
-        // To Do : 선딜 위치 //딜레이는 skills 내부에 delay로 빼기
-        _skill.ActivateSkill();
+        _skill.ActivateSkillDelay(_skill.ActivateDelaySecond, InitKeyInput); //pc.CreatureState = Define.CreatureState.DoSkill;
+        return Define.CreatureState.Casting;
     }
 
     public void ActiveImpact(string inputKey)
@@ -43,10 +52,16 @@ public class PlayerSkillBook : BaseSkillBook
 
     }
 
-    public void ActiveSkill()
+    void InitKeyInput()
+    {
+        _skillKey = "";
+        _isDoSkill = false;
+    }
+
+    public bool ActiveSkill()
     {
         _skill.ActivateSkill();
-
-        _skillKey = "";
+        
+        return true;
     }
 }

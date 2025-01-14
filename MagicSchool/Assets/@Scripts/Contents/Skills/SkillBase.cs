@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -8,8 +9,8 @@ public abstract class SkillBase : BaseController // 스킬을 스폰 > ActiveSkill 발
     public Define.SkillType SkillType { get; set; } = Define.SkillType.None;
     public Data.SkillData SkillData { get; protected set; }
 
-    public float ActivateDelaySecond { get; protected set; }
-    public float CompleteDelaySecond { get; protected set; }
+    public float ActivateDelaySecond { get; protected set; } = 0.0f;
+    public float CompleteDelaySecond { get; protected set; } = 0.0f;
 
     public int SkillLevel { get; set; } = 0; // 탕탕이라 있는 것 -> 스킬 레벨에 따라 사용할 수 있는 스킬인지 판별할 수도 있음
     public bool IsLearnedSkill { get { return SkillLevel > 0; } }
@@ -33,7 +34,7 @@ public abstract class SkillBase : BaseController // 스킬을 스폰 > ActiveSkill 발
     protected Coroutine _coSkillDelay;
 
     //선딜
-    public void ActivateSkillDelay(float waitSeconds)
+    public void ActivateSkillDelay(float waitSeconds, Action callBack)
     {
         if (waitSeconds == 0)
         {
@@ -44,14 +45,15 @@ public abstract class SkillBase : BaseController // 스킬을 스폰 > ActiveSkill 발
         if (_coSkillDelay != null)
             StopCoroutine(_coSkillDelay);
 
-        _coSkillDelay = StartCoroutine(CoActivateSkillDelay(waitSeconds));
+        _coSkillDelay = StartCoroutine(CoActivateSkillDelay(waitSeconds, callBack));
     }
 
-    IEnumerator CoActivateSkillDelay(float waitSeconds)
+    IEnumerator CoActivateSkillDelay(float waitSeconds, Action callBack)
     {
         yield return new WaitForSeconds(waitSeconds);
 
         Owner.CreatureState = Define.CreatureState.DoSkill;
+        callBack.Invoke();
         _coSkillDelay = null;
     }
 
