@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -5,6 +6,7 @@ using UnityEngine;
 public class RangeSkillController : SkillBase
 {
     CreatureController _owner;
+    Action<GameObject> _afterTrigger;
 
     public RangeSkillController() : base(Define.SkillType.None) { } // 그저 SKillBase의 정보만을 읽기 위해 SKillBase를 상속 받은 것이기에 type을 Mone으로 넣어줬다
 
@@ -17,23 +19,23 @@ public class RangeSkillController : SkillBase
         return true;
     }
 
-    public void SetInfo(Data.SkillData skillData, CreatureController owner)
+    public void SetInfo(Data.SkillData skillData, CreatureController owner, Action<GameObject> afterTrigger = null)
     {
-        /*if (skillData == null)
+        if (skillData == null)
         {
-            Debug.LogError("ProjectileContoller SetInfo Failed");
+            Debug.LogError("RangeSkillController SetInfo Failed");
             return;
         }
 
         _owner = owner;
-        _moveDir = moveDir;
-        SkillData = skillData;*/
+        _afterTrigger = afterTrigger;
+        SkillData = skillData;
         // ToDo : Data Paring
     }
 
-    public override void UpdateController()
+    private void OnTriggerEnter2D(Collider2D collision)
     {
-        base.UpdateController();
+        _afterTrigger.Invoke(collision.gameObject);
     }
 }
 

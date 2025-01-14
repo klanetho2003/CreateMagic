@@ -28,8 +28,17 @@ public class CastingImpact : SingleSkill
         Vector3 spawnPos = pc.transform.position;
         Vector3 dir = Vector2.zero;
 
-        GenerateRangeSkill(SkillData, Owner, spawnPos);
+        GenerateRangeSkill(SkillData, Owner, spawnPos, AfterTrigger);
 
         callBack?.Invoke();
+    }
+
+    public void AfterTrigger(GameObject go) //이름 수정 필요
+    {
+        MonsterController mc = go.GetComponent<MonsterController>();
+        if (mc.IsValid() == false)
+            return;
+
+        mc.OnDamaged(Owner, Damage);
     }
 }
