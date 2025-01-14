@@ -29,6 +29,11 @@ public abstract class SkillBase : BaseController // 스킬을 스폰 > ActiveSkill 발
         ProjectileController pc = Managers.Object.Spawn<ProjectileController>(startPos, skillData.templateID);
         pc.SetInfo(skillData, Owner, dir);
     }
+    protected virtual void GenerateRangeSkill(Data.SkillData skillData, CreatureController onwer, Vector3 spawnPos)
+    {
+        RangeSkillController rc = Managers.Object.Spawn<RangeSkillController>(spawnPos, skillData.templateID);
+        rc.SetInfo(skillData, Owner);
+    }
 
     #region Skill Delay
     protected Coroutine _coSkillDelay;

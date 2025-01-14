@@ -2,7 +2,7 @@
 <SkillDatas>
 	<SkillData templateID="N1QA" activateSkillDelay="5" completeSkillDelay="5" name="화염구" type="Projectile" prefab="FireProjectile.prefab" damage="100" speed="2">
 	</SkillData>
-    <SkillData templateID="N1" activateSkillDelay="1" completeSkillDelay="10" name="충격파" type="Impact" prefab="CastingImpact_01.prefab" damage="10" >
+    <SkillData templateID="N1QS" activateSkillDelay="1" completeSkillDelay="1" name="충격파" type="Impact" prefab="CastingImpact_01.prefab" damage="10" >
     </SkillData>
 
   <SkillData templateID="10" name="평타" type="Melee" prefab="EgoSword.prefab" damage="1000">

@@ -60,6 +60,20 @@ public class BaseSkillBook : MonoBehaviour // 스폰하려는 스킬의 위치를 활용할 수
 
             return fireBallGenerater as T;
         }
+        else if (type == typeof(CastingImpact)) // ToDo : spawn만 여기서하고 반복되는 코드는 다른 함수로 진행 // ToDo : Lv 0 처리(배움처리)
+        {
+            var castingImpact = Managers.Object.Spawn<CastingImpact>(position, "N1QS");
+
+            castingImpact.GetComponent<CapsuleCollider2D>().enabled = false;
+            castingImpact.GetComponent<Animator>().enabled = false;
+            castingImpact.GetComponent<SpriteRenderer>().enabled = false;
+
+            Skills.Add(castingImpact);
+            BaseSkillDict.Add("N1QS", castingImpact);
+            castingImpact.Owner = gameObject.GetComponent<CreatureController>();
+
+            return castingImpact as T;
+        }
         else if (type.IsSubclassOf(typeof(SequenceSkill)))
         {
             var skill = gameObject.GetOrAddComponent<T>();

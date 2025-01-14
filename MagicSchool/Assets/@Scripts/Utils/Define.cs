@@ -9,6 +9,7 @@ public static class Define
         N1,
         Q,
         A,
+        S,
     }
 
     public enum Scene

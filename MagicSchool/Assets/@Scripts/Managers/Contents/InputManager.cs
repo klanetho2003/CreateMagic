@@ -36,6 +36,10 @@ public class InputManager : IPointerClickHandler, IPointerDownHandler, IPointerU
         {
             OnKeyDownHandler.Invoke(Define.KeyDownEvent.A);
         }
+        else if (Input.GetKeyDown(KeyCode.S))
+        {
+            OnKeyDownHandler.Invoke(Define.KeyDownEvent.S);
+        }
     }
 
     void OnDirInput()
