@@ -35,7 +35,7 @@ public class PlayerSkillBook : BaseSkillBook
         }
 
         // To Do : ¼±µô À§Ä¡ //µô·¹ÀÌ´Â skills ³»ºÎ¿¡ delay·Î »©±â
-        _skill.ActivateSkillDelay(0.0f);
+        _skill.ActivateSkill();
     }
 
     public void ActiveImpact(string inputKey)

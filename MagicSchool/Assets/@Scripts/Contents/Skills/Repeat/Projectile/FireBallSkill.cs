@@ -7,7 +7,16 @@ public class FireBallSkill : SingleSkill
 {
     public FireBallSkill() : base("N1QA")
     {
+        if (Managers.Data.SkillDic.TryGetValue(Key, out Data.SkillData skillData) == false)
+        {
+            Debug.LogError("SingleSkill LoadData Failed");
+            return;
+        }
 
+        SkillData = skillData;
+
+        ActivateDelaySecond = skillData.activateSkillDelay;
+        CompleteDelaySecond = skillData.completeSkillDelay;
     }
 
     public override void DoSkill(Action callBack)
@@ -19,10 +28,8 @@ public class FireBallSkill : SingleSkill
         Vector3 spawnPos = pc.FireSocket;
         Vector3 dir = pc.ShootDir;
 
-        GenerateProjectile(Define.Fire_Ball_ID, Owner, spawnPos, dir, Vector3.zero);
+        GenerateProjectile(SkillData, Owner, spawnPos, dir, Vector3.zero);
 
-        // To Do : 후딜레이용 코루틴
-        CompleteSkillDelay(0.0f);
         callBack?.Invoke();
     }
 

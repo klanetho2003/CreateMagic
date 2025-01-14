@@ -8,6 +8,9 @@ public abstract class SkillBase : BaseController // 스킬을 스폰 > ActiveSkill 발
     public Define.SkillType SkillType { get; set; } = Define.SkillType.None;
     public Data.SkillData SkillData { get; protected set; }
 
+    public float ActivateDelaySecond { get; protected set; }
+    public float CompleteDelaySecond { get; protected set; }
+
     public int SkillLevel { get; set; } = 0; // 탕탕이라 있는 것 -> 스킬 레벨에 따라 사용할 수 있는 스킬인지 판별할 수도 있음
     public bool IsLearnedSkill { get { return SkillLevel > 0; } }
 
@@ -20,11 +23,61 @@ public abstract class SkillBase : BaseController // 스킬을 스폰 > ActiveSkill 발
 
     public virtual void ActivateSkill() { }
 
-    protected virtual void GenerateProjectile(string templateID, CreatureController onwer, Vector3 startPos, Vector3 dir, Vector3 targetPos)
+    protected virtual void GenerateProjectile(Data.SkillData skillData, CreatureController onwer, Vector3 startPos, Vector3 dir, Vector3 targetPos)
     {
-        ProjectileController pc = Managers.Object.Spawn<ProjectileController>(startPos, templateID);
-        pc.SetInfo(templateID, Owner, dir);
+        ProjectileController pc = Managers.Object.Spawn<ProjectileController>(startPos, skillData.templateID);
+        pc.SetInfo(skillData, Owner, dir);
     }
+
+    #region Skill Delay
+    protected Coroutine _coSkillDelay;
+
+    //선딜
+    public void ActivateSkillDelay(float waitSeconds)
+    {
+        if (waitSeconds == 0)
+        {
+            Owner.CreatureState = Define.CreatureState.DoSkill;
+            return;
+        }
+
+        if (_coSkillDelay != null)
+            StopCoroutine(_coSkillDelay);
+
+        _coSkillDelay = StartCoroutine(CoActivateSkillDelay(waitSeconds));
+    }
+
+    IEnumerator CoActivateSkillDelay(float waitSeconds)
+    {
+        yield return new WaitForSeconds(waitSeconds);
+
+        Owner.CreatureState = Define.CreatureState.DoSkill;
+        _coSkillDelay = null;
+    }
+
+    //후딜
+    public void CompleteSkillDelay(float waitSeconds)
+    {
+        if (waitSeconds == 0)
+        {
+            Owner.CreatureState = Define.CreatureState.Idle;
+            return;
+        }
+
+        if (_coSkillDelay != null)
+            StopCoroutine(_coSkillDelay);
+
+        _coSkillDelay = StartCoroutine(CoCompleteSkillDelay(waitSeconds));
+    }
+
+    IEnumerator CoCompleteSkillDelay(float waitSeconds)
+    {
+        yield return new WaitForSeconds(waitSeconds);
+
+        Owner.CreatureState = Define.CreatureState.Idle;
+        _coSkillDelay = null;
+    }
+    #endregion
 
     #region Destory
     Coroutine _coDestory;

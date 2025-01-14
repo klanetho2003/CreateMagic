@@ -120,7 +120,11 @@ namespace Data
 		[XmlAttribute]
 		public string prefab;
 
-		[XmlAttribute]
+        [XmlAttribute]
+        public float activateSkillDelay;
+        [XmlAttribute]
+        public float completeSkillDelay;
+        [XmlAttribute]
 		public int damage;
 		[XmlAttribute]
 		public int speed;

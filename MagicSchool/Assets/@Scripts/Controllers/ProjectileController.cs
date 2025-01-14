@@ -20,9 +20,9 @@ public class ProjectileController : SkillBase
         return true;
     }
 
-    public void SetInfo(string templateID, CreatureController owner, Vector3 moveDir)
+    public void SetInfo(Data.SkillData skillData, CreatureController owner, Vector3 moveDir)
     {
-        if (Managers.Data.SkillDic.TryGetValue(templateID, out Data.SkillData data) == false)
+        if (skillData == null)
         {
             Debug.LogError("ProjectileContoller SetInfo Failed");
             return;
@@ -30,7 +30,7 @@ public class ProjectileController : SkillBase
 
         _owner = owner;
         _moveDir = moveDir;
-        SkillData = data;
+        SkillData = skillData;
         // ToDo : Data Paring
     }
 

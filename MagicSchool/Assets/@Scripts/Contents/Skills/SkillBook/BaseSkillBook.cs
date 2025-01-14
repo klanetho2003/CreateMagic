@@ -34,6 +34,7 @@ public class BaseSkillBook : MonoBehaviour // 스폰하려는 스킬의 위치를 활용할 수
     public T AddSkill<T>(Vector3 position, Transform parent = null) where T : SkillBase // 탕탕은 한 번 얻은 스킬은 무조건 반복 사용되어야 하기에, 아래 코드는 스킬 획득과 시전이 동시에 진행되도록 만듦
     {
         System.Type type = typeof(T); // templateID를 확인해서 dataSeet에 접근한 후 그 안에 있는 프리팹 경로를 활용하는 방법이 좋지만, 빠르게 만들기 위해 리플렉션을 사용
+                                      // > 나중에는 Repeat, 시퀀스, single로 한 번 if로 체크하고 if trygetValue 한번 더 체크 어때
 
         if (type == typeof(EgoSword)) // ToDo : spawn만 여기서하고 반복되는 코드는 다른 함수로 진행 // ToDo : Lv 0 처리(배움처리)
         {
