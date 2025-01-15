@@ -15,7 +15,7 @@ public abstract class SkillBase : BaseController // 스킬을 스폰 > ActiveSkill 발
     public int SkillLevel { get; set; } = 0; // 탕탕이라 있는 것 -> 스킬 레벨에 따라 사용할 수 있는 스킬인지 판별할 수도 있음
     public bool IsLearnedSkill { get { return SkillLevel > 0; } }
 
-    public  int Damage { get; set; } = 100; // SKillData에 들어가 있을 예정이지만, 임의 값으로 넣어줌
+    public  int Damage { get; protected set; } = 100; // SKillData에 들어가 있을 예정이지만, 임의 값으로 넣어줌
 
     public SkillBase(Define.SkillType skillType) // 상속을 받는 직속 자식들은 기본 형태의 생성자가 막히게 되며, 직속 자식은 base(skillType)을 포함하는 생성자를 만들어야 한다
     {
@@ -24,15 +24,21 @@ public abstract class SkillBase : BaseController // 스킬을 스폰 > ActiveSkill 발
 
     public virtual void ActivateSkill() { }
 
-    protected virtual void GenerateProjectile(Data.SkillData skillData, CreatureController onwer, Vector3 startPos, Vector3 dir, Vector3 targetPos)
+    protected virtual ProjectileController GenerateProjectile(Data.SkillData skillData, CreatureController onwer, Vector3 startPos, Vector3 dir, Vector3 targetPos)
     {
         ProjectileController pc = Managers.Object.Spawn<ProjectileController>(startPos, skillData.templateID);
         pc.SetInfo(skillData, Owner, dir);
+        pc.Init();
+
+        return pc;
     }
-    protected virtual void GenerateRangeSkill(Data.SkillData skillData, CreatureController onwer, Vector3 spawnPos, Action<GameObject> afterTrigger = null)
+    protected virtual RangeSkillController GenerateRangeSkill(Data.SkillData skillData, CreatureController onwer, Vector3 spawnPos, Vector3 size, Action<GameObject> afterTrigger = null)
     {
         RangeSkillController rc = Managers.Object.Spawn<RangeSkillController>(spawnPos, skillData.templateID);
-        rc.SetInfo(skillData, Owner, afterTrigger);
+        rc.SetInfo(skillData, Owner, size, afterTrigger);
+        rc.Init();
+
+        return rc;
     }
 
     #region Skill Delay
@@ -44,6 +50,7 @@ public abstract class SkillBase : BaseController // 스킬을 스폰 > ActiveSkill 발
         if (waitSeconds == 0)
         {
             Owner.CreatureState = Define.CreatureState.DoSkill;
+            callBack.Invoke();
             return;
         }
 
@@ -89,11 +96,11 @@ public abstract class SkillBase : BaseController // 스킬을 스폰 > ActiveSkill 발
     #region Destory
     Coroutine _coDestory;
 
-    public void StartDestory(float delaySeconds)
+    public void StartDestory<T>(T bc, float delaySeconds) where T : BaseController
     {
         StopDestory();
 
-        _coDestory = StartCoroutine(CoDestroy(delaySeconds));
+        _coDestory = StartCoroutine(CoDestroy(bc, delaySeconds));
     }
 
     public void StopDestory()
@@ -105,11 +112,15 @@ public abstract class SkillBase : BaseController // 스킬을 스폰 > ActiveSkill 발
         }
     }
 
-    IEnumerator CoDestroy(float delaySeconds)
+    IEnumerator CoDestroy<T>(T bc, float delaySeconds) where T : BaseController
     {
         yield return new WaitForSeconds(delaySeconds);
 
-        if (this.IsValid())
+        if (bc.IsValid())
+        {
+            Managers.Object.Despawn(bc);
+        }
+        else if (this.IsValid())
         {
             Managers.Object.Despawn(this);
         }

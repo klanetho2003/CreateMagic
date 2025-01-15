@@ -107,9 +107,7 @@ public class ObjectManager // ID 부여하는 함수, Object들 들고 있는 등
     public void Despawn<T>(T obj) where T : BaseController
     {
         if (obj.IsValid() == false)
-        {
             return;
-        }
 
         System.Type type = typeof(T);
 
@@ -130,9 +128,13 @@ public class ObjectManager // ID 부여하는 함수, Object들 들고 있는 등
             // TEMP
             GameObject.Find("@Grid").GetComponent<GridController>().Remove(obj.gameObject);
         }
-        else if (typeof(T).IsSubclassOf(typeof(SkillBase)))
+        else if (type.IsSubclassOf(typeof(SkillBase)))
         {
             ProjectTiles.Remove(obj as ProjectileController);
+            Managers.Resource.Destroy(obj.gameObject);
+        }
+        if (type == typeof(CastingImpact))
+        {
             Managers.Resource.Destroy(obj.gameObject);
         }
         else if (type == typeof(BossController))

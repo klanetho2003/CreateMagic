@@ -5,8 +5,11 @@ using UnityEngine;
 
 public class PlayerSkillBook : BaseSkillBook
 {
-    string _skillKey;
     SkillBase _skill;
+    string _skillKey;
+
+    CastingImpact castingImpact;
+    string _currnetImpact;
 
     PlayerController pc;
 
@@ -16,6 +19,7 @@ public class PlayerSkillBook : BaseSkillBook
             return false;
         
         pc = GetComponent<PlayerController>();
+        castingImpact = AddSkill<CastingImpact>(pc.Indicator.position, transform);
 
         return true;
     }
@@ -29,27 +33,37 @@ public class PlayerSkillBook : BaseSkillBook
         _skillKey = _skillKey + inputKey;
         Debug.Log($"SkillKey -> {_skillKey}");
 
-        if (inputKey != "A" && inputKey != "S" && inputKey != "D")
-            return Define.CreatureState.Casting;
-
-        _isDoSkill = BaseSkillDict.TryGetValue(_skillKey, out _skill);
-        if (_isDoSkill == false)
+        if (inputKey == "A" || inputKey == "S" || inputKey == "D")
         {
-            // To Do : 잘 못 입력하셨습니다. log
-            Debug.Log($"Player Do not have --{_skillKey}--");
+            castingImpact.InitSize();
 
-            _skillKey = "";
+            _isDoSkill = BaseSkillDict.TryGetValue(_skillKey, out _skill);
+            if (_isDoSkill == false)
+            {
+                Debug.Log($"Player Do not have --{_skillKey}--");
 
-            return Define.CreatureState.Idle;
+                _skillKey = "";
+
+                return Define.CreatureState.Idle;
+            }
+
+            _skill.ActivateSkillDelay(_skill.ActivateDelaySecond, InitKeyInput); //pc.CreatureState = Define.CreatureState.DoSkill;
         }
+        else
+        {
+            ActiveImpact(inputKey);
+            return Define.CreatureState.Casting;
+        }    
 
-        _skill.ActivateSkillDelay(_skill.ActivateDelaySecond, InitKeyInput); //pc.CreatureState = Define.CreatureState.DoSkill;
-        return Define.CreatureState.Casting;
+        return pc.CreatureState;
     }
 
-    public void ActiveImpact(string inputKey)
+    void ActiveImpact(string inputKey) // To Do : 혼합
     {
+        if (inputKey == "N1" || inputKey == "N2" || inputKey != "N3")
+            _currnetImpact = inputKey;
 
+        castingImpact.DoSkill();
     }
 
     void InitKeyInput()
