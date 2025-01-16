@@ -10,6 +10,8 @@ public class PlayerController : CreatureController
     float EnvCollectDist { get; set; } = 1.0f;
 
     [SerializeField]
+    Transform _skillBook;
+    [SerializeField]
     Transform _indicator;
     [SerializeField]
     Transform _fireSocket;
@@ -18,6 +20,7 @@ public class PlayerController : CreatureController
     [SerializeField]
     SpriteRenderer _stemp;
 
+    public Transform SkillBook { get { return _skillBook; } }
     public Transform Indicator { get { return _indicator; } }
     public Vector3 FireSocket { get { return _fireSocket.position; } }
     public Vector3 ShootDir { get { return (_fireSocket.position - _indicator.position).normalized; } }
@@ -101,6 +104,9 @@ public class PlayerController : CreatureController
                 _animator.Play($"DoSkill{dir}");
                 if (_coWait == null) Wait(0.45f); // 지팡이 휘두르기 재생 wait
                 break;
+            case Define.CreatureState.Dameged:
+                _animator.Play($"Dameged{dir}");
+                break;
             case Define.CreatureState.Dead:
                 _animator.Play($"Death{dir}");
                 break;
@@ -178,8 +184,8 @@ public class PlayerController : CreatureController
         CreatureState = Define.CreatureState.Idle;
 
         // To Do
-        FireBallSkill fireBallSkill = Skills.AddSkill<FireBallSkill>(_indicator.position, transform); //받아서 추가 수정 가능
-        Skills.AddSkill<EgoSword>(_indicator.position, transform);
+        FireBallSkill fireBallSkill = Skills.AddSkill<FireBallSkill>(_indicator.position, SkillBook); //받아서 추가 수정 가능
+        Skills.AddSkill<EgoSword>(_indicator.position, SkillBook);
 
         return true;
     }

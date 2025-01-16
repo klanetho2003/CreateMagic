@@ -19,7 +19,7 @@ public class PlayerSkillBook : BaseSkillBook
             return false;
         
         pc = GetComponent<PlayerController>();
-        castingImpact = AddSkill<CastingImpact>(pc.Indicator.position, transform);
+        castingImpact = AddSkill<CastingImpact>(pc.Indicator.position, pc.SkillBook);
 
         return true;
     }

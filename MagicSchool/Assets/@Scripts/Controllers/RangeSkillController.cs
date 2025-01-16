@@ -10,7 +10,7 @@ public class RangeSkillController : SkillBase
     float _lifeTime;
     Vector3 _size =Vector3.one;
     CreatureController _owner;
-    Action<GameObject> _afterTrigger;
+    Action<CreatureController> _afterTrigger;
 
     public RangeSkillController() : base(Define.SkillType.None) { } // 그저 SKillBase의 정보만을 읽기 위해 SKillBase를 상속 받은 것이기에 type을 Mone으로 넣어줬다
 
@@ -21,7 +21,7 @@ public class RangeSkillController : SkillBase
         return true;
     }
 
-    public void SetInfo(Data.SkillData skillData, CreatureController owner, float lifTime, Vector3 size, Action<GameObject> afterTrigger = null)
+    public void SetInfo(Data.SkillData skillData, CreatureController owner, float lifTime, Vector3 size, Action<CreatureController> afterTrigger = null)
     {
         if (skillData == null)
         {
@@ -48,7 +48,8 @@ public class RangeSkillController : SkillBase
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        _afterTrigger.Invoke(collision.gameObject);
+        CreatureController cc = collision.GetComponent<CreatureController>();
+        _afterTrigger.Invoke(cc);
     }
 }
 

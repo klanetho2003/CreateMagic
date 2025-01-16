@@ -44,47 +44,50 @@ public class CastingImpact : SingleSkill
         _defaultSize = Vector3.one;
     }
 
-    public void AfterTrigger(GameObject go) //이름 수정 필요
+    public void AfterTrigger(CreatureController cc)
     {
-        MonsterController mc = go.GetComponent<MonsterController>();
-        if (mc.IsValid() == false)
+        if (cc.TryGetComponent<MonsterController>(out MonsterController mc))
+        {
+            cc.OnDamaged(Owner, Damage);
+            cc.CreatureState = Define.CreatureState.Dameged; // Todo : 다시 idle이건 move건 바꿔야함
+        }
+        else
             return;
 
-        Transform mcTransform = mc.transform;
 
-        Vector3 dir = Owner.transform.position - mcTransform.position;
-        OnKnockBack(mcTransform, dir, 10f);
-
-        mc.OnDamaged(Owner, Damage);
+        /* OnKnockBack(mc, 10f);      change to       mc.MoveMonsterPosition(,,,) */
     }
 
-    // 정해진 거리로 날아가기 + 속도를 조절 // To Do : Data Pasing
-    float moveDistence = 0.0f;
-    float _knockbackSpeed = 10.0f;
+    // 정해진 거리로 날아가기 + 속도를 조절 // 아래 코루틴과 함수는 삭제할 것
+    /*float moveDistence = 0.0f;
+    float _knockbackSpeed = 30.0f;
     Coroutine _coOnKnockBack;
-    public void OnKnockBack(Transform mc, Vector3 dir, float distence)
+    public void OnKnockBack(MonsterController mc, float distence)
     {
         if (_coOnKnockBack != null)
             StopCoroutine(_coOnKnockBack);
 
-        _coOnKnockBack = StartCoroutine(CoOnKnockBack(mc, dir, distence));
+        _coOnKnockBack = StartCoroutine(CoOnKnockBack(mc, distence));
     }
-    IEnumerator CoOnKnockBack(Transform mc, Vector3 dir, float distence)
+    IEnumerator CoOnKnockBack(MonsterController mc, float distence)
     {
+        Vector3 mcPosition = mc.transform.position;
+        Vector3 dir = (mcPosition - Owner.transform.position).normalized;
+
         while (distence > moveDistence)
         {
+            mc.MoveMonsterPosition(dir, _knockbackSpeed);
+
             moveDistence += Time.deltaTime * _knockbackSpeed;
-
-            Vector3 newPos = mc.position + dir.normalized * Time.deltaTime * _knockbackSpeed;
-
-            mc.GetComponent<Transform>().position = newPos;
-            //mc.GetComponent<Rigidbody2D>().MovePosition(newPos);
 
             yield return null;
         }
+
+        mc.CreatureState = Define.CreatureState.Moving;
 
         moveDistence = 0.0f;
         StopCoroutine(_coOnKnockBack);
         _coOnKnockBack = null;
     }
+*/
 }

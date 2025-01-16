@@ -8,6 +8,31 @@ public class MonsterController : CreatureController
 
     public Transform WayPoint { get; protected set; }
 
+    public override void UpdateAnimation()
+    {
+        switch (CreatureState)
+        {
+            case Define.CreatureState.Idle:
+                _animator.Play($"Idle");
+                break;
+            case Define.CreatureState.Moving:
+                _animator.Play($"Moving");
+                break;
+            case Define.CreatureState.Casting:
+                _animator.Play($"Casting");
+                break;
+            case Define.CreatureState.DoSkill:
+                _animator.Play($"DoSkill");
+                break;
+            case Define.CreatureState.Dameged:
+                _animator.Play($"Dameged");
+                break;
+            case Define.CreatureState.Dead:
+                _animator.Play($"Death");
+                break;
+        }
+    }
+
     public override bool Init()
     {
         if (base.Init() == false)
@@ -35,11 +60,49 @@ public class MonsterController : CreatureController
             return;
 
         Vector3 dir = pc.transform.position - transform.position;
-        Vector3 newPos = transform.position + dir.normalized * Time.deltaTime * _speed;
 
-        GetComponent<Rigidbody2D>().MovePosition(newPos);
+        MoveMonsterPosition(dir.normalized, _speed);
+
+        // On Sprite Flip
         _spriteRenderer.flipX = dir.x < 0;
     }
+
+    public virtual void MoveMonsterPosition(Vector3 dirNor, float speed)
+    {
+        Vector3 dir = dirNor * speed * Time.deltaTime;
+        Vector3 newPos = transform.position + dir;
+
+        GetComponent<Rigidbody2D>().MovePosition(newPos);
+    }
+
+    Coroutine _coMoveLength;
+    public float moveLength { get; protected set; }
+    public virtual bool MoveMonsterPosition(Vector3 dirNor, float speed, float length)
+    {
+        Vector3 dir = dirNor * speed * Time.deltaTime;
+        Vector3 newPos = transform.position + dir;
+
+        GetComponent<Rigidbody2D>().MovePosition(newPos);
+
+        moveLength += speed * Time.deltaTime;
+
+        return (moveLength == length) ? true : false; // To Use >> if (MoveMonsterPosition(,,,)) return;
+    }
+
+    // To Do : 특정 위치까지 이동하는 것은 만들었으니, Coroutine으로 반복하는 것을 만들 것
+    protected IEnumerator CoMoveLength()
+    {
+        yield return null;
+    }
+
+    //어떤 위치로 이동
+    /*public virtual void MoveMonsterPosition(Vector3 destPosition, float speed)
+    {
+        Vector3 dir = transform.position - destPosition;
+        Vector3 newPos = transform.position + dir.normalized * speed * Time.deltaTime;
+
+        GetComponent<Rigidbody2D>().MovePosition(newPos);
+    }*/
 
     private void OnCollisionEnter2D(Collision2D collision)
     {

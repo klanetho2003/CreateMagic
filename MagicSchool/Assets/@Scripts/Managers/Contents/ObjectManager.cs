@@ -24,8 +24,8 @@ public class ObjectManager // ID 부여하는 함수, Object들 들고 있는 등
             }
 
             GameObject go = Managers.Resource.Instantiate(skillData.prefab, pooling: true);
-            go.transform.position = position;
 
+            go.transform.position = position;
             T t = go.GetOrAddComponent<T>();
             t.Init();
 

@@ -46,6 +46,9 @@ public class CreatureController : BaseController
             case Define.CreatureState.DoSkill:
                 UpdateDoSkill();
                 break;
+            case Define.CreatureState.Dameged:
+                UpdateDameged();
+                break;
             case Define.CreatureState.Dead:
                 UpdateDead();
                 break;
@@ -56,6 +59,7 @@ public class CreatureController : BaseController
     protected virtual void UpdateMoving() { }
     protected virtual void UpdateCasting() { }
     protected virtual void UpdateDoSkill() { }
+    protected virtual void UpdateDameged() { }
     protected virtual void UpdateDead() { }
 
     #endregion
@@ -67,6 +71,7 @@ public class CreatureController : BaseController
 
     protected virtual void FixedUpdateMoving() { }
 
+    protected virtual void Moving() { }
 
     protected float _speed = 1.0f;
 

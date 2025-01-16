@@ -69,12 +69,15 @@ public static class Define
         Moving,
         Casting,
         DoSkill,
+        Dameged,
         Dead,
     }
 
     public const int PLAYER_DATA_ID = 1;
     public const string EXP_JAM_PREFAB = "EXPJam.prefab";
 
+    public const string Spawner_ID = "_Generater";
     public const string Fire_Ball_ID = "N1QA";
+    public const string CastingImapct_ID = "N1";
     public const string EGO_SWORD_ID = "10";
 }

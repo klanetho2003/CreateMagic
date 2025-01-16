@@ -32,7 +32,7 @@ public abstract class SkillBase : BaseController // 스킬을 스폰 > ActiveSkill 발
 
         return pc;
     }
-    protected virtual RangeSkillController GenerateRangeSkill(Data.SkillData skillData, CreatureController onwer, float lifeTime, Vector3 spawnPos, Vector3 size, Action<GameObject> afterTrigger = null)
+    protected virtual RangeSkillController GenerateRangeSkill(Data.SkillData skillData, CreatureController onwer, float lifeTime, Vector3 spawnPos, Vector3 size, Action<CreatureController> afterTrigger = null)
     {
         RangeSkillController rc = Managers.Object.Spawn<RangeSkillController>(spawnPos, skillData.templateID);
         rc.SetInfo(skillData, Owner, lifeTime, size, afterTrigger);

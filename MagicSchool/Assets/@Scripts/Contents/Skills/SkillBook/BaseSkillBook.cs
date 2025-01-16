@@ -36,7 +36,7 @@ public class BaseSkillBook : MonoBehaviour // 스폰하려는 스킬의 위치를 활용할 수
         System.Type type = typeof(T); // templateID를 확인해서 dataSeet에 접근한 후 그 안에 있는 프리팹 경로를 활용하는 방법이 좋지만, 빠르게 만들기 위해 리플렉션을 사용
                                       // > 나중에는 Repeat, 시퀀스, single로 한 번 if로 체크하고 if trygetValue 한번 더 체크 어때
 
-        if (type == typeof(EgoSword)) // ToDo : spawn만 여기서하고 반복되는 코드는 다른 함수로 진행 // ToDo : Lv 0 처리(배움처리)
+        if (type == typeof(EgoSword)) // Pooling 객체는 GenerateSpawner()  if not  Managers.Object.Spawn()
         {
             var egoSword = Managers.Object.Spawn<EgoSword>(position, Define.EGO_SWORD_ID);
 
@@ -48,31 +48,15 @@ public class BaseSkillBook : MonoBehaviour // 스폰하려는 스킬의 위치를 활용할 수
         }
         else if (type == typeof(FireBallSkill))
         {
-            var fireBallGenerater = Managers.Object.Spawn<FireBallSkill>(position, Define.Fire_Ball_ID);
-            //첫 스폰할 때 꺼야하는 것들이 매번 다를테니 객체 내부에 firstSpawn일 시에 처리하는 함수 넣어서 여기서는 호출만 하자
-            fireBallGenerater.GetComponent<BoxCollider2D>().enabled = false;
-            fireBallGenerater.GetComponent<Animator>().enabled = false;
-            fireBallGenerater.GetComponent<SpriteRenderer>().enabled = false;
+            FireBallSkill fireBall_Generater = GenerateSpawner<FireBallSkill>(Define.Fire_Ball_ID, parent);
 
-            Skills.Add(fireBallGenerater);
-            BaseSkillDict.Add(Define.Fire_Ball_ID, fireBallGenerater);
-            fireBallGenerater.Owner = gameObject.GetComponent<CreatureController>();
-
-            return fireBallGenerater as T;
+            return fireBall_Generater as T;
         }
         else if (type == typeof(CastingImpact)) // ToDo : spawn만 여기서하고 반복되는 코드는 다른 함수로 진행 // ToDo : Lv 0 처리(배움처리)
         {
-            var castingImpact = Managers.Object.Spawn<CastingImpact>(position, "N1");
+            CastingImpact castingImapct_Generater = GenerateSpawner<CastingImpact>(Define.CastingImapct_ID, parent);
 
-            castingImpact.GetComponent<CapsuleCollider2D>().enabled = false;
-            castingImpact.GetComponent<Animator>().enabled = false;
-            castingImpact.GetComponent<SpriteRenderer>().enabled = false;
-
-            Skills.Add(castingImpact);
-            BaseSkillDict.Add("N1", castingImpact);
-            castingImpact.Owner = gameObject.GetComponent<CreatureController>();
-
-            return castingImpact as T;
+            return castingImapct_Generater as T;
         }
         else if (type.IsSubclassOf(typeof(SequenceSkill)))
         {
@@ -86,6 +70,19 @@ public class BaseSkillBook : MonoBehaviour // 스폰하려는 스킬의 위치를 활용할 수
         }
 
         return null;
+    }
+
+    private T GenerateSpawner<T>(string skill_ID, Transform parent = null) where T : SkillBase
+    {
+        GameObject spawner = new GameObject() { name = skill_ID + Define.Spawner_ID };
+        spawner.transform.parent = parent;
+        T spawnerT = spawner.GetOrAddComponent<T>();
+
+        Skills.Add(spawnerT);
+        BaseSkillDict.Add(skill_ID, spawnerT);
+        spawnerT.Owner = gameObject.GetComponent<CreatureController>();
+
+        return spawnerT;
     }
 
     // 인공지능에서 판단을 하건, 순차적으로 여기 skillbook에서 등록된 sequenceskill을 사용을 하건 > 기획의 영역이다
