@@ -7,7 +7,7 @@ public class ProjectileController : SkillBase
     CreatureController _owner;
     Vector3 _moveDir;
     float _speed = 10.0f;
-    float _lifeTime = 10.0f;
+    float _lifeTime;
 
     public ProjectileController() : base(Define.SkillType.None) { } // 그저 SKillBase의 정보만을 읽기 위해 SKillBase를 상속 받은 것이기에 type을 Mone으로 넣어줬다
 
@@ -15,12 +15,10 @@ public class ProjectileController : SkillBase
     {
         base.Init();
 
-        StartDestory(this, _lifeTime);
-
         return true;
     }
 
-    public void SetInfo(Data.SkillData skillData, CreatureController owner, Vector3 moveDir)
+    public void SetInfo(Data.SkillData skillData, CreatureController owner, float lifeTime, Vector3 moveDir)
     {
         if (skillData == null)
         {
@@ -29,9 +27,17 @@ public class ProjectileController : SkillBase
         }
 
         _owner = owner;
+        _lifeTime = lifeTime;
         _moveDir = moveDir;
         SkillData = skillData;
-        // ToDo : Data Paring
+        // ToDo : Data ParingInitValue();
+
+        InitValue();
+    }
+
+    public void InitValue()
+    {
+        StartDestory(this, _lifeTime);
     }
 
     public override void UpdateController()

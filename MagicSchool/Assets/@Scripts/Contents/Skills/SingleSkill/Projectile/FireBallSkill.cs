@@ -19,6 +19,8 @@ public class FireBallSkill : SingleSkill
         CompleteDelaySecond = skillData.completeSkillDelay;
     }
 
+    float _lifeTime = 10f;
+
     public override void DoSkill(Action callBack)
     {
         PlayerController pc = Managers.Game.Player;
@@ -28,7 +30,8 @@ public class FireBallSkill : SingleSkill
         Vector3 spawnPos = pc.FireSocket;
         Vector3 dir = pc.ShootDir;
 
-        GenerateProjectile(SkillData, Owner, spawnPos, dir, Vector3.zero);
+        ProjectileController projectile = GenerateProjectile(SkillData, Owner, _lifeTime, spawnPos, dir, Vector3.zero);
+        projectile.StartDestory(projectile, 10f);
 
         callBack?.Invoke();
     }

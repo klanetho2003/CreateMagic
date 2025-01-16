@@ -23,6 +23,7 @@ public class CastingImpact : SingleSkill
 
     // To Do : Data Pasing
     Vector3 _defaultSize = Vector3.one;
+    float _lifeTime = 0.7f;
 
     public override void DoSkill(Action callBack = null)
     {
@@ -33,10 +34,9 @@ public class CastingImpact : SingleSkill
         Vector3 spawnPos = pc.transform.position;
         Vector3 dir = Vector2.zero;
 
-        RangeSkillController rc = GenerateRangeSkill(SkillData, Owner, spawnPos, _defaultSize, AfterTrigger);
-        _defaultSize = _defaultSize * 1.5f;
+        RangeSkillController rc = GenerateRangeSkill(SkillData, Owner, _lifeTime, spawnPos, _defaultSize, AfterTrigger);
 
-        rc.StartDestory(rc, 0.7f);
+        _defaultSize = _defaultSize * 1.5f;
     }
 
     public void InitSize()

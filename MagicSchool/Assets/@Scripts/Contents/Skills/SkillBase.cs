@@ -24,19 +24,18 @@ public abstract class SkillBase : BaseController // 스킬을 스폰 > ActiveSkill 발
 
     public virtual void ActivateSkill() { }
 
-    protected virtual ProjectileController GenerateProjectile(Data.SkillData skillData, CreatureController onwer, Vector3 startPos, Vector3 dir, Vector3 targetPos)
+    // Init함수 : spawn 직후 값을 세팅하기 전에 해야할 행동 정의
+    protected virtual ProjectileController GenerateProjectile(Data.SkillData skillData, CreatureController onwer, float lifeTime, Vector3 startPos, Vector3 dir, Vector3 targetPos)
     {
         ProjectileController pc = Managers.Object.Spawn<ProjectileController>(startPos, skillData.templateID);
-        pc.SetInfo(skillData, Owner, dir);
-        pc.Init();
+        pc.SetInfo(skillData, Owner,lifeTime, dir);
 
         return pc;
     }
-    protected virtual RangeSkillController GenerateRangeSkill(Data.SkillData skillData, CreatureController onwer, Vector3 spawnPos, Vector3 size, Action<GameObject> afterTrigger = null)
+    protected virtual RangeSkillController GenerateRangeSkill(Data.SkillData skillData, CreatureController onwer, float lifeTime, Vector3 spawnPos, Vector3 size, Action<GameObject> afterTrigger = null)
     {
         RangeSkillController rc = Managers.Object.Spawn<RangeSkillController>(spawnPos, skillData.templateID);
-        rc.SetInfo(skillData, Owner, size, afterTrigger);
-        rc.Init();
+        rc.SetInfo(skillData, Owner, lifeTime, size, afterTrigger);
 
         return rc;
     }
@@ -98,6 +97,9 @@ public abstract class SkillBase : BaseController // 스킬을 스폰 > ActiveSkill 발
 
     public void StartDestory<T>(T bc, float delaySeconds) where T : BaseController
     {
+        if (delaySeconds < 0)
+            return;
+
         StopDestory();
 
         _coDestory = StartCoroutine(CoDestroy(bc, delaySeconds));
