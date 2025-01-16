@@ -9,7 +9,7 @@
 
   <MonsterData templateID="1" name="MageSkeleton.prefab" prefab="Mage_Skeleton" level="2" maxHp="200" attack="10" speed="3.2">
   </MonsterData>
-  <MonsterData templateID="2" name="MageSkeletonWithShield.prefab" prefab="MageSkeletonWithShield" level="2" maxHp="200" attack="10" speed="3.2">
+  <MonsterData templateID="2" name="Assassin.prefab" prefab="Assassin" level="2" maxHp="200" attack="10" speed="3.2">
   </MonsterData>
   <MonsterData templateID="3" name="MageSkeleton_RustyShield.prefab" prefab="MageSkeleton-RustyShield" level="2" maxHp="200" attack="10" speed="3.2">
   </MonsterData>

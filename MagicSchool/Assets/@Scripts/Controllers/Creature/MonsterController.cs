@@ -1,5 +1,7 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class MonsterController : CreatureController
@@ -75,34 +77,48 @@ public class MonsterController : CreatureController
         GetComponent<Rigidbody2D>().MovePosition(newPos);
     }
 
+    public float moveDistance { get; protected set; } = 0.0f;
     Coroutine _coMoveLength;
-    public float moveLength { get; protected set; }
-    public virtual bool MoveMonsterPosition(Vector3 dirNor, float speed, float length)
+    public virtual void MoveMonsterPosition(Vector3 dirNor, float speed, float distance, Action onCompleteMove = null)
     {
-        Vector3 dir = dirNor * speed * Time.deltaTime;
-        Vector3 newPos = transform.position + dir;
+        if (this.IsValid() == false)
+            return;
 
-        GetComponent<Rigidbody2D>().MovePosition(newPos);
+        if (_coMoveLength != null)
+            StopCoroutine(_coMoveLength);
 
-        moveLength += speed * Time.deltaTime;
+        _coMoveLength = StartCoroutine(CoMoveLength(dirNor, speed, distance, onCompleteMove));
+    }
+    protected IEnumerator CoMoveLength(Vector3 dirNor, float speed, float distance, Action onCompleteMove = null)
+    {
+        while (distance > moveDistance)
+        {
+            if (this.IsValid() == false)
+                yield break;
 
-        return (moveLength == length) ? true : false; // To Use >> if (MoveMonsterPosition(,,,)) return;
+            Vector3 newPos = transform.position + dirNor * speed * Time.deltaTime;
+
+            GetComponent<Rigidbody2D>().MovePosition(newPos);
+
+            moveDistance += speed * Time.deltaTime;
+
+            yield return null;
+        }
+
+        moveDistance = 0.0f;
+        onCompleteMove.Invoke();
+
+        StopCoroutine(_coMoveLength);
+        _coMoveLength = null;
     }
 
-    // To Do : 특정 위치까지 이동하는 것은 만들었으니, Coroutine으로 반복하는 것을 만들 것
-    protected IEnumerator CoMoveLength()
+    public virtual void MoveMonsterPosition(Transform creature, float speed)
     {
-        yield return null;
-    }
-
-    //어떤 위치로 이동
-    /*public virtual void MoveMonsterPosition(Vector3 destPosition, float speed)
-    {
-        Vector3 dir = transform.position - destPosition;
+        Vector3 dir = transform.position - creature.position;
         Vector3 newPos = transform.position + dir.normalized * speed * Time.deltaTime;
 
         GetComponent<Rigidbody2D>().MovePosition(newPos);
-    }*/
+    }
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
@@ -146,9 +162,13 @@ public class MonsterController : CreatureController
     {
         base.OnDead();
 
-        if (_coDotDamage != null)
+        #region 특정 Coroutine만 멈춰야할 경우 주석 처리한 방법으로 바꿀 것
+        /*if (_coDotDamage != null)
             StopCoroutine(_coDotDamage);
-        _coDotDamage = null;
+        _coDotDamage = null;*/
+        #endregion
+
+        StopAllCoroutines();
 
         Managers.Game.KillCount++;
 

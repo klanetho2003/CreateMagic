@@ -5,8 +5,6 @@ using UnityEngine;
 
 public class RangeSkillController : SkillBase
 {
-    public Coroutine Co;
-
     float _lifeTime;
     Vector3 _size =Vector3.one;
     CreatureController _owner;

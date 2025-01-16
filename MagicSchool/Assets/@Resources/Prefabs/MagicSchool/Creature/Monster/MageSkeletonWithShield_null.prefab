@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: -8855712601649876650}
   - component: {fileID: 5462904283167615778}
   m_Layer: 0
-  m_Name: MageSkeletonWithShield
+  m_Name: MageSkeletonWithShield_null
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

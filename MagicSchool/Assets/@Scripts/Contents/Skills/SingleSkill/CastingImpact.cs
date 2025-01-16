@@ -24,6 +24,8 @@ public class CastingImpact : SingleSkill
     // To Do : Data Pasing
     Vector3 _defaultSize = Vector3.one;
     float _lifeTime = 0.7f;
+    float _moveDistance = 20f;
+    float _backSpeed = 30.0f;
 
     public override void DoSkill(Action callBack = null)
     {
@@ -46,48 +48,19 @@ public class CastingImpact : SingleSkill
 
     public void AfterTrigger(CreatureController cc)
     {
+        if (cc.IsValid() == false)
+            return;
+
         if (cc.TryGetComponent<MonsterController>(out MonsterController mc))
         {
-            cc.OnDamaged(Owner, Damage);
-            cc.CreatureState = Define.CreatureState.Dameged; // Todo : 다시 idle이건 move건 바꿔야함
+            mc.OnDamaged(Owner, Damage);
+            mc.CreatureState = Define.CreatureState.Dameged; // Todo : 다시 idle이건 move건 바꿔야함
         }
         else
             return;
 
+        Vector3 dir = mc.transform.position - Owner.transform.position;
 
-        /* OnKnockBack(mc, 10f);      change to       mc.MoveMonsterPosition(,,,) */
+        mc.MoveMonsterPosition(dir.normalized, _backSpeed, _moveDistance, () => { mc.CreatureState = Define.CreatureState.Moving; });
     }
-
-    // 정해진 거리로 날아가기 + 속도를 조절 // 아래 코루틴과 함수는 삭제할 것
-    /*float moveDistence = 0.0f;
-    float _knockbackSpeed = 30.0f;
-    Coroutine _coOnKnockBack;
-    public void OnKnockBack(MonsterController mc, float distence)
-    {
-        if (_coOnKnockBack != null)
-            StopCoroutine(_coOnKnockBack);
-
-        _coOnKnockBack = StartCoroutine(CoOnKnockBack(mc, distence));
-    }
-    IEnumerator CoOnKnockBack(MonsterController mc, float distence)
-    {
-        Vector3 mcPosition = mc.transform.position;
-        Vector3 dir = (mcPosition - Owner.transform.position).normalized;
-
-        while (distence > moveDistence)
-        {
-            mc.MoveMonsterPosition(dir, _knockbackSpeed);
-
-            moveDistence += Time.deltaTime * _knockbackSpeed;
-
-            yield return null;
-        }
-
-        mc.CreatureState = Define.CreatureState.Moving;
-
-        moveDistence = 0.0f;
-        StopCoroutine(_coOnKnockBack);
-        _coOnKnockBack = null;
-    }
-*/
 }

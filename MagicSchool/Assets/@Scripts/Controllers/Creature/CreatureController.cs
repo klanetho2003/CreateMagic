@@ -22,6 +22,8 @@ public class CreatureController : BaseController
 
     protected virtual void OnChangeState()
     {
+        if (this.IsValid() == false)
+            return;
         UpdateAnimation();
     }
 

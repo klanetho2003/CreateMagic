@@ -59,7 +59,7 @@ AnimatorState:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: MageSkeleton_walk
+  m_Name: Moving
   m_Speed: 1
   m_CycleOffset: 0
   m_Transitions: []
@@ -111,7 +111,7 @@ AnimatorState:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: MageSkeleton_hurt
+  m_Name: Dameged
   m_Speed: 1
   m_CycleOffset: 0
   m_Transitions: []
@@ -230,7 +230,7 @@ AnimatorStateMachine:
     m_Position: {x: 340, y: 260, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 1401605765404716476}
-    m_Position: {x: 375, y: 325, z: 0}
+    m_Position: {x: 370, y: 320, z: 0}
   - serializedVersion: 1
     m_State: {fileID: -2109129332442180169}
     m_Position: {x: 410, y: 390, z: 0}
