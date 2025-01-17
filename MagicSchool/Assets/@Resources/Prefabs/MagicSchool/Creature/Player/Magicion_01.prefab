@@ -46,6 +46,7 @@ GameObject:
   - component: {fileID: 7333250016060877327}
   - component: {fileID: 6199370883149750673}
   - component: {fileID: 4254918691283433661}
+  - component: {fileID: 9076443421369412207}
   m_Layer: 0
   m_Name: Magicion_01
   m_TagString: Untagged
@@ -95,7 +96,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 95685420d04f0c14c8f647a8e837ddd2, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -237,6 +238,22 @@ MonoBehaviour:
   _fireSocket: {fileID: 5714248315554333730}
   _shadow: {fileID: 392486679891366975}
   _stemp: {fileID: 4651662185083821975}
+--- !u!114 &9076443421369412207
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 633840393549269738}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ee158225ee1e59f4791627785501d950, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  currentShaderType: 0
+  normalStrength: 5
+  normalSmoothing: 1
+  computingNormal: 0
 --- !u!1 &889327060227224967
 GameObject:
   m_ObjectHideFlags: 0
@@ -413,7 +430,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7311326418830900964}
   - component: {fileID: 8648911447273045751}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Virtual Camera
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -458,7 +475,7 @@ MonoBehaviour:
   m_Follow: {fileID: 8718023934901477695}
   m_Lens:
     FieldOfView: 60
-    OrthographicSize: 7
+    OrthographicSize: 6
     NearClipPlane: 0.3
     FarClipPlane: 1000
     Dutch: 0
@@ -923,7 +940,7 @@ GameObject:
   - component: {fileID: 9166145729197808302}
   - component: {fileID: 6595342937332164531}
   - component: {fileID: 7888453599434380331}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: cm
   m_TagString: Untagged
   m_Icon: {fileID: 0}
