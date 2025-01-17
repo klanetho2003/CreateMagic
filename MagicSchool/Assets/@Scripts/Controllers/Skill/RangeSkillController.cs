@@ -3,14 +3,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class RangeSkillController : SkillBase
+public class RangeSkillController : SkillObjController
 {
-    float _lifeTime;
-    Vector3 _size =Vector3.one;
-    CreatureController _owner;
-    Action<CreatureController> _afterTrigger;
-
-    public RangeSkillController() : base(Define.SkillType.None) { } // 그저 SKillBase의 정보만을 읽기 위해 SKillBase를 상속 받은 것이기에 type을 Mone으로 넣어줬다
+    Vector3 _size = Vector3.one;
 
     public override bool Init()
     {
@@ -27,7 +22,6 @@ public class RangeSkillController : SkillBase
             return;
         }
 
-        // pooling되면서 값을 초기화하지 못하고 꺼진다
         _size = size;
         _owner = owner;
         _lifeTime = lifTime;
@@ -38,10 +32,11 @@ public class RangeSkillController : SkillBase
         InitValue();
     }
 
-    public void InitValue()
+    public override void InitValue()
     {
+        base.InitValue();
+
         transform.localScale = _size;
-        StartDestory(this, _lifeTime);
     }
 
     private void OnTriggerEnter2D(Collider2D collision)

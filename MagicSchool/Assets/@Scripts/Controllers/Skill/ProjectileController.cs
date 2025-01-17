@@ -1,15 +1,12 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ProjectileController : SkillBase
+public class ProjectileController : SkillObjController
 {
-    CreatureController _owner;
     Vector3 _moveDir;
     float _speed = 10.0f;
-    float _lifeTime;
-
-    public ProjectileController() : base(Define.SkillType.None) { } // 그저 SKillBase의 정보만을 읽기 위해 SKillBase를 상속 받은 것이기에 type을 Mone으로 넣어줬다
 
     public override bool Init()
     {
@@ -18,7 +15,7 @@ public class ProjectileController : SkillBase
         return true;
     }
 
-    public void SetInfo(Data.SkillData skillData, CreatureController owner, float lifeTime, Vector3 moveDir)
+    public void SetInfo(Data.SkillData skillData, CreatureController owner, float lifeTime, Vector3 moveDir, Action<CreatureController> afterTrigger = null)
     {
         if (skillData == null)
         {
@@ -35,9 +32,9 @@ public class ProjectileController : SkillBase
         InitValue();
     }
 
-    public void InitValue()
+    public override void InitValue()
     {
-        StartDestory(this, _lifeTime);
+        base.InitValue();
     }
 
     public override void UpdateController()

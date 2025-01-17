@@ -95,10 +95,13 @@ public class CreatureController : BaseController
 
     public virtual void OnDamaged(BaseController attacker, int damage)
     {
+        if (this.IsValid() == false)
+            return;
         if (Hp <= 0)
             return;
 
-            Hp -= damage;
+        CreatureState = Define.CreatureState.Dameged;
+        Hp -= damage;
 
         if (Hp <= 0)
         {
@@ -108,6 +111,11 @@ public class CreatureController : BaseController
     }
 
     protected virtual void OnDead()
+    {
+
+    }
+
+    protected virtual void Clear()
     {
 
     }

@@ -152,7 +152,7 @@ public class MonsterController : CreatureController
     {
         while (true)
         {
-            target.OnDamaged(this, 2);
+            // target.OnDamaged(this, 2); // 추후 논의 필요
 
             yield return new WaitForSeconds(0.1f);
         }
@@ -162,13 +162,7 @@ public class MonsterController : CreatureController
     {
         base.OnDead();
 
-        #region 특정 Coroutine만 멈춰야할 경우 주석 처리한 방법으로 바꿀 것
-        /*if (_coDotDamage != null)
-            StopCoroutine(_coDotDamage);
-        _coDotDamage = null;*/
-        #endregion
-
-        StopAllCoroutines();
+        Clear();
 
         Managers.Game.KillCount++;
 
@@ -176,5 +170,16 @@ public class MonsterController : CreatureController
         JamController jc = Managers.Object.Spawn<JamController>(transform.position);
 
         Managers.Object.Despawn(this);
+    }
+
+    protected override void Clear() // To Do : 초기화 내용 필요
+    {
+        StopAllCoroutines();
+
+        #region 특정 Coroutine만 멈춰야할 경우 주석 처리한 방법으로 바꿀 것
+        /*if (_coDotDamage != null)
+            StopCoroutine(_coDotDamage);
+        _coDotDamage = null;*/
+        #endregion
     }
 }

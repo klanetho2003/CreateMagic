@@ -24,7 +24,7 @@ public class CastingImpact : SingleSkill
     // To Do : Data Pasing
     Vector3 _defaultSize = Vector3.one;
     float _lifeTime = 0.7f;
-    float _moveDistance = 20f;
+    float _moveDistance = 10f;
     float _backSpeed = 30.0f;
 
     public override void DoSkill(Action callBack = null)
@@ -54,7 +54,6 @@ public class CastingImpact : SingleSkill
         if (cc.TryGetComponent<MonsterController>(out MonsterController mc))
         {
             mc.OnDamaged(Owner, Damage);
-            mc.CreatureState = Define.CreatureState.Dameged; // Todo : 다시 idle이건 move건 바꿔야함
         }
         else
             return;
