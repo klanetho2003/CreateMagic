@@ -33,7 +33,7 @@ public class CastingImpact : SingleSkill
         if (pc == null)
             return;
 
-        Vector3 spawnPos = pc.transform.position;
+        Vector3 spawnPos = pc.Shadow.transform.position;
         Vector3 dir = Vector2.zero;
 
         RangeSkillController rc = GenerateRangeSkill(SkillData, Owner, _lifeTime, spawnPos, _defaultSize, AfterTrigger);

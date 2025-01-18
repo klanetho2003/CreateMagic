@@ -45,12 +45,12 @@ TagManager:
   - name: BackGround
     uniqueID: 1106041057
     locked: 0
-  - name: Player
-    uniqueID: 3718071075
-    locked: 0
   - name: Monster
     uniqueID: 3621273593
     locked: 0
   - name: Skill
     uniqueID: 3898658259
+    locked: 0
+  - name: Player
+    uniqueID: 3718071075
     locked: 0

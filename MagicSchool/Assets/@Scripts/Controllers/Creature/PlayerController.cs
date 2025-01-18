@@ -21,6 +21,7 @@ public class PlayerController : CreatureController
     SpriteRenderer _stemp;
 
     public Transform SkillBook { get { return _skillBook; } }
+    public Transform Shadow { get { return _shadow; } }
     public Transform Indicator { get { return _indicator; } }
     public Vector3 FireSocket { get { return _fireSocket.position; } }
     public Vector3 ShootDir { get { return (_fireSocket.position - _indicator.position).normalized; } }
