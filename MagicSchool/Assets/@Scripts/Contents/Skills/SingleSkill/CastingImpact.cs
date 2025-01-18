@@ -38,7 +38,7 @@ public class CastingImpact : SingleSkill
 
         RangeSkillController rc = GenerateRangeSkill(SkillData, Owner, _lifeTime, spawnPos, _defaultSize, AfterTrigger);
 
-        _defaultSize = _defaultSize * 1.5f;
+        _defaultSize = _defaultSize * 1.2f;
     }
 
     public void InitSize()
