@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <SkillDatas>
-  <SkillData templateID="N1QA_Spawner" name="화염구 스포너" type="Spawner" prefab="FireProjectile.prefab" damage="100" speed="2">
-  </SkillData>
   <SkillData templateID="N1QA" activateSkillDelay="1" completeSkillDelay="1" name="화염구" type="Projectile" prefab="FireProjectile.prefab" damage="100" speed="2">
   </SkillData>
   <SkillData templateID="N1" activateSkillDelay="0" completeSkillDelay="0" name="충격파" type="Impact" prefab="CastingImpact_01.prefab" damage="5" >

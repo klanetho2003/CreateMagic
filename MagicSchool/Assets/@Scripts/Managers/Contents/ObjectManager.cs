@@ -73,7 +73,7 @@ public class ObjectManager // ID 부여하는 함수, Object들 들고 있는 등
                 return null;
             }
 
-            GameObject go = Managers.Resource.Instantiate(monsterData.name, pooling: true);
+            GameObject go = Managers.Resource.Instantiate(monsterData.prefab, pooling: true);
             go.transform.position = position;
 
             MonsterController mc = go.GetOrAddComponent<MonsterController>();

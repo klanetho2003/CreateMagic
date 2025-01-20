@@ -17,20 +17,20 @@ MonoBehaviour:
     m_SerializedData: []
   m_GUID: 84caf429a3b68ea48ad94fc6b5c5f207
   m_SerializeEntries:
-  - m_GUID: dc96589b83253c04ca4a4f3197f7700e
-    m_Address: PlayerData.xml
+  - m_GUID: 8b24c55c185cbd8488c2e2adc75d8ce3
+    m_Address: PlayerData
     m_ReadOnly: 0
     m_SerializedLabels:
     - PreLoad
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: c92edcb09f69c554cb2bdc184a59fa04
-    m_Address: SkillData.xml
+  - m_GUID: 4ea94ecb1e754f240a6277b12ae99ac2
+    m_Address: SkillData
     m_ReadOnly: 0
     m_SerializedLabels:
     - PreLoad
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 1c0254403686a1c4f90e18d33e69edb6
-    m_Address: MonsterData.xml
+  - m_GUID: c507679c62f0e1f48b1a22053918d620
+    m_Address: MonsterData
     m_ReadOnly: 0
     m_SerializedLabels:
     - PreLoad

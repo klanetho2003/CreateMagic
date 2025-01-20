@@ -1,3 +1,4 @@
+using Newtonsoft.Json;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -17,23 +18,21 @@ public class DataManager
 
     public Dictionary<string, Data.SkillData> SkillDic { get; private set; } = new Dictionary<string, Data.SkillData>();
 
-	public void Init()
+    public void Init()
     {
-        //PlayerDic = LoadJson<Data.PlayerDataLoader, int, Data.PlayerData>("PlayerData.json").MakeDict();
+        PlayerDic = LoadJson<Data.PlayerDataLoader, int, Data.PlayerData>("PlayerData").MakeDict();
+        MonsterDic = LoadJson<Data.MonsterDataLoader, int, Data.MonsterData>("MonsterData").MakeDict();
 
-        PlayerDic = LoadXml<Data.PlayerDataLoader, int, Data.PlayerData>("PlayerData.xml").MakeDict();
-        MonsterDic = LoadXml<Data.MonsterDataLoader, int, Data.MonsterData>("MonsterData.xml").MakeDict();
-
-        SkillDic = LoadXml<Data.SkillDataLoader, string, Data.SkillData>("SkillData.xml").MakeDict();
-	}
-
-    Loader LoadJson<Loader, Key, Value>(string path) where Loader : ILoader<Key, Value>
-    {
-        TextAsset textAsset = Managers.Resource.Load<TextAsset>($"{path}");
-        return JsonUtility.FromJson<Loader>(textAsset.text);
+        SkillDic = LoadJson<Data.SkillDataLoader, string, Data.SkillData>("SkillData").MakeDict();
     }
 
-	Item LoadSingleXml<Item>(string name)
+    private Loader LoadJson<Loader, Key, Value>(string path) where Loader : ILoader<Key, Value>
+    {
+        TextAsset textAsset = Managers.Resource.Load<TextAsset>(path);
+        return JsonConvert.DeserializeObject<Loader>(textAsset.text);
+    }
+
+    Item LoadSingleXml<Item>(string name)
 	{
 		XmlSerializer xs = new XmlSerializer(typeof(Item));
 		TextAsset textAsset = Managers.Resource.Load<TextAsset>(name);

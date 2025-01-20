@@ -1,0 +1,24 @@
+{
+  "skills": [
+    {
+      "templateID": "N1QA",
+      "name": "FireBall",
+      "prefab": "FireProjectile.prefab",
+      "type": "Projectile",
+      "activateSkillDelay": 1.0,
+      "completeSkillDelay": 1.0,
+      "damage": 100,
+      "speed": 2
+    },
+    {
+      "templateID": "N1",
+      "name": "ShockWave",
+      "prefab": "CastingImpact_01.prefab",
+      "type": "Impact",
+      "activateSkillDelay": 0.0,
+      "completeSkillDelay": 0.0,
+      "damage": 5,
+      "speed": 0
+    }
+  ]
+}

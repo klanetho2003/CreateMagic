@@ -185,8 +185,7 @@ public class PlayerController : CreatureController
         CreatureState = Define.CreatureState.Idle;
 
         // To Do
-        FireBallSkill fireBallSkill = Skills.AddSkill<FireBallSkill>(_indicator.position, SkillBook); //받아서 추가 수정 가능
-        Skills.AddSkill<EgoSword>(_indicator.position, SkillBook);
+        FireBallSkill fireBallSkill = Skills.AddSkill<FireBallSkill>(_indicator.position, SkillBook);
 
         return true;
     }

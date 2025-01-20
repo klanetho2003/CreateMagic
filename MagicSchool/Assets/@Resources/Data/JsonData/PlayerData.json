@@ -1,0 +1,25 @@
+{
+    "stats": [
+        {
+            "templateID": "1",
+            "maxHp": "100",
+            "speed": "7",
+            "attack": "10",
+            "totalExp": "100"
+        },
+        {
+            "templateID": "2",
+            "maxHp": "100",
+            "speed": "7",
+            "attack": "10",
+            "totalExp": "100"
+        },
+        {
+            "templateID": "3",
+            "maxHp": "100",
+            "speed": "7",
+            "attack": "10",
+            "totalExp": "100"
+        }
+    ]
+}
