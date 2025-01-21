@@ -93,22 +93,4 @@ public class BossController : MonsterController
                 Wait(anim.length);
         }*/
     }
-
-    #region Wait Coroutine
-    Coroutine _coWait;
-
-    void Wait(float waitSeconds)
-    {
-        if (_coWait != null)
-            StopCoroutine(_coWait);
-            
-        _coWait = StartCoroutine(CoWait(waitSeconds));
-    }
-
-    IEnumerator CoWait(float waitSeconds)
-    {
-        yield return new WaitForSeconds(waitSeconds);
-        _coWait = null;
-    }
-    #endregion
 }

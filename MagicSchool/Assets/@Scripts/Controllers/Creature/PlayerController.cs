@@ -234,24 +234,6 @@ public class PlayerController : CreatureController
             _isDoSkill = Skills.ActiveSkill();
     }
 
-    #region Wait Coroutine
-    Coroutine _coWait;
-
-    void Wait(float waitSeconds)
-    {
-        if (_coWait != null)
-            StopCoroutine(_coWait);
-
-        _coWait = StartCoroutine(CoWait(waitSeconds));
-    }
-
-    IEnumerator CoWait(float waitSeconds)
-    {
-        yield return new WaitForSeconds(waitSeconds);
-        _coWait = null;
-    }
-    #endregion
-
     protected override void FixedUpdateMoving()
     {
         if (CreatureState != Define.CreatureState.Moving && CreatureState != Define.CreatureState.Casting)

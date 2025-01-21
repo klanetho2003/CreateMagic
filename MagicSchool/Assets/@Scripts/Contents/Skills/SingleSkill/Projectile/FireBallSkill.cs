@@ -27,6 +27,8 @@ public class FireBallSkill : SingleSkill
     }
 
     Data.SkillData Explosion;
+    ProjectileController projectile;
+
     float _lifeTime = 10f; // To Do : Data Parsing
 
     public override void DoSkill(Action callBack)
@@ -38,7 +40,7 @@ public class FireBallSkill : SingleSkill
         Vector3 spawnPos = pc.FireSocket;
         Vector3 dir = pc.ShootDir;
 
-        ProjectileController projectile = GenerateProjectile(SkillData, Owner, _lifeTime, spawnPos, dir, Vector3.zero, ProjectileOnHit);
+        projectile = GenerateProjectile(SkillData, Owner, _lifeTime, spawnPos, dir, Vector3.zero, ProjectileOnHit);
         projectile.StartDestory(projectile, 10f);
 
         callBack?.Invoke();
@@ -52,7 +54,7 @@ public class FireBallSkill : SingleSkill
             return;
 
         cc.OnDamaged(Owner, SkillData.damage);
-        GenerateRangeSkill(Explosion, Owner, _lifeTime, transform.position, Vector2.one, ExplosionOnHit);
+        GenerateRangeSkill(Explosion, Owner, _lifeTime, projectile.transform.position, Vector2.one, ExplosionOnHit);
     }
 
     public void ExplosionOnHit(CreatureController cc)

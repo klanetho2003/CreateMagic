@@ -28,11 +28,18 @@ public class MonsterController : CreatureController
                 break;
             case Define.CreatureState.Dameged:
                 _animator.Play($"Dameged");
+                if (_coWait == null) Wait(0.75f); // OnDamege Animation 재생 wait
                 break;
             case Define.CreatureState.Dead:
                 _animator.Play($"Death");
                 break;
         }
+    }
+
+    protected override void UpdateDameged()
+    {
+        if (_coWait == null)
+            CreatureState = Define.CreatureState.Moving;
     }
 
     public override bool Init()
@@ -69,6 +76,7 @@ public class MonsterController : CreatureController
         _spriteRenderer.flipX = dir.x < 0;
     }
 
+    #region Move 함수들
     public virtual void MoveMonsterPosition(Vector3 dirNor, float speed)
     {
         Vector3 dir = dirNor * speed * Time.deltaTime;
@@ -76,7 +84,7 @@ public class MonsterController : CreatureController
 
         GetComponent<Rigidbody2D>().MovePosition(newPos);
     }
-
+    
     public float moveDistance { get; protected set; } = 0.0f;
     Coroutine _coMoveLength;
     public virtual void MoveMonsterPosition(Vector3 dirNor, float speed, float distance, Action onCompleteMove = null)
@@ -119,6 +127,7 @@ public class MonsterController : CreatureController
 
         GetComponent<Rigidbody2D>().MovePosition(newPos);
     }
+    #endregion
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
@@ -152,7 +161,7 @@ public class MonsterController : CreatureController
     {
         while (true)
         {
-            // target.OnDamaged(this, 2); // 추후 논의 필요
+            // target.OnDamaged(this, 2); // 추후 논의 필요 > 몬스터가 공격 모션일 때만 Damage를 입힌다
 
             yield return new WaitForSeconds(0.1f);
         }

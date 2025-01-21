@@ -66,6 +66,24 @@ public class CreatureController : BaseController
 
     #endregion
 
+    #region Wait Coroutine
+    protected Coroutine _coWait;
+
+    protected virtual void Wait(float waitSeconds)
+    {
+        if (_coWait != null)
+            StopCoroutine(_coWait);
+
+        _coWait = StartCoroutine(CoWait(waitSeconds));
+    }
+
+    protected virtual IEnumerator CoWait(float waitSeconds)
+    {
+        yield return new WaitForSeconds(waitSeconds);
+        _coWait = null;
+    }
+    #endregion
+
     public override void FixedUpdateController()
     {
         FixedUpdateMoving();
