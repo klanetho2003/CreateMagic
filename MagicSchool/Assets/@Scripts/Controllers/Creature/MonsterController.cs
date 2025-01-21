@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 
-public class MonsterController : CreatureController
+public class MonsterController : EffetedCreature
 {
     public BaseSkillBook Skills { get; protected set; }
 
@@ -28,7 +28,7 @@ public class MonsterController : CreatureController
                 break;
             case Define.CreatureState.Dameged:
                 _animator.Play($"Dameged");
-                if (_coWait == null) Wait(0.75f); // OnDamege Animation 재생 wait
+                if (_coWait == null) Wait(0.75f); // OnDamege Animation 재생 wait // To Do Animation RunTime Parsing
                 break;
             case Define.CreatureState.Dead:
                 _animator.Play($"Death");

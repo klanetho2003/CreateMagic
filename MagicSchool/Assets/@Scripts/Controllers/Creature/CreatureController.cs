@@ -16,15 +16,8 @@ public class CreatureController : BaseController
                 return;
             
             _creatureState = value;
-            OnChangeState();
+            UpdateAnimation();
         }
-    }
-
-    protected virtual void OnChangeState()
-    {
-        if (this.IsValid() == false)
-            return;
-        UpdateAnimation();
     }
 
     protected Animator _animator;

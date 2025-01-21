@@ -24,10 +24,10 @@ public class PlayerSkillBook : BaseSkillBook
         return true;
     }
 
-    bool _isDoSkill;
+    bool _isStartSkill;
     public Define.CreatureState BuildSKillKey(string inputKey)
     {
-        if (_isDoSkill == true)
+        if (_isStartSkill == true)
             return pc.CreatureState;
 
         _skillKey = _skillKey + inputKey;
@@ -37,8 +37,8 @@ public class PlayerSkillBook : BaseSkillBook
         {
             castingImpact.InitSize();
 
-            _isDoSkill = BaseSkillDict.TryGetValue(_skillKey, out _skill);
-            if (_isDoSkill == false)
+            _isStartSkill = BaseSkillDict.TryGetValue(_skillKey, out _skill);
+            if (_isStartSkill == false)
             {
                 Debug.Log($"Player Do not have --{_skillKey}--");
 
@@ -60,7 +60,7 @@ public class PlayerSkillBook : BaseSkillBook
 
     void ActiveImpact(string inputKey) // To Do : ШЅЧе
     {
-        if (inputKey == "N1" || inputKey == "N2" || inputKey != "N3")
+        if (inputKey == "N1" || inputKey == "N2" || inputKey == "N3")
             _currnetImpact = inputKey;
 
         castingImpact.DoSkill();
@@ -69,7 +69,7 @@ public class PlayerSkillBook : BaseSkillBook
     void InitKeyInput()
     {
         _skillKey = "";
-        _isDoSkill = false;
+        _isStartSkill = false;
     }
 
     public bool ActiveSkill()

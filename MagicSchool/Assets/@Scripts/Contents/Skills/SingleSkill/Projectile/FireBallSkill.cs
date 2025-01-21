@@ -29,7 +29,7 @@ public class FireBallSkill : SingleSkill
     Data.SkillData Explosion;
     ProjectileController projectile;
 
-    float _lifeTime = 10f; // To Do : Data Parsing
+    float _lifeTime = 1f; // To Do : Data Parsing
 
     public override void DoSkill(Action callBack)
     {

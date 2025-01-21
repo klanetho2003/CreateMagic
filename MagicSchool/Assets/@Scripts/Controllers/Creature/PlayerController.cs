@@ -9,6 +9,8 @@ public class PlayerController : CreatureController
 {
     float EnvCollectDist { get; set; } = 1.0f;
 
+    #region SerializeField in Prefab
+    
     [SerializeField]
     Transform _skillBook;
     [SerializeField]
@@ -25,6 +27,8 @@ public class PlayerController : CreatureController
     public Transform Indicator { get { return _indicator; } }
     public Vector3 FireSocket { get { return _fireSocket.position; } }
     public Vector3 ShootDir { get { return (_fireSocket.position - _indicator.position).normalized; } }
+
+    #endregion
 
     public PlayerSkillBook Skills { get; protected set; }
 
@@ -57,31 +61,50 @@ public class PlayerController : CreatureController
         }
     }
 
-    protected override void OnChangeState()
+    public override CreatureState CreatureState
     {
-        base.OnChangeState();
-
-        if (_isDoSkill == true)
-            _isDoSkill = false;
-
-        switch (CreatureState)
+        get { return base.CreatureState; }
+        set
         {
-            case CreatureState.Casting:
-                {
-                    OnPlayCastingAnimation(5f, 0.0005f); // To Do : Data 시트 length는 홀수 여야한다(Cos주기 이슈)
-                }
-                break;
-            default:
-                {
-                    if (_coOnPlayCastingAnimation != null)
+            CreatureState lastState = CreatureState;
+
+            base.CreatureState = value;
+
+            switch (lastState)
+            {
+                case CreatureState.Casting:
                     {
                         StopCoroutine(_coOnPlayCastingAnimation);
                         _coOnPlayCastingAnimation = null;
 
                         InitShadow();
-                    }
-                }
-                break;
+                    }// Stop CastingMoveMent, InitShadow
+                    break;
+                case CreatureState.DoSkill:
+                    _isCompleteActive = false;
+                    break;
+                default:
+                    break;
+            }
+
+            switch (value)
+            {
+                case CreatureState.Idle:
+                    break;
+                case CreatureState.Moving:
+                    break;
+                case CreatureState.Casting:
+                    OnPlayCastingAnimation(5f, 0.0005f); // To Do : Data 시트 length는 홀수 여야한다(Cos주기 이슈)
+                    break;
+                case CreatureState.DoSkill:
+                    break;
+                case CreatureState.Dameged:
+                    break;
+                case CreatureState.Dead:
+                    break;
+                default:
+                    break;
+            }
         }
     }
 
@@ -224,14 +247,14 @@ public class PlayerController : CreatureController
         
     }
 
-    bool _isDoSkill = false;
+    bool _isCompleteActive = false;
     protected override void UpdateDoSkill()
     {
-        if (_isDoSkill == true)
+        if (_isCompleteActive == true)
             return;
 
         if (_coWait == null)
-            _isDoSkill = Skills.ActiveSkill();
+            _isCompleteActive = Skills.ActiveSkill();
     }
 
     protected override void FixedUpdateMoving()
