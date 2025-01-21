@@ -22,9 +22,9 @@ public class DataTransformer : EditorWindow
         Debug.Log("DataTransformer Completed");
     }
 
-    /*#region LEGACY
+    #region LEGACY
     // LEGACY !
-    public static T ConvertValue<T>(string value)
+    /*public static T ConvertValue<T>(string value)
     {
         if (string.IsNullOrEmpty(value))
             return default(T);
@@ -69,8 +69,8 @@ public class DataTransformer : EditorWindow
         string jsonStr = JsonConvert.SerializeObject(loader, Formatting.Indented);
         File.WriteAllText($"{Application.dataPath}/@Resources/Data/JsonData/{filename}Data.json", jsonStr);
         AssetDatabase.Refresh();
-    }
-    #endregion*/
+    }*/
+    #endregion
 
     #region Helpers
     private static void ParseExcelDataToJson<Loader, LoaderData>(string filename) where Loader : new() where LoaderData : new()

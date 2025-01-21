@@ -1,3 +1,4 @@
-templateID,name,prefab,type,activateSkillDelay,completeSkillDelay,damage,speed
-N1QA,FireBall,FireProjectile.prefab,Projectile,1,1,100,2
-N1,ShockWave,CastingImpact_01.prefab,Impact,0,0,5,
+templateID,name,prefab,type,damage,skills,activateSkillDelay,completeSkillDelay,speed
+N1QA,FireBall,FireProjectile.prefab,Projectile,20,N1QAN1,1,1,2
+N1,ShockWave,CastingImpact_01.prefab,Range,5,,,,
+N1QAN1,FireBall_Explosion,FireBall_Explosion.prefab,Range,10,,,,

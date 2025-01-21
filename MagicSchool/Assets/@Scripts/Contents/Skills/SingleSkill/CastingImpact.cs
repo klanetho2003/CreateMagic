@@ -7,18 +7,17 @@ public class CastingImpact : SingleSkill
 {
     public CastingImpact() : base("N1")
     {
-        if (Managers.Data.SkillDic.TryGetValue(Key, out Data.SkillData skillData) == false)
-        {
-            Debug.LogError("SingleSkill LoadData Failed");
-            return;
-        }
+        SetData();
+    }
 
-        SkillData = skillData;
+    public override void SetData()
+    {
+        base.SetData();
 
-        Damage = skillData.damage;
+        Damage = SkillData.damage;
 
-        ActivateDelaySecond = skillData.activateSkillDelay;
-        CompleteDelaySecond = skillData.completeSkillDelay;
+        ActivateDelaySecond = SkillData.activateSkillDelay;
+        CompleteDelaySecond = SkillData.completeSkillDelay;
     }
 
     // To Do : Data Pasing

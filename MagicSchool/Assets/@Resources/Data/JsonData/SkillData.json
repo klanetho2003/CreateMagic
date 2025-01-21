@@ -5,19 +5,34 @@
       "name": "FireBall",
       "prefab": "FireProjectile.prefab",
       "type": "Projectile",
+      "damage": 20,
+      "skills": [
+        "N1QAN1"
+      ],
       "activateSkillDelay": 1.0,
       "completeSkillDelay": 1.0,
-      "damage": 100,
       "speed": 2
     },
     {
       "templateID": "N1",
       "name": "ShockWave",
       "prefab": "CastingImpact_01.prefab",
-      "type": "Impact",
+      "type": "Range",
+      "damage": 5,
+      "skills": null,
       "activateSkillDelay": 0.0,
       "completeSkillDelay": 0.0,
-      "damage": 5,
+      "speed": 0
+    },
+    {
+      "templateID": "N1QAN1",
+      "name": "FireBall_Explosion",
+      "prefab": "FireBall_Explosion.prefab",
+      "type": "Range",
+      "damage": 10,
+      "skills": null,
+      "activateSkillDelay": 0.0,
+      "completeSkillDelay": 0.0,
       "speed": 0
     }
   ]

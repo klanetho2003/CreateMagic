@@ -145,11 +145,11 @@ namespace Data
         public string name;
         public string prefab;
         public string type;
+        public int damage;
 
+        public List<string> skills;
         public float activateSkillDelay;
         public float completeSkillDelay;
-
-        public int damage;
         public int speed;
     }
 

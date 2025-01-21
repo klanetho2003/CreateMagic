@@ -12,6 +12,17 @@ public abstract class SingleSkill : SkillBase
 
     public string Key { get; protected set; }
 
+    public virtual void SetData()
+    {
+        if (Managers.Data.SkillDic.TryGetValue(Key, out Data.SkillData skillData) == false)
+        {
+            Debug.LogError("SingleSkill LoadData Failed");
+            return;
+        }
+
+        SkillData = skillData;
+    }
+
     public abstract void DoSkill(Action callBack = null);
 
     public override void ActivateSkill()

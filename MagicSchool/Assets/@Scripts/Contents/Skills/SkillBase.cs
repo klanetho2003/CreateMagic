@@ -25,7 +25,7 @@ public abstract class SkillBase : BaseController // 스킬을 스폰 > ActiveSkill 발
     public virtual void ActivateSkill() { }
 
     // Init함수 : spawn 직후 값을 세팅하기 전에 해야할 행동 정의
-    protected virtual ProjectileController GenerateProjectile(Data.SkillData skillData, CreatureController onwer, float lifeTime, Vector3 startPos, Vector3 dir, Vector3 targetPos)
+    protected virtual ProjectileController GenerateProjectile(Data.SkillData skillData, CreatureController onwer, float lifeTime, Vector3 startPos, Vector3 dir, Vector3 targetPos, Action<CreatureController> OnHit = null)
     {
         ProjectileController pc = Managers.Object.Spawn<ProjectileController>(startPos, skillData.templateID);
         pc.SetInfo(skillData, Owner,lifeTime, dir);

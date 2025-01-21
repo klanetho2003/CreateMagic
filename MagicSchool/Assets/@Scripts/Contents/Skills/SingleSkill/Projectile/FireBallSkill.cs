@@ -7,16 +7,17 @@ public class FireBallSkill : SingleSkill
 {
     public FireBallSkill() : base("N1QA")
     {
-        if (Managers.Data.SkillDic.TryGetValue(Key, out Data.SkillData skillData) == false)
-        {
-            Debug.LogError("SingleSkill LoadData Failed");
-            return;
-        }
+        SetData();
+    }
 
-        SkillData = skillData;
+    public override void SetData()
+    {
+        base.SetData();
 
-        ActivateDelaySecond = skillData.activateSkillDelay;
-        CompleteDelaySecond = skillData.completeSkillDelay;
+        Damage = SkillData.damage;
+
+        ActivateDelaySecond = SkillData.activateSkillDelay;
+        CompleteDelaySecond = SkillData.completeSkillDelay;
     }
 
     float _lifeTime = 10f;
@@ -36,5 +37,8 @@ public class FireBallSkill : SingleSkill
         callBack?.Invoke();
     }
 
-    // ToDo : Setinfo
+    public void OnHit(CreatureController cc)
+    {
+        
+    }
 }
