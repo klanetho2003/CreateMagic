@@ -14,7 +14,7 @@ public class RangeSkillController : SkillObjController
         return true;
     }
 
-    public void SetInfo(Data.SkillData skillData, CreatureController owner, float lifTime, Vector3 size, Action<CreatureController> afterTrigger = null)
+    public void SetInfo(Data.SkillData skillData, CreatureController owner, float lifTime, Vector3 size, Action<CreatureController> OnHit = null)
     {
         if (skillData == null)
         {
@@ -25,7 +25,7 @@ public class RangeSkillController : SkillObjController
         _size = size;
         _owner = owner;
         _lifeTime = lifTime;
-        _afterTrigger = afterTrigger;
+        _OnHit = OnHit;
         SkillData = skillData;
         // ToDo : Data Paring
 
@@ -42,7 +42,13 @@ public class RangeSkillController : SkillObjController
     private void OnTriggerEnter2D(Collider2D collision)
     {
         CreatureController cc = collision.GetComponent<CreatureController>();
-        _afterTrigger.Invoke(cc);
+
+        if (cc.IsValid() == false)
+            return;
+        if (this.IsValid() == false)
+            return;
+
+        _OnHit.Invoke(cc);
     }
 }
 

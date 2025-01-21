@@ -12,7 +12,7 @@ public class SkillObjController : SkillBase
 
     public CreatureController _owner { get; protected set; }
 
-    public  Action<CreatureController> _afterTrigger { get; protected set; }
+    public  Action<CreatureController> _OnHit{ get; protected set; }
 
     public override bool Init()
     {

@@ -15,7 +15,7 @@ public class ProjectileController : SkillObjController
         return true;
     }
 
-    public void SetInfo(Data.SkillData skillData, CreatureController owner, float lifeTime, Vector3 moveDir, Action<CreatureController> afterTrigger = null)
+    public void SetInfo(Data.SkillData skillData, CreatureController owner, float lifeTime, Vector3 moveDir, Action<CreatureController> OnHit = null)
     {
         if (skillData == null)
         {
@@ -26,6 +26,7 @@ public class ProjectileController : SkillObjController
         _owner = owner;
         _lifeTime = lifeTime;
         _moveDir = moveDir;
+        _OnHit = OnHit;
         SkillData = skillData;
         // ToDo : Data ParingInitValue();
 
@@ -56,7 +57,7 @@ public class ProjectileController : SkillObjController
         if (this.IsValid() == false)
             return;
 
-        mc.OnDamaged(_owner, SkillData.damage);
+        _OnHit.Invoke(mc);
 
         StopDestory(); //코루틴 해제
 

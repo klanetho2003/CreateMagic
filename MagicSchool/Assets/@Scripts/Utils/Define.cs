@@ -44,6 +44,7 @@ public static class Define
         Sequence,
         Repeat, //탕탕이라 존재 하는 것 (애초에 반복적으로 호출하는 것은 스킬 사용자가 반복 호출을 하는 것이지 스킬 스스로가 정의하고 있어야 할 필요가 없기 때문)
         Single,
+        Iner,
     }
 
     public enum UIEvent

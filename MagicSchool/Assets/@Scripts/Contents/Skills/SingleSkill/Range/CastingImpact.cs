@@ -28,7 +28,7 @@ public class CastingImpact : SingleSkill
 
     public override void DoSkill(Action callBack = null)
     {
-        PlayerController pc = Managers.Game.Player;
+        PlayerController pc = Managers.Game.Player; // Monster가 사용하게 되면 확장 가능하게 바꿔야 한다
         if (pc == null)
             return;
 
@@ -48,6 +48,8 @@ public class CastingImpact : SingleSkill
     public void AfterTrigger(CreatureController cc)
     {
         if (cc.IsValid() == false)
+            return;
+        if (this.IsValid() == false)
             return;
 
         if (cc.TryGetComponent<MonsterController>(out MonsterController mc))

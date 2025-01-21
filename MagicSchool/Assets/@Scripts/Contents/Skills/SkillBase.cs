@@ -28,14 +28,14 @@ public abstract class SkillBase : BaseController // 스킬을 스폰 > ActiveSkill 발
     protected virtual ProjectileController GenerateProjectile(Data.SkillData skillData, CreatureController onwer, float lifeTime, Vector3 startPos, Vector3 dir, Vector3 targetPos, Action<CreatureController> OnHit = null)
     {
         ProjectileController pc = Managers.Object.Spawn<ProjectileController>(startPos, skillData.templateID);
-        pc.SetInfo(skillData, Owner,lifeTime, dir);
+        pc.SetInfo(skillData, Owner,lifeTime, dir, OnHit);
 
         return pc;
     }
-    protected virtual RangeSkillController GenerateRangeSkill(Data.SkillData skillData, CreatureController onwer, float lifeTime, Vector3 spawnPos, Vector3 size, Action<CreatureController> afterTrigger = null)
+    protected virtual RangeSkillController GenerateRangeSkill(Data.SkillData skillData, CreatureController onwer, float lifeTime, Vector3 spawnPos, Vector3 size, Action<CreatureController> OnHit = null)
     {
         RangeSkillController rc = Managers.Object.Spawn<RangeSkillController>(spawnPos, skillData.templateID);
-        rc.SetInfo(skillData, Owner, lifeTime, size, afterTrigger);
+        rc.SetInfo(skillData, Owner, lifeTime, size, OnHit);
 
         return rc;
     }

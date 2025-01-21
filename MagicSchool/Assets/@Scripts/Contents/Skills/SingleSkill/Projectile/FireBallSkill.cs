@@ -13,6 +13,12 @@ public class FireBallSkill : SingleSkill
     public override void SetData()
     {
         base.SetData();
+        
+        if (Managers.Data.SkillDic.TryGetValue(SkillData.skills[0], out Explosion) == false)
+        {
+            Debug.LogError("FireBallSkill InerSkill LoadData Failed");
+            return;
+        }
 
         Damage = SkillData.damage;
 
@@ -20,7 +26,8 @@ public class FireBallSkill : SingleSkill
         CompleteDelaySecond = SkillData.completeSkillDelay;
     }
 
-    float _lifeTime = 10f;
+    Data.SkillData Explosion;
+    float _lifeTime = 10f; // To Do : Data Parsing
 
     public override void DoSkill(Action callBack)
     {
@@ -31,14 +38,25 @@ public class FireBallSkill : SingleSkill
         Vector3 spawnPos = pc.FireSocket;
         Vector3 dir = pc.ShootDir;
 
-        ProjectileController projectile = GenerateProjectile(SkillData, Owner, _lifeTime, spawnPos, dir, Vector3.zero);
+        ProjectileController projectile = GenerateProjectile(SkillData, Owner, _lifeTime, spawnPos, dir, Vector3.zero, ProjectileOnHit);
         projectile.StartDestory(projectile, 10f);
 
         callBack?.Invoke();
     }
 
-    public void OnHit(CreatureController cc)
+    public void ProjectileOnHit(CreatureController cc)
     {
-        
+        if (cc.IsValid() == false)
+            return;
+        if (this.IsValid() == false)
+            return;
+
+        cc.OnDamaged(Owner, SkillData.damage);
+        GenerateRangeSkill(Explosion, Owner, _lifeTime, transform.position, Vector2.one, ExplosionOnHit);
+    }
+
+    public void ExplosionOnHit(CreatureController cc)
+    {
+        cc.OnDamaged(Owner, Explosion.damage);
     }
 }
