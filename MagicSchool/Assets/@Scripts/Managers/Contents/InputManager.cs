@@ -23,15 +23,50 @@ public class InputManager : IPointerClickHandler, IPointerDownHandler, IPointerU
     {
         if (OnKeyDownHandler == null)
             return;
+        #region 1, 2, 3, 4
 
         if (Input.GetKeyDown(KeyCode.Alpha1))
         {
             OnKeyDownHandler.Invoke(Define.KeyDownEvent.N1);
         }
+        else if (Input.GetKeyDown(KeyCode.Alpha2))
+        {
+            OnKeyDownHandler.Invoke(Define.KeyDownEvent.N2);
+        }
+        else if (Input.GetKeyDown(KeyCode.Alpha3))
+        {
+            OnKeyDownHandler.Invoke(Define.KeyDownEvent.N3);
+        }
+        else if (Input.GetKeyDown(KeyCode.Alpha4))
+        {
+            OnKeyDownHandler.Invoke(Define.KeyDownEvent.N4);
+        }
+
+        #endregion
+
+        #region Q, W, E, R
+        
         else if (Input.GetKeyDown(KeyCode.Q))
         {
             OnKeyDownHandler.Invoke(Define.KeyDownEvent.Q);
         }
+        else if (Input.GetKeyDown(KeyCode.W))
+        {
+            OnKeyDownHandler.Invoke(Define.KeyDownEvent.W);
+        }
+        else if (Input.GetKeyDown(KeyCode.E))
+        {
+            OnKeyDownHandler.Invoke(Define.KeyDownEvent.E);
+        }
+        else if (Input.GetKeyDown(KeyCode.R))
+        {
+            OnKeyDownHandler.Invoke(Define.KeyDownEvent.R);
+        }
+
+        #endregion
+
+        #region A, S, D
+
         else if (Input.GetKeyDown(KeyCode.A))
         {
             OnKeyDownHandler.Invoke(Define.KeyDownEvent.A);
@@ -40,6 +75,12 @@ public class InputManager : IPointerClickHandler, IPointerDownHandler, IPointerU
         {
             OnKeyDownHandler.Invoke(Define.KeyDownEvent.S);
         }
+        else if (Input.GetKeyDown(KeyCode.D))
+        {
+            OnKeyDownHandler.Invoke(Define.KeyDownEvent.D);
+        }
+
+        #endregion
     }
 
     void OnDirInput()

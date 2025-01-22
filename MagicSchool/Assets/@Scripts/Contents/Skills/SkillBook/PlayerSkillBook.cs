@@ -2,14 +2,75 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static Define;
 
 public class PlayerSkillBook : BaseSkillBook
 {
-    SkillBase _skill;
+    Define.KeyDownEvent _inputkey;
+    Define.KeyDownEvent Inputkey
+    {
+        get { return _inputkey; }
+        set
+        {
+            if (_isStartSkill == true) // 선 딜레이 중일 시 return
+                return;
+
+            _skillKey = _skillKey + $"{value}";
+            Debug.Log($"SkillKey -> {_skillKey}");
+
+
+            switch (value)
+            {
+                case Define.KeyDownEvent.N1:
+                    castingImpact.DoSkill();
+                    _inputkey = value;
+                    break;
+                case Define.KeyDownEvent.N2:
+                    castingImpact.DoSkill();
+                    _inputkey = value;
+                    break;
+                case Define.KeyDownEvent.N3:
+                    castingImpact.DoSkill();
+                    _inputkey = value;
+                    break;
+                case Define.KeyDownEvent.N4:
+                    castingImpact.DoSkill();
+                    _inputkey = value;
+                    break;
+
+                case Define.KeyDownEvent.Q:
+                    break;
+                case Define.KeyDownEvent.W:
+                    break;
+                case Define.KeyDownEvent.E:
+                    break;
+                case Define.KeyDownEvent.R:
+                    break;
+
+                case Define.KeyDownEvent.A:
+                    castingImpact.InitSize();
+                    pc.CreatureState = TryDoSkill();
+                    break;
+                case Define.KeyDownEvent.S:
+                    castingImpact.InitSize();
+                    pc.CreatureState = TryDoSkill();
+                    break;
+                case Define.KeyDownEvent.D:
+                    castingImpact.InitSize();
+                    pc.CreatureState = TryDoSkill();
+                    break;
+                default:
+                    break;
+            } // CreatrueState 변경 필요
+        }
+    }
+
+    SkillBase _skill; // 필요 없을 지도
     string _skillKey;
 
     CastingImpact castingImpact;
-    string _currnetImpact;
+    string _currnetImpact; // 프로퍼티를 통해서 변수로 저장하고 있기 때문에
+                           // input값을 찾으면 _currnetImpact과 같은 역할을 하는 셍미다
 
     PlayerController pc;
 
@@ -54,6 +115,25 @@ public class PlayerSkillBook : BaseSkillBook
             ActiveImpact(inputKey);
             return Define.CreatureState.Casting;
         }    
+
+        return pc.CreatureState;
+    }
+
+    CreatureState TryDoSkill()
+    {
+        _isStartSkill = BaseSkillDict.TryGetValue(_skillKey, out _skill);
+        if (_isStartSkill == false)
+        {
+            Debug.Log($"Player Do not have --{_skillKey}--");
+
+            _skillKey = "";
+
+            return CreatureState.Idle;
+        }
+        else // _isStartSkill == true
+        {
+            _skill.ActivateSkillDelay(_skill.ActivateDelaySecond, InitKeyInput);
+        }
 
         return pc.CreatureState;
     }
