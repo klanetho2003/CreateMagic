@@ -12,6 +12,7 @@ Material:
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords:
+  - GLOWTEX_ON
   - OUTBASE8DIR_ON
   m_InvalidKeywords:
   - ETC1_EXTERNAL_ALPHA
@@ -53,7 +54,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _GlowTex:
-        m_Texture: {fileID: 0}
+        m_Texture: {fileID: 2800000, guid: 487cb2374bc49b848a1f4577212201cc, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
@@ -120,7 +121,7 @@ Material:
     - _DistortTexXSpeed: 5
     - _DistortTexYSpeed: 5
     - _EditorDrawers: 6
-    - _FadeAmount: -0.1
+    - _FadeAmount: -0.044
     - _FadeBurnGlow: 2
     - _FadeBurnTransition: 0.075
     - _FadeBurnWidth: 0.025
@@ -133,7 +134,7 @@ Material:
     - _GhostTransparency: 0
     - _GlitchAmount: 3
     - _GlitchSize: 1
-    - _Glow: 10
+    - _Glow: 46.6
     - _GlowAffectLight: 1
     - _GlowGlobal: 1
     - _GradBlend: 1
