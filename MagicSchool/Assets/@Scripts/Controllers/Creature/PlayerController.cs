@@ -186,7 +186,7 @@ public class PlayerController : CreatureController
         if (CreatureState == Define.CreatureState.DoSkill)
             return;
 
-        CreatureState = Skills.BuildSKillKey($"{key}");
+        Skills.Inputkey = key;
     }
     #endregion
 

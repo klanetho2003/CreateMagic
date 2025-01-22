@@ -60,5 +60,8 @@ public class FireBallSkill : SingleSkill
     public void ExplosionOnHit(CreatureController cc)
     {
         cc.OnDamaged(Owner, Explosion.damage);
+
+        EffectedCreature effectedCC = cc.gameObject.GetComponent<EffectedCreature>();
+        effectedCC.OnBurn(Owner, 3); // To Do : Parsing
     }
 }

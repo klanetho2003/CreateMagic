@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 
-public class MonsterController : EffetedCreature
+public class MonsterController : EffectedCreature
 {
     public BaseSkillBook Skills { get; protected set; }
 
