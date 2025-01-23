@@ -89,7 +89,7 @@ public class CreatureController : BaseController
 
     protected virtual void Moving() { }
 
-    protected float _speed = 1.0f;
+    protected float _speed = 0.5f;
 
     public int Hp { get; set; } = 100;
     public int MaxHp { get; set; } = 100;

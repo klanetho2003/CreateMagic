@@ -62,6 +62,6 @@ public class FireBallSkill : SingleSkill
 
         cc.OnDamaged(Owner, Explosion.damage);
         
-        cc.OnBurnEx(Owner, 10); // Extension // To Do : Parsing
+        cc.OnBurnEx(Owner, 3); // Extension // To Do : Parsing
     }
 }

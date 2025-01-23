@@ -47,12 +47,6 @@ MonoBehaviour:
     m_SerializedLabels:
     - PreLoad
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 6cb95dea608d4954198c4ea633130dc7
-    m_Address: MageSkeletonWithShield_null.prefab
-    m_ReadOnly: 0
-    m_SerializedLabels:
-    - PreLoad
-    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: d47ff0f6e00f1b9459f869ee57beacbd
     m_Address: Skeleton.prefab
     m_ReadOnly: 0
