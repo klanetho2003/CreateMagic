@@ -13,11 +13,8 @@ Material:
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords:
   - ATLAS_ON
-  - FADE_ON
   - GLOWLIGHT_ON
   - GLOWTEX_ON
-  - GLOW_ON
-  - OUTBASE_ON
   m_InvalidKeywords:
   - _GLOWAFFECTLIGHT_ON
   m_LightmapFlags: 4
@@ -122,7 +119,7 @@ Material:
     - _DistortTexXSpeed: 5
     - _DistortTexYSpeed: 5
     - _EditorDrawers: 6
-    - _FadeAmount: 0.32
+    - _FadeAmount: 0.3
     - _FadeBurnGlow: 124
     - _FadeBurnTransition: 0.112
     - _FadeBurnWidth: 0.025
@@ -167,10 +164,10 @@ Material:
     - _InnerOutlineGlow: 4
     - _InnerOutlineThickness: 1
     - _LitAmount: 1
-    - _MaxXUV: 0.1
-    - _MaxYUV: 1
-    - _MinXUV: 0
-    - _MinYUV: 0
+    - _MaxXUV: 0.22465797
+    - _MaxYUV: 0.67629045
+    - _MinXUV: 0.19289048
+    - _MinYUV: 0.19870959
     - _MotionBlurAngle: 0.1
     - _MotionBlurDist: 1.25
     - _MyDstMode: 10
@@ -181,7 +178,7 @@ Material:
     - _OffsetUvY: 0
     - _OnlyInnerOutline: 0
     - _OnlyOutline: 0
-    - _OutlineAlpha: 0
+    - _OutlineAlpha: 0.6
     - _OutlineDistortAmount: 0.5
     - _OutlineDistortTexXSpeed: 5
     - _OutlineDistortTexYSpeed: 5
