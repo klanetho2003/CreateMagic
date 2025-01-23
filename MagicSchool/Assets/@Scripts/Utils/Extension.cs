@@ -21,6 +21,20 @@ public static class Extension
     }
 
 
+    public static void OnBurnEx(this CreatureController cc, CreatureController owner, int addDuration)
+    {
+        if (cc.IsValid() == false)
+            return;
+
+        EffectedCreature effectedCC = cc.gameObject.GetComponent<EffectedCreature>();
+        if (effectedCC == null)
+            return;
+
+        effectedCC.OnBurn(owner, addDuration);
+    }
+
+
+
     public static bool IsValid(this GameObject go)
     {
         return go != null && go.activeSelf;

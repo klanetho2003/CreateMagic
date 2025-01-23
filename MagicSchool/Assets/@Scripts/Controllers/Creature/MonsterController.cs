@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using static Define;
 
 public class MonsterController : EffectedCreature
 {
@@ -14,24 +15,25 @@ public class MonsterController : EffectedCreature
     {
         switch (CreatureState)
         {
-            case Define.CreatureState.Idle:
+            case CreatureState.Idle:
                 _animator.Play($"Idle");
                 break;
-            case Define.CreatureState.Moving:
+            case CreatureState.Moving:
                 _animator.Play($"Moving");
                 break;
-            case Define.CreatureState.Casting:
+            case CreatureState.Casting:
                 _animator.Play($"Casting");
                 break;
-            case Define.CreatureState.DoSkill:
+            case CreatureState.DoSkill:
                 _animator.Play($"DoSkill");
                 break;
-            case Define.CreatureState.Dameged:
+            case CreatureState.Dameged:
                 _animator.Play($"Dameged");
-                if (_coWait == null) Wait(0.75f); // OnDamege Animation 재생 wait // To Do Animation RunTime Parsing
+                if (_coWait == null) Wait(0.75f); // Damege Animation 재생 wait // To Do Animation RunTime Parsing
                 break;
-            case Define.CreatureState.Dead:
+            case CreatureState.Dead:
                 _animator.Play($"Death");
+                if (_coWait == null) Wait(1.5f); // Death Animation 재생 wait // To Do Animation RunTime Parsing
                 break;
         }
     }
@@ -39,7 +41,13 @@ public class MonsterController : EffectedCreature
     protected override void UpdateDameged()
     {
         if (_coWait == null)
-            CreatureState = Define.CreatureState.Moving;
+            CreatureState = CreatureState.Moving;
+    }
+
+    protected override void UpdateDead()
+    {
+        if (_coWait == null)
+            OnDead();
     }
 
     public override bool Init()
@@ -47,8 +55,8 @@ public class MonsterController : EffectedCreature
         if (base.Init() == false)
             return false; // 두 번 초기화하지 않도록 끊어주는 부분
 
-        ObjectType = Define.ObjectType.Monster;
-        CreatureState = Define.CreatureState.Moving;
+        ObjectType = ObjectType.Monster;
+        CreatureState = CreatureState.Moving;
 
         Skills = gameObject.GetOrAddComponent<BaseSkillBook>();
 
@@ -59,7 +67,7 @@ public class MonsterController : EffectedCreature
 
     protected override void FixedUpdateMoving() // 물리와 연관돼 있으면
     {
-        if (CreatureState != Define.CreatureState.Moving)
+        if (CreatureState != CreatureState.Moving)
             return;
 
         /*if (WayPoint == null)
@@ -129,6 +137,8 @@ public class MonsterController : EffectedCreature
     }
     #endregion
 
+    #region Collision Methods
+    
     private void OnCollisionEnter2D(Collision2D collision)
     {
         PlayerController target = collision.gameObject.GetComponent<PlayerController>();
@@ -155,6 +165,8 @@ public class MonsterController : EffectedCreature
             StopCoroutine(_coDotDamage);
         _coDotDamage = null;
     }
+
+    #endregion
 
     Coroutine _coDotDamage;
     public IEnumerator CoStartDotDamage(PlayerController target)

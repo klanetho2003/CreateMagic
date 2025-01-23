@@ -1,21 +1,36 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static Define;
 
 public class EffectedCreature : CreatureController
 {
     Material m;
     CreatureController _owner; // 데미지를 가한 cc
 
-    public bool _isOnBurn { get { return _duration > 0; } }
-
-    int _duration;
-    protected int Duration
+    public override bool Init()
     {
-        get { return _duration; }
+        if (base.Init() == false)
+            return false;
+
+        m = GetComponent<Renderer>().material;
+
+        return true;
+    }
+
+    #region Burn
+
+    int _burnDamage = 5;
+
+    public bool _isOnBurn { get { return _burnDuration > 0; } }
+
+    int _burnDuration;
+    protected int BurnDuration
+    {
+        get { return _burnDuration; }
         private set
         {
-            _duration = value;
+            _burnDuration = value;
 
             switch (_isOnBurn)
             {
@@ -28,7 +43,8 @@ public class EffectedCreature : CreatureController
             }
         }
     }
-
+    #region Burn Material Setting Method
+    
     protected virtual void OnBurnMaterial()
     {
         if (_isOnBurn == false) // 방어 코드하는 게 좋겠지
@@ -49,25 +65,28 @@ public class EffectedCreature : CreatureController
         m.DisableKeyword("OUTBASE_ON");
     }
 
+    #endregion
+
+    protected virtual void OnBurnDamaged()
+    {
+        // effect
+        OnDamaged(_owner, _burnDamage);
+    }
+
+    protected override void Clear()
+    {
+        base.Clear();
+        InitBurn();
+    }
+
     float _lastDamageSeconds;
     public float DamageCycle{ get; private set; }
-    // To Do : 지속시간 추가
-
-    public override bool Init()
-    {
-        if (base.Init() == false)
-            return false;
-
-        m = GetComponent<Renderer>().material;
-
-        return true;
-    }
 
     protected Coroutine _coOnBurn;
     public virtual void OnBurn(CreatureController cc, int addDuration)
     {
         _owner = cc;
-        Duration += addDuration;
+        BurnDuration += addDuration;
 
         if (_coOnBurn == null)
             _coOnBurn = StartCoroutine(CoOnBurn(1));
@@ -77,7 +96,7 @@ public class EffectedCreature : CreatureController
     {
         _owner = cc;
         DamageCycle = damageCycle;
-        Duration += addDuration;
+        BurnDuration += addDuration;
 
         if (_coOnBurn == null)
             _coOnBurn = StartCoroutine(CoOnBurn(1));
@@ -85,25 +104,34 @@ public class EffectedCreature : CreatureController
 
     protected virtual IEnumerator CoOnBurn(int seconds)
     {
-        while (Duration > 0)
+        while (BurnDuration > 0)
         {
             yield return new WaitForSeconds(seconds);
             _lastDamageSeconds += seconds;
 
             if (_lastDamageSeconds >= DamageCycle)
             {
-                OnDamaged(_owner, 5); Debug.Log($"Burn {5}");
+                OnBurnDamaged();
                 // To Do : Effect 추가
 
                 _lastDamageSeconds = 0;
             }
 
-            Duration -= seconds;
+            BurnDuration -= seconds;
         }
 
-        _duration = 0;
+        InitBurn();
+    }
+
+    void InitBurn() // Burn상태 종료
+    {
+        _burnDuration = 0;
+        OffBurnMaterial();
+
         DamageCycle = 0;
         _owner = null;
-        _coOnBurn = null; // Burn상태 종료
+        _coOnBurn = null; 
     }
+
+    #endregion
 }

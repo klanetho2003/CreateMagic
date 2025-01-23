@@ -1,20 +1,23 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static Define;
 
 public class CreatureController : BaseController
 {
     #region State Pattern
 
-    Define.CreatureState _creatureState = Define.CreatureState.Idle;
-    public virtual Define.CreatureState CreatureState
+    CreatureState _creatureState = CreatureState.Idle;
+    public virtual CreatureState CreatureState
     {
         get { return _creatureState; }
         set
         {
             if (_creatureState == value)
                 return;
-            
+            if (_creatureState == CreatureState.Dead)
+                return;
+
             _creatureState = value;
             UpdateAnimation();
         }
@@ -29,22 +32,22 @@ public class CreatureController : BaseController
 
         switch (CreatureState)
         {
-            case Define.CreatureState.Idle:
+            case CreatureState.Idle:
                 UpdateIdle();
                 break;
-            case Define.CreatureState.Moving:
+            case CreatureState.Moving:
                 UpdateMoving();
                 break;
-            case Define.CreatureState.Casting:
+            case CreatureState.Casting:
                 UpdateCasting();
                 break;
-            case Define.CreatureState.DoSkill:
+            case CreatureState.DoSkill:
                 UpdateDoSkill();
                 break;
-            case Define.CreatureState.Dameged:
+            case CreatureState.Dameged:
                 UpdateDameged();
                 break;
-            case Define.CreatureState.Dead:
+            case CreatureState.Dead:
                 UpdateDead();
                 break;
         }
@@ -111,13 +114,14 @@ public class CreatureController : BaseController
         if (Hp <= 0)
             return;
 
-        CreatureState = Define.CreatureState.Dameged;
+        CreatureState = CreatureState.Dameged;
         Hp -= damage;
 
         if (Hp <= 0)
         {
             Hp = 0;
-            OnDead();
+            //OnDead();
+            CreatureState = CreatureState.Dead;
         }
     }
 

@@ -50,8 +50,6 @@ public class FireBallSkill : SingleSkill
     {
         if (cc.IsValid() == false)
             return;
-        if (this.IsValid() == false)
-            return;
 
         cc.OnDamaged(Owner, SkillData.damage);
         GenerateRangeSkill(Explosion, Owner, _lifeTime, projectile.transform.position, Vector2.one, ExplosionOnHit);
@@ -59,9 +57,11 @@ public class FireBallSkill : SingleSkill
 
     public void ExplosionOnHit(CreatureController cc)
     {
-        cc.OnDamaged(Owner, Explosion.damage);
+        if (cc.IsValid() == false)
+            return;
 
-        EffectedCreature effectedCC = cc.gameObject.GetComponent<EffectedCreature>();
-        effectedCC.OnBurn(Owner, 3); // To Do : Parsing
+        cc.OnDamaged(Owner, Explosion.damage);
+        
+        cc.OnBurnEx(Owner, 10); // Extension // To Do : Parsing
     }
 }

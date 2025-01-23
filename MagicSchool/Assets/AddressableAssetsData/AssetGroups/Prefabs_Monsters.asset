@@ -17,24 +17,6 @@ MonoBehaviour:
     m_SerializedData: []
   m_GUID: 49aafe9c92505584d805442dde00c8f7
   m_SerializeEntries:
-  - m_GUID: d2985b5e0fe57a84986b326aeb658558
-    m_Address: Goblin_01.prefab
-    m_ReadOnly: 0
-    m_SerializedLabels:
-    - PreLoad
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: a0a5eb6e1379e5749bbb65518109f887
-    m_Address: Snake_01.prefab
-    m_ReadOnly: 0
-    m_SerializedLabels:
-    - PreLoad
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 27bf31f6833d5b742a6b7841e983dd6b
-    m_Address: Slime_01.prefab
-    m_ReadOnly: 0
-    m_SerializedLabels:
-    - PreLoad
-    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: ad03a629ccaefd846a97f64c3b6bec95
     m_Address: Boss_01.prefab
     m_ReadOnly: 0
