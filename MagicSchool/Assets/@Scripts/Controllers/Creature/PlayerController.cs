@@ -222,7 +222,7 @@ public class PlayerController : CreatureController
         if (Managers.Game != null)
             Managers.Game.OnMoveDirChanged -= HandleOnMoveDirChange;
     }
-
+    
     public override void UpdateController()
     {
         MoveIndicator();
@@ -231,6 +231,8 @@ public class PlayerController : CreatureController
 
         CollectEnv();
     }
+
+    #region State Pattern
 
     protected override void UpdateIdle()
     {
@@ -257,6 +259,10 @@ public class PlayerController : CreatureController
             _isCompleteActive = Skills.ActiveSkill();
     }
 
+    #endregion
+
+    #region Move
+    
     protected override void FixedUpdateMoving()
     {
         if (CreatureState != Define.CreatureState.Moving && CreatureState != Define.CreatureState.Casting)
@@ -283,6 +289,8 @@ public class PlayerController : CreatureController
         _indicator.eulerAngles = new Vector3(0, 0, Mathf.Atan2(-dir.x, dir.y) * 180 / Mathf.PI);
     }
 
+    #endregion
+
     void CollectEnv()
     {
         float sqrCollectDist = EnvCollectDist * EnvCollectDist;
@@ -304,17 +312,17 @@ public class PlayerController : CreatureController
         }
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
-        MonsterController target = collision.gameObject.GetComponent<MonsterController>();
-        if (target.IsValid() == false)
-            return;
-
-        // To Do : 닿기만 해도 피격 판정이 있으면 여기에 OnDamaged() 추가
-    }
+    #region Battle
 
     public override void OnDamaged(BaseController attacker, int damage)
     {
         base.OnDamaged(attacker, damage);
     }
+
+    protected override void OnDead()
+    {
+        base.OnDead();
+    }
+
+    #endregion
 }

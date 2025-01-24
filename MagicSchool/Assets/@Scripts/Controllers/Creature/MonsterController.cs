@@ -23,6 +23,8 @@ public class MonsterController : EffectedCreature
         }
     }
 
+    #region Animation
+
     public override void UpdateAnimation()
     {
         switch (CreatureState)
@@ -38,6 +40,7 @@ public class MonsterController : EffectedCreature
                 break;
             case CreatureState.DoSkill:
                 _animator.Play($"DoSkill");
+                if (_coWait == null) Wait(1f); // Damege Animation 재생 wait // To Do Animation RunTime Parsing
                 break;
             case CreatureState.Dameged:
                 _animator.Play($"Dameged");
@@ -49,6 +52,10 @@ public class MonsterController : EffectedCreature
                 break;
         }
     }
+
+    #endregion
+
+    #region AI - by StatePatern
 
     protected override void UpdateIdle()
     {
@@ -67,6 +74,18 @@ public class MonsterController : EffectedCreature
         CreatureState = CheckAttackTarget(_target.transform.position, transform.position);
     }
 
+    protected override void UpdateDoSkill()
+    {
+        if (_target.IsValid() == false)
+        {
+            CreatureState = CreatureState.Idle;
+            return;
+        }
+
+        if (_coWait == null)
+            CreatureState = CheckAttackTarget(_target.transform.position, transform.position);
+    }
+
     protected override void UpdateDameged()
     {
         if (_coWait == null)
@@ -78,6 +97,18 @@ public class MonsterController : EffectedCreature
         if (_coWait == null)
             OnDead();
     }
+
+    CreatureState CheckAttackTarget(Vector3 targetPosition, Vector3 MyPosition)
+    {
+        Vector3 dir = targetPosition - MyPosition;
+
+        float distTargetSqr = dir.sqrMagnitude;
+        float attackDistenceSqr = AttaccDistence * AttaccDistence;
+
+        return (distTargetSqr <= attackDistenceSqr) ? CreatureState.DoSkill : CreatureState.Moving;
+    }
+
+    #endregion
 
     public override bool Init()
     {
@@ -91,9 +122,16 @@ public class MonsterController : EffectedCreature
 
         Skills = gameObject.GetOrAddComponent<BaseSkillBook>();
 
+        AnimationEventManager.BindEvent(this, "OnDamaged", HandleOnDamaged);
+
         //WayPoint = Managers.Game.WayPoints[Random.Range(0, Managers.Game.WayPoints.Count)];
 
         return true;
+    }
+
+    public virtual void HandleOnDamaged()
+    {
+        Debug.Log("Received");
     }
 
     protected override void FixedUpdateMoving() // 물리와 연관돼 있으면
@@ -109,13 +147,13 @@ public class MonsterController : EffectedCreature
 
         Vector3 dir = pc.transform.position - transform.position;
 
-        MoveMonsterPosition(dir.normalized, _speed);
+        MoveMonsterPosition(dir.normalized, _speed); // sqrMagnitude가 < 1 으면 DoSkill로 바꿀까
 
         // On Sprite Flip
         _spriteRenderer.flipX = dir.x < 0;
     }
 
-    #region Move 함수들
+    #region Move Methods
     public virtual void MoveMonsterPosition(Vector3 dirNor, float speed)
     {
         Vector3 dir = dirNor * speed * Time.deltaTime;
@@ -168,14 +206,11 @@ public class MonsterController : EffectedCreature
     }
     #endregion
 
-    CreatureState CheckAttackTarget(Vector3 targetPosition, Vector3 MyPosition)
+    #region Battle
+
+    public override void OnDamaged(BaseController attacker, int damage)
     {
-        Vector3 dir = targetPosition - MyPosition;
-
-        float distTargetSqr = dir.sqrMagnitude;
-        float attackDistenceSqr = AttaccDistence * AttaccDistence;
-
-        return (distTargetSqr <= attackDistenceSqr) ? CreatureState.DoSkill : CreatureState.Moving;
+        base.OnDamaged(attacker, damage);
     }
 
     protected override void OnDead()
@@ -191,6 +226,8 @@ public class MonsterController : EffectedCreature
 
         Managers.Object.Despawn(this);
     }
+
+    #endregion
 
     protected override void Clear() // To Do : 초기화 내용 필요
     {

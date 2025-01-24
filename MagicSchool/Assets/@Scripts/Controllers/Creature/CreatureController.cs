@@ -1,5 +1,7 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 using static Define;
 
@@ -80,6 +82,8 @@ public class CreatureController : BaseController
     }
     #endregion
 
+    #region Move
+    
     public override void FixedUpdateController()
     {
         FixedUpdateMoving();
@@ -88,6 +92,8 @@ public class CreatureController : BaseController
     protected virtual void FixedUpdateMoving() { }
 
     protected virtual void Moving() { }
+
+    #endregion
 
     protected float _speed = 0.5f;
 
@@ -107,31 +113,26 @@ public class CreatureController : BaseController
         return true;
     }
 
-    public virtual void OnDamaged(BaseController attacker, int damage)
+    #region Battle
+
+    public override void OnDamaged(BaseController attacker, int damage)
     {
+        if (attacker.IsValid() == false)
+            return;
         if (this.IsValid() == false)
             return;
         if (Hp <= 0)
             return;
 
+        Hp = Mathf.Clamp(Hp - damage, 0, MaxHp); // Data 시트에 실수로 음수 적어두는 것 방지
         CreatureState = CreatureState.Dameged;
-        Hp -= damage;
 
         if (Hp <= 0)
         {
             Hp = 0;
-            //OnDead();
             CreatureState = CreatureState.Dead;
         }
     }
 
-    protected virtual void OnDead()
-    {
-
-    }
-
-    protected virtual void Clear()
-    {
-
-    }
+    #endregion
 }

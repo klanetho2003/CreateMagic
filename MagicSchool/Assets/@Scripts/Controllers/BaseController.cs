@@ -5,6 +5,8 @@ using static Define;
 
 public class BaseController : MonoBehaviour
 {
+
+
     public ObjectType ObjectType { get; protected set; }
     public float ColliderRaius
     {
@@ -44,4 +46,22 @@ public class BaseController : MonoBehaviour
     }
 
     public virtual void FixedUpdateController() { }
+
+    public void OnAnimationEvent(string eventName)
+    {
+        AnimationEventManager.OnAnimationEvent(this, eventName);
+    }
+
+    #region Battle
+
+    public virtual void OnDamaged(BaseController attacker, int damage) { }
+
+    protected virtual void OnDead() { }
+
+    #endregion
+
+    protected virtual void Clear()
+    {
+
+    }
 }
