@@ -11,6 +11,18 @@ public class MonsterController : EffectedCreature
 
     public Transform WayPoint { get; protected set; }
 
+    BaseController _target;
+    //public float SearchDistence { get; protected set; } = 10f; // 임시. 변수 자체가 없어도 된다
+    public float AttaccDistence
+    {
+        get
+        {
+            // radius 값은 SetInfo하면서 부여하는 값이기에 Data Parsing을 구현하면변수로 존재할 것
+            float targetRadius = (_target.IsValid() == true) ? _target.ColliderRaius : 0;
+            return targetRadius + ColliderRaius + 1.0f; // 2.0f은 추가 판정값 : To Do DataParsing
+        }
+    }
+
     public override void UpdateAnimation()
     {
         switch (CreatureState)
@@ -38,6 +50,23 @@ public class MonsterController : EffectedCreature
         }
     }
 
+    protected override void UpdateIdle()
+    {
+        if (_target.IsValid() == true)
+            CreatureState = CreatureState.Moving;
+    }
+
+    protected override void UpdateMoving()
+    {
+        if (_target.IsValid() == false)
+        {
+            CreatureState = CreatureState.Idle;
+            return;
+        }
+
+        CreatureState = CheckAttackTarget(_target.transform.position, transform.position);
+    }
+
     protected override void UpdateDameged()
     {
         if (_coWait == null)
@@ -57,6 +86,8 @@ public class MonsterController : EffectedCreature
 
         ObjectType = ObjectType.Monster;
         CreatureState = CreatureState.Moving;
+
+        _target = Managers.Object.Player;
 
         Skills = gameObject.GetOrAddComponent<BaseSkillBook>();
 
@@ -137,46 +168,14 @@ public class MonsterController : EffectedCreature
     }
     #endregion
 
-    #region Collision Methods
-    
-    private void OnCollisionEnter2D(Collision2D collision)
+    CreatureState CheckAttackTarget(Vector3 targetPosition, Vector3 MyPosition)
     {
-        PlayerController target = collision.gameObject.GetComponent<PlayerController>();
-        if (target.IsValid() == false)
-            return;
-        if (this.IsValid() == false)
-            return;
+        Vector3 dir = targetPosition - MyPosition;
 
-        if (_coDotDamage != null)
-            StopCoroutine(_coDotDamage);
+        float distTargetSqr = dir.sqrMagnitude;
+        float attackDistenceSqr = AttaccDistence * AttaccDistence;
 
-        _coDotDamage = StartCoroutine(CoStartDotDamage(target));
-    }
-
-    private void OnCollisionExit2D(Collision2D collision)
-    {
-        PlayerController target = collision.gameObject.GetComponent<PlayerController>();
-        if (target.IsValid() == false)
-            return;
-        if (this.IsValid() == false)
-            return;
-
-        if (_coDotDamage != null)
-            StopCoroutine(_coDotDamage);
-        _coDotDamage = null;
-    }
-
-    #endregion
-
-    Coroutine _coDotDamage;
-    public IEnumerator CoStartDotDamage(PlayerController target)
-    {
-        while (true)
-        {
-            // target.OnDamaged(this, 2); // 추후 논의 필요 > 몬스터가 공격 모션일 때만 Damage를 입힌다
-
-            yield return new WaitForSeconds(0.1f);
-        }
+        return (distTargetSqr <= attackDistenceSqr) ? CreatureState.DoSkill : CreatureState.Moving;
     }
 
     protected override void OnDead()

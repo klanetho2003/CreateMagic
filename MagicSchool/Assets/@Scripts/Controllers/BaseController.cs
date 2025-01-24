@@ -6,6 +6,14 @@ using static Define;
 public class BaseController : MonoBehaviour
 {
     public ObjectType ObjectType { get; protected set; }
+    public float ColliderRaius
+    {
+        get
+        {
+            // To Do Data Parsing
+            return GetComponent<CircleCollider2D>() != null ? GetComponent<CircleCollider2D>().radius : 0.0f;
+        }
+    }
 
     void Awake()
     {
