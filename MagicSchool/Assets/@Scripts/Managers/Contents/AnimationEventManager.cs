@@ -28,7 +28,6 @@ public static class AnimationEventManager
         }
 
         eventListeners[key].Add(callback);
-        Debug.Log($"Bound event: {eventName} to controller: {controller.name}");
     }
 
     
@@ -37,7 +36,7 @@ public static class AnimationEventManager
     {
         var key = (controller, eventName);
 
-        if (!eventListeners.ContainsKey(key))
+        if (eventListeners.ContainsKey(key) == false)
         {
             Debug.LogWarning($"No listeners found for event: {eventName} and controller: {controller.name}");
             return;

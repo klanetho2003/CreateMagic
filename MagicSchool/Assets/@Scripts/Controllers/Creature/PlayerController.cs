@@ -30,6 +30,7 @@ public class PlayerController : CreatureController
 
     #endregion
 
+    Material m;
     public PlayerSkillBook Skills { get; protected set; }
 
     bool _isFront = true;
@@ -66,6 +67,8 @@ public class PlayerController : CreatureController
         get { return base.CreatureState; }
         set
         {
+            if (CreatureState == value)
+                return;
             CreatureState lastState = CreatureState;
 
             base.CreatureState = value;
@@ -97,8 +100,11 @@ public class PlayerController : CreatureController
                     OnPlayCastingAnimation(5f, 0.0005f); // To Do : Data 시트 length는 홀수 여야한다(Cos주기 이슈)
                     break;
                 case CreatureState.DoSkill:
+                    if (_coWait == null) Wait(0.45f); // 지팡이 휘두르기 재생 wait
                     break;
                 case CreatureState.Dameged:
+                    if (_coWait == null) Wait(0.6f); // Damaged Animation 재생 wait
+                    SetDamagedMaterial();
                     break;
                 case CreatureState.Dead:
                     break;
@@ -126,10 +132,9 @@ public class PlayerController : CreatureController
                 break;
             case Define.CreatureState.DoSkill:
                 _animator.Play($"DoSkill{dir}");
-                if (_coWait == null) Wait(0.45f); // 지팡이 휘두르기 재생 wait
                 break;
             case Define.CreatureState.Dameged:
-                _animator.Play($"Dameged{dir}");
+                _animator.Play($"Damaged{dir}");
                 break;
             case Define.CreatureState.Dead:
                 _animator.Play($"Death{dir}");
@@ -173,6 +178,19 @@ public class PlayerController : CreatureController
             yield return null;
         }
     }
+
+    protected virtual void SetDamagedMaterial()
+    {
+        if (CreatureState == CreatureState.Dameged)
+        {
+            m.EnableKeyword("HITEFFECT_ON");
+        }
+        else
+        {
+            m.DisableKeyword("HITEFFECT_ON");
+        }
+    }
+
     #endregion
 
     #region Event Hadling
@@ -201,9 +219,10 @@ public class PlayerController : CreatureController
         Managers.Game.OnMoveDirChanged += HandleOnMoveDirChange; // 객체 참조값과 함께 함수를 전달하기에 가능한 구독
         Managers.Input.OnKeyDownHandler += HandleOnKeyDown;
 
+        m = GetComponent<Renderer>().material;
         Skills = gameObject.GetOrAddComponent<PlayerSkillBook>();
         _stemp = gameObject.GetOrAddComponent<SpriteRenderer>();
-
+        
         ObjectType = Define.ObjectType.Player;
         CreatureState = Define.CreatureState.Idle;
 
@@ -259,10 +278,19 @@ public class PlayerController : CreatureController
             _isCompleteActive = Skills.ActiveSkill();
     }
 
+    protected override void UpdateDameged()
+    {
+        if (_coWait == null)
+        {
+            CreatureState = CreatureState.Idle;
+            SetDamagedMaterial();
+        }
+    }
+
     #endregion
 
     #region Move
-    
+
     protected override void FixedUpdateMoving()
     {
         if (CreatureState != Define.CreatureState.Moving && CreatureState != Define.CreatureState.Casting)
@@ -317,6 +345,8 @@ public class PlayerController : CreatureController
     public override void OnDamaged(BaseController attacker, int damage)
     {
         base.OnDamaged(attacker, damage);
+
+        SetDamagedMaterial();
     }
 
     protected override void OnDead()

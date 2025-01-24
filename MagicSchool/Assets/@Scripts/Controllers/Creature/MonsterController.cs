@@ -122,16 +122,21 @@ public class MonsterController : EffectedCreature
 
         Skills = gameObject.GetOrAddComponent<BaseSkillBook>();
 
-        AnimationEventManager.BindEvent(this, "OnDamaged", HandleOnDamaged);
+        AnimationEventManager.BindEvent(this, "OnAttackTarget", HandleOnAttackTarget);
 
         //WayPoint = Managers.Game.WayPoints[Random.Range(0, Managers.Game.WayPoints.Count)];
 
         return true;
     }
 
-    public virtual void HandleOnDamaged()
+    public virtual void HandleOnAttackTarget()
     {
-        Debug.Log("Received");
+        Debug.Log($"Attacker : {gameObject.name}, Target : {_target.name}, Damage : {10}");
+
+        if (_target.IsValid() == false)
+            return;
+
+        _target.OnDamaged(this, 10);
     }
 
     protected override void FixedUpdateMoving() // 물리와 연관돼 있으면

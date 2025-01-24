@@ -31,38 +31,25 @@ public class EffectedCreature : CreatureController
         private set
         {
             _burnDuration = value;
-
-            switch (_isOnBurn)
-            {
-                case true:
-                    OnBurnMaterial();
-                    break;
-                case false:
-                    OffBurnMaterial();
-                    break;
-            }
+            SetBurnMaterial();
         }
     }
     #region Burn Material Setting Method
     
-    protected virtual void OnBurnMaterial()
+    protected virtual void SetBurnMaterial()
     {
-        if (_isOnBurn == false) // 방어 코드하는 게 좋겠지
-            return;
-
-        m.EnableKeyword("GLOW_ON");
-        m.EnableKeyword("FADE_ON");
-        m.EnableKeyword("OUTBASE_ON");
-    }
-
-    protected virtual void OffBurnMaterial()
-    {
-        if (_isOnBurn) // 방어 코드하는 게 좋겠지
-            return;
-
-        m.DisableKeyword("GLOW_ON");
-        m.DisableKeyword("FADE_ON");
-        m.DisableKeyword("OUTBASE_ON");
+        if (_isOnBurn)
+        {
+            m.EnableKeyword("GLOW_ON");
+            m.EnableKeyword("FADE_ON");
+            m.EnableKeyword("OUTBASE_ON");
+        }
+        else
+        {
+            m.DisableKeyword("GLOW_ON");
+            m.DisableKeyword("FADE_ON");
+            m.DisableKeyword("OUTBASE_ON");
+        }
     }
 
     #endregion
@@ -126,7 +113,7 @@ public class EffectedCreature : CreatureController
     void InitBurn() // Burn상태 종료
     {
         _burnDuration = 0;
-        OffBurnMaterial();
+        SetBurnMaterial();
 
         DamageCycle = 0;
         _owner = null;
