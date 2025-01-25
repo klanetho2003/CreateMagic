@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static Define;
 
 public class SpawningPool : MonoBehaviour
 {
@@ -36,7 +37,7 @@ public class SpawningPool : MonoBehaviour
 
         // TEMP : DataID ?
         Vector3 ranPos = Utils.GenerateMonsterSpawnPosition(Managers.Game.Player.transform.position, 5, 10);
-        MonsterController mc = Managers.Object.Spawn<MonsterController>(ranPos, Random.Range(1, 5));
+        MonsterController mc = Managers.Object.Spawn<MonsterController>(ranPos, Random.Range(MONSTER_ASSASIN_ID, MONSTER_MAGESKELETON_SHIELD_ID + 1));
 
         // Value
         mc.Hp = mc.MaxHp;

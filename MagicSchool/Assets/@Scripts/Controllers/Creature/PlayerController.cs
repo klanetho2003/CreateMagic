@@ -113,22 +113,22 @@ public class PlayerController : CreatureController
         switch (CreatureState)
         {
             case Define.CreatureState.Idle:
-                _animator.Play($"Idle{dir}");
+                Anim.Play($"Idle{dir}");
                 break;
             case Define.CreatureState.Moving:
-                _animator.Play($"Moving{dir}");
+                Anim.Play($"Moving{dir}");
                 break;
             case Define.CreatureState.Casting:
-                _animator.Play($"Casting{dir}");
+                Anim.Play($"Casting{dir}");
                 break;
             case Define.CreatureState.DoSkill:
-                _animator.Play($"DoSkill{dir}");
+                Anim.Play($"DoSkill{dir}");
                 break;
             case Define.CreatureState.Dameged:
-                _animator.Play($"Damaged{dir}");
+                Anim.Play($"Damaged{dir}");
                 break;
             case Define.CreatureState.Dead:
-                _animator.Play($"Death{dir}");
+                Anim.Play($"Death{dir}");
                 break;
         }
     }
@@ -137,7 +137,7 @@ public class PlayerController : CreatureController
     {
         bool IsFlipX = (moveDir.x == 0) ? lastDir.x > 0 : moveDir.x > 0;
 
-        _spriteRenderer.flipX = IsFlipX;
+        SpriteRenderer.flipX = IsFlipX;
         _stemp.flipX = IsFlipX;
 
         if (moveDir.y != 0)
@@ -214,25 +214,30 @@ public class PlayerController : CreatureController
     {
         if (base.Init() == false)
             return false;
-
-        Managers.Data.PlayerDic.TryGetValue(1, out Data.PlayerData playerData);
-        _speed = playerData.speed;
-
-        Managers.Game.OnMoveDirChanged += HandleOnMoveDirChange; // 객체 참조값과 함께 함수를 전달하기에 가능한 구독
-        Managers.Input.OnKeyDownHandler += HandleOnKeyDown;
-
-        m = GetComponent<Renderer>().material;
-        Skills = gameObject.GetOrAddComponent<PlayerSkillBook>();
-        _stemp = gameObject.GetOrAddComponent<SpriteRenderer>();
         
-        ObjectType = Define.ObjectType.Player;
-        CreatureState = Define.CreatureState.Idle;
-
-        // To Do
-        FireBallSkill fireBallSkill = Skills.AddSkill<FireBallSkill>(_indicator.position, SkillBook);
+        CreatureType = ECreatureType.Player;
 
         return true;
     }
+
+    public override void SetInfo(int templateID)
+    {
+        base.SetInfo(templateID);
+
+        m = GetComponent<Renderer>().material;
+        Skills = gameObject.GetOrAddComponent<PlayerSkillBook>();
+        _stemp = SpriteRenderer; // ?
+
+        Managers.Game.OnMoveDirChanged -= HandleOnMoveDirChange;
+        Managers.Game.OnMoveDirChanged += HandleOnMoveDirChange; // 객체 참조값과 함께 함수를 전달하기에 가능한 구독
+        Managers.Input.OnKeyDownHandler -= HandleOnKeyDown;
+        Managers.Input.OnKeyDownHandler += HandleOnKeyDown;
+
+        // To Do
+        FireBallSkill fireBallSkill = Skills.AddSkill<FireBallSkill>(_indicator.position, SkillBook);
+    }
+
+
     void InitShadow()
     {
         _shadow.localPosition = new Vector2(_shadow.localPosition.x, -0.55f);
@@ -303,7 +308,7 @@ public class PlayerController : CreatureController
 
     protected void MovePlayer()
     {
-        Vector3 dir = _moveDir * _speed * Time.deltaTime;
+        Vector3 dir = _moveDir * MoveSpeed * Time.deltaTime;
         transform.position += dir;
 
         GetComponent<Rigidbody2D>().velocity = Vector3.zero;
@@ -311,7 +316,7 @@ public class PlayerController : CreatureController
 
     void MoveIndicator()
     {
-        Vector3 dir = _moveDir * _speed * Time.deltaTime;
+        Vector3 dir = _moveDir * MoveSpeed * Time.deltaTime;
 
         if (_moveDir == Vector2.zero)
             return;

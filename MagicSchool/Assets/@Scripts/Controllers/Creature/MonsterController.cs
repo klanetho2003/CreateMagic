@@ -18,8 +18,8 @@ public class MonsterController : EffectedCreature
         get
         {
             // radius 값은 SetInfo하면서 부여하는 값이기에 Data Parsing을 구현하면변수로 존재할 것
-            float targetRadius = (_target.IsValid() == true) ? _target.ColliderRaius : 0;
-            return targetRadius + ColliderRaius + 1.0f; // 2.0f은 추가 판정값 : To Do DataParsing
+            float targetRadius = (_target.IsValid() == true) ? _target.ColliderRadius : 0;
+            return targetRadius + ColliderRadius + 1.0f; // 2.0f은 추가 판정값 : To Do DataParsing
         }
     }
 
@@ -30,24 +30,24 @@ public class MonsterController : EffectedCreature
         switch (CreatureState)
         {
             case CreatureState.Idle:
-                _animator.Play($"Idle");
+                Anim.Play($"Idle");
                 break;
             case CreatureState.Moving:
-                _animator.Play($"Moving");
+                Anim.Play($"Moving");
                 break;
             case CreatureState.Casting:
-                _animator.Play($"Casting");
+                Anim.Play($"Casting");
                 break;
             case CreatureState.DoSkill:
-                _animator.Play($"DoSkill");
+                Anim.Play($"DoSkill");
                 if (_coWait == null) Wait(1f); // Damege Animation 재생 wait // To Do Animation RunTime Parsing
                 break;
             case CreatureState.Dameged:
-                _animator.Play($"Dameged");
+                Anim.Play($"Dameged");
                 if (_coWait == null) Wait(0.75f); // Damege Animation 재생 wait // To Do Animation RunTime Parsing
                 break;
             case CreatureState.Dead:
-                _animator.Play($"Death");
+                Anim.Play($"Death");
                 if (_coWait == null) Wait(1.5f); // Death Animation 재생 wait // To Do Animation RunTime Parsing
                 break;
         }
@@ -115,7 +115,15 @@ public class MonsterController : EffectedCreature
         if (base.Init() == false)
             return false; // 두 번 초기화하지 않도록 끊어주는 부분
 
-        ObjectType = ObjectType.Monster;
+        CreatureType = ECreatureType.Monster;
+
+        return true;
+    }
+
+    public override void SetInfo(int templateID)
+    {
+        base.SetInfo(templateID);
+
         CreatureState = CreatureState.Moving;
 
         _target = Managers.Object.Player;
@@ -125,8 +133,6 @@ public class MonsterController : EffectedCreature
         AnimationEventManager.BindEvent(this, "OnAttackTarget", HandleOnAttackTarget);
 
         //WayPoint = Managers.Game.WayPoints[Random.Range(0, Managers.Game.WayPoints.Count)];
-
-        return true;
     }
 
     public virtual void HandleOnAttackTarget()
@@ -136,7 +142,7 @@ public class MonsterController : EffectedCreature
         if (_target.IsValid() == false)
             return;
 
-        _target.OnDamaged(this, 10);
+        _target.OnDamaged(this, (int)Atk);
     }
 
     protected override void FixedUpdateMoving() // 물리와 연관돼 있으면
@@ -152,10 +158,10 @@ public class MonsterController : EffectedCreature
 
         Vector3 dir = pc.transform.position - transform.position;
 
-        MoveMonsterPosition(dir.normalized, _speed); // sqrMagnitude가 < 1 으면 DoSkill로 바꿀까
+        MoveMonsterPosition(dir.normalized, MoveSpeed); // sqrMagnitude가 < 1 으면 DoSkill로 바꿀까
 
         // On Sprite Flip
-        _spriteRenderer.flipX = dir.x < 0;
+        SpriteRenderer.flipX = dir.x < 0;
     }
 
     #region Move Methods

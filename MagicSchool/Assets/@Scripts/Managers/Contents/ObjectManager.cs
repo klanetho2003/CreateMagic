@@ -13,42 +13,144 @@ public class ObjectManager // ID 부여하는 함수, Object들 들고 있는 등
 
     public T Spawn<T>(Vector3 position, string templateID = null) where T : SkillBase
     {
-        System.Type type = typeof(T);
+        string prefabName = typeof(T).Name;
 
-        if (typeof(T).IsSubclassOf(typeof(SkillBase)))
+        GameObject go = Managers.Resource.Instantiate(prefabName, pooling: true);
+        go.name = prefabName;
+        go.transform.position = position;
+
+        BaseController obj = go.GetComponent<SkillBase>();
+
+        if (obj.ObjectType == EObjectType.Skill)
         {
-            if (Managers.Data.SkillDic.TryGetValue(templateID, out Data.SkillData skillData) == false)
+            if (templateID != null && Managers.Data.SkillDic.TryGetValue(templateID, out Data.SkillData data) == false)
             {
-                Debug.LogError($"ObjectManager Spawn Skill Failed {templateID}");
+                Debug.LogError($"ObjectManager Spawn Skill Failed! TryGetValue TemplateID : {templateID}");
                 return null;
             }
 
-            GameObject go = Managers.Resource.Instantiate(skillData.prefab, pooling: true);
+            SkillBase skill = go.GetComponent<SkillBase>();
+            switch (skill.SkillType)
+            {
+                case ESkillType.Repeat:
+                    RepeatSkill repeat = skill as RepeatSkill;
+                    // 특별 처리
+                    break;
+                case ESkillType.Single:
+                    SingleSkill single = skill as SingleSkill;
+                    // 특별 처리
+                    break;
+                case ESkillType.Sequence:
+                    SequenceSkill sequence = skill as SequenceSkill;
+                    // 특별 처리
+                    break;
+            }
 
-            go.transform.position = position;
-            T t = go.GetOrAddComponent<T>();
-            t.Init();
-
-            return t;
+            // skill.SetInfo(templateID); // To Do
         }
-        else if (type == typeof(ProjectileController))
+        else if (obj.ObjectType == EObjectType.ProjecTile)
         {
-            GameObject go = Managers.Resource.Instantiate(Managers.Data.SkillDic[templateID].prefab, pooling: true);
-            go.transform.position = position;
-
             ProjectileController pc = go.GetOrAddComponent<ProjectileController>();
             ProjectTiles.Add(pc);
-            pc.Init();
 
-            return pc as T;
+            //pc.SetInfo(templateID); // To Do : setInfo와 SetSkill 로 분기 필요 아니면 매개변수를 다르게 하던가
         }
 
-        return null;
+        return obj as T;
+
+        #region 구버전
+        /*System.Type type = typeof(T);
+
+    if (typeof(T).IsSubclassOf(typeof(SkillBase)))
+    {
+        if (Managers.Data.SkillDic.TryGetValue(templateID, out Data.SkillData skillData) == false)
+        {
+            Debug.LogError($"ObjectManager Spawn Skill Failed {templateID}");
+            return null;
+        }
+
+        GameObject go = Managers.Resource.Instantiate(skillData.prefab, pooling: true);
+
+        go.transform.position = position;
+        T t = go.GetOrAddComponent<T>();
+        t.Init();
+
+        return t;
+    }
+    else if (type == typeof(ProjectileController))
+    {
+        GameObject go = Managers.Resource.Instantiate(Managers.Data.SkillDic[templateID].prefab, pooling: true);
+        go.transform.position = position;
+
+        ProjectileController pc = go.GetOrAddComponent<ProjectileController>();
+        ProjectTiles.Add(pc);
+        pc.Init();
+
+        return pc as T;
+    }
+
+    return null;*/
+        #endregion
+
     }
 
     public T Spawn<T>(Vector3 position, int templateID = 0) where T : BaseController
     {
-        System.Type type = typeof(T);
+        string prefabName = typeof(T).Name;
+
+        GameObject go = Managers.Resource.Instantiate(prefabName, pooling: true);
+        go.name = prefabName;
+        go.transform.position = position;
+
+        BaseController obj = go.GetComponent<BaseController>();
+
+        if (obj.ObjectType == EObjectType.Creature)
+        {
+            // Data Check - 개발 단계에서 check하기 위한 것. 배포 준비 단계에서 꼼꼼히 체크한 후 조건문 지울 것.
+            if (templateID != 0 && Managers.Data.CreatureDic.TryGetValue(templateID, out Data.CreatureData data) == false)
+            {
+                Debug.LogError($"ObjectManager Spawn Creature Failed! TryGetValue TemplateID : {templateID}");
+                return null;
+            }
+
+            CreatureController creature = go.GetComponent<CreatureController>();
+            switch (creature.CreatureType)
+            {
+                case ECreatureType.Player:
+                    // obj.transform.parent = PlayerRoot;
+                    PlayerController player = creature as PlayerController;
+                    Player = player;
+                    break;
+                case ECreatureType.Monster:
+                    // obj.transform.parent = MonsterRoot;
+                    MonsterController monster = creature as MonsterController;
+                    Monsters.Add(monster);
+                    break;
+            }
+
+            creature.SetInfo(templateID);
+        }
+        else if (obj.ObjectType == EObjectType.ProjecTile)
+        {
+            // To Do
+        }
+        else if (obj.ObjectType == EObjectType.Env)
+        {
+            JamController jc = obj as JamController;
+            Jams.Add(jc);
+
+            string key = UnityEngine.Random.Range(0, 2) == 0 ? "EXPJam_01.sprite" : "EXPJam_02.sprite";
+            Sprite sprite = Managers.Resource.Load<Sprite>(key);
+            obj.SpriteRenderer.sprite = sprite;
+
+            //TEMP
+            GameObject.Find("@Grid").GetComponent<GridController>().Add(go);
+        }
+
+        return obj as T;
+
+        #region 구버전
+        /*System.Type type = typeof(T);
 
         if (type == typeof(PlayerController))
         {
@@ -65,15 +167,15 @@ public class ObjectManager // ID 부여하는 함수, Object들 들고 있는 등
         }
         else if (type == typeof(MonsterController))
         {
-            Data.MonsterData monsterData;
+            Data.CreatureData creatureData;
 
-            if (Managers.Data.MonsterDic.TryGetValue(templateID, out monsterData) == false)
+            if (Managers.Data.CreatureDic.TryGetValue(templateID, out creatureData) == false)
             {
-                Debug.LogError($"ObjectManager Spawn MOnster Failed {monsterData.name}");
+                Debug.LogError($"ObjectManager Spawn MOnster Failed {creatureData.DescriptionTextID}");
                 return null;
             }
 
-            GameObject go = Managers.Resource.Instantiate(monsterData.prefab, pooling: true);
+            GameObject go = Managers.Resource.Instantiate("creatureData.prefab", pooling: true);
             go.transform.position = position;
 
             MonsterController mc = go.GetOrAddComponent<MonsterController>();
@@ -101,7 +203,8 @@ public class ObjectManager // ID 부여하는 함수, Object들 들고 있는 등
             return jc as T;
         }
 
-        return null;
+        return null;*/
+        #endregion
     }
 
     public void Despawn<T>(T obj) where T : BaseController
@@ -109,7 +212,34 @@ public class ObjectManager // ID 부여하는 함수, Object들 들고 있는 등
         if (obj.IsValid() == false)
             return;
 
-        System.Type type = typeof(T);
+        if (obj.ObjectType == EObjectType.Creature)
+        {
+            CreatureController creature = obj.GetComponent<CreatureController>();
+            switch (creature.CreatureType)
+            {
+                case ECreatureType.Player:
+                    PlayerController player = creature as PlayerController;
+                    Player = null;
+                    break;
+                case ECreatureType.Monster:
+                    MonsterController monster = creature as MonsterController;
+                    Monsters.Remove(monster);
+                    break;
+            }
+        }
+        else if (obj.ObjectType == EObjectType.ProjecTile)
+        {
+            // To Do
+        }
+        else if (obj.ObjectType == EObjectType.Env)
+        {
+            // To Do
+        }
+
+        Managers.Resource.Destroy(obj.gameObject);
+
+        #region 구버전
+        /*System.Type type = typeof(T);
 
         if (type == typeof(PlayerController))
         {
@@ -140,7 +270,8 @@ public class ObjectManager // ID 부여하는 함수, Object들 들고 있는 등
         else if (type == typeof(BossController))
         {
             Managers.Resource.Destroy(obj.gameObject);
-        }
+        }*/
+        #endregion
     }
 
     public void DespawnAllMonsters()

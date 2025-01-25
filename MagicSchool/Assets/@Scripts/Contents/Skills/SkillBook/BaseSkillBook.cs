@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static Define;
 
 public class BaseSkillBook : MonoBehaviour // 스폰하려는 스킬의 위치를 활용할 수도 있고, 스킬을 프리펩으로 만들어둔 경우도 있기에 monobehavior를 사용
                                        // >> Hierarchy에 등장할 필요가 있는 친구들이 많으니 유니티에서 제공하는 함수를 사용하는 경우가 많을 것으로 예성
@@ -14,7 +15,7 @@ public class BaseSkillBook : MonoBehaviour // 스폰하려는 스킬의 위치를 활용할 수
     public List<SequenceSkill> SequenceSkills { get; } = new List<SequenceSkill>();
     public Dictionary<string, SkillBase> BaseSkillDict { get; } = new Dictionary<string, SkillBase>();
 
-    public Define.ObjectType Onwer { get; protected set; }
+    public EObjectType Onwer { get; protected set; }
 
     void Awake()
     {

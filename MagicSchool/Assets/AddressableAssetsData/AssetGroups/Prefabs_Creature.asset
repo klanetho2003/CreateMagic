@@ -10,33 +10,21 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
-  m_Name: Prefabs
+  m_Name: Prefabs_Creature
   m_EditorClassIdentifier: 
-  m_GroupName: Prefabs
+  m_GroupName: Prefabs_Creature
   m_Data:
     m_SerializedData: []
-  m_GUID: 5b30a63d1f8048645bc1b2edd84d2878
+  m_GUID: d38aa8c63d6a2be4b85ae77cf11894e1
   m_SerializeEntries:
-  - m_GUID: 29c72af2c8fb78a43a3ba831c54abe78
-    m_Address: EXPJam.prefab
+  - m_GUID: 061411806f8efdd439fdc7b118abde19
+    m_Address: PlayerController
     m_ReadOnly: 0
     m_SerializedLabels:
     - PreLoad
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: c429e5c56afc5cb48ab7d751f1cf7b1c
-    m_Address: Map_01.prefab
-    m_ReadOnly: 0
-    m_SerializedLabels:
-    - PreLoad
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 883fe53103777284687644153e504776
-    m_Address: Magicion_01.prefab
-    m_ReadOnly: 0
-    m_SerializedLabels:
-    - PreLoad
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: ae29546ccd919f14190af460298e9d17
-    m_Address: Map_Prototype.prefab
+  - m_GUID: 38af6f3bb36bf7348b20d522407a69f9
+    m_Address: MonsterController
     m_ReadOnly: 0
     m_SerializedLabels:
     - PreLoad
@@ -45,5 +33,5 @@ MonoBehaviour:
   m_Settings: {fileID: 11400000, guid: 75ee46cc5156e824ebaac0c11ee626a5, type: 2}
   m_SchemaSet:
     m_Schemas:
-    - {fileID: 11400000, guid: 4ec56371368aa3847aa21e2ae452c1aa, type: 2}
-    - {fileID: 11400000, guid: 9a177324211c83f40819b832916c55a4, type: 2}
+    - {fileID: 11400000, guid: 7f19c74ae06f8cf45985555f6b740664, type: 2}
+    - {fileID: 11400000, guid: 7259051e12a538c4ab537a37512074d0, type: 2}

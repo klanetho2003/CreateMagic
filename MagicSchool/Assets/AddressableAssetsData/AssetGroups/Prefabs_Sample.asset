@@ -10,54 +10,42 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
-  m_Name: Prefabs_Monsters
+  m_Name: Prefabs_Sample
   m_EditorClassIdentifier: 
-  m_GroupName: Prefabs_Monsters
+  m_GroupName: Prefabs_Sample
   m_Data:
     m_SerializedData: []
   m_GUID: 49aafe9c92505584d805442dde00c8f7
   m_SerializeEntries:
-  - m_GUID: ad03a629ccaefd846a97f64c3b6bec95
-    m_Address: Boss_01.prefab
-    m_ReadOnly: 0
-    m_SerializedLabels:
-    - PreLoad
-    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: f621c8ea79a8ba84f9373c55881bc514
     m_Address: MageSkeleton_RustyShield.prefab
     m_ReadOnly: 0
-    m_SerializedLabels:
-    - PreLoad
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: d098a59c006959340b59d178d85b87c2
-    m_Address: ShieldDrop.prefab
-    m_ReadOnly: 0
-    m_SerializedLabels:
-    - PreLoad
+    m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 091860397368a5247864bbeb86a70277
     m_Address: MageSkeleton.prefab
     m_ReadOnly: 0
-    m_SerializedLabels:
-    - PreLoad
+    m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: a42be6e5563edc246aa991a1e8cb6990
     m_Address: SkeletonWithShield.prefab
     m_ReadOnly: 0
-    m_SerializedLabels:
-    - PreLoad
+    m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: d47ff0f6e00f1b9459f869ee57beacbd
     m_Address: Skeleton.prefab
     m_ReadOnly: 0
-    m_SerializedLabels:
-    - PreLoad
+    m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 8b680bf2912d29e4ca1fdb08c7a25155
     m_Address: Assassin.prefab
     m_ReadOnly: 0
-    m_SerializedLabels:
-    - PreLoad
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 883fe53103777284687644153e504776
+    m_Address: Magicion_01.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 75ee46cc5156e824ebaac0c11ee626a5, type: 2}

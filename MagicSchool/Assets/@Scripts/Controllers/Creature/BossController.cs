@@ -25,16 +25,16 @@ public class BossController : MonsterController
         switch (CreatureState)
         {
             case Define.CreatureState.Idle:
-                _animator.Play("Idle");
+                Anim.Play("Idle");
                 break;
             case Define.CreatureState.Moving:
-                _animator.Play("Moving");
+                Anim.Play("Moving");
                 break;
             case Define.CreatureState.DoSkill:
                 //_animator.Play("Attack");
                 break;
             case Define.CreatureState.Dead:
-                _animator.Play("Death");
+                Anim.Play("Death");
                 break;
         }
     }

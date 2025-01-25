@@ -5,7 +5,7 @@ using UnityEngine;
 
 public abstract class SequenceSkill : SkillBase
 {
-    public SequenceSkill() : base(Define.SkillType.Sequence)
+    public SequenceSkill() : base(Define.ESkillType.Sequence)
     {
         
     }

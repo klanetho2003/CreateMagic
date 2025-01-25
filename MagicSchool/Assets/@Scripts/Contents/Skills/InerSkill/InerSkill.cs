@@ -7,7 +7,7 @@ public abstract class InerSkill : SkillBase
 {
     public int processCount { get; set; } = 0;
 
-    public InerSkill(string key) : base(Define.SkillType.Iner)
+    public InerSkill(string key) : base(Define.ESkillType.None)
     {
         this.Key = key;
     }

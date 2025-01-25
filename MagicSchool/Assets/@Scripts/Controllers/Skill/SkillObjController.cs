@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class SkillObjController : SkillBase
 {
-    public SkillObjController() : base(Define.SkillType.None) { } // 그저 SKillBase의 정보만을 읽기 위해 SKillBase를 상속 받은 것이기에 type을 Mone으로 넣어줬다
+    public SkillObjController() : base(Define.ESkillType.None) { } // 그저 SKillBase의 정보만을 읽기 위해 SKillBase를 상속 받은 것이기에 type을 Mone으로 넣어줬다
 
 
     public float _lifeTime { get; protected set; }

@@ -1,0 +1,8 @@
+TemplateID,DescriptionTextID,Label,ColliderOffSetX,ColliderOffsetY,ColliderRadius,Mass,MaxHp,UpMaxHp,Atk,AtkRange,AtkBonus,Def,MoveSpeed,TotalExp,HpRate,AtkRate,DefRate,MoveSpeedRate,MaterialID,AnimatorDataID,SortingLayerName,SkillList,DropItemId,StandardAttack
+201000,Magicion_01,Hero,0,0,0.65,3,1000,2,25,4,2,0,15,200,1,1,1,1,Magicion_01,Magicion01_Animator,Player,10002,,
+201001,¿ö¸®¾î,Hero,0,0,0.65,3,1000,2,25,1.5,2,0,15,200,1,1,1,1,Magicion_01,Magicion01_Animator,Player,10001,,
+202001,Assassin,Monster,0,0,0.14,5,300,5,2,1.5,2,0,10,200,1,1,1,1,Assassin,Assassin_Animator,Monster,10001,400000,
+202002,Skeleton,Monster,0,0.18,0.35,5,400,5,2,1.5,2,1,10,200,1,1,1,1,Skeleton,Skeleton_Animator,Monster,10001,400000,
+202003,SkeletonWithShield,Monster,0,0,0.12,5,700,5,2,1.5,2,2,10,200,1,1,1,1,SkeletonWithShield,SkeletonWithShield_Animator,Monster,10001,400000,
+202004,Mage_Skeleton,Monster,0,0.11,0.19,5,500,4,2,1.5,2,5,14,200,1,1,1,1,Mage_Skeleton,MageSkeleton_Animator,Monster,10001,400000,
+202005,MageSkeleton-RustyShield,Monster,0,0.11,0.19,5,400,4,2,4,2,4,10,200,1,1,1,1,MageSkeleton-RustyShield,MageSkeletonWithShield_Animator,Monster,10004,400000,

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static Define;
 
 public class GameScene : MonoBehaviour
 {
@@ -50,7 +51,7 @@ public class GameScene : MonoBehaviour
 
         Managers.UI.ShowSceneUI<UI_GameScene>();
 
-        var player = Managers.Object.Spawn<PlayerController>(Vector3.zero);
+        var player = Managers.Object.Spawn<PlayerController>(Vector3.zero, MAGICION01_ID);
 
         _spawningPool = gameObject.GetOrAddComponent<SpawningPool>();
 
@@ -95,7 +96,7 @@ public class GameScene : MonoBehaviour
             Managers.Object.DespawnAllMonsters();
 
             Vector2 spawnPos = Utils.GenerateMonsterSpawnPosition(Managers.Game.Player.transform.position, 4, 8);
-            Managers.Object.Spawn<MonsterController>(spawnPos, (int)Define.MonsterID.Boss);
+            // Boss Spawn
         }
     }
 

@@ -5,18 +5,19 @@ using static Define;
 
 public class BaseController : MonoBehaviour
 {
+    public EObjectType ObjectType { get; protected set; } = EObjectType.None;
+    public CircleCollider2D Collider { get; private set; }
+    public Rigidbody2D RigidBody { get; private set; }
+    public Animator Anim { get; private set; }
+    public SpriteRenderer SpriteRenderer { get; private set; }
 
+    public float ColliderRadius { get { return (Collider != null) ? Collider.radius : 0.0f; } }
+    public Vector3 CenterPosition { get { return transform.position + Vector3.up * ColliderRadius; } }
 
-    public ObjectType ObjectType { get; protected set; }
-    public float ColliderRaius
-    {
-        get
-        {
-            // To Do Data Parsing
-            return GetComponent<CircleCollider2D>() != null ? GetComponent<CircleCollider2D>().radius : 0.0f;
-        }
-    }
+    public int DataTemplateID { get; set; }
 
+    #region Init
+    
     void Awake()
     {
         Init();
@@ -29,10 +30,19 @@ public class BaseController : MonoBehaviour
         if (_init)
             return false;
 
+        Collider = gameObject.GetOrAddComponent<CircleCollider2D>();
+        Anim = GetComponent<Animator>();
+        RigidBody = GetComponent<Rigidbody2D>();
+        SpriteRenderer = GetComponent<SpriteRenderer>();
+
         _init = true;
         return true;
     }
 
+    #endregion
+
+    #region Update
+    
     void Update()
     {
         UpdateController();
@@ -40,6 +50,10 @@ public class BaseController : MonoBehaviour
 
     public virtual void UpdateController() { }
 
+    #endregion
+
+    #region FixedUpdate
+    
     void FixedUpdate()
     {
         FixedUpdateController();
@@ -47,10 +61,7 @@ public class BaseController : MonoBehaviour
 
     public virtual void FixedUpdateController() { }
 
-    public void OnAnimationEvent(string eventName)
-    {
-        AnimationEventManager.OnAnimationEvent(this, eventName);
-    }
+    #endregion
 
     #region Battle
 
@@ -59,6 +70,11 @@ public class BaseController : MonoBehaviour
     protected virtual void OnDead() { }
 
     #endregion
+
+    public void OnAnimationEvent(string eventName)
+    {
+        AnimationEventManager.OnAnimationEvent(this, eventName);
+    }
 
     protected virtual void Clear()
     {

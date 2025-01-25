@@ -3,29 +3,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.Rendering;
 using static Define;
 
 public class CreatureController : BaseController
 {
-    #region State Pattern
+    #region State Methods
 
-    CreatureState _creatureState = CreatureState.Idle;
-    public virtual CreatureState CreatureState
-    {
-        get { return _creatureState; }
-        set
-        {
-            if (_creatureState == value)
-                return;
-            if (_creatureState == CreatureState.Dead)
-                return;
-
-            _creatureState = value;
-            UpdateAnimation();
-        }
-    }
-
-    protected Animator _animator;
     public virtual void UpdateAnimation() { }
 
     public override void UpdateController()
@@ -95,22 +79,88 @@ public class CreatureController : BaseController
 
     #endregion
 
-    protected float _speed = 0.5f;
+    public Data.CreatureData CreatureData { get; private set; }
+    public ECreatureType CreatureType { get; protected set; } = ECreatureType.None;
 
-    public int Hp { get; set; } = 100;
-    public int MaxHp { get; set; } = 100;
+    #region Stats
+    public float Hp { get; set; }
+    public float MaxHp { get; set; }
+    public float MaxHpBonusRate { get; set; }
+    public float HealBonusRate { get; set; }
+    public float HpRegen { get; set; }
+    public float Atk { get; set; }
+    public float AttackRate { get; set; }
+    public float Def { get; set; }
+    public float DefRate { get; set; }
+    public float CriRate { get; set; }
+    public float CriDamage { get; set; }
+    public float DamageReduction { get; set; }
+    public float MoveSpeedRate { get; set; }
+    public float MoveSpeed { get; set; }
+    #endregion
 
-    protected SpriteRenderer _spriteRenderer;
+    CreatureState _creatureState = CreatureState.Idle;
+    public virtual CreatureState CreatureState
+    {
+        get { return _creatureState; }
+        set
+        {
+            if (_creatureState == value)
+                return;
+            if (_creatureState == CreatureState.Dead)
+                return;
+
+            _creatureState = value;
+            UpdateAnimation();
+        }
+    }
 
     public override bool Init()
     {
         if (base.Init() == false)
             return false;
 
-        _animator = GetComponent<Animator>();
-        _spriteRenderer = GetComponent<SpriteRenderer>();
+        ObjectType = EObjectType.Creature;
+        CreatureState = CreatureState.Idle;
 
         return true;
+    }
+
+    public virtual void SetInfo(int templateID)
+    {
+        DataTemplateID = templateID;
+
+        CreatureData = Managers.Data.CreatureDic[templateID];
+        gameObject.name = $"{CreatureData.TemplateID}_{CreatureData.DescriptionTextID}"; // To Do : string data sheet
+
+        // Collider
+        Collider.offset = new Vector2(CreatureData.ColliderOffsetX, CreatureData.ColliderOffsetY);
+        Collider.radius = CreatureData.ColliderRadius;
+
+        // RigidBody
+        RigidBody.mass = CreatureData.Mass;
+
+        // Material
+        SpriteRenderer.material = Managers.Resource.Load<Material>(CreatureData.MaterialID);
+
+        // Animatior
+        Anim.runtimeAnimatorController = Managers.Resource.Load<RuntimeAnimatorController>(CreatureData.AnimatorDataID);
+        SortingGroup sg = gameObject.GetOrAddComponent<SortingGroup>();
+        sg.sortingLayerName = CreatureData.SortingLayerName;
+        sg.sortingOrder = SortingLayers.CREATURE;
+
+        // Skills
+        // CreatureData.SkillList; //¿œ¥‹ skip
+
+        // Stat
+        MaxHp = CreatureData.MaxHp;
+        Hp = CreatureData.MaxHp;
+        Atk = CreatureData.Atk;
+        MoveSpeed = CreatureData.MoveSpeed;
+
+
+        // State
+        CreatureState = CreatureState.Idle;
     }
 
     #region Battle

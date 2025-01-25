@@ -10,33 +10,45 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
-  m_Name: Data
+  m_Name: Animator
   m_EditorClassIdentifier: 
-  m_GroupName: Data
+  m_GroupName: Animator
   m_Data:
     m_SerializedData: []
-  m_GUID: 84caf429a3b68ea48ad94fc6b5c5f207
+  m_GUID: 21e969aeabef16a469f96a930edb6a20
   m_SerializeEntries:
-  - m_GUID: 8b24c55c185cbd8488c2e2adc75d8ce3
-    m_Address: PlayerData
+  - m_GUID: 90f2292ad5611534999c0b195a22facf
+    m_Address: Magicion01_Animator
     m_ReadOnly: 0
     m_SerializedLabels:
     - PreLoad
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 4ea94ecb1e754f240a6277b12ae99ac2
-    m_Address: SkillData
+  - m_GUID: 7be6c816bfc4d7344a40b651a4e77a89
+    m_Address: Assassin_Animator
     m_ReadOnly: 0
     m_SerializedLabels:
     - PreLoad
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: c507679c62f0e1f48b1a22053918d620
-    m_Address: MonsterData
+  - m_GUID: c02aff002f0e05b439a6182bd2cdeabf
+    m_Address: MageSkeletonWithShield_Animator
     m_ReadOnly: 0
     m_SerializedLabels:
     - PreLoad
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 5783f223ebfec324d853252d4d0ad80d
-    m_Address: CreatureData
+  - m_GUID: 719f08c53cde4bd4bbd6190a59da234e
+    m_Address: MageSkeleton_Animator
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - PreLoad
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 8a060e495aa607547b23e393e212fae0
+    m_Address: Skeleton_Animator
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - PreLoad
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: c5cc36b107a08044f9e673e2311562c0
+    m_Address: SkeletonWithShield_Animator
     m_ReadOnly: 0
     m_SerializedLabels:
     - PreLoad
@@ -45,5 +57,5 @@ MonoBehaviour:
   m_Settings: {fileID: 11400000, guid: 75ee46cc5156e824ebaac0c11ee626a5, type: 2}
   m_SchemaSet:
     m_Schemas:
-    - {fileID: 11400000, guid: 8cdf1edc39effd54dbb879fafd9bf16e, type: 2}
-    - {fileID: 11400000, guid: b8d4ca7e22ab0a64bb7b03b249cfaad5, type: 2}
+    - {fileID: 11400000, guid: aa379bee0daca3f43a79434d449c39ce, type: 2}
+    - {fileID: 11400000, guid: a64b9b5f1d86e114f9b7a0d8902a14ec, type: 2}

@@ -6,7 +6,7 @@ public abstract class RepeatSkill : SkillBase
 {
     public float CoolTime { get; set; } = 1.0f; // 반복 주기 _ 후에 데이터 시트로 관리 예정
 
-    public RepeatSkill() : base(Define.SkillType.Repeat)
+    public RepeatSkill() : base(Define.ESkillType.Repeat)
     {
 
     }

@@ -5,7 +5,7 @@ using UnityEngine;
 
 public abstract class SingleSkill : SkillBase
 {
-    public SingleSkill(string key) : base(Define.SkillType.Single)
+    public SingleSkill(string key) : base(Define.ESkillType.Single)
     {
         this.Key = key;
     }

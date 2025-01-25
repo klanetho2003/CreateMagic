@@ -66,39 +66,8 @@ namespace Data
 	}*/
     #endregion
 
-    #region MonsterData
-    public class MonsterData
-    {
-        public int templateID;
-
-		public string name;
-		public string prefab;
-
-		public int level;
-		public int maxHp;
-		public int attack;
-		public float speed;
-		// DropData
-		// - 일정 확률로
-		// - 어떤 아이템을 (보석, 스킬 가차, 골드, 고기)
-		// - 몇 개 드랍할지?
-	}
-
-    public class MonsterDataLoader : ILoader<int, MonsterData>
-    {
-        public List<MonsterData> monsters = new List<MonsterData>();
-
-        public Dictionary<int, MonsterData> MakeDict()
-        {
-            Dictionary<int, MonsterData> dict = new Dictionary<int, MonsterData>();
-            foreach (MonsterData monster in monsters)
-                dict.Add(monster.templateID, monster);
-            return dict;
-        }
-    }
-    #endregion
-	#region Monster Xml Data
-	/*public class MonsterData
+    #region Monster Xml Data
+    /*public class MonsterData
     {
         [XmlAttribute]
         public int templateID;
@@ -134,6 +103,63 @@ namespace Data
             return dict;
         }
     }*/
+    #endregion
+
+    #region CreatureData
+    public class CreatureData //public string prefab; // 이제 Prefab 경로는 불필요
+    {
+        public int TemplateID;
+
+        public string DescriptionTextID;
+        public string Label;
+
+        public float ColliderOffsetX;
+        public float ColliderOffsetY;
+        public float ColliderRadius;
+
+        public float Mass;
+
+        #region Stat
+        public float MaxHp;
+        public float UpMaxHp;
+
+        public float Atk;
+        public float AtkRange;
+        public float AtkBonus;
+
+        public float Def;
+        public float MoveSpeed;
+
+        public float TotalExp;
+
+        public float HpRate;
+        public float AtkRate;
+        public float DefRate;
+        public float MoveSpeedRate;
+        #endregion
+
+        public string MaterialID;
+        public string AnimatorDataID;
+        public string SortingLayerName
+;
+        public List<string> SkillList;
+
+        public float DropItemId;
+        public float StandardAttack;
+    }
+
+    public class CreatureDataLoader : ILoader<int, CreatureData>
+    {
+        public List<CreatureData> creature = new List<CreatureData>();
+
+        public Dictionary<int, CreatureData> MakeDict()
+        {
+            Dictionary<int, CreatureData> dict = new Dictionary<int, CreatureData>();
+            foreach (CreatureData creature in creature)
+                dict.Add(creature.TemplateID, creature);
+            return dict;
+        }
+    }
     #endregion
 
     #region SkillData
