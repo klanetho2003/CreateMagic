@@ -48,17 +48,8 @@ public class PlayerController : CreatureController
             Vector2 lastDir = _moveDir;
             _moveDir = value.normalized;
 
-            #region 애니메이션 Update
-            if (value.x == 0 && value.y == 0)
-                return;
-
-            bool IsFlip = (value.x == 0) ? lastDir.x > 0 : value.x > 0;
-            _spriteRenderer.flipX = IsFlip;
-            _stemp.flipX = IsFlip;
-
-            if (value.y != 0) { _isFront = value.y < 0; }
+            OnFlipAnimation(value, lastDir);
             UpdateAnimation();
-            #endregion
         }
     }
 
@@ -140,6 +131,17 @@ public class PlayerController : CreatureController
                 _animator.Play($"Death{dir}");
                 break;
         }
+    }
+
+    void OnFlipAnimation(Vector2 moveDir, Vector2 lastDir)
+    {
+        bool IsFlipX = (moveDir.x == 0) ? lastDir.x > 0 : moveDir.x > 0;
+
+        _spriteRenderer.flipX = IsFlipX;
+        _stemp.flipX = IsFlipX;
+
+        if (moveDir.y != 0)
+            _isFront = moveDir.y < 0;
     }
 
     Coroutine _coOnPlayCastingAnimation;
