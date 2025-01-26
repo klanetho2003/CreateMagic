@@ -16,8 +16,30 @@ public class BaseController : MonoBehaviour
 
     public int DataTemplateID { get; set; }
 
+    bool _lookLeft = true;
+    public bool LookLeft
+    {
+        get { return _lookLeft; }
+        set
+        {
+            _lookLeft = value;
+            FlipX(!value);
+        }
+    }
+
+    bool _lookDown = true;
+    public virtual bool LookDown
+    {
+        get { return _lookDown; }
+        set
+        {
+            _lookDown = value;
+            FlipY(!value);
+        }
+    }
+
     #region Init
-    
+
     void Awake()
     {
         Init();
@@ -30,7 +52,7 @@ public class BaseController : MonoBehaviour
         if (_init)
             return false;
 
-        Collider = gameObject.GetOrAddComponent<CircleCollider2D>();
+        Collider = gameObject.GetComponent<CircleCollider2D>();
         Anim = GetComponent<Animator>();
         RigidBody = GetComponent<Rigidbody2D>();
         SpriteRenderer = GetComponent<SpriteRenderer>();
@@ -71,10 +93,53 @@ public class BaseController : MonoBehaviour
 
     #endregion
 
+    #region Animation
+
+    protected virtual void UpdateAnimation()
+    {
+    }
+
+    public virtual void SetRigidBodyVelocity(Vector2 velocity)
+    {
+        if (RigidBody == null)
+            return;
+
+        if (velocity.x < 0)
+            LookLeft = true;
+        else if (velocity.x > 0)
+            LookLeft = false;
+
+        if (velocity.y < 0)
+            LookDown = true;
+        else if (velocity.y > 0)
+            LookDown = false;
+
+        RigidBody.velocity = velocity;
+    }
+
+    public virtual void FlipX(bool flag)
+    {
+        if (Anim == null)
+            return;
+
+        // On Sprite Flip
+        SpriteRenderer.flipX = flag;
+    }
+
+    public virtual void FlipY(bool flag)
+    {
+        if (Anim == null)
+            return;
+
+        // override
+    }
+
     public void OnAnimationEvent(string eventName)
     {
         AnimationEventManager.OnAnimationEvent(this, eventName);
     }
+
+    #endregion
 
     protected virtual void Clear()
     {

@@ -16,8 +16,11 @@ public class DataTransformer : EditorWindow
     [MenuItem("Tools/ParseExcel %#K")]
     public static void ParseExcelDataToJson()
     {
+        ParseExcelDataToJson<MonsterDataLoader, MonsterData>("Monster");
+        ParseExcelDataToJson<StudentDataLoader, StudentData>("Student");
+        ParseExcelDataToJson<MonsterSkillDataLoader, MonsterSkillData>("MonsterSkill");
         ParseExcelDataToJson<SkillDataLoader, SkillData>("Skill");
-        ParseExcelDataToJson<CreatureDataLoader, CreatureData>("Creature");
+        
         //LEGACY_ParseTestData("Test");
 
         Debug.Log("DataTransformer Completed");

@@ -1,0 +1,3 @@
+TemplateID,DescriptionTextID,Label,ColliderOffSetX,ColliderOffsetY,ColliderRadius,Mass,MaxHp,UpMaxHp,Atk,AtkRange,AtkBonus,Def,MoveSpeed,TotalExp,HpRate,AtkRate,DefRate,MoveSpeedRate,IconImage,MaterialID,AnimatorDataID,SortingLayerName,SkillList,DropItemId,StandardAttack
+201000,Magicion_01,Hero,0,0.5,0.6,15,1000,2,25,4,2,0,5,200,1,1,1,1,002.sprite,Magicion_01,Magicion01_Animator,Player,10002,,
+201001,¿ö¸®¾î,Hero,0,0.5,0.6,15,1000,2,25,1.8,2,0,5,200,1,1,1,1,001.sprite,Magicion_01,Magicion01_Animator,Player,10001,,

@@ -32,8 +32,6 @@ public static class Extension
         effectedCC.OnBurn(owner, addDuration);
     }
 
-
-
     public static bool IsValid(this GameObject go)
     {
         return go != null && go.activeSelf;
@@ -41,6 +39,13 @@ public static class Extension
 
     public static bool IsValid(this BaseController bc)
     {
-        return bc != null && bc.isActiveAndEnabled;
+        if (bc == null || bc.isActiveAndEnabled == false)
+            return false;
+
+        CreatureController creature = bc as CreatureController;
+        if (creature != null)
+            return creature.CreatureState != Define.CreatureState.Dead; // 사망 상태면
+
+        return true;
     }
 }

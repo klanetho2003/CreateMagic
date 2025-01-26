@@ -12,20 +12,26 @@ public class MonsterController : EffectedCreature
     public Transform WayPoint { get; protected set; }
 
     BaseController _target;
-    //public float SearchDistence { get; protected set; } = 10f; // 임시. 변수 자체가 없어도 된다
     public float AttaccDistence
     {
         get
         {
             // radius 값은 SetInfo하면서 부여하는 값이기에 Data Parsing을 구현하면변수로 존재할 것
             float targetRadius = (_target.IsValid() == true) ? _target.ColliderRadius : 0;
-            return targetRadius + ColliderRadius + 1.0f; // 2.0f은 추가 판정값 : To Do DataParsing
+            return targetRadius + ColliderRadius + MONSTER_DEFAULT_MELEE_ATTACK_RANGE; // 2.0f은 추가 판정값 : To Do DataParsing
         }
     }
 
     #region Animation
 
-    public override void UpdateAnimation()
+    public override void FlipX(bool flag) // Monster는 태생이 오른쪽, 반대로 값 넣
+    {
+        flag = !flag;
+        base.FlipX(flag);
+    }
+
+    // Wait와 Animation을 묶는 함수 BaseController에 넣자
+    protected override void UpdateAnimation()
     {
         switch (CreatureState)
         {
@@ -40,15 +46,15 @@ public class MonsterController : EffectedCreature
                 break;
             case CreatureState.DoSkill:
                 Anim.Play($"DoSkill");
-                if (_coWait == null) Wait(1f); // Damege Animation 재생 wait // To Do Animation RunTime Parsing
+                Wait(1f); // Damege Animation + 후딜레이 재생 wait // To Do Animation RunTime Parsing
                 break;
             case CreatureState.Dameged:
                 Anim.Play($"Dameged");
-                if (_coWait == null) Wait(0.75f); // Damege Animation 재생 wait // To Do Animation RunTime Parsing
+                Wait(0.75f); // Damege Animation + 후딜레이 재생 wait // To Do Animation RunTime Parsing
                 break;
             case CreatureState.Dead:
                 Anim.Play($"Death");
-                if (_coWait == null) Wait(1.5f); // Death Animation 재생 wait // To Do Animation RunTime Parsing
+                Wait(1.5f); // Death Animation + 후딜레이 재생 wait // To Do Animation RunTime Parsing
                 break;
         }
     }
@@ -71,7 +77,7 @@ public class MonsterController : EffectedCreature
             return;
         }
 
-        CreatureState = CheckAttackTarget(_target.transform.position, transform.position);
+        // CheckAttackTarget() in FixedUpdateMoving - MonsterController
     }
 
     protected override void UpdateDoSkill()
@@ -83,7 +89,11 @@ public class MonsterController : EffectedCreature
         }
 
         if (_coWait == null)
-            CreatureState = CheckAttackTarget(_target.transform.position, transform.position);
+        {
+            Vector3 dir = _target.transform.position - transform.position;
+            CreatureState = CheckAttackTarget(dir.sqrMagnitude);
+        }
+            
     }
 
     protected override void UpdateDameged()
@@ -98,11 +108,9 @@ public class MonsterController : EffectedCreature
             OnDead();
     }
 
-    CreatureState CheckAttackTarget(Vector3 targetPosition, Vector3 MyPosition)
+    CreatureState CheckAttackTarget(float sqrMagnitude)
     {
-        Vector3 dir = targetPosition - MyPosition;
-
-        float distTargetSqr = dir.sqrMagnitude;
+        float distTargetSqr = sqrMagnitude;
         float attackDistenceSqr = AttaccDistence * AttaccDistence;
 
         return (distTargetSqr <= attackDistenceSqr) ? CreatureState.DoSkill : CreatureState.Moving;
@@ -130,12 +138,12 @@ public class MonsterController : EffectedCreature
 
         Skills = gameObject.GetOrAddComponent<BaseSkillBook>();
 
-        AnimationEventManager.BindEvent(this, "OnAttackTarget", HandleOnAttackTarget);
+        AnimationEventManager.BindEvent(this, "OnAttackTarget", OnAttackTargetHandler);
 
         //WayPoint = Managers.Game.WayPoints[Random.Range(0, Managers.Game.WayPoints.Count)];
     }
 
-    public virtual void HandleOnAttackTarget()
+    public virtual void OnAttackTargetHandler()
     {
         Debug.Log($"Attacker : {gameObject.name}, Target : {_target.name}, Damage : {10}");
 
@@ -148,30 +156,25 @@ public class MonsterController : EffectedCreature
     protected override void FixedUpdateMoving() // 물리와 연관돼 있으면
     {
         if (CreatureState != CreatureState.Moving)
+        {
+            SetRigidBodyVelocity(Vector3.zero); // To Do : 길찾기
             return;
+        }
 
         /*if (WayPoint == null)
             return;*/
-        PlayerController pc = Managers.Object.Player;
-        if (pc.IsValid() == false)
+        
+        if (_target.IsValid() == false)
             return;
 
-        Vector3 dir = pc.transform.position - transform.position;
+        Vector3 dir = _target.transform.position - transform.position;
 
-        MoveMonsterPosition(dir.normalized, MoveSpeed); // sqrMagnitude가 < 1 으면 DoSkill로 바꿀까
+        CreatureState = CheckAttackTarget(dir.sqrMagnitude);
 
-        // On Sprite Flip
-        SpriteRenderer.flipX = dir.x < 0;
+        SetRigidBodyVelocity(dir.normalized * MoveSpeed);
     }
 
     #region Move Methods
-    public virtual void MoveMonsterPosition(Vector3 dirNor, float speed)
-    {
-        Vector3 dir = dirNor * speed * Time.deltaTime;
-        Vector3 newPos = transform.position + dir;
-
-        GetComponent<Rigidbody2D>().MovePosition(newPos);
-    }
     
     public float moveDistance { get; protected set; } = 0.0f;
     Coroutine _coMoveLength;

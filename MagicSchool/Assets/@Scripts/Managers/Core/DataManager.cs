@@ -13,16 +13,17 @@ interface ILoader<Key, Value>
 
 public class DataManager
 {
-    public Dictionary<int, Data.PlayerData> PlayerDic { get; private set; } = new Dictionary<int, Data.PlayerData>();
-    public Dictionary<int, Data.CreatureData> CreatureDic { get; private set; } = new Dictionary<int, Data.CreatureData>();
-
+    public Dictionary<int, Data.MonsterData> MonsterDic { get; private set; } = new Dictionary<int, Data.MonsterData>();
+    public Dictionary<int, Data.StudentData> StudentDic { get; private set; } = new Dictionary<int, Data.StudentData>();
+    public Dictionary<int, Data.MonsterSkillData> MonsterSkillDic { get; private set; } = new Dictionary<int, Data.MonsterSkillData>();
     public Dictionary<string, Data.SkillData> SkillDic { get; private set; } = new Dictionary<string, Data.SkillData>();
 
     public void Init()
     {
-        //PlayerDic = LoadJson<Data.PlayerDataLoader, int, Data.PlayerData>("PlayerData").MakeDict();
-        CreatureDic = LoadJson<Data.CreatureDataLoader, int, Data.CreatureData>("CreatureData").MakeDict();
+        MonsterDic = LoadJson<Data.MonsterDataLoader, int, Data.MonsterData>("MonsterData").MakeDict();
+        StudentDic = LoadJson<Data.StudentDataLoader, int, Data.StudentData>("StudentData").MakeDict();
 
+        MonsterSkillDic = LoadJson<Data.MonsterSkillDataLoader, int, Data.MonsterSkillData>("MonsterSkillData").MakeDict();
         SkillDic = LoadJson<Data.SkillDataLoader, string, Data.SkillData>("SkillData").MakeDict();
     }
 

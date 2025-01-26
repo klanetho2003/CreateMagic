@@ -5,15 +5,12 @@ using static Define;
 
 public class EffectedCreature : CreatureController
 {
-    Material m;
     CreatureController _owner; // 데미지를 가한 cc
 
     public override bool Init()
     {
         if (base.Init() == false)
             return false;
-
-        m = GetComponent<Renderer>().material;
 
         return true;
     }
@@ -40,15 +37,15 @@ public class EffectedCreature : CreatureController
     {
         if (_isOnBurn)
         {
-            m.EnableKeyword("GLOW_ON");
-            m.EnableKeyword("FADE_ON");
-            m.EnableKeyword("OUTBASE_ON");
+            SpriteRenderer.material.EnableKeyword("GLOW_ON");
+            SpriteRenderer.material.EnableKeyword("FADE_ON");
+            SpriteRenderer.material.EnableKeyword("OUTBASE_ON");
         }
         else
         {
-            m.DisableKeyword("GLOW_ON");
-            m.DisableKeyword("FADE_ON");
-            m.DisableKeyword("OUTBASE_ON");
+            SpriteRenderer.material.DisableKeyword("GLOW_ON");
+            SpriteRenderer.material.DisableKeyword("FADE_ON");
+            SpriteRenderer.material.DisableKeyword("OUTBASE_ON");
         }
     }
 

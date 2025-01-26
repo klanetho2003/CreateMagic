@@ -20,7 +20,7 @@ public class BossController : MonsterController
         return true;
     }
 
-    public override void UpdateAnimation()
+    protected override void UpdateAnimation()
     {
         switch (CreatureState)
         {

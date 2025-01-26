@@ -10,8 +10,6 @@ public class CreatureController : BaseController
 {
     #region State Methods
 
-    public virtual void UpdateAnimation() { }
-
     public override void UpdateController()
     {
         base.UpdateController();
@@ -130,7 +128,11 @@ public class CreatureController : BaseController
     {
         DataTemplateID = templateID;
 
-        CreatureData = Managers.Data.CreatureDic[templateID];
+        if (CreatureType == ECreatureType.Student)
+            CreatureData = Managers.Data.StudentDic[templateID];
+        else
+            CreatureData = Managers.Data.MonsterDic[templateID];
+
         gameObject.name = $"{CreatureData.TemplateID}_{CreatureData.DescriptionTextID}"; // To Do : string data sheet
 
         // Collider
@@ -163,6 +165,15 @@ public class CreatureController : BaseController
         CreatureState = CreatureState.Idle;
     }
 
+    #region ETC
+    
+    protected bool IsValid(BaseController bc)
+    {
+        return bc.IsValid();
+    }
+
+    #endregion
+
     #region Battle
 
     public override void OnDamaged(BaseController attacker, int damage)
@@ -171,15 +182,18 @@ public class CreatureController : BaseController
             return;
         if (this.IsValid() == false)
             return;
-        if (Hp <= 0)
+
+        CreatureController creature = attacker as CreatureController;
+        if (creature == null)
             return;
 
+        float finalDamage = creature.Atk; // * 피해량 * 크리티컬 등등
         Hp = Mathf.Clamp(Hp - damage, 0, MaxHp); // Data 시트에 실수로 음수 적어두는 것 방지
+
         CreatureState = CreatureState.Dameged;
 
         if (Hp <= 0)
         {
-            Hp = 0;
             CreatureState = CreatureState.Dead;
         }
     }

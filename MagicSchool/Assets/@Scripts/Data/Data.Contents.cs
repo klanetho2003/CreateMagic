@@ -6,8 +6,10 @@ using UnityEngine;
 
 namespace Data
 {
+    #region Temp : Dev Memo
+
     #region Player Data
-    public class PlayerData
+    /*public class PlayerData
     {
         public int templateID;
         public int maxHp;
@@ -29,8 +31,9 @@ namespace Data
                 dict.Add(stat.templateID, stat);
             return dict;
         }
-    }
+    }*/
     #endregion
+
     #region Player Xml Data
     /*public class PlayerData
 	{
@@ -105,97 +108,7 @@ namespace Data
     }*/
     #endregion
 
-    #region CreatureData
-    public class CreatureData //public string prefab; // 이제 Prefab 경로는 불필요
-    {
-        public int TemplateID;
-
-        public string DescriptionTextID;
-        public string Label;
-
-        public float ColliderOffsetX;
-        public float ColliderOffsetY;
-        public float ColliderRadius;
-
-        public float Mass;
-
-        #region Stat
-        public float MaxHp;
-        public float UpMaxHp;
-
-        public float Atk;
-        public float AtkRange;
-        public float AtkBonus;
-
-        public float Def;
-        public float MoveSpeed;
-
-        public float TotalExp;
-
-        public float HpRate;
-        public float AtkRate;
-        public float DefRate;
-        public float MoveSpeedRate;
-        #endregion
-
-        public string MaterialID;
-        public string AnimatorDataID;
-        public string SortingLayerName
-;
-        public List<string> SkillList;
-
-        public float DropItemId;
-        public float StandardAttack;
-    }
-
-    public class CreatureDataLoader : ILoader<int, CreatureData>
-    {
-        public List<CreatureData> creature = new List<CreatureData>();
-
-        public Dictionary<int, CreatureData> MakeDict()
-        {
-            Dictionary<int, CreatureData> dict = new Dictionary<int, CreatureData>();
-            foreach (CreatureData creature in creature)
-                dict.Add(creature.TemplateID, creature);
-            return dict;
-        }
-    }
-    #endregion
-
-    #region SkillData
-
-    [Serializable]
-    public class SkillData
-    {
-        public string templateID;
-        public string name;
-        public string prefab;
-        public string type;
-        public int damage;
-
-        public List<string> skills;
-        public float activateSkillDelay;
-        public float completeSkillDelay;
-        public int speed;
-    }
-
-    [Serializable]
-    public class SkillDataLoader : ILoader<string, SkillData>
-    {
-        public List<SkillData> skills = new List<SkillData>();
-
-
-        public Dictionary<string, SkillData> MakeDict()
-        {
-            Dictionary<string, SkillData> dict = new Dictionary<string, SkillData>();
-            foreach (SkillData skill in skills)
-                dict.Add(skill.templateID, skill);
-            return dict;
-        }
-    }
-
-    #endregion
-    #region SkillData Xml 주석
+    #region Skill Xml Data
     /*public class SkillData
 	{
 		[XmlAttribute]
@@ -233,5 +146,170 @@ namespace Data
 			return dict;
 		}
 	}*/
+    #endregion
+
+    #endregion
+
+
+    #region Creature Data
+    public class CreatureData //public string prefab; // 이제 Prefab 경로는 불필요
+    {
+        public int TemplateID;
+
+        public string DescriptionTextID;
+        public string Label;
+
+        public float ColliderOffsetX;
+        public float ColliderOffsetY;
+        public float ColliderRadius;
+
+        public float Mass;
+
+        #region Stat
+        public float MaxHp;
+        public float UpMaxHp;
+
+        public float Atk;
+        public float AtkRange;
+        public float AtkBonus;
+
+        public float Def;
+        public float MoveSpeed;
+
+        public float TotalExp;
+
+        public float HpRate;
+        public float AtkRate;
+        public float DefRate;
+        public float MoveSpeedRate;
+        #endregion
+
+        public string IconImage;
+        public string MaterialID;
+        public string AnimatorDataID;
+        public string SortingLayerName
+;
+        public List<string> SkillList;
+
+        public float DropItemId;
+        public float StandardAttack;
+    }
+    #endregion
+
+    #region Monster Data
+    [Serializable]
+    public class MonsterData : CreatureData //public string prefab; // 이제 Prefab 경로는 불필요
+    {
+        // 추가되는 부분
+    }
+
+    [Serializable]
+    public class MonsterDataLoader : ILoader<int, MonsterData>
+    {
+        public List<MonsterData> monsters = new List<MonsterData>();
+        public Dictionary<int, MonsterData> MakeDict()
+        {
+            Dictionary<int, MonsterData> dict = new Dictionary<int, MonsterData>();
+            foreach (MonsterData monster in monsters)
+                dict.Add(monster.TemplateID, monster);
+            return dict;
+        }
+    }
+    #endregion
+
+    #region Student Data
+    [Serializable]
+    public class StudentData : CreatureData //public string prefab; // 이제 Prefab 경로는 불필요
+    {
+        // 추가되는 부분
+    }
+
+    [Serializable]
+    public class StudentDataLoader : ILoader<int, StudentData>
+    {
+        public List<StudentData> Students = new List<StudentData>();
+        public Dictionary<int, StudentData> MakeDict()
+        {
+            Dictionary<int, StudentData> dict = new Dictionary<int, StudentData>();
+            foreach (StudentData Student in Students)
+                dict.Add(Student.TemplateID, Student);
+            return dict;
+        }
+    }
+    #endregion
+
+    #region Monster Skill Data
+
+    [Serializable]
+    public class MonsterSkillData
+    {
+        public int DataId;
+        public string Name;
+        public string ClassName;
+        public string ComponentName;
+        public string Description;
+        public int ProjectileId;
+        public string PrefabLabel;
+        public string IconLabel;
+        public string AnimName;
+        public float CoolTime;
+        public float DamageMultiplier;
+        public float Duration;
+        public float NumProjectiles;
+        public string CastingSound;
+        public float AngleBetweenProj;
+        public float SkillRange;
+        public float RotateSpeed;
+        public float ScaleMultiplier;
+        public float AngleRange;
+    }
+
+    [Serializable]
+    public class MonsterSkillDataLoader : ILoader<int, MonsterSkillData>
+    {
+        public List<MonsterSkillData> skills = new List<MonsterSkillData>();
+        public Dictionary<int, MonsterSkillData> MakeDict()
+        {
+            Dictionary<int, MonsterSkillData> dict = new Dictionary<int, MonsterSkillData>();
+            foreach (MonsterSkillData skill in skills)
+                dict.Add(skill.DataId, skill);
+            return dict;
+        }
+    }
+
+    #endregion
+
+    #region Skill Data
+
+    [Serializable]
+    public class SkillData
+    {
+        public string templateID;
+        public string name;
+        public string prefab;
+        public string type;
+        public int damage;
+
+        public List<string> skills;
+        public float activateSkillDelay;
+        public float completeSkillDelay;
+        public int speed;
+    }
+
+    [Serializable]
+    public class SkillDataLoader : ILoader<string, SkillData>
+    {
+        public List<SkillData> skills = new List<SkillData>();
+
+
+        public Dictionary<string, SkillData> MakeDict()
+        {
+            Dictionary<string, SkillData> dict = new Dictionary<string, SkillData>();
+            foreach (SkillData skill in skills)
+                dict.Add(skill.templateID, skill);
+            return dict;
+        }
+    }
+
     #endregion
 }

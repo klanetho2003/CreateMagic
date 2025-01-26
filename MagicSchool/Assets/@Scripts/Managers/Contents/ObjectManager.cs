@@ -106,17 +106,10 @@ public class ObjectManager // ID 부여하는 함수, Object들 들고 있는 등
 
         if (obj.ObjectType == EObjectType.Creature)
         {
-            // Data Check - 개발 단계에서 check하기 위한 것. 배포 준비 단계에서 꼼꼼히 체크한 후 조건문 지울 것.
-            if (templateID != 0 && Managers.Data.CreatureDic.TryGetValue(templateID, out Data.CreatureData data) == false)
-            {
-                Debug.LogError($"ObjectManager Spawn Creature Failed! TryGetValue TemplateID : {templateID}");
-                return null;
-            }
-
             CreatureController creature = go.GetComponent<CreatureController>();
             switch (creature.CreatureType)
             {
-                case ECreatureType.Player:
+                case ECreatureType.Student:
                     // obj.transform.parent = PlayerRoot;
                     PlayerController player = creature as PlayerController;
                     Player = player;
@@ -217,7 +210,7 @@ public class ObjectManager // ID 부여하는 함수, Object들 들고 있는 등
             CreatureController creature = obj.GetComponent<CreatureController>();
             switch (creature.CreatureType)
             {
-                case ECreatureType.Player:
+                case ECreatureType.Student:
                     PlayerController player = creature as PlayerController;
                     Player = null;
                     break;

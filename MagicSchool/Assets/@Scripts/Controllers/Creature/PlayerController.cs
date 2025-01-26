@@ -30,10 +30,8 @@ public class PlayerController : CreatureController
 
     #endregion
 
-    Material m;
     public PlayerSkillBook Skills { get; protected set; }
 
-    bool _isFront = true;
     Vector2 _moveDir = Vector2.zero;
     public Vector2 MoveDir
     {
@@ -42,13 +40,8 @@ public class PlayerController : CreatureController
         {
             if (CreatureState == CreatureState.DoSkill) return;
 
-            if (_moveDir == value.normalized) // 중복일 때 두 번들어가서 lastDir이 바뀌는 것을 방지
-                return;
-
-            Vector2 lastDir = _moveDir;
             _moveDir = value.normalized;
 
-            OnFlipAnimation(value, lastDir);
             UpdateAnimation();
         }
     }
@@ -106,42 +99,60 @@ public class PlayerController : CreatureController
     }
 
     #region Player Animation
-    public override void UpdateAnimation()
-    {
-        string dir = (_isFront == true) ? "Front" : "Back";
 
+    protected override void UpdateAnimation()
+    {
         switch (CreatureState)
         {
-            case Define.CreatureState.Idle:
-                Anim.Play($"Idle{dir}");
+            case CreatureState.Idle:
+                {
+                    if (LookDown)
+                        Anim.Play("IdleFront");
+                    else
+                        Anim.Play("IdleBack");
+                }
                 break;
-            case Define.CreatureState.Moving:
-                Anim.Play($"Moving{dir}");
+            case CreatureState.Moving:
+                {
+                    if (LookDown)
+                        Anim.Play("MovingFront");
+                    else
+                        Anim.Play("MovingBack");
+                }
                 break;
-            case Define.CreatureState.Casting:
-                Anim.Play($"Casting{dir}");
+            case CreatureState.Casting:
+                {
+                    if (LookDown)
+                        Anim.Play("CastingFront");
+                    else
+                        Anim.Play("CastingBack");
+                }
                 break;
-            case Define.CreatureState.DoSkill:
-                Anim.Play($"DoSkill{dir}");
+            case CreatureState.DoSkill:
+                {
+                    if (LookDown)
+                        Anim.Play("DoSkillFront");
+                    else
+                        Anim.Play("DoSkillBack");
+                }
                 break;
-            case Define.CreatureState.Dameged:
-                Anim.Play($"Damaged{dir}");
+            case CreatureState.Dameged:
+                {
+                    if (LookDown)
+                        Anim.Play("DamagedFront");
+                    else
+                        Anim.Play("DamagedBack");
+                }
                 break;
-            case Define.CreatureState.Dead:
-                Anim.Play($"Death{dir}");
+            case CreatureState.Dead:
+                {
+                    if (LookDown)
+                        Anim.Play("DeathFront");
+                    else
+                        Anim.Play("DeathBack");
+                }
                 break;
         }
-    }
-
-    void OnFlipAnimation(Vector2 moveDir, Vector2 lastDir)
-    {
-        bool IsFlipX = (moveDir.x == 0) ? lastDir.x > 0 : moveDir.x > 0;
-
-        SpriteRenderer.flipX = IsFlipX;
-        _stemp.flipX = IsFlipX;
-
-        if (moveDir.y != 0)
-            _isFront = moveDir.y < 0;
     }
 
     Coroutine _coOnPlayCastingAnimation;
@@ -185,11 +196,11 @@ public class PlayerController : CreatureController
     {
         if (CreatureState == CreatureState.Dameged)
         {
-            m.EnableKeyword("HITEFFECT_ON");
+            SpriteRenderer.material.EnableKeyword("HITEFFECT_ON");
         }
         else
         {
-            m.DisableKeyword("HITEFFECT_ON");
+            SpriteRenderer.material.DisableKeyword("HITEFFECT_ON");
         }
     }
 
@@ -215,7 +226,7 @@ public class PlayerController : CreatureController
         if (base.Init() == false)
             return false;
         
-        CreatureType = ECreatureType.Player;
+        CreatureType = ECreatureType.Student;
 
         return true;
     }
@@ -224,7 +235,6 @@ public class PlayerController : CreatureController
     {
         base.SetInfo(templateID);
 
-        m = GetComponent<Renderer>().material;
         Skills = gameObject.GetOrAddComponent<PlayerSkillBook>();
         _stemp = SpriteRenderer; // ?
 
@@ -300,18 +310,13 @@ public class PlayerController : CreatureController
 
     protected override void FixedUpdateMoving()
     {
-        if (CreatureState != Define.CreatureState.Moving && CreatureState != Define.CreatureState.Casting)
+        if (CreatureState != CreatureState.Moving && CreatureState != CreatureState.Casting)
+        {
+            SetRigidBodyVelocity(Vector3.zero); // To Do : 길찾기
             return;
+        }
 
-        MovePlayer();
-    }
-
-    protected void MovePlayer()
-    {
-        Vector3 dir = _moveDir * MoveSpeed * Time.deltaTime;
-        transform.position += dir;
-
-        GetComponent<Rigidbody2D>().velocity = Vector3.zero;
+        SetRigidBodyVelocity(_moveDir.normalized * MoveSpeed);
     }
 
     void MoveIndicator()

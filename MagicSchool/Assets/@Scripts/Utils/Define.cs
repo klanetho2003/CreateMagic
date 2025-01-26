@@ -17,15 +17,8 @@ public static class Define
     {
         None,
 
-        Player,
-        //Magicion_01,
-
+        Student,
         Monster,
-        /*Assassin,
-        Skeleton,
-        Skeleton_Shield,
-        MageSkeleton,
-        MageSkeleton_RustyShield,*/
     }
 
     public enum ESkillType
@@ -108,6 +101,9 @@ public static class Define
     public const int MONSTER_MAGESKELETON_SHIELD_ID = 202005;
     #endregion
 
+    //HARD CODING
+    public const int MONSTER_DEFAULT_MELEE_ATTACK_RANGE = 1;
+    public const int MONSTER_DEFAULT_RANGED_ATTACK_RANGE = 4;
 
     public static class AnimationName
     {
