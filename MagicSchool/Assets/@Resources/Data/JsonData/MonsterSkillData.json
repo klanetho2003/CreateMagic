@@ -9,7 +9,7 @@
       "ProjectileId": 0,
       "PrefabLabel": null,
       "IconLabel": "BattleSkillIcon_01",
-      "AnimName": "attack",
+      "AnimName": "NormalAttack",
       "CoolTime": 1.2,
       "DamageMultiplier": 1.0,
       "Duration": 0.0,

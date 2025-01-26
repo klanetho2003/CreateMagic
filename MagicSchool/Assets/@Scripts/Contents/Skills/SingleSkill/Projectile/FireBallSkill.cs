@@ -5,10 +5,10 @@ using UnityEngine;
 
 public class FireBallSkill : SingleSkill
 {
-    public FireBallSkill() : base("N1QA")
+    /*public FireBallSkill() : base("N1QA")
     {
         SetData();
-    }
+    }*/
 
     public override void SetData()
     {
@@ -41,7 +41,7 @@ public class FireBallSkill : SingleSkill
         Vector3 dir = pc.ShootDir;
 
         projectile = GenerateProjectile(SkillData, Owner, _lifeTime, spawnPos, dir, Vector3.zero, ProjectileOnHit);
-        projectile.StartDestory(projectile, 10f);
+        // projectile.StartDestory(projectile, 10f); temp
 
         callBack?.Invoke();
     }
@@ -51,7 +51,7 @@ public class FireBallSkill : SingleSkill
         if (cc.IsValid() == false)
             return;
 
-        cc.OnDamaged(Owner, SkillData.damage);
+        //cc.OnDamaged(Owner, SkillData.damage);
         GenerateRangeSkill(Explosion, Owner, _lifeTime, projectile.transform.position, Vector2.one, ExplosionOnHit);
     }
 
@@ -60,8 +60,24 @@ public class FireBallSkill : SingleSkill
         if (cc.IsValid() == false)
             return;
 
-        cc.OnDamaged(Owner, Explosion.damage);
+        //cc.OnDamaged(Owner, Explosion.damage);
         
         cc.OnBurnEx(Owner, 3); // Extension // To Do : Parsing
+    }
+
+
+
+
+
+
+    ///temp
+    protected override void OnAttackTargetHandler()
+    {
+        throw new NotImplementedException();
+    }
+
+    protected override void OnAnimComplateHandler()
+    {
+        throw new NotImplementedException();
     }
 }

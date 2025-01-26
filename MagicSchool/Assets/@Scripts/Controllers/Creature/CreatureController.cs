@@ -46,24 +46,6 @@ public class CreatureController : BaseController
 
     #endregion
 
-    #region Wait Coroutine
-    protected Coroutine _coWait;
-
-    protected virtual void Wait(float waitSeconds)
-    {
-        if (_coWait != null)
-            StopCoroutine(_coWait);
-
-        _coWait = StartCoroutine(CoWait(waitSeconds));
-    }
-
-    protected virtual IEnumerator CoWait(float waitSeconds)
-    {
-        yield return new WaitForSeconds(waitSeconds);
-        _coWait = null;
-    }
-    #endregion
-
     #region Move
     
     public override void FixedUpdateController()
@@ -76,6 +58,9 @@ public class CreatureController : BaseController
     protected virtual void Moving() { }
 
     #endregion
+
+    public BaseController Target { get; protected set; }
+    public BaseSkillBook Skills { get; protected set; }
 
     public Data.CreatureData CreatureData { get; private set; }
     public ECreatureType CreatureType { get; protected set; } = ECreatureType.None;
@@ -176,8 +161,10 @@ public class CreatureController : BaseController
 
     #region Battle
 
-    public override void OnDamaged(BaseController attacker, int damage)
+    public override void OnDamaged(BaseController attacker, SkillBase skill)
     {
+        base.OnDamaged(attacker, skill);
+
         if (attacker.IsValid() == false)
             return;
         if (this.IsValid() == false)
@@ -187,14 +174,15 @@ public class CreatureController : BaseController
         if (creature == null)
             return;
 
-        float finalDamage = creature.Atk; // * 피해량 * 크리티컬 등등
-        Hp = Mathf.Clamp(Hp - damage, 0, MaxHp); // Data 시트에 실수로 음수 적어두는 것 방지
+        float finalDamage = creature.Atk; // To Do * 피해량 * 크리티컬 등등
+        Hp = Mathf.Clamp(Hp - finalDamage, 0, MaxHp);
 
         CreatureState = CreatureState.Dameged;
 
         if (Hp <= 0)
         {
             CreatureState = CreatureState.Dead;
+            // OnDead()
         }
     }
 

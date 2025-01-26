@@ -54,7 +54,7 @@ public class EffectedCreature : CreatureController
     protected virtual void OnBurnDamaged()
     {
         // effect
-        OnDamaged(_owner, _burnDamage);
+        //OnDamaged(_owner, _burnDamage);
     }
 
     protected override void Clear()

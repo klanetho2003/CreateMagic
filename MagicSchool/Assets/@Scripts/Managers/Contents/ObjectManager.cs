@@ -19,7 +19,7 @@ public class ObjectManager // ID 부여하는 함수, Object들 들고 있는 등
         go.name = prefabName;
         go.transform.position = position;
 
-        BaseController obj = go.GetComponent<SkillBase>();
+        BaseController obj = null;//go.GetComponent<SkillBase>();
 
         if (obj.ObjectType == EObjectType.Skill)
         {

@@ -16,6 +16,7 @@ public class BaseController : MonoBehaviour
 
     public int DataTemplateID { get; set; }
 
+
     bool _lookLeft = true;
     public bool LookLeft
     {
@@ -36,6 +37,15 @@ public class BaseController : MonoBehaviour
             _lookDown = value;
             FlipY(!value);
         }
+    }
+
+    public void LookAtTarget(BaseController target)
+    {
+        Vector2 dir = target.transform.position - transform.position;
+        if (dir.x < 0)
+            LookLeft = true;
+        else
+            LookLeft = false;
     }
 
     #region Init
@@ -87,9 +97,9 @@ public class BaseController : MonoBehaviour
 
     #region Battle
 
-    public virtual void OnDamaged(BaseController attacker, int damage) { }
+    public virtual void OnDamaged(BaseController attacker, SkillBase skill) { }
 
-    protected virtual void OnDead() { }
+    protected virtual void OnDead(BaseController attacker, SkillBase skill) { }
 
     #endregion
 

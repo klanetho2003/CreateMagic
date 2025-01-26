@@ -38,7 +38,8 @@ public class ProjectileController : SkillObjController
         base.InitValue();
     }
 
-    public override void UpdateController()
+    // temp
+    /*public override void UpdateController()
     {
         base.UpdateController();
 
@@ -62,5 +63,5 @@ public class ProjectileController : SkillObjController
         StopDestory(); //코루틴 해제
 
         Managers.Object.Despawn(this);
-    }
+    }*/
 }

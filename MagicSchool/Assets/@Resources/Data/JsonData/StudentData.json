@@ -24,15 +24,16 @@
       "MaterialID": "Magicion_01",
       "AnimatorDataID": "Magicion01_Animator",
       "SortingLayerName": "Player",
+      "MonsterSkillList": null,
       "SkillList": [
-        "10002"
+        "test"
       ],
       "DropItemId": 0.0,
       "StandardAttack": 0.0
     },
     {
       "TemplateID": 201001,
-      "DescriptionTextID": "������",
+      "DescriptionTextID": "워리어",
       "Label": "Hero",
       "ColliderOffsetX": 0.0,
       "ColliderOffsetY": 0.5,
@@ -54,8 +55,9 @@
       "MaterialID": "Magicion_01",
       "AnimatorDataID": "Magicion01_Animator",
       "SortingLayerName": "Player",
+      "MonsterSkillList": null,
       "SkillList": [
-        "10001"
+        "test"
       ],
       "DropItemId": 0.0,
       "StandardAttack": 0.0

@@ -5,10 +5,10 @@ using UnityEngine;
 
 public class CastingImpact : SingleSkill
 {
-    public CastingImpact() : base("N1")
+    /*public CastingImpact() : base("N1")
     {
         SetData();
-    }
+    }*/
 
     public override void SetData()
     {
@@ -49,12 +49,12 @@ public class CastingImpact : SingleSkill
     {
         if (cc.IsValid() == false)
             return;
-        if (this.IsValid() == false)
-            return;
+        /*if (this.IsValid() == false) //temp
+            return;*/
 
         if (cc.TryGetComponent<MonsterController>(out MonsterController mc))
         {
-            mc.OnDamaged(Owner, Damage);
+            //mc.OnDamaged(Owner, Damage);
         }
         else
             return;
@@ -62,5 +62,20 @@ public class CastingImpact : SingleSkill
         Vector3 dir = mc.transform.position - Owner.transform.position;
 
         mc.MoveMonsterPosition(dir.normalized, _backSpeed, _moveDistance, () => { mc.CreatureState = Define.CreatureState.Moving; });
+    }
+
+
+
+
+
+    ///temp
+    protected override void OnAttackTargetHandler()
+    {
+        throw new NotImplementedException();
+    }
+
+    protected override void OnAnimComplateHandler()
+    {
+        throw new NotImplementedException();
     }
 }

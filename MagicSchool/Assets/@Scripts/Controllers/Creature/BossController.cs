@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class BossController : MonsterController
 {
-    public override bool Init()
+    /*public override bool Init()
     {
         if (base.Init() == false)
             return false;
@@ -37,7 +37,7 @@ public class BossController : MonsterController
                 Anim.Play("Death");
                 break;
         }
-    }
+    }*/
 
     /*protected override void UpdateIdle()
     {
@@ -72,13 +72,13 @@ public class BossController : MonsterController
             CreatureState = Define.CreatureState.Moving;
     }*/
 
-    protected override void UpdateDead()
+    /*protected override void UpdateDead()
     {
         if (_coWait == null)
             Managers.Object.Despawn(this);
-    }
+    }*/
 
-    protected override void OnDead()
+    /*protected override void OnDead()
     {
         Skills.StopSkillsAll();
 
@@ -87,10 +87,10 @@ public class BossController : MonsterController
         Wait(3.0f);
 
         // ToDo : MakeDic 혹은 Data시트에서 파싱
-        /*foreach (var anim in _animator.runtimeAnimatorController.animationClips)
+        *//*foreach (var anim in _animator.runtimeAnimatorController.animationClips)
         {
             if (anim.name == "Boss_01_Death")
                 Wait(anim.length);
-        }*/
-    }
+        }*//*
+    }*/
 }

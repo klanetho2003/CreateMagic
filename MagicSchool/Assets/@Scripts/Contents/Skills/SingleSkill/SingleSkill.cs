@@ -5,10 +5,10 @@ using UnityEngine;
 
 public abstract class SingleSkill : SkillBase
 {
-    public SingleSkill(string key) : base(Define.ESkillType.Single)
+    /*public SingleSkill(string key) : base(Define.ESkillType.Single)
     {
         this.Key = key;
-    }
+    }*/
 
     public string Key { get; protected set; }
 

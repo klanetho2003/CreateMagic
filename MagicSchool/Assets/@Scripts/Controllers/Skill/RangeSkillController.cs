@@ -45,8 +45,8 @@ public class RangeSkillController : SkillObjController
 
         if (cc.IsValid() == false)
             return;
-        if (this.IsValid() == false)
-            return;
+        /*if (this.IsValid() == false) // temp
+            return;*/
 
         _OnHit.Invoke(cc);
     }

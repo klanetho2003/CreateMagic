@@ -1,3 +1,4 @@
+using Data;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -7,17 +8,14 @@ using static Define;
 
 public class MonsterController : EffectedCreature
 {
-    public BaseSkillBook Skills { get; protected set; }
-
     public Transform WayPoint { get; protected set; }
-
-    BaseController _target;
+    
     public float AttaccDistence
     {
         get
         {
             // radius 값은 SetInfo하면서 부여하는 값이기에 Data Parsing을 구현하면변수로 존재할 것
-            float targetRadius = (_target.IsValid() == true) ? _target.ColliderRadius : 0;
+            float targetRadius = (Target.IsValid() == true) ? Target.ColliderRadius : 0;
             return targetRadius + ColliderRadius + MONSTER_DEFAULT_MELEE_ATTACK_RANGE; // 2.0f은 추가 판정값 : To Do DataParsing
         }
     }
@@ -45,16 +43,16 @@ public class MonsterController : EffectedCreature
                 Anim.Play($"Casting");
                 break;
             case CreatureState.DoSkill:
-                Anim.Play($"DoSkill");
-                Wait(1f); // Damege Animation + 후딜레이 재생 wait // To Do Animation RunTime Parsing
+                //Anim.Play($"DoSkill");
+                //Wait(1f); // Damege Animation + 후딜레이 재생 wait // To Do Animation RunTime Parsing
                 break;
             case CreatureState.Dameged:
                 Anim.Play($"Dameged");
-                Wait(0.75f); // Damege Animation + 후딜레이 재생 wait // To Do Animation RunTime Parsing
+                //Wait(0.75f); // Damege Animation + 후딜레이 재생 wait // To Do Animation RunTime Parsing
                 break;
             case CreatureState.Dead:
                 Anim.Play($"Death");
-                Wait(1.5f); // Death Animation + 후딜레이 재생 wait // To Do Animation RunTime Parsing
+                //Wait(1.5f); // Death Animation + 후딜레이 재생 wait // To Do Animation RunTime Parsing
                 break;
         }
     }
@@ -65,13 +63,13 @@ public class MonsterController : EffectedCreature
 
     protected override void UpdateIdle()
     {
-        if (_target.IsValid() == true)
+        if (Target.IsValid() == true)
             CreatureState = CreatureState.Moving;
     }
 
     protected override void UpdateMoving()
     {
-        if (_target.IsValid() == false)
+        if (Target.IsValid() == false)
         {
             CreatureState = CreatureState.Idle;
             return;
@@ -82,38 +80,47 @@ public class MonsterController : EffectedCreature
 
     protected override void UpdateDoSkill()
     {
-        if (_target.IsValid() == false)
+        if (Target.IsValid() == false)
         {
             CreatureState = CreatureState.Idle;
             return;
         }
 
-        if (_coWait == null)
-        {
-            Vector3 dir = _target.transform.position - transform.position;
-            CreatureState = CheckAttackTarget(dir.sqrMagnitude);
-        }
-            
+        SkillBase skill = Skills.GetReadySkill();
+        Vector3 dir = Target.transform.position - transform.position;
+        CreatureState = CheckAttackTarget(skill, dir.sqrMagnitude);
     }
 
     protected override void UpdateDameged()
     {
-        if (_coWait == null)
-            CreatureState = CreatureState.Moving;
+        /*if (_coWait == null)
+            CreatureState = CreatureState.Moving;*/
     }
 
     protected override void UpdateDead()
     {
-        if (_coWait == null)
-            OnDead();
+        SetRigidBodyVelocity(Vector3.zero);
+        //if (_coWait == null) { }
+            //OnDead(); To Do 일단 CreatureController에 넣어두었다
     }
 
-    CreatureState CheckAttackTarget(float sqrMagnitude)
+    CreatureState CheckAttackTarget(SkillBase skill, float sqrMagnitude)
     {
         float distTargetSqr = sqrMagnitude;
         float attackDistenceSqr = AttaccDistence * AttaccDistence;
 
-        return (distTargetSqr <= attackDistenceSqr) ? CreatureState.DoSkill : CreatureState.Moving;
+        if (distTargetSqr <= attackDistenceSqr)
+        {
+            skill.ActivateSkill();
+            return CreatureState.DoSkill;
+        }
+        else
+        {
+            if (CreatureState == CreatureState.DoSkill)
+                return CreatureState.DoSkill;
+
+            return CreatureState.Moving;
+        }
     }
 
     #endregion
@@ -134,23 +141,12 @@ public class MonsterController : EffectedCreature
 
         CreatureState = CreatureState.Moving;
 
-        _target = Managers.Object.Player;
+        Target = Managers.Object.Player;
 
         Skills = gameObject.GetOrAddComponent<BaseSkillBook>();
-
-        AnimationEventManager.BindEvent(this, "OnAttackTarget", OnAttackTargetHandler);
+        Skills.SetInfo(this, CreatureData.MonsterSkillList);
 
         //WayPoint = Managers.Game.WayPoints[Random.Range(0, Managers.Game.WayPoints.Count)];
-    }
-
-    public virtual void OnAttackTargetHandler()
-    {
-        Debug.Log($"Attacker : {gameObject.name}, Target : {_target.name}, Damage : {10}");
-
-        if (_target.IsValid() == false)
-            return;
-
-        _target.OnDamaged(this, (int)Atk);
     }
 
     protected override void FixedUpdateMoving() // 물리와 연관돼 있으면
@@ -164,12 +160,12 @@ public class MonsterController : EffectedCreature
         /*if (WayPoint == null)
             return;*/
         
-        if (_target.IsValid() == false)
+        if (Target.IsValid() == false)
             return;
 
-        Vector3 dir = _target.transform.position - transform.position;
-
-        CreatureState = CheckAttackTarget(dir.sqrMagnitude);
+        SkillBase skill = Skills.GetReadySkill();
+        Vector3 dir = Target.transform.position - transform.position;
+        CreatureState = CheckAttackTarget(skill, dir.sqrMagnitude);
 
         SetRigidBodyVelocity(dir.normalized * MoveSpeed);
     }
@@ -222,14 +218,14 @@ public class MonsterController : EffectedCreature
 
     #region Battle
 
-    public override void OnDamaged(BaseController attacker, int damage)
+    public override void OnDamaged(BaseController attacker, SkillBase skill)
     {
-        base.OnDamaged(attacker, damage);
+        base.OnDamaged(attacker, skill);
     }
 
-    protected override void OnDead()
+    protected override void OnDead(BaseController attacker, SkillBase skill)
     {
-        base.OnDead();
+        base.OnDead(attacker, skill);
 
         Clear();
 

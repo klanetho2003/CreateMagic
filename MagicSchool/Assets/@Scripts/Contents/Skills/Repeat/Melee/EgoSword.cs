@@ -76,11 +76,24 @@ public class EgoSword : RepeatSkill
 		if (mc.IsValid() == false)
 			return;
 
-		mc.OnDamaged(Owner, Damage);
+		//mc.OnDamaged(Owner, Damage);
 	}
 
 	protected override void DoSkill()
 	{
 
 	}
+
+
+
+    ///temp
+    protected override void OnAttackTargetHandler()
+    {
+        throw new System.NotImplementedException();
+    }
+
+    protected override void OnAnimComplateHandler()
+    {
+        throw new System.NotImplementedException();
+    }
 }

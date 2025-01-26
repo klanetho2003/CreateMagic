@@ -30,7 +30,7 @@ public class PlayerController : CreatureController
 
     #endregion
 
-    public PlayerSkillBook Skills { get; protected set; }
+    public PlayerSkillBook PlayerSkills { get; protected set; } // override로 player는 바꿔치기?
 
     Vector2 _moveDir = Vector2.zero;
     public Vector2 MoveDir
@@ -84,11 +84,10 @@ public class PlayerController : CreatureController
                     OnPlayCastingAnimation(5f, 0.0005f); // To Do : Data 시트 length는 홀수 여야한다(Cos주기 이슈)
                     break;
                 case CreatureState.DoSkill:
-                    if (_coWait == null) Wait(0.45f); // 지팡이 휘두르기 재생 wait
+                    //if (_coWait == null) Wait(0.45f); // 지팡이 휘두르기 재생 wait
                     break;
                 case CreatureState.Dameged:
-                    if (_coWait == null) Wait(0.6f); // Damaged Animation 재생 wait
-                    SetDamagedMaterial();
+                    //if (_coWait == null) Wait(0.6f); // Damaged Animation 재생 wait
                     break;
                 case CreatureState.Dead:
                     break;
@@ -129,12 +128,12 @@ public class PlayerController : CreatureController
                 }
                 break;
             case CreatureState.DoSkill:
-                {
+                /*{
                     if (LookDown)
                         Anim.Play("DoSkillFront");
                     else
                         Anim.Play("DoSkillBack");
-                }
+                }*/
                 break;
             case CreatureState.Dameged:
                 {
@@ -217,7 +216,7 @@ public class PlayerController : CreatureController
         if (CreatureState == Define.CreatureState.DoSkill)
             return;
 
-        Skills.Inputkey = key;
+        PlayerSkills.Inputkey = key;
     }
     #endregion
 
@@ -236,6 +235,8 @@ public class PlayerController : CreatureController
         base.SetInfo(templateID);
 
         Skills = gameObject.GetOrAddComponent<PlayerSkillBook>();
+        //Skills.SetInfo(this, CreatureData.SkillList);
+
         _stemp = SpriteRenderer; // ?
 
         Managers.Game.OnMoveDirChanged -= HandleOnMoveDirChange;
@@ -243,8 +244,18 @@ public class PlayerController : CreatureController
         Managers.Input.OnKeyDownHandler -= HandleOnKeyDown;
         Managers.Input.OnKeyDownHandler += HandleOnKeyDown;
 
+        AnimationEventManager.BindEvent(this, "OnDamaged_Complate", () =>
+        {
+            if (CreatureState != CreatureState.Dameged)
+                return;
+
+            CreatureState = CreatureState.Idle;
+            SetDamagedMaterial();
+        });
+
+
         // To Do
-        FireBallSkill fireBallSkill = Skills.AddSkill<FireBallSkill>(_indicator.position, SkillBook);
+        //FireBallSkill fireBallSkill = Skills.AddSkill<FireBallSkill>(_indicator.position, SkillBook);
     }
 
 
@@ -291,17 +302,17 @@ public class PlayerController : CreatureController
         if (_isCompleteActive == true)
             return;
 
-        if (_coWait == null)
-            _isCompleteActive = Skills.ActiveSkill();
+        /*if (_coWait == null)
+            _isCompleteActive = PlayerSkills.ActiveSkill();*/
     }
 
     protected override void UpdateDameged()
     {
-        if (_coWait == null)
+        /*if (_coWait == null)
         {
             CreatureState = CreatureState.Idle;
             SetDamagedMaterial();
-        }
+        }*/
     }
 
     #endregion
@@ -354,16 +365,16 @@ public class PlayerController : CreatureController
 
     #region Battle
 
-    public override void OnDamaged(BaseController attacker, int damage)
+    public override void OnDamaged(BaseController attacker, SkillBase skill)
     {
-        base.OnDamaged(attacker, damage);
+        base.OnDamaged(attacker, skill);
 
         SetDamagedMaterial();
     }
 
-    protected override void OnDead()
+    protected override void OnDead(BaseController attacker, SkillBase skill)
     {
-        base.OnDead();
+        base.OnDead(attacker, skill);
     }
 
     #endregion

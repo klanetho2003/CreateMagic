@@ -24,9 +24,10 @@
       "MaterialID": "Assassin",
       "AnimatorDataID": "Assassin_Animator",
       "SortingLayerName": "Monster",
-      "SkillList": [
-        "10001"
+      "MonsterSkillList": [
+        10001
       ],
+      "SkillList": null,
       "DropItemId": 400000.0,
       "StandardAttack": 0.0
     },
@@ -54,9 +55,10 @@
       "MaterialID": "Skeleton",
       "AnimatorDataID": "Skeleton_Animator",
       "SortingLayerName": "Monster",
-      "SkillList": [
-        "10001"
+      "MonsterSkillList": [
+        10001
       ],
+      "SkillList": null,
       "DropItemId": 400000.0,
       "StandardAttack": 0.0
     },
@@ -84,9 +86,10 @@
       "MaterialID": "SkeletonWithShield",
       "AnimatorDataID": "SkeletonWithShield_Animator",
       "SortingLayerName": "Monster",
-      "SkillList": [
-        "10001"
+      "MonsterSkillList": [
+        10001
       ],
+      "SkillList": null,
       "DropItemId": 400000.0,
       "StandardAttack": 0.0
     },
@@ -114,9 +117,10 @@
       "MaterialID": "Mage_Skeleton",
       "AnimatorDataID": "MageSkeleton_Animator",
       "SortingLayerName": "Monster",
-      "SkillList": [
-        "10001"
+      "MonsterSkillList": [
+        10001
       ],
+      "SkillList": null,
       "DropItemId": 400000.0,
       "StandardAttack": 0.0
     },
@@ -144,9 +148,10 @@
       "MaterialID": "MageSkeleton-RustyShield",
       "AnimatorDataID": "MageSkeletonWithShield_Animator",
       "SortingLayerName": "Monster",
-      "SkillList": [
-        "10004"
+      "MonsterSkillList": [
+        10001
       ],
+      "SkillList": null,
       "DropItemId": 400000.0,
       "StandardAttack": 0.0
     }

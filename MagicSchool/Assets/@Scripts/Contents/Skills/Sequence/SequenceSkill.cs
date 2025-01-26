@@ -5,10 +5,10 @@ using UnityEngine;
 
 public abstract class SequenceSkill : SkillBase
 {
-    public SequenceSkill() : base(Define.ESkillType.Sequence)
+    /*public SequenceSkill() : base(Define.ESkillType.Sequence)
     {
         
-    }
+    }*/
 
     public abstract void DoSkill(Action callback = null);
 }

@@ -3,9 +3,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Dash : SequenceSkill
+public class Dash// : SequenceSkill
 {
-    Rigidbody2D _rb;
+    /*Rigidbody2D _rb;
     Coroutine _coroutine;
 
     public override void DoSkill(Action callback = null)
@@ -35,7 +35,7 @@ public class Dash : SequenceSkill
         {
             //Vector2 dirVec = targetPosition - _rb.position;
 
-            Vector2 nextVec = dir/*dirVec.normalized*/ * Speed * Time.deltaTime;
+            Vector2 nextVec = dir*//*dirVec.normalized*//* * Speed * Time.deltaTime;
             _rb.MovePosition(_rb.position + nextVec);
 
             yield return null;
@@ -48,11 +48,11 @@ public class Dash : SequenceSkill
     }
 
 
-    /* 아래는 데이터 시트로 빼야할 것 */
+    *//* 아래는 데이터 시트로 빼야할 것 *//*
     float WaitTime { get; } = 1.0f;
     float Speed { get; } = 20.0f;
     string AnimationName { get; } = "Dash";
 
     // 카메라 시점, 흔들림 등
-    // 사운드
+    // 사운드*/
 }

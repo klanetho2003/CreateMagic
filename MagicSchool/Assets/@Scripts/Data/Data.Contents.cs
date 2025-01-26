@@ -189,6 +189,7 @@ namespace Data
         public string AnimatorDataID;
         public string SortingLayerName
 ;
+        public List<int> MonsterSkillList;
         public List<string> SkillList;
 
         public float DropItemId;

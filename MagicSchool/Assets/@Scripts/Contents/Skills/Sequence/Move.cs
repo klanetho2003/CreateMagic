@@ -3,9 +3,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Move : SequenceSkill
+public class Move// : SequenceSkill
 {
-	Rigidbody2D _rb;
+	/*Rigidbody2D _rb;
 	Coroutine _coroutine;
 
 	private void Awake()
@@ -50,5 +50,5 @@ public class Move : SequenceSkill
 		}
 
 		callback?.Invoke();
-	}
+	}*/
 }

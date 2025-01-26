@@ -1,35 +1,80 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.InteropServices;
+using TMPro;
 using UnityEngine;
 using static Define;
+using static AnimationEventManager;
 
-public abstract class SkillBase : BaseController // 스킬을 스폰 > ActiveSkill 발동 >>> 스킬 시전
+public abstract class SkillBase : MonoBehaviour // 스킬을 스폰 > ActiveSkill 발동 >>> 스킬 시전
 {
     public CreatureController Owner { get; set; }
-    public Define.ESkillType SkillType { get; set; } = ESkillType.None;
-    public Data.SkillData SkillData { get; protected set; }
 
-    public float ActivateDelaySecond { get; protected set; } = 0.0f;
-    public float CompleteDelaySecond { get; protected set; } = 0.0f;
-
-    public int SkillLevel { get; set; } = 0; // 탕탕이라 있는 것 -> 스킬 레벨에 따라 사용할 수 있는 스킬인지 판별할 수도 있음
-    public bool IsLearnedSkill { get { return SkillLevel > 0; } }
-
-    public  int Damage { get; protected set; } = 100; // SKillData에 들어가 있을 예정이지만, 임의 값으로 넣어줌
-
-    public SkillBase(ESkillType skillType) // 상속을 받는 직속 자식들은 기본 형태의 생성자가 막히게 되며, 직속 자식은 base(skillType)을 포함하는 생성자를 만들어야 한다
+    public Data.SkillData SkillData { get; protected set; } // Magic Skill 전용
+    public virtual void SetInfo(CreatureController owner, string skillTemplateID) // Magic Skill 전용
     {
-        SkillType = skillType;
+
     }
 
-    public virtual void ActivateSkill() { }
+    public Data.MonsterSkillData MonsterSkillData { get; protected set; }
+    public virtual void SetInfo(CreatureController owner, int monsterSkillTemplateID)
+    {
+        Owner = owner;
+        MonsterSkillData = Managers.Data.MonsterSkillDic[monsterSkillTemplateID];
+
+        // Handle AnimEvent
+        if (Owner.Anim != null)
+        {
+            BindEvent(Owner, "OnAttackTarget", OnAttackTargetHandler);
+            BindEvent(Owner, "OnAnimComplate", OnAnimComplateHandler);
+        }
+    }
+
+    private void OnDisable() // 게임 강종
+    {
+        if (Managers.Game == null)
+            return;
+        if (Owner.IsValid() == false)
+            return;
+        if (Owner.Anim == null)
+            return;
+
+        UnbindEvent(Owner, "OnAttackTarget", OnAttackTargetHandler);
+        UnbindEvent(Owner, "OnAnimComplate", OnAnimComplateHandler);
+    }
+
+    protected abstract void OnAttackTargetHandler();
+    protected abstract void OnAnimComplateHandler();
+
+    #region Init Method
+    void Awake()
+    {
+        Init();
+    }
+
+    bool _init = false;
+
+    public virtual bool Init() // 최초 실행일 떄는 true를 반환, 한 번이라도 실행한 내역이 있을 경우 false를 반환
+    {
+        if (_init)
+            return false;
+
+        _init = true;
+        return true;
+    }
+    #endregion
+
+    public virtual void ActivateSkill()
+    {
+
+    }
 
     // To Do : Generate 함수 하나로 묶기
     protected virtual ProjectileController GenerateProjectile(Data.SkillData skillData, CreatureController onwer, float lifeTime, Vector3 startPos, Vector3 dir, Vector3 targetPos, Action<CreatureController> OnHit = null)
     {
         ProjectileController pc = Managers.Object.Spawn<ProjectileController>(startPos, skillData.templateID);
-        pc.SetInfo(skillData, Owner,lifeTime, dir, OnHit);
+        pc.SetInfo(skillData, Owner, lifeTime, dir, OnHit);
 
         return pc;
     }
@@ -40,6 +85,33 @@ public abstract class SkillBase : BaseController // 스킬을 스폰 > ActiveSkill 발
 
         return rc;
     }
+
+
+
+    /*public SkillBase(ESkillType skillType)
+    {
+        SkillType = skillType;
+    }*/
+
+
+    public ESkillType SkillType { get; set; } = ESkillType.None;
+    
+
+    public float ActivateDelaySecond { get; protected set; } = 0.0f;
+    public float CompleteDelaySecond { get; protected set; } = 0.0f;
+
+    public int SkillLevel { get; set; } = 0; // 탕탕이라 있는 것 -> 스킬 레벨에 따라 사용할 수 있는 스킬인지 판별할 수도 있음
+    public bool IsLearnedSkill { get { return SkillLevel > 0; } }
+
+    public  int Damage { get; protected set; } = 100; // SKillData에 들어가 있을 예정이지만, 임의 값으로 넣어줌
+
+    
+
+    
+
+    
+
+    
 
     #region Skill Delay
     protected Coroutine _coSkillDelay;
@@ -123,10 +195,10 @@ public abstract class SkillBase : BaseController // 스킬을 스폰 > ActiveSkill 발
         {
             Managers.Object.Despawn(bc);
         }
-        else if (this.IsValid())
+        /*else if (this.IsValid())
         {
             Managers.Object.Despawn(this);
-        }
+        }*/
     }
     #endregion
 }
