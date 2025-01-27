@@ -40,7 +40,7 @@ public class FireBallSkill : SingleSkill
         Vector3 spawnPos = pc.FireSocket;
         Vector3 dir = pc.ShootDir;
 
-        projectile = GenerateProjectile(SkillData, Owner, _lifeTime, spawnPos, dir, Vector3.zero, ProjectileOnHit);
+        //projectile = GenerateProjectile(SkillData, Owner, _lifeTime, spawnPos, dir, Vector3.zero, ProjectileOnHit);
         // projectile.StartDestory(projectile, 10f); temp
 
         callBack?.Invoke();
@@ -62,7 +62,7 @@ public class FireBallSkill : SingleSkill
 
         //cc.OnDamaged(Owner, Explosion.damage);
         
-        cc.OnBurnEx(Owner, 3); // Extension // To Do : Parsing
+        cc.OnBurnEx(Owner, 3,  this); // Extension // To Do : Parsing
     }
 
 

@@ -20,7 +20,7 @@ public static class Extension
         return Utils.FindChild<T>(go, name = null, recursive = false);
     }
 
-    public static void OnBurnEx(this CreatureController cc, CreatureController owner, int addDuration)
+    public static void OnBurnEx(this CreatureController cc, CreatureController owner, int addDuration, SkillBase skill)
     {
         if (cc.IsValid() == false)
             return;
@@ -29,7 +29,7 @@ public static class Extension
         if (effectedCC == null)
             return;
 
-        effectedCC.OnBurn(owner, addDuration);
+        effectedCC.OnBurn(owner, addDuration, skill);
     }
 
     public static bool IsValid(this GameObject go)
@@ -47,5 +47,21 @@ public static class Extension
             return creature.CreatureState != Define.CreatureState.Dead; // 사망 상태면
 
         return true;
+    }
+
+    public static void MakeMask(this ref LayerMask mask, List<Define.ELayer> list)
+    {
+        foreach (Define.ELayer layer in list)
+            mask |= (1 << (int)layer);
+    }
+
+    public static void AddLayer(this ref LayerMask mask, Define.ELayer layer)
+    {
+        mask |= (1 << (int)layer);
+    }
+
+    public static void RemoveLayer(this ref LayerMask mask, Define.ELayer layer)
+    {
+        mask &= ~(1 << (int)layer);
     }
 }

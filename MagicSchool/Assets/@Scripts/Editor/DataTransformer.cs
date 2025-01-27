@@ -20,6 +20,7 @@ public class DataTransformer : EditorWindow
         ParseExcelDataToJson<StudentDataLoader, StudentData>("Student");
         ParseExcelDataToJson<MonsterSkillDataLoader, MonsterSkillData>("MonsterSkill");
         ParseExcelDataToJson<SkillDataLoader, SkillData>("Skill");
+        ParseExcelDataToJson<ProjectileDataLoader, ProjectileData>("Projectile");
         
         //LEGACY_ParseTestData("Test");
 

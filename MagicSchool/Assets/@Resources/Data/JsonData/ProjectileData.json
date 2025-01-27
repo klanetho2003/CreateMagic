@@ -1,0 +1,32 @@
+{
+  "projectiles": [
+    {
+      "DataId": 70001,
+      "Name": "FireBall",
+      "ComponentName": "FireBall",
+      "MaterialID": "FireBall",
+      "AnimatorDataID": "FireBall_Animator",
+      "PrefabLabel": "Projectile",
+      "Duration": 0.0,
+      "NumBounce": 0.0,
+      "NumPenerations": 0.0,
+      "HitSound": 0.0,
+      "ProjRange": 0.0,
+      "ProjSpeed": 10.0
+    },
+    {
+      "DataId": 70002,
+      "Name": "FireBall",
+      "ComponentName": "FireBall",
+      "MaterialID": "FireBall",
+      "AnimatorDataID": "FireBall_Animator",
+      "PrefabLabel": "Projectile",
+      "Duration": 0.0,
+      "NumBounce": 0.0,
+      "NumPenerations": 0.0,
+      "HitSound": 0.0,
+      "ProjRange": 0.0,
+      "ProjSpeed": 5.0
+    }
+  ]
+}

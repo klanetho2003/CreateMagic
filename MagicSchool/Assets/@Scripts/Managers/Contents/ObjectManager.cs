@@ -8,7 +8,7 @@ public class ObjectManager // ID 부여하는 함수, Object들 들고 있는 등
 {
     public PlayerController Player { get; private set; }
     public HashSet<MonsterController> Monsters { get; } = new HashSet<MonsterController>();
-    public HashSet<ProjectileController> ProjectTiles { get; } = new HashSet<ProjectileController>();
+    public HashSet<ProjectileController> Projectiles { get; } = new HashSet<ProjectileController>();
     public HashSet<JamController> Jams { get; } = new HashSet<JamController>();
 
     public T Spawn<T>(Vector3 position, string templateID = null) where T : SkillBase
@@ -51,7 +51,7 @@ public class ObjectManager // ID 부여하는 함수, Object들 들고 있는 등
         else if (obj.ObjectType == EObjectType.ProjecTile)
         {
             ProjectileController pc = go.GetOrAddComponent<ProjectileController>();
-            ProjectTiles.Add(pc);
+            Projectiles.Add(pc);
 
             //pc.SetInfo(templateID); // To Do : setInfo와 SetSkill 로 분기 필요 아니면 매개변수를 다르게 하던가
         }
@@ -125,7 +125,10 @@ public class ObjectManager // ID 부여하는 함수, Object들 들고 있는 등
         }
         else if (obj.ObjectType == EObjectType.ProjecTile)
         {
-            // To Do
+            ProjectileController projectile = go.GetComponent<ProjectileController>();
+            Projectiles.Add(projectile);
+
+            projectile.SetInfo(templateID);
         }
         else if (obj.ObjectType == EObjectType.Env)
         {
@@ -222,7 +225,8 @@ public class ObjectManager // ID 부여하는 함수, Object들 들고 있는 등
         }
         else if (obj.ObjectType == EObjectType.ProjecTile)
         {
-            // To Do
+            ProjectileController projectile = obj as ProjectileController;
+            Projectiles.Remove(projectile);
         }
         else if (obj.ObjectType == EObjectType.Env)
         {

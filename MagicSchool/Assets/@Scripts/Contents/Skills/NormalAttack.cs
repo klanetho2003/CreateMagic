@@ -47,7 +47,7 @@ public class NormalAttack : SkillBase
         }
         else // 원거리 평타
         {
-
+            GenerateProjectile(Owner, Owner.CenterPosition);
         }
     }
 

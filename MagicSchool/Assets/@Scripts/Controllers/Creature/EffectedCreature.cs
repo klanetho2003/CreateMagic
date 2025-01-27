@@ -6,6 +6,7 @@ using static Define;
 public class EffectedCreature : CreatureController
 {
     CreatureController _owner; // 데미지를 가한 cc
+    SkillBase _skill;
 
     public override bool Init()
     {
@@ -54,7 +55,7 @@ public class EffectedCreature : CreatureController
     protected virtual void OnBurnDamaged()
     {
         // effect
-        //OnDamaged(_owner, _burnDamage);
+        OnDamaged(_owner, _skill);
     }
 
     protected override void Clear()
@@ -67,10 +68,11 @@ public class EffectedCreature : CreatureController
     public float DamageCycle{ get; private set; }
 
     protected Coroutine _coOnBurn;
-    public virtual void OnBurn(CreatureController cc, int addDuration)
+    public virtual void OnBurn(CreatureController cc, int addDuration, SkillBase skill)
     {
         _owner = cc;
         BurnDuration += addDuration;
+        _skill = skill;
 
         if (_coOnBurn == null)
             _coOnBurn = StartCoroutine(CoOnBurn(1));

@@ -71,12 +71,28 @@ public abstract class SkillBase : MonoBehaviour // 스킬을 스폰 > ActiveSkill 발�
     }
 
     // To Do : Generate 함수 하나로 묶기
-    protected virtual ProjectileController GenerateProjectile(Data.SkillData skillData, CreatureController onwer, float lifeTime, Vector3 startPos, Vector3 dir, Vector3 targetPos, Action<CreatureController> OnHit = null)
+    protected virtual void GenerateProjectile(CreatureController onwer, Vector3 spawnPos, Action<CreatureController> OnHit = null)
     {
-        ProjectileController pc = Managers.Object.Spawn<ProjectileController>(startPos, skillData.templateID);
-        pc.SetInfo(skillData, Owner, lifeTime, dir, OnHit);
+        ProjectileController projectile = Managers.Object.Spawn<ProjectileController>(spawnPos, MonsterSkillData.ProjectileId);
 
-        return pc;
+        // 충돌하기 싫은 친구들 settting
+        LayerMask excludeMask = 0;
+        excludeMask.AddLayer(ELayer.Default);
+        excludeMask.AddLayer(ELayer.Projectile);
+        excludeMask.AddLayer(ELayer.Env);
+        excludeMask.AddLayer(ELayer.Obstacle);
+
+        switch (Owner.CreatureType)
+        {
+            case ECreatureType.Student:
+                excludeMask.AddLayer(ELayer.Student);
+                break;
+            case ECreatureType.Monster:
+                excludeMask.AddLayer(ELayer.Monster);
+                break;
+        }
+
+        projectile.SetSpawnInfo(Owner, this, excludeMask);
     }
     protected virtual RangeSkillController GenerateRangeSkill(Data.SkillData skillData, CreatureController onwer, float lifeTime, Vector3 spawnPos, Vector3 size, Action<CreatureController> OnHit = null)
     {

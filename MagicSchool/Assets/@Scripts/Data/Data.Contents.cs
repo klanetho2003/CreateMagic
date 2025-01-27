@@ -302,12 +302,46 @@ namespace Data
     {
         public List<SkillData> skills = new List<SkillData>();
 
-
         public Dictionary<string, SkillData> MakeDict()
         {
             Dictionary<string, SkillData> dict = new Dictionary<string, SkillData>();
             foreach (SkillData skill in skills)
                 dict.Add(skill.templateID, skill);
+            return dict;
+        }
+    }
+
+    #endregion
+
+    #region Projetile Data
+
+    [Serializable]
+    public class ProjectileData
+    {
+        public int DataId;
+        public string Name;
+        public string ComponentName;
+        public string MaterialID;
+        public string AnimatorDataID;
+        public string PrefabLabel;
+        public float Duration;  // 왜 올렸는데 적용이 안 돼요? 
+        public float NumBounce;
+        public float NumPenerations;
+        public float HitSound;
+        public float ProjRange; //아 그거 특정 skill 에서만 되는 거에요.
+        public float ProjSpeed;
+    }
+
+    [Serializable]
+    public class ProjectileDataLoader : ILoader<int, ProjectileData>
+    {
+        public List<ProjectileData> projectiles = new List<ProjectileData>();
+
+        public Dictionary<int, ProjectileData> MakeDict()
+        {
+            Dictionary<int, ProjectileData> dict = new Dictionary<int, ProjectileData>();
+            foreach (ProjectileData projectile in projectiles)
+                dict.Add(projectile.DataId, projectile);
             return dict;
         }
     }

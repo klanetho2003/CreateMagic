@@ -7,9 +7,7 @@ using UnityEngine;
 using static Define;
 
 public class MonsterController : EffectedCreature
-{
-    public Transform WayPoint { get; protected set; }
-    
+{   
     public float AttaccDistence
     {
         get
@@ -106,8 +104,13 @@ public class MonsterController : EffectedCreature
 
     CreatureState CheckAttackTarget(SkillBase skill, float sqrMagnitude)
     {
+        float attackRange = MONSTER_DEFAULT_MELEE_ATTACK_RANGE;
+        if (skill.MonsterSkillData.ProjectileId != 0)
+            attackRange = MONSTER_DEFAULT_RANGED_ATTACK_RANGE;
+
         float distTargetSqr = sqrMagnitude;
-        float attackDistenceSqr = AttaccDistence * AttaccDistence;
+        float finalAttackRange = attackRange + Target.ColliderRadius + ColliderRadius;
+        float attackDistenceSqr = finalAttackRange * finalAttackRange;
 
         if (distTargetSqr <= attackDistenceSqr)
         {
@@ -145,8 +148,6 @@ public class MonsterController : EffectedCreature
 
         Skills = gameObject.GetOrAddComponent<BaseSkillBook>();
         Skills.SetInfo(this, CreatureData.MonsterSkillList);
-
-        //WayPoint = Managers.Game.WayPoints[Random.Range(0, Managers.Game.WayPoints.Count)];
     }
 
     protected override void FixedUpdateMoving() // 물리와 연관돼 있으면
@@ -156,9 +157,6 @@ public class MonsterController : EffectedCreature
             SetRigidBodyVelocity(Vector3.zero); // To Do : 길찾기
             return;
         }
-
-        /*if (WayPoint == null)
-            return;*/
         
         if (Target.IsValid() == false)
             return;

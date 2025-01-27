@@ -133,7 +133,7 @@ GameObject:
   m_Component:
   - component: {fileID: 408971057}
   - component: {fileID: 408971058}
-  m_Layer: 8
+  m_Layer: 3
   m_Name: cm
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -183,7 +183,7 @@ GameObject:
   - component: {fileID: 519420034}
   - component: {fileID: 519420036}
   - component: {fileID: 519420037}
-  m_Layer: 8
+  m_Layer: 3
   m_Name: Main Camera
   m_TagString: MainCamera
   m_Icon: {fileID: 0}
@@ -565,7 +565,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1374404446}
   - component: {fileID: 1374404447}
-  m_Layer: 8
+  m_Layer: 3
   m_Name: UrpVolume
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -658,7 +658,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1943460504}
   - component: {fileID: 1943460503}
-  m_Layer: 8
+  m_Layer: 3
   m_Name: Light 2D
   m_TagString: Untagged
   m_Icon: {fileID: 0}
