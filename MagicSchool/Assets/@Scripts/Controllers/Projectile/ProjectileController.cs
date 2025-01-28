@@ -9,6 +9,7 @@ public class ProjectileController : BaseController
     // 나를 스폰한 주체 Skill
     public SkillBase Skill { get; private set; }
     public CreatureController Owner { get; private set; }
+    public Action<BaseController> _onHit;
     public Data.ProjectileData ProjectileData { get; private set; }
     public ProjectileMotionBase ProjectileMotion { get; private set; }
 
@@ -44,11 +45,12 @@ public class ProjectileController : BaseController
         }
     }
 
-    public void SetSpawnInfo(CreatureController owner, SkillBase skill, LayerMask layer) // SkillBase 중Generate함수 끝 부분에 위치,
+    public void SetSpawnInfo(CreatureController owner, SkillBase skill, LayerMask layer, Action<BaseController> onHit) // SkillBase 중Generate함수 끝 부분에 위치,
                                                                                          // 즉, SetInfo > Generate함수 진행 > SetSpawnInfo
     {
         Owner = owner;
         Skill = skill;
+        _onHit = onHit;
 
         // Rule
         Collider.excludeLayers = layer;
@@ -57,7 +59,7 @@ public class ProjectileController : BaseController
         if (ProjectileMotion != null)
             Destroy(ProjectileMotion); // Remove Component when Pooling revive
 
-        string compoenetName = skill.MonsterSkillData.ComponentName;
+        string compoenetName = skill.SkillData.ComponentName;
         ProjectileMotion = gameObject.AddComponent(Type.GetType(compoenetName)) as ProjectileMotionBase;
 
         LinearMotion linearMotion = ProjectileMotion as LinearMotion;
@@ -75,7 +77,8 @@ public class ProjectileController : BaseController
             return;
 
         // To Do
-        target.OnDamaged(Owner, Skill);
+        _onHit.Invoke(target);
+
         Managers.Object.Despawn(this);
     }
 

@@ -11,17 +11,12 @@ public abstract class SkillBase : MonoBehaviour // ½ºÅ³À» ½ºÆù > ActiveSkill ¹ßµ
 {
     public CreatureController Owner { get; set; }
 
-    public Data.SkillData SkillData { get; protected set; } // Magic Skill Àü¿ë
-    public virtual void SetInfo(CreatureController owner, string skillTemplateID) // Magic Skill Àü¿ë
-    {
+    public Data.SkillData SkillData { get; protected set; }
 
-    }
-
-    public Data.MonsterSkillData MonsterSkillData { get; protected set; }
-    public virtual void SetInfo(CreatureController owner, int monsterSkillTemplateID)
+    public virtual void SetInfo(CreatureController owner, int skillTemplateID)
     {
         Owner = owner;
-        MonsterSkillData = Managers.Data.MonsterSkillDic[monsterSkillTemplateID];
+        SkillData = Managers.Data.SkillDic[skillTemplateID];
 
         // Handle AnimEvent
         if (Owner.Anim != null)
@@ -44,8 +39,14 @@ public abstract class SkillBase : MonoBehaviour // ½ºÅ³À» ½ºÆù > ActiveSkill ¹ßµ
         UnbindEvent(Owner, "OnAnimComplate", OnAnimComplateHandler);
     }
 
-    protected abstract void OnAttackTargetHandler();
-    protected abstract void OnAnimComplateHandler();
+    protected virtual void OnAttackTargetHandler()
+    {
+
+    }
+    protected virtual void OnAnimComplateHandler()
+    {
+
+    }
 
     #region Init Method
     void Awake()
@@ -65,15 +66,45 @@ public abstract class SkillBase : MonoBehaviour // ½ºÅ³À» ½ºÆù > ActiveSkill ¹ßµ
     }
     #endregion
 
-    public virtual void ActivateSkill()
+    #region Activate Skill Or Delay
+    
+    public void ActivateSkillOrDelay()
     {
+        Owner.CreatureState = CreatureState.DoSkill; // º»·¡ ÀÚ½ÄÀÇ ActivateSkill ¾È¿¡ ÀÖ´ø Code
 
+        float delaySeconds = SkillData.ActivateSkillDelay;
+
+        if (delaySeconds == 0)
+            ActivateSkill();
+        else if (delaySeconds > 0)
+            OnSkillDelay(delaySeconds);
     }
 
-    // To Do : Generate ÇÔ¼ö ÇÏ³ª·Î ¹­±â
-    protected virtual void GenerateProjectile(CreatureController onwer, Vector3 spawnPos, Action<CreatureController> OnHit = null)
+    public virtual void ActivateSkill() {  }
+
+    protected Coroutine _coOnSkillDelay;
+    private void OnSkillDelay(float delaySeconds)
     {
-        ProjectileController projectile = Managers.Object.Spawn<ProjectileController>(spawnPos, MonsterSkillData.ProjectileId);
+        if (_coOnSkillDelay != null)
+            return;
+
+        _coOnSkillDelay = StartCoroutine(CoOnSkillDelay(delaySeconds));
+    }
+    IEnumerator CoOnSkillDelay(float delaySeconds)
+    {
+        yield return new WaitForSeconds(delaySeconds);
+
+        ActivateSkill();
+        _coOnSkillDelay = null;
+    }
+
+    #endregion
+
+
+    // To Do : Generate ÇÔ¼ö ÇÏ³ª·Î ¹­±â
+    protected virtual void GenerateProjectile(CreatureController onwer, Vector3 spawnPos, Action<BaseController> onHit)
+    {
+        ProjectileController projectile = Managers.Object.Spawn<ProjectileController>(spawnPos, SkillData.ProjectileId);
 
         // Ãæµ¹ÇÏ±â ½ÈÀº Ä£±¸µé settting
         LayerMask excludeMask = 0;
@@ -92,70 +123,40 @@ public abstract class SkillBase : MonoBehaviour // ½ºÅ³À» ½ºÆù > ActiveSkill ¹ßµ
                 break;
         }
 
-        projectile.SetSpawnInfo(Owner, this, excludeMask);
+        projectile.SetSpawnInfo(Owner, this, excludeMask, onHit);
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     protected virtual RangeSkillController GenerateRangeSkill(Data.SkillData skillData, CreatureController onwer, float lifeTime, Vector3 spawnPos, Vector3 size, Action<CreatureController> OnHit = null)
     {
-        RangeSkillController rc = Managers.Object.Spawn<RangeSkillController>(spawnPos, skillData.templateID);
-        rc.SetInfo(skillData, Owner, lifeTime, size, OnHit);
+        /*RangeSkillController rc = Managers.Object.Spawn<RangeSkillController>(spawnPos, skillData.templateID);
+        rc.SetInfo(skillData, Owner, lifeTime, size, OnHit);*/
 
-        return rc;
+        return null;//rc;
     }
 
 
 
-    /*public SkillBase(ESkillType skillType)
-    {
-        SkillType = skillType;
-    }*/
-
-
-    public ESkillType SkillType { get; set; } = ESkillType.None;
     
 
-    public float ActivateDelaySecond { get; protected set; } = 0.0f;
-    public float CompleteDelaySecond { get; protected set; } = 0.0f;
 
-    public int SkillLevel { get; set; } = 0; // ÅÁÅÁÀÌ¶ó ÀÖ´Â °Í -> ½ºÅ³ ·¹º§¿¡ µû¶ó »ç¿ëÇÒ ¼ö ÀÖ´Â ½ºÅ³ÀÎÁö ÆÇº°ÇÒ ¼öµµ ÀÖÀ½
-    public bool IsLearnedSkill { get { return SkillLevel > 0; } }
 
-    public  int Damage { get; protected set; } = 100; // SKillData¿¡ µé¾î°¡ ÀÖÀ» ¿¹Á¤ÀÌÁö¸¸, ÀÓÀÇ °ªÀ¸·Î ³Ö¾îÁÜ
-
-    
-
-    
-
-    
-
-    
 
     #region Skill Delay
-    protected Coroutine _coSkillDelay;
+    
 
-    //¼±µô
-    public void ActivateSkillDelay(float waitSeconds, Action callBack)
-    {
-        if (waitSeconds == 0)
-        {
-            Owner.CreatureState = Define.CreatureState.DoSkill;
-            callBack.Invoke();
-            return;
-        }
-
-        if (_coSkillDelay != null)
-            StopCoroutine(_coSkillDelay);
-
-        _coSkillDelay = StartCoroutine(CoActivateSkillDelay(waitSeconds, callBack));
-    }
-
-    IEnumerator CoActivateSkillDelay(float waitSeconds, Action callBack)
-    {
-        yield return new WaitForSeconds(waitSeconds);
-
-        Owner.CreatureState = Define.CreatureState.DoSkill;
-        callBack.Invoke();
-        _coSkillDelay = null;
-    }
 
     //ÈÄµô
     public void CompleteSkillDelay(float waitSeconds)
@@ -166,10 +167,10 @@ public abstract class SkillBase : MonoBehaviour // ½ºÅ³À» ½ºÆù > ActiveSkill ¹ßµ
             return;
         }
 
-        if (_coSkillDelay != null)
-            StopCoroutine(_coSkillDelay);
+        if (_coOnSkillDelay != null)
+            StopCoroutine(_coOnSkillDelay);
 
-        _coSkillDelay = StartCoroutine(CoCompleteSkillDelay(waitSeconds));
+        _coOnSkillDelay = StartCoroutine(CoCompleteSkillDelay(waitSeconds));
     }
 
     IEnumerator CoCompleteSkillDelay(float waitSeconds)
@@ -177,7 +178,7 @@ public abstract class SkillBase : MonoBehaviour // ½ºÅ³À» ½ºÆù > ActiveSkill ¹ßµ
         yield return new WaitForSeconds(waitSeconds);
 
         Owner.CreatureState = Define.CreatureState.Idle;
-        _coSkillDelay = null;
+        _coOnSkillDelay = null;
     }
     #endregion
 

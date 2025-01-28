@@ -9,8 +9,15 @@ public class PlayerController : CreatureController
 {
     float EnvCollectDist { get; set; } = 1.0f;
 
+    public PlayerSkillBook _playerSkills;
+    public override BaseSkillBook Skills
+    {
+        get { return _playerSkills as BaseSkillBook; }
+        protected set { base.Skills = value; }
+    }
+
     #region SerializeField in Prefab
-    
+
     [SerializeField]
     Transform _skillBook;
     [SerializeField]
@@ -30,7 +37,7 @@ public class PlayerController : CreatureController
 
     #endregion
 
-    public PlayerSkillBook PlayerSkills { get; protected set; } // override로 player는 바꿔치기?
+    public override Vector3 GenerateSkillPosition { get => FireSocket; }
 
     Vector2 _moveDir = Vector2.zero;
     public Vector2 MoveDir
@@ -128,12 +135,12 @@ public class PlayerController : CreatureController
                 }
                 break;
             case CreatureState.DoSkill:
-                /*{
+                {
                     if (LookDown)
                         Anim.Play("DoSkillFront");
                     else
                         Anim.Play("DoSkillBack");
-                }*/
+                }
                 break;
             case CreatureState.Dameged:
                 {
@@ -205,18 +212,18 @@ public class PlayerController : CreatureController
 
     #endregion
 
-    #region Event Hadling
+    #region Event Handling
     void HandleOnMoveDirChange(Vector2 dir)
     {
         MoveDir = dir;
     }
 
-    void HandleOnKeyDown(Define.KeyDownEvent key)
+    void HandleOnKeyDown(KeyDownEvent key)
     {
-        if (CreatureState == Define.CreatureState.DoSkill)
+        if (CreatureState == CreatureState.DoSkill)
             return;
 
-        PlayerSkills.Inputkey = key;
+        _playerSkills.Command = key;
     }
     #endregion
 
@@ -234,11 +241,9 @@ public class PlayerController : CreatureController
     {
         base.SetInfo(templateID);
 
-        Skills = gameObject.GetOrAddComponent<PlayerSkillBook>();
-        //Skills.SetInfo(this, CreatureData.SkillList);
-
         _stemp = SpriteRenderer; // ?
 
+        // Event
         Managers.Game.OnMoveDirChanged -= HandleOnMoveDirChange;
         Managers.Game.OnMoveDirChanged += HandleOnMoveDirChange; // 객체 참조값과 함께 함수를 전달하기에 가능한 구독
         Managers.Input.OnKeyDownHandler -= HandleOnKeyDown;
@@ -253,9 +258,9 @@ public class PlayerController : CreatureController
             SetDamagedMaterial();
         });
 
-
-        // To Do
-        //FireBallSkill fireBallSkill = Skills.AddSkill<FireBallSkill>(_indicator.position, SkillBook);
+        // Skill
+        _playerSkills = gameObject.GetOrAddComponent<PlayerSkillBook>();
+        Skills.SetInfo(this, CreatureData.SkillList);
     }
 
 
@@ -283,6 +288,9 @@ public class PlayerController : CreatureController
 
     protected override void UpdateIdle()
     {
+        if (_playerSkills.InputQueue.Count > 0)
+            _playerSkills.InputQueue.Clear();
+
         if (_moveDir != Vector2.zero) { CreatureState = Define.CreatureState.Moving; return; }
     }
 

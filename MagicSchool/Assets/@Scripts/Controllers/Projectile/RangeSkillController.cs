@@ -7,12 +7,6 @@ public class RangeSkillController : SkillObjController
 {
     Vector3 _size = Vector3.one;
 
-    public override bool Init()
-    {
-        base.Init();
-
-        return true;
-    }
 
     public void SetInfo(Data.SkillData skillData, CreatureController owner, float lifTime, Vector3 size, Action<CreatureController> OnHit = null)
     {
@@ -26,7 +20,7 @@ public class RangeSkillController : SkillObjController
         _owner = owner;
         _lifeTime = lifTime;
         _OnHit = OnHit;
-        SkillData = skillData;
+        //SkillData = skillData;
         // ToDo : Data Paring
 
         InitValue();

@@ -23,7 +23,7 @@ public class InputManager : IPointerClickHandler, IPointerDownHandler, IPointerU
     {
         if (OnKeyDownHandler == null)
             return;
-        #region 1, 2, 3, 4
+        #region 1, 2, 3, 4, 5, 6
 
         if (Input.GetKeyDown(KeyCode.Alpha1))
         {
@@ -41,11 +41,19 @@ public class InputManager : IPointerClickHandler, IPointerDownHandler, IPointerU
         {
             OnKeyDownHandler.Invoke(Define.KeyDownEvent.N4);
         }
+        else if (Input.GetKeyDown(KeyCode.Alpha5))
+        {
+            OnKeyDownHandler.Invoke(Define.KeyDownEvent.N5);
+        }
+        else if (Input.GetKeyDown(KeyCode.Alpha6))
+        {
+            OnKeyDownHandler.Invoke(Define.KeyDownEvent.N6);
+        }
 
         #endregion
 
         #region Q, W, E, R
-        
+
         else if (Input.GetKeyDown(KeyCode.Q))
         {
             OnKeyDownHandler.Invoke(Define.KeyDownEvent.Q);

@@ -86,7 +86,7 @@ public class MonsterController : EffectedCreature
 
         SkillBase skill = Skills.GetReadySkill();
         Vector3 dir = Target.transform.position - transform.position;
-        CreatureState = CheckAttackTarget(skill, dir.sqrMagnitude);
+        CheckAttackTarget(skill, dir.sqrMagnitude);
     }
 
     protected override void UpdateDameged()
@@ -102,10 +102,10 @@ public class MonsterController : EffectedCreature
             //OnDead(); To Do 일단 CreatureController에 넣어두었다
     }
 
-    CreatureState CheckAttackTarget(SkillBase skill, float sqrMagnitude)
+    void CheckAttackTarget(SkillBase skill, float sqrMagnitude)
     {
         float attackRange = MONSTER_DEFAULT_MELEE_ATTACK_RANGE;
-        if (skill.MonsterSkillData.ProjectileId != 0)
+        if (skill.SkillData.ProjectileId != 0)
             attackRange = MONSTER_DEFAULT_RANGED_ATTACK_RANGE;
 
         float distTargetSqr = sqrMagnitude;
@@ -114,15 +114,14 @@ public class MonsterController : EffectedCreature
 
         if (distTargetSqr <= attackDistenceSqr)
         {
-            skill.ActivateSkill();
-            return CreatureState.DoSkill;
+            skill.ActivateSkillOrDelay();
         }
         else
         {
             if (CreatureState == CreatureState.DoSkill)
-                return CreatureState.DoSkill;
+                return;
 
-            return CreatureState.Moving;
+            CreatureState = CreatureState.Moving;
         }
     }
 
@@ -147,7 +146,7 @@ public class MonsterController : EffectedCreature
         Target = Managers.Object.Player;
 
         Skills = gameObject.GetOrAddComponent<BaseSkillBook>();
-        Skills.SetInfo(this, CreatureData.MonsterSkillList);
+        Skills.SetInfo(this, CreatureData.SkillList);
     }
 
     protected override void FixedUpdateMoving() // 물리와 연관돼 있으면
@@ -163,7 +162,7 @@ public class MonsterController : EffectedCreature
 
         SkillBase skill = Skills.GetReadySkill();
         Vector3 dir = Target.transform.position - transform.position;
-        CreatureState = CheckAttackTarget(skill, dir.sqrMagnitude);
+        CheckAttackTarget(skill, dir.sqrMagnitude);
 
         SetRigidBodyVelocity(dir.normalized * MoveSpeed);
     }

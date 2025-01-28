@@ -224,6 +224,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 125a25173ce8f974591434d86cd0403d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _playerSkills: {fileID: 0}
   _skillBook: {fileID: 6842739383295381990}
   _indicator: {fileID: 8168667114578815600}
   _fireSocket: {fileID: 5714248315554333730}

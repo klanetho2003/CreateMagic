@@ -10,7 +10,6 @@ public class NormalAttack : SkillBase
             return false;
 
 
-
         return true;
     }
 
@@ -23,15 +22,15 @@ public class NormalAttack : SkillBase
     {
         base.ActivateSkill();
 
-        Owner.CreatureState = Define.CreatureState.DoSkill;
-        Owner.Anim.Play(MonsterSkillData.AnimName);
+        if (SkillData.AnimName != null)
+            Owner.Anim.Play(SkillData.AnimName);
 
         Owner.LookAtTarget(Owner.Target);
     }
 
     protected override void OnAttackTargetHandler()
     {
-        if (Owner.Anim.GetCurrentAnimatorStateInfo(0).IsName(MonsterSkillData.AnimName))
+        if (Owner.Anim.GetCurrentAnimatorStateInfo(0).IsName(SkillData.AnimName))
             OnAttackEvent();
     }
 
@@ -40,14 +39,14 @@ public class NormalAttack : SkillBase
         if (Owner.Target.IsValid() == false)
             return;
 
-        if (MonsterSkillData.ProjectileId == 0) // 근거리 평타
+        if (SkillData.ProjectileId == 0) // 근거리 평타
         {
             // Melee
             Owner.Target.OnDamaged(Owner, this);
         }
         else // 원거리 평타
         {
-            GenerateProjectile(Owner, Owner.CenterPosition);
+            GenerateProjectile(Owner, Owner.CenterPosition, ProjectileOnHit);
         }
     }
 
@@ -58,5 +57,13 @@ public class NormalAttack : SkillBase
 
         if (Owner.CreatureState == Define.CreatureState.DoSkill)
             Owner.CreatureState = Define.CreatureState.Moving;
+    }
+
+    public void ProjectileOnHit(BaseController cc)
+    {
+        if (cc.IsValid() == false)
+            return;
+
+        cc.OnDamaged(Owner, this);
     }
 }

@@ -1,47 +1,73 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
+using Unity.VisualScripting;
 using UnityEngine;
 using static Define;
 
 public class PlayerSkillBook : BaseSkillBook
 {
-    bool _isStartSkill;
+    public Dictionary<int, SkillBase> SkillDict { get; } = new Dictionary<int, SkillBase>();
 
-    KeyDownEvent _currentkey;
-    public KeyDownEvent Inputkey
+    public override bool Init()
     {
-        get { return _currentkey; }
+        if (base.Init() == false)
+            return false;
+
+        return true;
+    }
+
+    public override void AddSkill(int skillTemplateID = 0)
+    {
+        string className = Managers.Data.SkillDic[skillTemplateID].ClassName;
+
+        SkillBase skill = gameObject.AddComponent(Type.GetType(className)) as SkillBase;
+        if (skill == null)
+            return;
+
+        skill.SetInfo(_owner, skillTemplateID);
+
+        SkillList.Add(skill);
+        SkillDict.Add(skillTemplateID, skill);
+    }
+
+    
+    Queue<int> _inputQueue = new Queue<int>(); // N 번째 값까지만 넣는 방법은 어떤가
+    public Queue<int> InputQueue {  get { return _inputQueue; } }
+
+    KeyDownEvent _currentCommand;
+    public KeyDownEvent Command
+    {
+        get { return _currentCommand; }
         set
         {
-            if (_isStartSkill == true) // 선 딜레이 중일 시 return
+            if (_owner.CreatureState == CreatureState.DoSkill)
                 return;
 
-            pc.CreatureState = CreatureState.Casting;
+            _owner.CreatureState = CreatureState.Casting;
 
-            _skillKey = _skillKey + $"{value}";
-            Debug.Log($"SkillKey -> {_skillKey}");
-
+            _inputQueue.Enqueue(value.GetHashCode());
 
             switch (value)
             {
                 #region N1, N2, N3, N4
                 
                 case KeyDownEvent.N1:
-                    castingImpact.DoSkill();
-                    _currentkey = value;
+                    //castingImpact.DoSkill();
+                    _currentCommand = value;
                     break;
                 case KeyDownEvent.N2:
-                    castingImpact.DoSkill();
-                    _currentkey = value;
+                    //castingImpact.DoSkill();
+                    _currentCommand = value;
                     break;
                 case KeyDownEvent.N3:
-                    castingImpact.DoSkill();
-                    _currentkey = value;
+                    //castingImpact.DoSkill();
+                    _currentCommand = value;
                     break;
                 case KeyDownEvent.N4:
-                    castingImpact.DoSkill();
-                    _currentkey = value;
+                    //castingImpact.DoSkill();
+                    _currentCommand = value;
                     break;
 
                 #endregion
@@ -49,16 +75,16 @@ public class PlayerSkillBook : BaseSkillBook
                 #region Q, W, E, R
 
                 case KeyDownEvent.Q:
-                    castingImpact.DoSkill();
+                    //castingImpact.DoSkill();
                     break;
                 case KeyDownEvent.W:
-                    castingImpact.DoSkill();
+                    //castingImpact.DoSkill();
                     break;
                 case KeyDownEvent.E:
-                    castingImpact.DoSkill();
+                    //castingImpact.DoSkill();
                     break;
                 case KeyDownEvent.R:
-                    castingImpact.DoSkill();
+                    //castingImpact.DoSkill();
                     break;
 
                 #endregion
@@ -66,16 +92,16 @@ public class PlayerSkillBook : BaseSkillBook
                 #region A, S, D
 
                 case KeyDownEvent.A:
-                    castingImpact.InitSize();
-                    pc.CreatureState = TryDoSkill();
+                    //castingImpact.InitSize();
+                    _owner.CreatureState = TryDoSkill();
                     break;
                 case KeyDownEvent.S:
-                    castingImpact.InitSize();
-                    pc.CreatureState = TryDoSkill();
+                    //castingImpact.InitSize();
+                    _owner.CreatureState = TryDoSkill();
                     break;
                 case KeyDownEvent.D:
-                    castingImpact.InitSize();
-                    pc.CreatureState = TryDoSkill();
+                    //castingImpact.InitSize();
+                    _owner.CreatureState = TryDoSkill();
                     break;
 
                 #endregion
@@ -86,52 +112,43 @@ public class PlayerSkillBook : BaseSkillBook
         }
     }
 
-    SkillBase _skill; // 필요 없을 지도
-    string _skillKey;
-
-    CastingImpact castingImpact;
-    PlayerController pc;
-
-    public override bool Init()
-    {
-        if (base.Init() == false)
-            return false;
-        
-        pc = GetComponent<PlayerController>();
-        castingImpact = AddSkill<CastingImpact>(pc.Indicator.position, pc.SkillBook);
-
-        return true;
-    }
-
     CreatureState TryDoSkill()
     {
-        _isStartSkill = BaseSkillDict.TryGetValue(_skillKey, out _skill);
-        if (_isStartSkill == false)
-        {
-            Debug.Log($"Player Do not have --{_skillKey}--");
+        int skillKey = BuildCommandKey();
 
-            _skillKey = "";
+        if (SkillDict.TryGetValue(skillKey, out SkillBase skill) == false)
+        {
+            Debug.Log($"Player Do not have --{skillKey}--");
 
             return CreatureState.Idle;
         }
         else // _isStartSkill == true
         {
-            _skill.ActivateSkillDelay(_skill.ActivateDelaySecond, InitKeyInput);
+            skill.ActivateSkillOrDelay();
+
+            Debug.Log($"Do Skill Key : {skillKey}");
         }
 
-        return pc.CreatureState;
+        return _owner.CreatureState;
     }
 
-    void InitKeyInput()
+    int BuildCommandKey()
     {
-        _skillKey = "";
-        _isStartSkill = false;
-    }
+        int key = 0;
 
-    public bool ActiveSkill()
-    {
-        _skill.ActivateSkill();
-        
-        return true;
+        while (_inputQueue.Count > 1)
+        {
+            int index = _inputQueue.Dequeue();
+
+            for (int i = 0; i < _inputQueue.Count; i++)
+                index = index * 10;
+
+            key += index;
+        }
+
+        key += _inputQueue.Dequeue() - 10;
+        Debug.Log($"Do Skill Key : {key}");
+
+        return key;
     }
 }

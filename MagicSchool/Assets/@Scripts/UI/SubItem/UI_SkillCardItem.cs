@@ -22,7 +22,7 @@ public class UI_SkillCardItem : UI_Base
         SkillCardBackgroundImage,
     }
 
-    string _templateID;
+    int _templateID;
     Data.SkillData _skillData;
 
     TMP_Text cardNameText;
@@ -32,7 +32,7 @@ public class UI_SkillCardItem : UI_Base
 
     GameObject skillCardBackgroundImage;
 
-    public void SetInfo(string templateID)
+    public void SetInfo(int templateID)
     {
         _templateID = templateID;
 
@@ -58,7 +58,7 @@ public class UI_SkillCardItem : UI_Base
 
         BindEvent(skillCardBackgroundImage.gameObject, () =>
         {
-            Managers.Game.Player.Skills.AddSkill<EgoSword>(transform.position);
+            //Managers.Game.Player.Skills.AddSkill<EgoSword>(/*transform.position*/);
             Managers.UI.ClosePopUp();
         });
 

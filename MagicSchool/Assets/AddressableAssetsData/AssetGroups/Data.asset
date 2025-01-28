@@ -35,12 +35,6 @@ MonoBehaviour:
     m_SerializedLabels:
     - PreLoad
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 2c8578bceea32a744a7421e082594dae
-    m_Address: MonsterSkillData
-    m_ReadOnly: 0
-    m_SerializedLabels:
-    - PreLoad
-    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 7e6b1fe1ba87b154d965155afc040d52
     m_Address: ProjectileData
     m_ReadOnly: 0

@@ -189,8 +189,7 @@ namespace Data
         public string AnimatorDataID;
         public string SortingLayerName
 ;
-        public List<int> MonsterSkillList;
-        public List<string> SkillList;
+        public List<int> SkillList;
 
         public float DropItemId;
         public float StandardAttack;
@@ -239,10 +238,10 @@ namespace Data
     }
     #endregion
 
-    #region Monster Skill Data
+    #region Skill Data
 
     [Serializable]
-    public class MonsterSkillData
+    public class SkillData
     {
         public int DataId;
         public string Name;
@@ -263,50 +262,21 @@ namespace Data
         public float RotateSpeed;
         public float ScaleMultiplier;
         public float AngleRange;
+
+        public List<int> NextSkills;
+        public float ActivateSkillDelay;
+        public float CompleteSkillDelay;
     }
 
     [Serializable]
-    public class MonsterSkillDataLoader : ILoader<int, MonsterSkillData>
-    {
-        public List<MonsterSkillData> skills = new List<MonsterSkillData>();
-        public Dictionary<int, MonsterSkillData> MakeDict()
-        {
-            Dictionary<int, MonsterSkillData> dict = new Dictionary<int, MonsterSkillData>();
-            foreach (MonsterSkillData skill in skills)
-                dict.Add(skill.DataId, skill);
-            return dict;
-        }
-    }
-
-    #endregion
-
-    #region Skill Data
-
-    [Serializable]
-    public class SkillData
-    {
-        public string templateID;
-        public string name;
-        public string prefab;
-        public string type;
-        public int damage;
-
-        public List<string> skills;
-        public float activateSkillDelay;
-        public float completeSkillDelay;
-        public int speed;
-    }
-
-    [Serializable]
-    public class SkillDataLoader : ILoader<string, SkillData>
+    public class SkillDataLoader : ILoader<int, SkillData>
     {
         public List<SkillData> skills = new List<SkillData>();
-
-        public Dictionary<string, SkillData> MakeDict()
+        public Dictionary<int, SkillData> MakeDict()
         {
-            Dictionary<string, SkillData> dict = new Dictionary<string, SkillData>();
+            Dictionary<int, SkillData> dict = new Dictionary<int, SkillData>();
             foreach (SkillData skill in skills)
-                dict.Add(skill.templateID, skill);
+                dict.Add(skill.DataId, skill);
             return dict;
         }
     }

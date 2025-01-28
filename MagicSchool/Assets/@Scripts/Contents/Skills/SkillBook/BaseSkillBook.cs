@@ -9,7 +9,7 @@ public class BaseSkillBook : MonoBehaviour // 일종의 스킬 매니저
 {
     public List<SkillBase> SkillList { get; } = new List<SkillBase>();
 
-    CreatureController _owner;
+    protected CreatureController _owner;
 
     #region Init Method
     
@@ -30,7 +30,7 @@ public class BaseSkillBook : MonoBehaviour // 일종의 스킬 매니저
 
     #endregion
 
-    public void SetInfo(CreatureController owner, List<int> skillTemplateIDs)
+    public /*virtual */void SetInfo(CreatureController owner, List<int> skillTemplateIDs)
     {
         _owner = owner;
 
@@ -38,9 +38,9 @@ public class BaseSkillBook : MonoBehaviour // 일종의 스킬 매니저
             AddSkill(skillTemplateID);
     }
 
-    public void AddSkill(int skillTemplateID = 0)
+    public virtual void AddSkill(int skillTemplateID = 0)
     {
-        string className = Managers.Data.MonsterSkillDic[skillTemplateID].ClassName;
+        string className = Managers.Data.SkillDic[skillTemplateID].ClassName;
 
         SkillBase skill = gameObject.AddComponent(Type.GetType(className)) as SkillBase;
         if (skill == null)
@@ -49,11 +49,6 @@ public class BaseSkillBook : MonoBehaviour // 일종의 스킬 매니저
         skill.SetInfo(_owner, skillTemplateID);
 
         SkillList.Add(skill);
-    }
-
-    public void AddSkill(string skillTemplateID = null)
-    {
-        //string className = Managers.Data.SkillDic[skillTemplateID].name;
     }
 
     public SkillBase GetReadySkill()
@@ -84,17 +79,17 @@ public class BaseSkillBook : MonoBehaviour // 일종의 스킬 매니저
 
         if (type == typeof(EgoSword)) // Pooling 객체는 GenerateSpawner()  if not  Managers.Object.Spawn()
         {
-            var egoSword = Managers.Object.Spawn<EgoSword>(position, Define.EGO_SWORD_ID);
-
-            Skills.Add(egoSword);
-            RepeatSkills.Add(egoSword);
-            egoSword.Owner = gameObject.GetComponent<CreatureController>();
-
-            return egoSword as T;
+            //var egoSword = Managers.Object.Spawn<EgoSword>(position, EGO_SWORD_ID);
+            //
+            //Skills.Add(egoSword);
+            //RepeatSkills.Add(egoSword);
+            //egoSword.Owner = gameObject.GetComponent<CreatureController>();
+            //
+            //return egoSword as T;
         }
-        else if (type == typeof(FireBallSkill))
+        else if (type == typeof(FireBall))
         {
-            FireBallSkill fireBall_Generater = GenerateSpawner<FireBallSkill>(Define.Fire_Ball_ID, parent);
+            FireBall fireBall_Generater = GenerateSpawner<FireBall>(Define.Fire_Ball_ID, parent);
 
             return fireBall_Generater as T;
         }

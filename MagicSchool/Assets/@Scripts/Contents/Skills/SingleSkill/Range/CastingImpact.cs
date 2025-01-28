@@ -14,10 +14,10 @@ public class CastingImpact : SingleSkill
     {
         base.SetData();
 
-        Damage = SkillData.damage;
+        /*Damage = (int)SkillData.DamageMultiplier;
 
-        ActivateDelaySecond = SkillData.activateSkillDelay;
-        CompleteDelaySecond = SkillData.completeSkillDelay;
+        ActivateDelaySecond = SkillData.ActivateSkillDelay;
+        CompleteDelaySecond = SkillData.CompleteSkillDelay;*/
     }
 
     // To Do : Data Pasing

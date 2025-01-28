@@ -60,7 +60,8 @@ public class CreatureController : BaseController
     #endregion
 
     public BaseController Target { get; protected set; }
-    public BaseSkillBook Skills { get; protected set; }
+    public virtual BaseSkillBook Skills { get; protected set; }
+    public virtual Vector3 GenerateSkillPosition { get; } // override
 
     public Data.CreatureData CreatureData { get; private set; }
     public ECreatureType CreatureType { get; protected set; } = ECreatureType.None;
@@ -137,7 +138,7 @@ public class CreatureController : BaseController
         sg.sortingOrder = SortingLayers.CREATURE;
 
         // Skills
-        // CreatureData.SkillList; //일단 skip
+        //CreatureData.SkillList; //일단 skip
 
         // Stat
         MaxHp = CreatureData.MaxHp;

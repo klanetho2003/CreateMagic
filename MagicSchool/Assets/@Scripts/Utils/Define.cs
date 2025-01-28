@@ -41,17 +41,19 @@ public static class Define
 
     public enum KeyDownEvent
     {
-        N1,
-        N2,
-        N3,
-        N4,
-        Q,
-        W,
-        E,
-        R,
-        A,
-        S,
-        D,
+        N1 = 1,
+        N2 = 2,
+        N3 = 3,
+        N4 = 4,
+        N5 = 5,
+        N6 = 6,
+        Q = 7,
+        W = 8,
+        E = 9,
+        R = 0,
+        A = 11,
+        S = 12,
+        D = 13,
     }
 
     public enum Scene
@@ -101,7 +103,7 @@ public static class Define
     
     public const string Fire_Ball_ID = "N1QA";
     public const string CastingImapct_ID = "N1";
-    public const string EGO_SWORD_ID = "10";
+    public const int EGO_SWORD_ID = 10;
     public const string Spawner_ID = "_Generater";
 
     #region Creatrue ID
@@ -118,6 +120,7 @@ public static class Define
     //HARD CODING
     public const int MONSTER_DEFAULT_MELEE_ATTACK_RANGE = 1;
     public const int MONSTER_DEFAULT_RANGED_ATTACK_RANGE = 4;
+    public const int INIT_SKILLKEY = 0;
 
     public static class AnimationName
     {
