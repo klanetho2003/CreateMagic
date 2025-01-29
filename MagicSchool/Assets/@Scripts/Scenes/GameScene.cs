@@ -53,7 +53,7 @@ public class GameScene : MonoBehaviour
 
         var player = Managers.Object.Spawn<PlayerController>(Vector3.zero, MAGICION01_ID);
 
-        //_spawningPool = gameObject.GetOrAddComponent<SpawningPool>();
+        _spawningPool = gameObject.GetOrAddComponent<SpawningPool>();
 
         var map = Managers.Resource.Instantiate("Map_Prototype.prefab");
         map.name = "@Map";

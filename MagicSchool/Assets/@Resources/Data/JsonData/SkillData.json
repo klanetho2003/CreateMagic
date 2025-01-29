@@ -2,10 +2,10 @@
   "skills": [
     {
       "DataId": 10001,
-      "Name": "기본공격",
+      "Name": "�⺻����",
       "ClassName": "NormalAttack",
       "ComponentName": null,
-      "Description": "근접평타",
+      "Description": "������Ÿ",
       "ProjectileId": 0,
       "PrefabLabel": null,
       "IconLabel": "BattleSkillIcon_01",
@@ -21,15 +21,15 @@
       "ScaleMultiplier": 1.0,
       "AngleRange": 0.0,
       "NextSkills": null,
-      "ActivateSkillDelay": 5.0,
+      "ActivateSkillDelay": 0.0,
       "CompleteSkillDelay": 0.0
     },
     {
       "DataId": 10002,
-      "Name": "위자드 직선평타",
+      "Name": "���ڵ� ������Ÿ",
       "ClassName": "NormalAttack",
       "ComponentName": "LinearMotion",
-      "Description": "주변의 적을 향해 에너지 볼트를 발사한다",
+      "Description": "�ֺ��� ���� ���� ������ ��Ʈ�� �߻��Ѵ�",
       "ProjectileId": 70001,
       "PrefabLabel": "ProjectilePrefab",
       "IconLabel": "BattleSkillIcon_01",
@@ -45,15 +45,15 @@
       "ScaleMultiplier": 1.0,
       "AngleRange": 0.0,
       "NextSkills": null,
-      "ActivateSkillDelay": 5.0,
+      "ActivateSkillDelay": 0.0,
       "CompleteSkillDelay": 0.0
     },
     {
       "DataId": 10003,
-      "Name": "화살든 고블린 평타",
+      "Name": "ȭ��� ���� ��Ÿ",
       "ClassName": "NormalAttack",
       "ComponentName": "ParabolaMotion",
-      "Description": "주변의 적을 향해 에너지 볼트를 발사한다",
+      "Description": "�ֺ��� ���� ���� ������ ��Ʈ�� �߻��Ѵ�",
       "ProjectileId": 70002,
       "PrefabLabel": "ProjectilePrefab",
       "IconLabel": "BattleSkillIcon_01",
@@ -74,10 +74,10 @@
     },
     {
       "DataId": 10004,
-      "Name": "보스 원형 공격",
+      "Name": "���� ���� ����",
       "ClassName": "AreaAttack",
       "ComponentName": null,
-      "Description": "보스 원형 공격",
+      "Description": "���� ���� ����",
       "ProjectileId": 0,
       "PrefabLabel": "SpellIndicator",
       "IconLabel": null,
@@ -98,10 +98,10 @@
     },
     {
       "DataId": 10005,
-      "Name": "돌진",
+      "Name": "����",
       "ClassName": "Dash",
       "ComponentName": null,
-      "Description": "돌진",
+      "Description": "����",
       "ProjectileId": 0,
       "PrefabLabel": "SpellIndicator",
       "IconLabel": null,
@@ -126,7 +126,7 @@
       "ClassName": "FireBall",
       "ComponentName": "LinearMotion",
       "Description": "To Do",
-      "ProjectileId": 70001,
+      "ProjectileId": 70002,
       "PrefabLabel": "ProjectilePrefab",
       "IconLabel": "BattleSkillIcon_01",
       "AnimName": "NormalAttack",
@@ -143,7 +143,7 @@
       "NextSkills": [
         90171
       ],
-      "ActivateSkillDelay": 1.0,
+      "ActivateSkillDelay": 2.5,
       "CompleteSkillDelay": 1.0
     },
     {

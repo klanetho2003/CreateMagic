@@ -25,8 +25,14 @@ public class CreatureController : BaseController
             case CreatureState.Casting:
                 UpdateCasting();
                 break;
+            case CreatureState.FrontDelay:
+                UpdateFrontDelay();
+                break;
             case CreatureState.DoSkill:
                 UpdateDoSkill();
+                break;
+            case CreatureState.BackDelay:
+                UpdateBackDelay();
                 break;
             case CreatureState.Dameged:
                 UpdateDameged();
@@ -40,7 +46,9 @@ public class CreatureController : BaseController
     protected virtual void UpdateIdle() { }
     protected virtual void UpdateMoving() { }
     protected virtual void UpdateCasting() { }
+    protected virtual void UpdateFrontDelay() { }
     protected virtual void UpdateDoSkill() { }
+    protected virtual void UpdateBackDelay() { }
     protected virtual void UpdateDameged() { }
     protected virtual void UpdateDead() { }
 
@@ -59,9 +67,9 @@ public class CreatureController : BaseController
 
     #endregion
 
-    public BaseController Target { get; protected set; }
     public virtual BaseSkillBook Skills { get; protected set; }
-    public virtual Vector3 GenerateSkillPosition { get; } // override
+    public virtual BaseController Target { get; protected set; } // player override
+    public virtual Vector3 GenerateSkillPosition { get { return CenterPosition; } } // player override
 
     public Data.CreatureData CreatureData { get; private set; }
     public ECreatureType CreatureType { get; protected set; } = ECreatureType.None;

@@ -10,7 +10,7 @@
       "Mass": 15.0,
       "MaxHp": 1000.0,
       "UpMaxHp": 2.0,
-      "Atk": 25.0,
+      "Atk": 10000.0,
       "AtkRange": 4.0,
       "AtkBonus": 2.0,
       "Def": 0.0,
@@ -32,7 +32,7 @@
     },
     {
       "TemplateID": 201001,
-      "DescriptionTextID": "워리어",
+      "DescriptionTextID": "������",
       "Label": "Hero",
       "ColliderOffsetX": 0.0,
       "ColliderOffsetY": 0.5,

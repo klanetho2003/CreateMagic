@@ -2,10 +2,10 @@
   "projectiles": [
     {
       "DataId": 70001,
-      "Name": "FireBall",
+      "Name": "DarkBall",
       "ComponentName": "FireBall",
-      "MaterialID": "FireBall",
-      "AnimatorDataID": "FireBall_Animator",
+      "MaterialID": "CreatureDefaultMat",
+      "AnimatorDataID": "DarkBall_Animator",
       "PrefabLabel": "Projectile",
       "Duration": 0.0,
       "NumBounce": 0.0,

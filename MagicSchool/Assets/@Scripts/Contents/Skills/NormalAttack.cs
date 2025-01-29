@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static Define;
 
 public class NormalAttack : SkillBase
 {
@@ -21,6 +22,8 @@ public class NormalAttack : SkillBase
     public override void ActivateSkill()
     {
         base.ActivateSkill();
+
+        Owner.CreatureState = CreatureState.DoSkill;
 
         if (SkillData.AnimName != null)
             Owner.Anim.Play(SkillData.AnimName);

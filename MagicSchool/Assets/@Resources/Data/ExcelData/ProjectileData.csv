@@ -1,3 +1,3 @@
 DataId,Name,ComponentName,MaterialID,AnimatorDataID,PrefabLabel,Duration,NumBounce,NumPenerations,HitSound,ProjRange,ProjSpeed
-70001,FireBall,FireBall,FireBall,FireBall_Animator,Projectile,,,,,,10
+70001,DarkBall,FireBall,CreatureDefaultMat,DarkBall_Animator,Projectile,,,,,,10
 70002,FireBall,FireBall,FireBall,FireBall_Animator,Projectile,,,,,,5

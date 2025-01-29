@@ -34,7 +34,9 @@ public static class Define
         Idle,
         Moving,
         Casting,
+        FrontDelay,
         DoSkill,
+        BackDelay,
         Dameged,
         Dead,
     }
@@ -119,8 +121,9 @@ public static class Define
 
     //HARD CODING
     public const int MONSTER_DEFAULT_MELEE_ATTACK_RANGE = 1;
-    public const int MONSTER_DEFAULT_RANGED_ATTACK_RANGE = 4;
+    public const int MONSTER_DEFAULT_RANGED_ATTACK_RANGE = 3;
     public const int INIT_SKILLKEY = 0;
+    public const int PROJECTILE_DISTANCE_MAX = 1000;
 
     public static class AnimationName
     {

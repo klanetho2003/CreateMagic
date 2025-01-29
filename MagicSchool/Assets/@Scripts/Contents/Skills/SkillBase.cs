@@ -39,14 +39,8 @@ public abstract class SkillBase : MonoBehaviour // ½ºÅ³À» ½ºÆù > ActiveSkill ¹ßµ
         UnbindEvent(Owner, "OnAnimComplate", OnAnimComplateHandler);
     }
 
-    protected virtual void OnAttackTargetHandler()
-    {
-
-    }
-    protected virtual void OnAnimComplateHandler()
-    {
-
-    }
+    protected abstract void OnAttackTargetHandler();
+    protected abstract void OnAnimComplateHandler();
 
     #region Init Method
     void Awake()
@@ -70,7 +64,8 @@ public abstract class SkillBase : MonoBehaviour // ½ºÅ³À» ½ºÆù > ActiveSkill ¹ßµ
     
     public void ActivateSkillOrDelay()
     {
-        Owner.CreatureState = CreatureState.DoSkill; // º»·¡ ÀÚ½ÄÀÇ ActivateSkill ¾È¿¡ ÀÖ´ø Code
+        if (Owner.CreatureState == CreatureState.DoSkill || Owner.CreatureState == CreatureState.FrontDelay || Owner.CreatureState == CreatureState.BackDelay)
+            return;
 
         float delaySeconds = SkillData.ActivateSkillDelay;
 
@@ -79,15 +74,17 @@ public abstract class SkillBase : MonoBehaviour // ½ºÅ³À» ½ºÆù > ActiveSkill ¹ßµ
         else if (delaySeconds > 0)
             OnSkillDelay(delaySeconds);
     }
-
+    
     public virtual void ActivateSkill() {  }
 
+    // Skill »ç¿ë Àü ¼±µô·¹ÀÌ
     protected Coroutine _coOnSkillDelay;
-    private void OnSkillDelay(float delaySeconds)
+    public virtual void OnSkillDelay(float delaySeconds)
     {
         if (_coOnSkillDelay != null)
             return;
 
+        Owner.CreatureState = CreatureState.FrontDelay;
         _coOnSkillDelay = StartCoroutine(CoOnSkillDelay(delaySeconds));
     }
     IEnumerator CoOnSkillDelay(float delaySeconds)

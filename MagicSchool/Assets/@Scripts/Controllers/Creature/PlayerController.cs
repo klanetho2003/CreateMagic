@@ -67,15 +67,7 @@ public class PlayerController : CreatureController
             switch (lastState)
             {
                 case CreatureState.Casting:
-                    {
-                        StopCoroutine(_coOnPlayCastingAnimation);
-                        _coOnPlayCastingAnimation = null;
-
-                        InitShadow();
-                    }// Stop CastingMoveMent, InitShadow
-                    break;
-                case CreatureState.DoSkill:
-                    _isCompleteActive = false;
+                    InitShadow();
                     break;
                 default:
                     break;
@@ -83,23 +75,12 @@ public class PlayerController : CreatureController
 
             switch (value)
             {
-                case CreatureState.Idle:
-                    break;
-                case CreatureState.Moving:
-                    break;
                 case CreatureState.Casting:
                     OnPlayCastingAnimation(5f, 0.0005f); // To Do : Data 시트 length는 홀수 여야한다(Cos주기 이슈)
                     break;
-                case CreatureState.DoSkill:
-                    //if (_coWait == null) Wait(0.45f); // 지팡이 휘두르기 재생 wait
-                    break;
-                case CreatureState.Dameged:
-                    //if (_coWait == null) Wait(0.6f); // Damaged Animation 재생 wait
-                    break;
-                case CreatureState.Dead:
-                    break;
                 default:
                     break;
+
             }
         }
     }
@@ -134,13 +115,11 @@ public class PlayerController : CreatureController
                         Anim.Play("CastingBack");
                 }
                 break;
+            case CreatureState.FrontDelay:
+                break;
             case CreatureState.DoSkill:
-                {
-                    if (LookDown)
-                        Anim.Play("DoSkillFront");
-                    else
-                        Anim.Play("DoSkillBack");
-                }
+                break;
+            case CreatureState.BackDelay:
                 break;
             case CreatureState.Dameged:
                 {
@@ -277,8 +256,6 @@ public class PlayerController : CreatureController
     
     public override void UpdateController()
     {
-        MoveIndicator();
-
         base.UpdateController();
 
         CollectEnv();
@@ -291,36 +268,29 @@ public class PlayerController : CreatureController
         if (_playerSkills.InputQueue.Count > 0)
             _playerSkills.InputQueue.Clear();
 
-        if (_moveDir != Vector2.zero) { CreatureState = Define.CreatureState.Moving; return; }
+        if (_moveDir != Vector2.zero) { CreatureState = CreatureState.Moving; return; }
     }
 
     protected override void UpdateMoving()
     {
-        if (_moveDir == Vector2.zero) { CreatureState = Define.CreatureState.Idle; return; }
+        MoveIndicator();
+
+        if (_moveDir == Vector2.zero) { CreatureState = CreatureState.Idle; return; }
     }
 
     protected override void UpdateCasting()
     {
-        
+        MoveIndicator();
     }
 
-    bool _isCompleteActive = false;
     protected override void UpdateDoSkill()
     {
-        if (_isCompleteActive == true)
-            return;
-
-        /*if (_coWait == null)
-            _isCompleteActive = PlayerSkills.ActiveSkill();*/
+        
     }
 
     protected override void UpdateDameged()
     {
-        /*if (_coWait == null)
-        {
-            CreatureState = CreatureState.Idle;
-            SetDamagedMaterial();
-        }*/
+
     }
 
     #endregion

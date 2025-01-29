@@ -12,6 +12,7 @@ public class ProjectileController : BaseController
     public Action<BaseController> _onHit;
     public Data.ProjectileData ProjectileData { get; private set; }
     public ProjectileMotionBase ProjectileMotion { get; private set; }
+    public Vector3 TargetPosition { get; private set; }
 
     public override bool Init()
     {
@@ -51,6 +52,7 @@ public class ProjectileController : BaseController
         Owner = owner;
         Skill = skill;
         _onHit = onHit;
+        TargetPosition = (owner.Target == null) ? (owner.GenerateSkillPosition - owner.transform.position).normalized * PROJECTILE_DISTANCE_MAX : owner.Target.CenterPosition;
 
         // Rule
         Collider.excludeLayers = layer;
@@ -61,10 +63,11 @@ public class ProjectileController : BaseController
 
         string compoenetName = skill.SkillData.ComponentName;
         ProjectileMotion = gameObject.AddComponent(Type.GetType(compoenetName)) as ProjectileMotionBase;
+        
 
         LinearMotion linearMotion = ProjectileMotion as LinearMotion;
         if (linearMotion != null)
-            linearMotion.SetInfo(ProjectileData.DataId, owner.CenterPosition, owner.Target.CenterPosition, () => Managers.Object.Despawn(this));
+            linearMotion.SetInfo(ProjectileData.DataId, owner.GenerateSkillPosition, TargetPosition, () => Managers.Object.Despawn(this));
 
         // Reserve
         StartCoroutine(CoReserveDestroy(5.0f));

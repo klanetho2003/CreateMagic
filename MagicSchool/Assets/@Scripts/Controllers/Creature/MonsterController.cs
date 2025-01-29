@@ -40,6 +40,9 @@ public class MonsterController : EffectedCreature
             case CreatureState.Casting:
                 Anim.Play($"Casting");
                 break;
+            case CreatureState.FrontDelay:
+                Anim.Play($"Idle");
+                break;
             case CreatureState.DoSkill:
                 //Anim.Play($"DoSkill");
                 //Wait(1f); // Damege Animation + 후딜레이 재생 wait // To Do Animation RunTime Parsing
@@ -113,16 +116,9 @@ public class MonsterController : EffectedCreature
         float attackDistenceSqr = finalAttackRange * finalAttackRange;
 
         if (distTargetSqr <= attackDistenceSqr)
-        {
             skill.ActivateSkillOrDelay();
-        }
         else
-        {
-            if (CreatureState == CreatureState.DoSkill)
-                return;
-
             CreatureState = CreatureState.Moving;
-        }
     }
 
     #endregion
@@ -147,6 +143,15 @@ public class MonsterController : EffectedCreature
 
         Skills = gameObject.GetOrAddComponent<BaseSkillBook>();
         Skills.SetInfo(this, CreatureData.SkillList);
+
+        AnimationEventManager.BindEvent(this, "OnDestroy", () =>
+        {
+            if (CreatureState != CreatureState.Dead)
+                return;
+
+            CreatureState = CreatureState.Idle;
+            Managers.Object.Despawn(this);
+        });
     }
 
     protected override void FixedUpdateMoving() // 물리와 연관돼 있으면
