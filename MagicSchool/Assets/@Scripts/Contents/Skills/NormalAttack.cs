@@ -23,8 +23,6 @@ public class NormalAttack : SkillBase
     {
         base.ActivateSkill();
 
-        Owner.CreatureState = CreatureState.DoSkill;
-
         if (SkillData.AnimName != null)
             Owner.Anim.Play(SkillData.AnimName);
 

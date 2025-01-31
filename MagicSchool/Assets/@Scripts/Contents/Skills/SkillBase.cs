@@ -75,7 +75,10 @@ public abstract class SkillBase : MonoBehaviour // 스킬을 스폰 > ActiveSkill 발�
             OnSkillDelay(delaySeconds);
     }
     
-    public virtual void ActivateSkill() {  }
+    public virtual void ActivateSkill()
+    {
+        Owner.CreatureState = CreatureState.DoSkill;
+    }
 
     // Skill 사용 전 선딜레이
     protected Coroutine _coOnSkillDelay;

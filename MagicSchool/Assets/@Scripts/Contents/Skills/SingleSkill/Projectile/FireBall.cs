@@ -24,8 +24,6 @@ public class FireBall : SkillBase
     {
         base.ActivateSkill();
 
-        Owner.CreatureState = CreatureState.DoSkill;
-
         if (Owner.CreatureType == ECreatureType.Monster && SkillData.AnimName != null)
             Owner.Anim.Play(SkillData.AnimName);
         else // Player
@@ -40,16 +38,17 @@ public class FireBall : SkillBase
         base.OnSkillDelay(delaySeconds);
     }
 
-    protected virtual void OnAttackEvent()
-    {
-        GenerateProjectile(Owner, Owner.GenerateSkillPosition, ProjectileOnHit);
-    }
 
     protected override void OnAttackTargetHandler()
     {
         AnimatorStateInfo currentAnim = Owner.Anim.GetCurrentAnimatorStateInfo(0);
         if (currentAnim.IsName(SkillData.AnimName) || currentAnim.IsName($"{SkillData.AnimName}_LookDown_{Owner.LookDown}"))
             OnAttackEvent();
+    }
+
+    protected virtual void OnAttackEvent()
+    {
+        GenerateProjectile(Owner, Owner.GenerateSkillPosition, ProjectileOnHit);
     }
 
     protected override void OnAnimComplateHandler()

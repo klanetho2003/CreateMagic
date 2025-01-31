@@ -7,17 +7,7 @@ using UnityEngine;
 using static Define;
 
 public class MonsterController : EffectedCreature
-{   
-    public float AttaccDistence
-    {
-        get
-        {
-            // radius 값은 SetInfo하면서 부여하는 값이기에 Data Parsing을 구현하면변수로 존재할 것
-            float targetRadius = (Target.IsValid() == true) ? Target.ColliderRadius : 0;
-            return targetRadius + ColliderRadius + MONSTER_DEFAULT_MELEE_ATTACK_RANGE; // 2.0f은 추가 판정값 : To Do DataParsing
-        }
-    }
-
+{
     #region Animation
 
     public override void FlipX(bool flag) // Monster는 태생이 오른쪽, 반대로 값 넣
