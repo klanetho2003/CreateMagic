@@ -6,6 +6,7 @@ using TMPro;
 using UnityEngine;
 using static Define;
 using static AnimationEventManager;
+using Unity.VisualScripting;
 
 public abstract class SkillBase : MonoBehaviour // ½ºÅ³À» ½ºÆù > ActiveSkill ¹ßµ¿ >>> ½ºÅ³ ½ÃÀü
 {
@@ -22,7 +23,7 @@ public abstract class SkillBase : MonoBehaviour // ½ºÅ³À» ½ºÆù > ActiveSkill ¹ßµ
         if (Owner.Anim != null)
         {
             BindEvent(Owner, "OnAttackTarget", OnAttackTargetHandler);
-            BindEvent(Owner, "OnAnimComplate", OnAnimComplateHandler);
+            /*BindEvent(Owner, "OnAnimComplate", OnAnimComplateHandler);*/
         }
     }
 
@@ -36,11 +37,11 @@ public abstract class SkillBase : MonoBehaviour // ½ºÅ³À» ½ºÆù > ActiveSkill ¹ßµ
             return;
 
         UnbindEvent(Owner, "OnAttackTarget", OnAttackTargetHandler);
-        UnbindEvent(Owner, "OnAnimComplate", OnAnimComplateHandler);
+        /*UnbindEvent(Owner, "OnAnimComplate", OnAnimComplateHandler);*/
     }
 
     protected abstract void OnAttackTargetHandler();
-    protected abstract void OnAnimComplateHandler();
+    /*protected abstract void OnAnimComplateHandler();*/
 
     #region Init Method
     void Awake()
@@ -64,9 +65,6 @@ public abstract class SkillBase : MonoBehaviour // ½ºÅ³À» ½ºÆù > ActiveSkill ¹ßµ
     
     public void ActivateSkillOrDelay()
     {
-        if (Owner.CreatureState == CreatureState.DoSkill || Owner.CreatureState == CreatureState.FrontDelay || Owner.CreatureState == CreatureState.BackDelay)
-            return;
-
         float delaySeconds = SkillData.ActivateSkillDelay;
 
         if (delaySeconds == 0)
@@ -93,6 +91,13 @@ public abstract class SkillBase : MonoBehaviour // ½ºÅ³À» ½ºÆù > ActiveSkill ¹ßµ
     IEnumerator CoOnSkillDelay(float delaySeconds)
     {
         yield return new WaitForSeconds(delaySeconds);
+
+        if (Owner.CreatureState != CreatureState.FrontDelay)
+        {
+            StopCoroutine(_coOnSkillDelay);
+            _coOnSkillDelay = null;
+            yield return null;
+        }
 
         ActivateSkill();
         _coOnSkillDelay = null;

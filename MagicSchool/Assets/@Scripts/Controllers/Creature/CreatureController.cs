@@ -26,13 +26,13 @@ public class CreatureController : BaseController
                 UpdateCasting();
                 break;
             case CreatureState.FrontDelay:
-                UpdateFrontDelay();
+                UpdateDoSkill();
                 break;
             case CreatureState.DoSkill:
                 UpdateDoSkill();
                 break;
             case CreatureState.BackDelay:
-                UpdateBackDelay();
+                UpdateDoSkill();
                 break;
             case CreatureState.Dameged:
                 UpdateDameged();
@@ -91,6 +91,19 @@ public class CreatureController : BaseController
     public float MoveSpeed { get; set; }
     #endregion
 
+    protected float AttackDistance
+    {
+        get
+        {
+            /*float env = 2.2f;
+            if (Target != null && Target.ObjectType == EObjectType.Env)
+                return Mathf.Max(env, Collider.radius + Target.Collider.radius + 0.1f);*/
+
+            float baseValue = CreatureData.AtkRange;
+            return baseValue;
+        }
+    }
+
     CreatureState _creatureState = CreatureState.Idle;
     public virtual CreatureState CreatureState
     {
@@ -127,14 +140,14 @@ public class CreatureController : BaseController
         else
             CreatureData = Managers.Data.MonsterDic[templateID];
 
-        gameObject.name = $"{CreatureData.TemplateID}_{CreatureData.DescriptionTextID}"; // To Do : string data sheet
+        gameObject.name = $"{CreatureData.DataId}_{CreatureData.DescriptionTextID}"; // To Do : string data sheet
 
         // Collider
         Collider.offset = new Vector2(CreatureData.ColliderOffsetX, CreatureData.ColliderOffsetY);
         Collider.radius = CreatureData.ColliderRadius;
 
         // RigidBody
-        RigidBody.mass = CreatureData.Mass;
+        RigidBody.mass = 0;
 
         // Material
         SpriteRenderer.material = Managers.Resource.Load<Material>(CreatureData.MaterialID);
@@ -159,8 +172,31 @@ public class CreatureController : BaseController
         CreatureState = CreatureState.Idle;
     }
 
+    #region Wait
+    protected Coroutine _coWait;
+
+    public void StartWait(float seconds)
+    {
+        CancelWait();
+        _coWait = StartCoroutine(CoWait(seconds));
+    }
+
+    IEnumerator CoWait(float seconds)
+    {
+        yield return new WaitForSeconds(seconds);
+        _coWait = null;
+    }
+
+    protected void CancelWait()
+    {
+        if (_coWait != null)
+            StopCoroutine(_coWait);
+        _coWait = null;
+    }
+    #endregion
+
     #region ETC
-    
+
     protected bool IsValid(BaseController bc)
     {
         return bc.IsValid();

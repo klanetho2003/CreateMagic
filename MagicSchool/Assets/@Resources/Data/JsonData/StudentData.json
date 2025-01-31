@@ -1,64 +1,52 @@
 {
   "Students": [
     {
-      "TemplateID": 201000,
+      "DataId": 201000,
       "DescriptionTextID": "Magicion_01",
-      "Label": "Hero",
+      "Label": "HeroPrefab",
       "ColliderOffsetX": 0.0,
       "ColliderOffsetY": 0.5,
       "ColliderRadius": 0.6,
-      "Mass": 15.0,
       "MaxHp": 1000.0,
       "UpMaxHp": 2.0,
-      "Atk": 10000.0,
+      "Atk": 25.0,
       "AtkRange": 4.0,
       "AtkBonus": 2.0,
-      "Def": 0.0,
       "MoveSpeed": 5.0,
-      "TotalExp": 200.0,
-      "HpRate": 1.0,
-      "AtkRate": 1.0,
-      "DefRate": 1.0,
-      "MoveSpeedRate": 1.0,
+      "CriRate": 0.15,
+      "Cridamage": 1.5,
       "IconImage": "002.sprite",
       "MaterialID": "Magicion_01",
       "AnimatorDataID": "Magicion01_Animator",
       "SortingLayerName": "Player",
-      "SkillList": [
-        171
-      ],
-      "DropItemId": 0.0,
-      "StandardAttack": 0.0
+      "DefaultSkillId": 171,
+      "EnvSkillId": 0,
+      "SkillAId": 0,
+      "SkillBId": 0
     },
     {
-      "TemplateID": 201001,
-      "DescriptionTextID": "������",
-      "Label": "Hero",
+      "DataId": 201001,
+      "DescriptionTextID": "워리어",
+      "Label": "HeroPrefab",
       "ColliderOffsetX": 0.0,
       "ColliderOffsetY": 0.5,
       "ColliderRadius": 0.6,
-      "Mass": 15.0,
       "MaxHp": 1000.0,
       "UpMaxHp": 2.0,
       "Atk": 25.0,
       "AtkRange": 1.8,
       "AtkBonus": 2.0,
-      "Def": 0.0,
       "MoveSpeed": 5.0,
-      "TotalExp": 200.0,
-      "HpRate": 1.0,
-      "AtkRate": 1.0,
-      "DefRate": 1.0,
-      "MoveSpeedRate": 1.0,
+      "CriRate": 0.15,
+      "Cridamage": 1.5,
       "IconImage": "001.sprite",
       "MaterialID": "Magicion_01",
       "AnimatorDataID": "Magicion01_Animator",
       "SortingLayerName": "Player",
-      "SkillList": [
-        171
-      ],
-      "DropItemId": 0.0,
-      "StandardAttack": 0.0
+      "DefaultSkillId": 10001,
+      "EnvSkillId": 0,
+      "SkillAId": 0,
+      "SkillBId": 0
     }
   ]
 }

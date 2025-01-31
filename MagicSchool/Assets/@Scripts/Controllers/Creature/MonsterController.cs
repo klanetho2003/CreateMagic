@@ -1,4 +1,5 @@
 using Data;
+using DG.Tweening;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -66,20 +67,39 @@ public class MonsterController : EffectedCreature
             return;
         }
 
-        // CheckAttackTarget() in FixedUpdateMoving - MonsterController
+        CheckAttackTarget(AttackDistance);
     }
 
     protected override void UpdateDoSkill()
     {
-        if (Target.IsValid() == false)
+        if (_coWait != null)
+            return;
+
+        if (Target.IsValid() == false/* || Target.ObjectType == EObjectType.HeroCamp*/)
         {
             CreatureState = CreatureState.Idle;
             return;
         }
 
-        SkillBase skill = Skills.GetReadySkill();
-        Vector3 dir = Target.transform.position - transform.position;
-        CheckAttackTarget(skill, dir.sqrMagnitude);
+        Vector3 dir = (Target.CenterPosition - CenterPosition);
+        float distToTargetSqr = dir.sqrMagnitude;
+        float attackDistanceSqr = AttackDistance * AttackDistance;
+        if (distToTargetSqr > attackDistanceSqr)
+        {
+            CreatureState = CreatureState.Moving;
+            return;
+        }
+
+        // DoSkill
+        Skills.CurrentSkill.ActivateSkillOrDelay();
+
+        LookAtTarget(Target);
+
+        // To Do : Animation Delay Data Parsing
+        /*var trackEntry = SkeletonAnim.state.GetCurrent(0);
+        float delay = trackEntry.Animation.Duration;*/
+
+        StartWait(1.6f);
     }
 
     protected override void UpdateDameged()
@@ -95,18 +115,15 @@ public class MonsterController : EffectedCreature
             //OnDead(); To Do 일단 CreatureController에 넣어두었다
     }
 
-    void CheckAttackTarget(SkillBase skill, float sqrMagnitude)
+    void CheckAttackTarget(/*float sqrMagnitude, */float attackRange)
     {
-        float attackRange = MONSTER_DEFAULT_MELEE_ATTACK_RANGE;
-        if (skill.SkillData.ProjectileId != 0)
-            attackRange = MONSTER_DEFAULT_RANGED_ATTACK_RANGE;
+        Vector3 dir = (Target.transform.position - transform.position);
+        float distToTargetSqr = dir.sqrMagnitude;
+        float attackDistenceSqr = attackRange * attackRange;
 
-        float distTargetSqr = sqrMagnitude;
-        float finalAttackRange = attackRange + Target.ColliderRadius + ColliderRadius;
-        float attackDistenceSqr = finalAttackRange * finalAttackRange;
-
-        if (distTargetSqr <= attackDistenceSqr)
-            skill.ActivateSkillOrDelay();
+        if (distToTargetSqr <= attackDistenceSqr)
+            //skill.ActivateSkillOrDelay();
+            CreatureState = CreatureState.DoSkill;
         else
             CreatureState = CreatureState.Moving;
     }
@@ -132,7 +149,7 @@ public class MonsterController : EffectedCreature
         Target = Managers.Object.Player;
 
         Skills = gameObject.GetOrAddComponent<BaseSkillBook>();
-        Skills.SetInfo(this, CreatureData.SkillList);
+        Skills.SetInfo(this, CreatureData);
 
         AnimationEventManager.BindEvent(this, "OnDestroy", () =>
         {
@@ -155,9 +172,8 @@ public class MonsterController : EffectedCreature
         if (Target.IsValid() == false)
             return;
 
-        SkillBase skill = Skills.GetReadySkill();
         Vector3 dir = Target.transform.position - transform.position;
-        CheckAttackTarget(skill, dir.sqrMagnitude);
+        CheckAttackTarget(/*dir.sqrMagnitude, */AttackDistance);
 
         SetRigidBodyVelocity(dir.normalized * MoveSpeed);
     }

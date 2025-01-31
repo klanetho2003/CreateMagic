@@ -1,6 +1,6 @@
-TemplateID,DescriptionTextID,Label,ColliderOffSetX,ColliderOffsetY,ColliderRadius,Mass,MaxHp,UpMaxHp,Atk,AtkRange,AtkBonus,Def,MoveSpeed,TotalExp,HpRate,AtkRate,DefRate,MoveSpeedRate,IconImage,MaterialID,AnimatorDataID,SortingLayerName,SkillList,DropItemId,StandardAttack
-202001,Assassin,Monster,-0.05,0.7,0.7,15,300,5,2,1.5,2,0,4,200,1,1,1,1,003.sprite,Assassin,Assassin_Animator,Monster,10001,400000,
-202002,Skeleton,Monster,0.05,0.8,0.8,15,400,5,2,1.5,2,1,4,200,1,1,1,1,003.sprite,Skeleton,Skeleton_Animator,Monster,10001,400000,
-202003,SkeletonWithShield,Monster,0.05,0.8,0.8,15,700,5,2,1.5,2,2,4,200,1,1,1,1,003.sprite,SkeletonWithShield,SkeletonWithShield_Animator,Monster,10001,400000,
-202004,Mage_Skeleton,Monster,0,0.75,0.8,15,500,4,2,1.5,2,5,4,200,1,1,1,1,003.sprite,Mage_Skeleton,MageSkeleton_Animator,Monster,10002,400000,
-202005,MageSkeleton-RustyShield,Monster,0,0.75,0.8,15,400,4,2,4,2,4,4,200,1,1,1,1,003.sprite,MageSkeleton-RustyShield,MageSkeletonWithShield_Animator,Monster,10002,400000,
+DataId,DescriptionTextID,Label,ColliderOffsetX,ColliderOffsetY,ColliderRadius,MaxHp,UpMaxHp,Atk,AtkRange,AtkBonus,MoveSpeed,CriRate,Cridamage,IconImage,MaterialID,AnimatorDataID,SortingLayerName,DefaultSkillId,EnvSkillId,SkillAId,SkillBId,DropItemId
+202001,Assassin,MonsterPrefab,-0.05,0.7,0.7,300,5,2,1.5,2,4,0,1.5,003.sprite,Assassin,Assassin_Animator,Monster,10001,0,0,0,400000
+202002,Skeleton,MonsterPrefab,0.05,0.8,0.8,400,5,2,1.5,2,4,0,1.5,003.sprite,Skeleton,Skeleton_Animator,Monster,10001,0,0,0,400000
+202003,SkeletonWithShield,MonsterPrefab,0.05,0.8,0.8,700,5,2,1.5,2,4,0,1.5,003.sprite,SkeletonWithShield,SkeletonWithShield_Animator,Monster,10001,0,0,0,400000
+202004,Mage_Skeleton,MonsterPrefab,0,0.75,0.8,500,4,2,1.5,2,4,0,1.5,003.sprite,Mage_Skeleton,MageSkeleton_Animator,Monster,10001,0,0,0,400000
+202005,MageSkeleton-RustyShield,MonsterPrefab,0,0.75,0.8,400,4,2,4,2,4,0,1.5,003.sprite,MageSkeleton-RustyShield,MageSkeletonWithShield_Animator,Monster,10001,0,0,0,400000

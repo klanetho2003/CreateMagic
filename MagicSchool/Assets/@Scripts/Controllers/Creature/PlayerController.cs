@@ -68,6 +68,8 @@ public class PlayerController : CreatureController
             {
                 case CreatureState.Casting:
                     InitShadow();
+                    StopCoroutine(_coOnPlayCastingAnimation);
+                    _coOnPlayCastingAnimation = null;
                     break;
                 default:
                     break;
@@ -239,7 +241,7 @@ public class PlayerController : CreatureController
 
         // Skill
         _playerSkills = gameObject.GetOrAddComponent<PlayerSkillBook>();
-        Skills.SetInfo(this, CreatureData.SkillList);
+        Skills.SetInfo(this, CreatureData);
     }
 
 
@@ -285,7 +287,10 @@ public class PlayerController : CreatureController
 
     protected override void UpdateDoSkill()
     {
-        
+        if (_coWait != null)
+            return;
+
+        CreatureState = CreatureState.Idle;
     }
 
     protected override void UpdateDameged()

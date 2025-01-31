@@ -51,14 +51,14 @@ public class FireBall : SkillBase
         GenerateProjectile(Owner, Owner.GenerateSkillPosition, ProjectileOnHit);
     }
 
-    protected override void OnAnimComplateHandler()
+    /*protected override void OnAnimComplateHandler()
     {
-        /*if (Owner.Target.IsValid() == false) // Projectile이라 필요없다
-            return;*/
+        *//*if (Owner.Target.IsValid() == false) // Projectile이라 필요없다
+            return;*//*
 
         if (Owner.CreatureState == CreatureState.DoSkill)
             Owner.CreatureState = CreatureState.Idle;
-    }
+    }*/
 
     public void ProjectileOnHit(BaseController cc)
     {

@@ -51,14 +51,14 @@ public class NormalAttack : SkillBase
         }
     }
 
-    protected override void OnAnimComplateHandler()
+    /*protected override void OnAnimComplateHandler()
     {
         if (Owner.Target.IsValid() == false)
             return;
 
         if (Owner.CreatureState == Define.CreatureState.DoSkill)
             Owner.CreatureState = Define.CreatureState.Moving;
-    }
+    }*/
 
     public void ProjectileOnHit(BaseController cc)
     {

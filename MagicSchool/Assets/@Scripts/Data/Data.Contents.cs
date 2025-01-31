@@ -2,7 +2,9 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Xml.Serialization;
+using Unity.Mathematics;
 using UnityEngine;
+using static Define;
 
 namespace Data
 {
@@ -154,17 +156,12 @@ namespace Data
     #region Creature Data
     public class CreatureData //public string prefab; // 이제 Prefab 경로는 불필요
     {
-        public int TemplateID;
-
+        public int DataId;
         public string DescriptionTextID;
         public string Label;
-
         public float ColliderOffsetX;
         public float ColliderOffsetY;
         public float ColliderRadius;
-
-        public float Mass;
-
         #region Stat
         public float MaxHp;
         public float UpMaxHp;
@@ -173,26 +170,19 @@ namespace Data
         public float AtkRange;
         public float AtkBonus;
 
-        public float Def;
         public float MoveSpeed;
 
-        public float TotalExp;
-
-        public float HpRate;
-        public float AtkRate;
-        public float DefRate;
-        public float MoveSpeedRate;
+        public float CriRate;
+        public float Cridamage;
         #endregion
-
         public string IconImage;
         public string MaterialID;
         public string AnimatorDataID;
-        public string SortingLayerName
-;
-        public List<int> SkillList;
-
-        public float DropItemId;
-        public float StandardAttack;
+        public string SortingLayerName;
+        public int DefaultSkillId;
+        public int EnvSkillId;
+        public int SkillAId;
+        public int SkillBId;
     }
     #endregion
 
@@ -200,7 +190,7 @@ namespace Data
     [Serializable]
     public class MonsterData : CreatureData //public string prefab; // 이제 Prefab 경로는 불필요
     {
-        // 추가되는 부분
+        public int DropItemId;
     }
 
     [Serializable]
@@ -211,7 +201,7 @@ namespace Data
         {
             Dictionary<int, MonsterData> dict = new Dictionary<int, MonsterData>();
             foreach (MonsterData monster in monsters)
-                dict.Add(monster.TemplateID, monster);
+                dict.Add(monster.DataId, monster);
             return dict;
         }
     }
@@ -232,7 +222,7 @@ namespace Data
         {
             Dictionary<int, StudentData> dict = new Dictionary<int, StudentData>();
             foreach (StudentData Student in Students)
-                dict.Add(Student.TemplateID, Student);
+                dict.Add(Student.DataId, Student);
             return dict;
         }
     }
@@ -243,10 +233,12 @@ namespace Data
     [Serializable]
     public class SkillData
     {
+        //
+        //ScaleMultiplier	TargetCount	Effects	NextLevelId	AoE	EffectSize	ActivateSkillDelay	CompleteSkillDelay	CompleteSkillDelay			
+
         public int DataId;
         public string Name;
         public string ClassName;
-        public string ComponentName;
         public string Description;
         public int ProjectileId;
         public string PrefabLabel;
@@ -254,16 +246,16 @@ namespace Data
         public string AnimName;
         public float CoolTime;
         public float DamageMultiplier;
-        public float Duration;
-        public float NumProjectiles;
+        public float SkillDuration;
+        public float AnimImpactDuration;
         public string CastingSound;
-        public float AngleBetweenProj;
         public float SkillRange;
-        public float RotateSpeed;
         public float ScaleMultiplier;
-        public float AngleRange;
-
-        public List<int> NextSkills;
+        public int TargetCount;
+        public List<int> EffectIds = new List<int>();
+        public int NextLevelId;
+        public int AoEId;
+        public EEffectSize EffectSize;
         public float ActivateSkillDelay;
         public float CompleteSkillDelay;
     }
@@ -290,13 +282,12 @@ namespace Data
     {
         public int DataId;
         public string Name;
+        public string ClassName;
         public string ComponentName;
         public string MaterialID;
         public string AnimatorDataID;
         public string PrefabLabel;
         public float Duration;  // 왜 올렸는데 적용이 안 돼요? 
-        public float NumBounce;
-        public float NumPenerations;
         public float HitSound;
         public float ProjRange; //아 그거 특정 skill 에서만 되는 거에요.
         public float ProjSpeed;

@@ -61,7 +61,7 @@ public class ProjectileController : BaseController
         if (ProjectileMotion != null)
             Destroy(ProjectileMotion); // Remove Component when Pooling revive
 
-        string compoenetName = skill.SkillData.ComponentName;
+        string compoenetName = ProjectileData.ComponentName;
         ProjectileMotion = gameObject.AddComponent(Type.GetType(compoenetName)) as ProjectileMotionBase;
         
 

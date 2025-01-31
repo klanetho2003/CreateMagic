@@ -74,8 +74,8 @@ public class CastingImpact : SingleSkill
         throw new NotImplementedException();
     }
 
-    protected override void OnAnimComplateHandler()
+    /*protected override void OnAnimComplateHandler()
     {
         throw new NotImplementedException();
-    }
+    }*/
 }

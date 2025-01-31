@@ -1,3 +1,9 @@
-DataId,Name,ComponentName,MaterialID,AnimatorDataID,PrefabLabel,Duration,NumBounce,NumPenerations,HitSound,ProjRange,ProjSpeed
-70001,DarkBall,FireBall,CreatureDefaultMat,DarkBall_Animator,Projectile,,,,,,10
-70002,FireBall,FireBall,FireBall,FireBall_Animator,Projectile,,,,,,5
+DataId,Name,ClassName,ComponentName,MaterialID,AnimatorDataID,PrefabLabel,Duration,HitSound,ProjRange,ProjSpeed
+70001,DarkBall,Projectile,LinearMotion,CreatureDefaultMat,DarkBall_Animator,ProjectilePrefab,,,,10
+70002,FireBall,Projectile,LinearMotion,FireBall,FireBall_Animator,ProjectilePrefab,,,,5
+70003,맹독확산1,PoisonSpreadProj,ParabolaMotion,,,ProjectilePrefab,,,,5
+70004,맹독확산2,PoisonSpreadProj,ParabolaMotion,,,ProjectilePrefab,,,,5
+70005,맹독확산3,PoisonSpreadProj,ParabolaMotion,,,ProjectilePrefab,,,,5
+70006,냉기 확산1,ColdSpreadProj,ParabolaMotion,,,projectilePrefab,,,,5
+70007,냉기 확산2,ColdSpreadProj,ParabolaMotion,,,projectilePrefab,,,,5
+70008,냉기 확산3,ColdSpreadProj,ParabolaMotion,,,projectilePrefab,,,,5

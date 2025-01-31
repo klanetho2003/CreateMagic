@@ -119,7 +119,29 @@ public static class Define
     public const int MONSTER_MAGESKELETON_SHIELD_ID = 202005;
     #endregion
 
+    public enum EEffectSize
+    {
+        CircleSmall,
+        CircleNormal,
+        CircleBig,
+        ConeSmall,
+        ConeNormal,
+        ConeBig,
+    }
+
+    public enum ESkillSlot
+    {
+        Default,
+        Env,
+        A,
+        B,
+    }
+
     //HARD CODING
+    public const float EFFECT_SMALL_RADIUS = 2.5f;
+    public const float EFFECT_NORMAL_RADIUS = 4.5f;
+    public const float EFFECT_BIG_RADIUS = 5.5f;
+
     public const int MONSTER_DEFAULT_MELEE_ATTACK_RANGE = 1;
     public const int MONSTER_DEFAULT_RANGED_ATTACK_RANGE = 3;
     public const int INIT_SKILLKEY = 0;

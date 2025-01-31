@@ -18,18 +18,44 @@ public class PlayerSkillBook : BaseSkillBook
         return true;
     }
 
-    public override void AddSkill(int skillTemplateID = 0)
+    public override void AddSkill(int skillTemplateID, ESkillSlot skillSlot)
     {
-        string className = Managers.Data.SkillDic[skillTemplateID].ClassName;
+        if (skillTemplateID == 0)
+            return;
 
-        SkillBase skill = gameObject.AddComponent(Type.GetType(className)) as SkillBase;
+        if (Managers.Data.SkillDic.TryGetValue(skillTemplateID, out var data) == false)
+        {
+            Debug.LogWarning($"AddSkill Failed {skillTemplateID}");
+            return;
+        }
+
+        SkillBase skill = gameObject.AddComponent(Type.GetType(data.ClassName)) as SkillBase;
         if (skill == null)
             return;
+
 
         skill.SetInfo(_owner, skillTemplateID);
 
         SkillList.Add(skill);
         SkillDict.Add(skillTemplateID, skill);
+
+        switch (skillSlot)
+        {
+            case ESkillSlot.Default:
+                DefaultSkill = skill;
+                break;
+            case ESkillSlot.Env:
+                EnvSkill = skill;
+                break;
+            case ESkillSlot.A:
+                ASkill = skill;
+                ActivateSkills.Add(skill);
+                break;
+            case ESkillSlot.B:
+                BSkill = skill;
+                ActivateSkills.Add(skill);
+                break;
+        }
     }
 
     
@@ -42,7 +68,7 @@ public class PlayerSkillBook : BaseSkillBook
         get { return _currentCommand; }
         set
         {
-            if (_owner.CreatureState == CreatureState.DoSkill)
+            if (_owner.CreatureState == CreatureState.DoSkill || _owner.CreatureState == CreatureState.FrontDelay || _owner.CreatureState == CreatureState.BackDelay)
                 return;
 
             _owner.CreatureState = CreatureState.Casting;
@@ -126,6 +152,7 @@ public class PlayerSkillBook : BaseSkillBook
         {
             skill.ActivateSkillOrDelay();
 
+            _owner.StartWait(3f); // To Do : OnSkillDelay + ActivateSkillDelay
             Debug.Log($"Do Skill Key : {skillKey}");
         }
 
