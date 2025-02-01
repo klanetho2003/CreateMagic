@@ -1,0 +1,100 @@
+{
+  "rangeSkills": [
+    {
+      "DataId": 80001,
+      "Name": "Impact",
+      "ClassName": "RangeSKill",
+      "ComponentName": null,
+      "MaterialID": null,
+      "AnimatorDataID": null,
+      "PrefabLabel": "FireBall_Explosion.prefab",
+      "Duration": 0.0,
+      "HitSound": 0.0,
+      "ProjRange": 0.0
+    },
+    {
+      "DataId": 80002,
+      "Name": "FireBall",
+      "ClassName": "Projectile",
+      "ComponentName": null,
+      "MaterialID": "FireBall",
+      "AnimatorDataID": "FireBall_Animator",
+      "PrefabLabel": "ProjectilePrefab",
+      "Duration": 0.0,
+      "HitSound": 0.0,
+      "ProjRange": 0.0
+    },
+    {
+      "DataId": 80003,
+      "Name": "Impact",
+      "ClassName": "Projectile",
+      "ComponentName": null,
+      "MaterialID": null,
+      "AnimatorDataID": null,
+      "PrefabLabel": "ProjectilePrefab",
+      "Duration": 0.0,
+      "HitSound": 0.0,
+      "ProjRange": 0.0
+    },
+    {
+      "DataId": 80004,
+      "Name": "�͵�Ȯ��2",
+      "ClassName": "PoisonSpreadProj",
+      "ComponentName": null,
+      "MaterialID": null,
+      "AnimatorDataID": null,
+      "PrefabLabel": "ProjectilePrefab",
+      "Duration": 0.0,
+      "HitSound": 0.0,
+      "ProjRange": 0.0
+    },
+    {
+      "DataId": 80005,
+      "Name": "�͵�Ȯ��3",
+      "ClassName": "PoisonSpreadProj",
+      "ComponentName": null,
+      "MaterialID": null,
+      "AnimatorDataID": null,
+      "PrefabLabel": "ProjectilePrefab",
+      "Duration": 0.0,
+      "HitSound": 0.0,
+      "ProjRange": 0.0
+    },
+    {
+      "DataId": 80006,
+      "Name": "�ñ� Ȯ��1",
+      "ClassName": "ColdSpreadProj",
+      "ComponentName": null,
+      "MaterialID": null,
+      "AnimatorDataID": null,
+      "PrefabLabel": "projectilePrefab",
+      "Duration": 0.0,
+      "HitSound": 0.0,
+      "ProjRange": 0.0
+    },
+    {
+      "DataId": 80007,
+      "Name": "�ñ� Ȯ��2",
+      "ClassName": "ColdSpreadProj",
+      "ComponentName": null,
+      "MaterialID": null,
+      "AnimatorDataID": null,
+      "PrefabLabel": "projectilePrefab",
+      "Duration": 0.0,
+      "HitSound": 0.0,
+      "ProjRange": 0.0
+    },
+    {
+      "DataId": 80008,
+      "Name": "�ñ� Ȯ��3",
+      "ClassName": "ColdSpreadProj",
+      "ComponentName": null,
+      "MaterialID": null,
+      "AnimatorDataID": null,
+      "PrefabLabel": "projectilePrefab",
+      "Duration": 0.0,
+      "HitSound": 0.0,
+      "ProjRange": 0.0
+    }
+  ]
+}

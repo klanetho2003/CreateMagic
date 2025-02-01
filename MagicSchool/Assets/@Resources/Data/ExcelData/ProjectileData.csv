@@ -1,9 +1,9 @@
 DataId,Name,ClassName,ComponentName,MaterialID,AnimatorDataID,PrefabLabel,Duration,HitSound,ProjRange,ProjSpeed
 70001,DarkBall,Projectile,LinearMotion,CreatureDefaultMat,DarkBall_Animator,ProjectilePrefab,,,,10
 70002,FireBall,Projectile,LinearMotion,FireBall,FireBall_Animator,ProjectilePrefab,,,,5
-70003,ë§¹ë…í™•ì‚°1,PoisonSpreadProj,ParabolaMotion,,,ProjectilePrefab,,,,5
-70004,ë§¹ë…í™•ì‚°2,PoisonSpreadProj,ParabolaMotion,,,ProjectilePrefab,,,,5
-70005,ë§¹ë…í™•ì‚°3,PoisonSpreadProj,ParabolaMotion,,,ProjectilePrefab,,,,5
-70006,ëƒ‰ê¸° í™•ì‚°1,ColdSpreadProj,ParabolaMotion,,,projectilePrefab,,,,5
-70007,ëƒ‰ê¸° í™•ì‚°2,ColdSpreadProj,ParabolaMotion,,,projectilePrefab,,,,5
-70008,ëƒ‰ê¸° í™•ì‚°3,ColdSpreadProj,ParabolaMotion,,,projectilePrefab,,,,5
+70003,Impact,Projectile,LinearMotion,,,ProjectilePrefab,,,,5
+70004,¸Íµ¶È®»ê2,PoisonSpreadProj,ParabolaMotion,,,ProjectilePrefab,,,,5
+70005,¸Íµ¶È®»ê3,PoisonSpreadProj,ParabolaMotion,,,ProjectilePrefab,,,,5
+70006,³Ã±â È®»ê1,ColdSpreadProj,ParabolaMotion,,,projectilePrefab,,,,5
+70007,³Ã±â È®»ê2,ColdSpreadProj,ParabolaMotion,,,projectilePrefab,,,,5
+70008,³Ã±â È®»ê3,ColdSpreadProj,ParabolaMotion,,,projectilePrefab,,,,5

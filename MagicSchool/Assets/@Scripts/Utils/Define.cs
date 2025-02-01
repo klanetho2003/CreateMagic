@@ -10,6 +10,7 @@ public static class Define
         Creature,
         Skill,
         ProjecTile,
+        RangeSkill,
         Env
     }
 
@@ -119,6 +120,21 @@ public static class Define
     public const int MONSTER_MAGESKELETON_SHIELD_ID = 202005;
     #endregion
 
+    public enum ESkillSlot
+    {
+        Default,
+        Env,
+        A,
+        B,
+    }
+
+    public enum EIndicatorType
+    {
+        None,
+        Cone,
+        Rectangle,
+    }
+
     public enum EEffectSize
     {
         CircleSmall,
@@ -129,13 +145,7 @@ public static class Define
         ConeBig,
     }
 
-    public enum ESkillSlot
-    {
-        Default,
-        Env,
-        A,
-        B,
-    }
+
 
     //HARD CODING
     public const float EFFECT_SMALL_RADIUS = 2.5f;

@@ -9,7 +9,7 @@ public class ProjectileController : BaseController
     // 나를 스폰한 주체 Skill
     public SkillBase Skill { get; private set; }
     public CreatureController Owner { get; private set; }
-    public Action<BaseController> _onHit;
+    public Action<BaseController, Vector3> _onHit;
     public Data.ProjectileData ProjectileData { get; private set; }
     public ProjectileMotionBase ProjectileMotion { get; private set; }
     public Vector3 TargetPosition { get; private set; }
@@ -46,7 +46,7 @@ public class ProjectileController : BaseController
         }
     }
 
-    public void SetSpawnInfo(CreatureController owner, SkillBase skill, LayerMask layer, Action<BaseController> onHit) // SkillBase 중Generate함수 끝 부분에 위치,
+    public void SetSpawnInfo(CreatureController owner, SkillBase skill, LayerMask layer, Action<BaseController, Vector3> onHit) // SkillBase 중Generate함수 끝 부분에 위치,
                                                                                          // 즉, SetInfo > Generate함수 진행 > SetSpawnInfo
     {
         Owner = owner;
@@ -80,7 +80,7 @@ public class ProjectileController : BaseController
             return;
 
         // To Do
-        _onHit.Invoke(target);
+        _onHit.Invoke(target, transform.position);
 
         Managers.Object.Despawn(this);
     }

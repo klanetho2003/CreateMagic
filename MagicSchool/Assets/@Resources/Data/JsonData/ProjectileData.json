@@ -28,9 +28,9 @@
     },
     {
       "DataId": 70003,
-      "Name": "맹독확산1",
-      "ClassName": "PoisonSpreadProj",
-      "ComponentName": "ParabolaMotion",
+      "Name": "Impact",
+      "ClassName": "Projectile",
+      "ComponentName": "LinearMotion",
       "MaterialID": null,
       "AnimatorDataID": null,
       "PrefabLabel": "ProjectilePrefab",
@@ -41,7 +41,7 @@
     },
     {
       "DataId": 70004,
-      "Name": "맹독확산2",
+      "Name": "�͵�Ȯ��2",
       "ClassName": "PoisonSpreadProj",
       "ComponentName": "ParabolaMotion",
       "MaterialID": null,
@@ -54,7 +54,7 @@
     },
     {
       "DataId": 70005,
-      "Name": "맹독확산3",
+      "Name": "�͵�Ȯ��3",
       "ClassName": "PoisonSpreadProj",
       "ComponentName": "ParabolaMotion",
       "MaterialID": null,
@@ -67,7 +67,7 @@
     },
     {
       "DataId": 70006,
-      "Name": "냉기 확산1",
+      "Name": "�ñ� Ȯ��1",
       "ClassName": "ColdSpreadProj",
       "ComponentName": "ParabolaMotion",
       "MaterialID": null,
@@ -80,7 +80,7 @@
     },
     {
       "DataId": 70007,
-      "Name": "냉기 확산2",
+      "Name": "�ñ� Ȯ��2",
       "ClassName": "ColdSpreadProj",
       "ComponentName": "ParabolaMotion",
       "MaterialID": null,
@@ -93,7 +93,7 @@
     },
     {
       "DataId": 70008,
-      "Name": "냉기 확산3",
+      "Name": "�ñ� Ȯ��3",
       "ClassName": "ColdSpreadProj",
       "ComponentName": "ParabolaMotion",
       "MaterialID": null,

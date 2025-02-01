@@ -230,7 +230,7 @@ public class PlayerController : CreatureController
         Managers.Input.OnKeyDownHandler -= HandleOnKeyDown;
         Managers.Input.OnKeyDownHandler += HandleOnKeyDown;
 
-        AnimationEventManager.BindEvent(this, "OnDamaged_Complate", () =>
+        AnimationEventManager.BindEvent(this, /*"OnDamaged_Complate",*/ () =>
         {
             if (CreatureState != CreatureState.Dameged)
                 return;

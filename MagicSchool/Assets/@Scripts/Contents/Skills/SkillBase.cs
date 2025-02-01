@@ -22,8 +22,7 @@ public abstract class SkillBase : MonoBehaviour // ½ºÅ³À» ½ºÆù > ActiveSkill ¹ßµ
         // Handle AnimEvent
         if (Owner.Anim != null)
         {
-            BindEvent(Owner, "OnAttackTarget", OnAttackTargetHandler);
-            /*BindEvent(Owner, "OnAnimComplate", OnAnimComplateHandler);*/
+            BindEvent(Owner, OnAttackTargetHandler);
         }
     }
 
@@ -36,12 +35,14 @@ public abstract class SkillBase : MonoBehaviour // ½ºÅ³À» ½ºÆù > ActiveSkill ¹ßµ
         if (Owner.Anim == null)
             return;
 
-        UnbindEvent(Owner, "OnAttackTarget", OnAttackTargetHandler);
-        /*UnbindEvent(Owner, "OnAnimComplate", OnAnimComplateHandler);*/
+        //UnbindEvent(Owner, "OnAttackTarget", OnAttackTargetHandler);
     }
 
-    protected abstract void OnAttackTargetHandler();
-    /*protected abstract void OnAnimComplateHandler();*/
+    protected virtual void OnAttackTargetHandler()
+    {
+        if (Owner.CreatureState != CreatureState.DoSkill)
+            return;
+    }
 
     #region Init Method
     void Awake()
@@ -76,6 +77,14 @@ public abstract class SkillBase : MonoBehaviour // ½ºÅ³À» ½ºÆù > ActiveSkill ¹ßµ
     public virtual void ActivateSkill()
     {
         Owner.CreatureState = CreatureState.DoSkill;
+
+        if (Owner.CreatureType == ECreatureType.Monster && SkillData.AnimName != null)
+            Owner.Anim.Play(SkillData.AnimName);
+        else // Player
+        {
+            string animName = $"{SkillData.AnimName}_LookDown_{Owner.LookDown}";
+            Owner.Anim.Play(animName);
+        }
     }
 
     // Skill »ç¿ë Àü ¼±µô·¹ÀÌ
@@ -105,9 +114,12 @@ public abstract class SkillBase : MonoBehaviour // ½ºÅ³À» ½ºÆù > ActiveSkill ¹ßµ
 
     #endregion
 
+    public virtual void CancelSkill()
+    {
 
-    // To Do : Generate ÇÔ¼ö ÇÏ³ª·Î ¹­±â
-    protected virtual void GenerateProjectile(CreatureController onwer, Vector3 spawnPos, Action<BaseController> onHit)
+    }
+
+    protected virtual void GenerateProjectile(CreatureController onwer, Vector3 spawnPos, Action<BaseController, Vector3> onHit)
     {
         ProjectileController projectile = Managers.Object.Spawn<ProjectileController>(spawnPos, SkillData.ProjectileId);
 
@@ -131,25 +143,33 @@ public abstract class SkillBase : MonoBehaviour // ½ºÅ³À» ½ºÆù > ActiveSkill ¹ßµ
         projectile.SetSpawnInfo(Owner, this, excludeMask, onHit);
     }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-    protected virtual RangeSkillController GenerateRangeSkill(Data.SkillData skillData, CreatureController onwer, float lifeTime, Vector3 spawnPos, Vector3 size, Action<CreatureController> OnHit = null)
+    protected virtual void GenerateRangeSkill(CreatureController onwer, Vector3 spawnPos, Action<BaseController> onHit, string prefabLab = null)
     {
-        /*RangeSkillController rc = Managers.Object.Spawn<RangeSkillController>(spawnPos, skillData.templateID);
-        rc.SetInfo(skillData, Owner, lifeTime, size, OnHit);*/
+        // Ãæµ¹ÇÏ±â ½ÈÀº Ä£±¸µé settting
+        LayerMask excludeMask = 0;
+        excludeMask.AddLayer(ELayer.Default);
+        excludeMask.AddLayer(ELayer.Projectile);
+        excludeMask.AddLayer(ELayer.Env);
+        excludeMask.AddLayer(ELayer.Obstacle);
 
-        return null;//rc;
+        switch (Owner.CreatureType)
+        {
+            case ECreatureType.Student:
+                excludeMask.AddLayer(ELayer.Student);
+                break;
+            case ECreatureType.Monster:
+                excludeMask.AddLayer(ELayer.Monster);
+                break;
+        }
+
+        RangeSkillController rangeSkill;
+
+        if (prefabLab != null)
+            rangeSkill = Managers.Object.Spawn<RangeSkillController>(spawnPos, SkillData. RangeSkillId, prefabLab);
+        else
+            rangeSkill = Managers.Object.Spawn<RangeSkillController>(spawnPos, SkillData.RangeSkillId);
+
+        rangeSkill.SetSpawnInfo(Owner, this, excludeMask, onHit);
     }
 
 

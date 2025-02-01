@@ -18,6 +18,7 @@ public class DataManager
     
     public Dictionary<int, Data.SkillData> SkillDic { get; private set; } = new Dictionary<int, Data.SkillData>();
     public Dictionary<int, Data.ProjectileData> ProjectileDic { get; private set; } = new Dictionary<int, Data.ProjectileData>();
+    public Dictionary<int, Data.RangeSkillData> RangeSkillDic { get; private set; } = new Dictionary<int, Data.RangeSkillData>();
 
     //public Dictionary<string, Data.PlayerSkillData> PlayerSkillDic { get; private set; } = new Dictionary<string, Data.PlayerSkillData>();
 
@@ -28,9 +29,7 @@ public class DataManager
 
         SkillDic = LoadJson<Data.SkillDataLoader, int, Data.SkillData>("SkillData").MakeDict();
         ProjectileDic = LoadJson<Data.ProjectileDataLoader, int, Data.ProjectileData>("ProjectileData").MakeDict();
-
-
-        //PlayerSkillDic = LoadJson<Data.PlayerSkillDataLoader, string, Data.PlayerSkillData>("PlayerSkillData").MakeDict();
+        RangeSkillDic = LoadJson<Data.RangeSkillDataLoader, int, Data.RangeSkillData>("RangeSkillData").MakeDict();
     }
 
     private Loader LoadJson<Loader, Key, Value>(string path) where Loader : ILoader<Key, Value>

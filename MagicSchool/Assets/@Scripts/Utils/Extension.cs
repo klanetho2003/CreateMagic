@@ -20,7 +20,7 @@ public static class Extension
         return Utils.FindChild<T>(go, name = null, recursive = false);
     }
 
-    public static void OnBurnEx(this CreatureController cc, CreatureController owner, int addDuration, SkillBase skill)
+    public static void OnBurnEx(this BaseController cc, CreatureController owner, int addDuration, SkillBase skill)
     {
         if (cc.IsValid() == false)
             return;

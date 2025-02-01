@@ -3,39 +3,23 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CastingImpact : SingleSkill
+public class CastingImpact : SkillBase
 {
-    /*public CastingImpact() : base("N1")
-    {
-        SetData();
-    }*/
-
-    public override void SetData()
-    {
-        base.SetData();
-
-        /*Damage = (int)SkillData.DamageMultiplier;
-
-        ActivateDelaySecond = SkillData.ActivateSkillDelay;
-        CompleteDelaySecond = SkillData.CompleteSkillDelay;*/
-    }
-
     // To Do : Data Pasing
     Vector3 _defaultSize = Vector3.one;
-    float _lifeTime = 0.7f;
     float _moveDistance = 10f;
     float _backSpeed = 30.0f;
 
-    public override void DoSkill(Action callBack = null)
+    public override void ActivateSkill()
     {
-        PlayerController pc = Managers.Game.Player; // Monster가 사용하게 되면 확장 가능하게 바꿔야 한다
-        if (pc == null)
-            return;
+        Vector3 spawnPos;
 
-        Vector3 spawnPos = pc.Shadow.transform.position;
-        Vector3 dir = Vector2.zero;
+        if (Owner.CreatureType == Define.ECreatureType.Student)
+            spawnPos = Owner.GetComponent<PlayerController>().Shadow.transform.position;
+        else
+            spawnPos = Owner.CenterPosition;
 
-        RangeSkillController rc = GenerateRangeSkill(SkillData, Owner, _lifeTime, spawnPos, _defaultSize, AfterTrigger);
+        GenerateRangeSkill(Owner, spawnPos, AfterTrigger);
 
         _defaultSize = _defaultSize * 1.2f;
     }
@@ -45,37 +29,27 @@ public class CastingImpact : SingleSkill
         _defaultSize = Vector3.one;
     }
 
-    public void AfterTrigger(CreatureController cc)
+    public void AfterTrigger(BaseController cc)
     {
         if (cc.IsValid() == false)
             return;
-        /*if (this.IsValid() == false) //temp
-            return;*/
-
-        if (cc.TryGetComponent<MonsterController>(out MonsterController mc))
-        {
-            //mc.OnDamaged(Owner, Damage);
-        }
-        else
+        if (Owner.IsValid() == false)
             return;
 
-        Vector3 dir = mc.transform.position - Owner.transform.position;
+        if (cc.GetComponent<CreatureController>().CreatureType != Define.ECreatureType.Monster)
+            return;
+        if (cc.TryGetComponent(out MonsterController mc))
+            return;
 
+        mc.OnDamaged(Owner, this);
+
+        Vector3 dir = cc.transform.position - Owner.transform.position;
         mc.MoveMonsterPosition(dir.normalized, _backSpeed, _moveDistance, () => { mc.CreatureState = Define.CreatureState.Moving; });
     }
 
-
-
-
-
-    ///temp
     protected override void OnAttackTargetHandler()
     {
-        throw new NotImplementedException();
+        
     }
 
-    /*protected override void OnAnimComplateHandler()
-    {
-        throw new NotImplementedException();
-    }*/
 }

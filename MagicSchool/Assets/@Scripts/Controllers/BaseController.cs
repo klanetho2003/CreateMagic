@@ -48,7 +48,17 @@ public class BaseController : MonoBehaviour
             LookLeft = false;
     }
 
-    #region Init
+    public static Vector3 GetLookAtRotation(Vector3 dir)
+    {
+        // Mathf.Atan2를 사용해 각도를 개선하고, 라디안에서 맞바로 변환
+        float angle = Mathf.Atan2(-dir.x, dir.y) * Mathf.Rad2Deg;
+
+        // Z축 기준으로 회전하는 Vector3 값을 return
+        return new Vector3(0, 0, angle);
+    }
+
+
+    #region Init & Disable
 
     void Awake()
     {
@@ -71,10 +81,18 @@ public class BaseController : MonoBehaviour
         return true;
     }
 
+    protected virtual void OnDisable()
+    {
+        if (Anim == null)
+            return;
+
+        AnimationEventManager.UnbindEventAll(this);
+    }
+
     #endregion
 
     #region Update
-    
+
     void Update()
     {
         UpdateController();

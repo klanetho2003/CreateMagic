@@ -233,14 +233,12 @@ namespace Data
     [Serializable]
     public class SkillData
     {
-        //
-        //ScaleMultiplier	TargetCount	Effects	NextLevelId	AoE	EffectSize	ActivateSkillDelay	CompleteSkillDelay	CompleteSkillDelay			
-
         public int DataId;
         public string Name;
         public string ClassName;
         public string Description;
         public int ProjectileId;
+        public int RangeSkillId;
         public string PrefabLabel;
         public string IconLabel;
         public string AnimName;
@@ -303,6 +301,39 @@ namespace Data
             Dictionary<int, ProjectileData> dict = new Dictionary<int, ProjectileData>();
             foreach (ProjectileData projectile in projectiles)
                 dict.Add(projectile.DataId, projectile);
+            return dict;
+        }
+    }
+
+    #endregion
+
+    #region RangeSkill Data
+
+    [Serializable]
+    public class RangeSkillData
+    {
+        public int DataId;
+        public string Name;
+        public string ClassName;
+        public string ComponentName;
+        public string MaterialID;
+        public string AnimatorDataID;
+        public string PrefabLabel;
+        public float Duration;  // 왜 올렸는데 적용이 안 돼요? 
+        public float HitSound;
+        public float ProjRange; //아 그거 특정 skill 에서만 되는 거에요.
+    }
+
+    [Serializable]
+    public class RangeSkillDataLoader : ILoader<int, RangeSkillData>
+    {
+        public List<RangeSkillData> rangeSkills = new List<RangeSkillData>();
+
+        public Dictionary<int, RangeSkillData> MakeDict()
+        {
+            Dictionary<int, RangeSkillData> dict = new Dictionary<int, RangeSkillData>();
+            foreach (RangeSkillData rangeSkill in rangeSkills)
+                dict.Add(rangeSkill.DataId, rangeSkill);
             return dict;
         }
     }

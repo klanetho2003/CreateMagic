@@ -45,7 +45,7 @@
       "MaterialID": "Skeleton",
       "AnimatorDataID": "Skeleton_Animator",
       "SortingLayerName": "Monster",
-      "DefaultSkillId": 10001,
+      "DefaultSkillId": 10004,
       "EnvSkillId": 0,
       "SkillAId": 0,
       "SkillBId": 0
@@ -86,7 +86,7 @@
       "MaxHp": 500.0,
       "UpMaxHp": 4.0,
       "Atk": 2.0,
-      "AtkRange": 1.5,
+      "AtkRange": 4.0,
       "AtkBonus": 2.0,
       "MoveSpeed": 4.0,
       "CriRate": 0.0,
@@ -95,7 +95,7 @@
       "MaterialID": "Mage_Skeleton",
       "AnimatorDataID": "MageSkeleton_Animator",
       "SortingLayerName": "Monster",
-      "DefaultSkillId": 10001,
+      "DefaultSkillId": 171,
       "EnvSkillId": 0,
       "SkillAId": 0,
       "SkillBId": 0
@@ -120,7 +120,7 @@
       "MaterialID": "MageSkeleton-RustyShield",
       "AnimatorDataID": "MageSkeletonWithShield_Animator",
       "SortingLayerName": "Monster",
-      "DefaultSkillId": 10001,
+      "DefaultSkillId": 10004,
       "EnvSkillId": 0,
       "SkillAId": 0,
       "SkillBId": 0

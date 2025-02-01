@@ -152,7 +152,7 @@ public class PlayerSkillBook : BaseSkillBook
         {
             skill.ActivateSkillOrDelay();
 
-            _owner.StartWait(3f); // To Do : OnSkillDelay + ActivateSkillDelay
+            _owner.StartWait(skill.SkillData.ActivateSkillDelay + 2f); // To Do : OnSkillDelay + ActivateSkillDelay
             Debug.Log($"Do Skill Key : {skillKey}");
         }
 

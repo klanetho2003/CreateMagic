@@ -23,14 +23,13 @@ public class NormalAttack : SkillBase
     {
         base.ActivateSkill();
 
-        if (SkillData.AnimName != null)
-            Owner.Anim.Play(SkillData.AnimName);
-
         Owner.LookAtTarget(Owner.Target);
     }
 
     protected override void OnAttackTargetHandler()
     {
+        base.OnAttackTargetHandler();
+
         if (Owner.Anim.GetCurrentAnimatorStateInfo(0).IsName(SkillData.AnimName))
             OnAttackEvent();
     }
@@ -60,7 +59,7 @@ public class NormalAttack : SkillBase
             Owner.CreatureState = Define.CreatureState.Moving;
     }*/
 
-    public void ProjectileOnHit(BaseController cc)
+    public void ProjectileOnHit(BaseController cc, Vector3 position)
     {
         if (cc.IsValid() == false)
             return;

@@ -14,12 +14,12 @@ public class SpawningPool : MonoBehaviour
     void Start()
     {
         // TEMP : DataID ?
-        Vector3 ranPos = Utils.GenerateMonsterSpawnPosition(Managers.Game.Player.transform.position, 5, 10);
-        MonsterController mc = Managers.Object.Spawn<MonsterController>(ranPos, Random.Range(MONSTER_MAGESKELETON_ID, MONSTER_MAGESKELETON_ID + 1));
+        /*Vector3 ranPos = Utils.GenerateMonsterSpawnPosition(Managers.Game.Player.transform.position, 5, 10);
+        MonsterController mc = Managers.Object.Spawn<MonsterController>(ranPos, Random.Range(MONSTER_SKELETON_ID, MONSTER_SKELETON_ID + 1));
 
         mc.Hp = mc.MaxHp;
-        mc.CreatureState = Define.CreatureState.Moving;
-        //_coUpdateSpawningPool = StartCoroutine(CoUpdateSpawningPool());
+        mc.CreatureState = Define.CreatureState.Moving;*/
+        _coUpdateSpawningPool = StartCoroutine(CoUpdateSpawningPool());
     }
 
     IEnumerator CoUpdateSpawningPool()

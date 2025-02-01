@@ -2,47 +2,76 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static Define;
 
-public class RangeSkillController : SkillObjController
+public class RangeSkillController : BaseController
 {
-    Vector3 _size = Vector3.one;
+    // 나를 스폰한 주체 Skill
+    public SkillBase Skill { get; private set; }
+    public CreatureController Owner { get; private set; }
+    public Action<BaseController> _onHit;
+    public Data.RangeSkillData RangeSkillData { get; private set; }
+    //public ProjectileMotionBase ProjectileMotion { get; private set; }
+    public Vector3 TargetPosition { get; private set; }
 
-
-    public void SetInfo(Data.SkillData skillData, CreatureController owner, float lifTime, Vector3 size, Action<CreatureController> OnHit = null)
+    public override bool Init()
     {
-        if (skillData == null)
+        if (base.Init() == false)
+            return false;
+
+        ObjectType = EObjectType.RangeSkill;
+        SpriteRenderer.sortingOrder = SortingLayers.PROJECTILE;
+
+        return true;
+    }
+
+
+    public void SetInfo(int dataTemplateID) // in ObjectManager >> Init 다음 실행되는 Init 느낌 // SkillBase > ObjectManager > ProjectileController
+    {
+        RangeSkillData = Managers.Data.RangeSkillDic[dataTemplateID];
+
+        // Name
+        gameObject.name = $"{RangeSkillData.DataId}_{RangeSkillData.Name}";
+
+        if (RangeSkillData.AnimatorDataID != null)
         {
-            Debug.LogError("RangeSkillController SetInfo Failed");
-            return;
+            Anim.runtimeAnimatorController = Managers.Resource.Load<RuntimeAnimatorController>(RangeSkillData.AnimatorDataID);
+
+            if (Anim == null) // To Do : Data가 쌓이면 DataManager 안 Interface에 Validation하는 코드를 넣
+            {
+                Debug.LogWarning($"Projectile Anim Missing {RangeSkillData.Name}");
+                return;
+            }
         }
-
-        _size = size;
-        _owner = owner;
-        _lifeTime = lifTime;
-        _OnHit = OnHit;
-        //SkillData = skillData;
-        // ToDo : Data Paring
-
-        InitValue();
     }
 
-    public override void InitValue()
+    public void SetSpawnInfo(CreatureController owner, SkillBase skill, LayerMask layer, Action<BaseController> onHit)
     {
-        base.InitValue();
+        Owner = owner;
+        Skill = skill;
+        _onHit = onHit;
 
-        transform.localScale = _size;
+        // Rule
+        Collider.excludeLayers = layer;
+
+        // Reserve
+        StartCoroutine(CoReserveDestroy(1.0f));
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    private void OnTriggerEnter2D(Collider2D other)
     {
-        CreatureController cc = collision.GetComponent<CreatureController>();
-
-        if (cc.IsValid() == false)
+        BaseController target = other.GetComponent<BaseController>();
+        if (target.IsValid() == false)
             return;
-        /*if (this.IsValid() == false) // temp
-            return;*/
 
-        _OnHit.Invoke(cc);
+        // To Do
+        _onHit.Invoke(target);
+    }
+
+    private IEnumerator CoReserveDestroy(float lifeTime)
+    {
+        yield return new WaitForSeconds(lifeTime);
+        Managers.Object.Despawn(this);
     }
 }
 

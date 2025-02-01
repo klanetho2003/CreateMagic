@@ -1,0 +1,9 @@
+DataId,Name,ClassName,ComponentName,MaterialID,AnimatorDataID,PrefabLabel,Duration,HitSound,ProjRange
+80001,Impact,RangeSKill,,,,FireBall_Explosion.prefab,,,
+80002,FireBall,Projectile,,FireBall,FireBall_Animator,ProjectilePrefab,,,
+80003,Impact,Projectile,,,,ProjectilePrefab,,,
+80004,¸Íµ¶È®»ê2,PoisonSpreadProj,,,,ProjectilePrefab,,,
+80005,¸Íµ¶È®»ê3,PoisonSpreadProj,,,,ProjectilePrefab,,,
+80006,³Ã±â È®»ê1,ColdSpreadProj,,,,projectilePrefab,,,
+80007,³Ã±â È®»ê2,ColdSpreadProj,,,,projectilePrefab,,,
+80008,³Ã±â È®»ê3,ColdSpreadProj,,,,projectilePrefab,,,

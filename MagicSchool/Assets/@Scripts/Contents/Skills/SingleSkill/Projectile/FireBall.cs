@@ -23,14 +23,6 @@ public class FireBall : SkillBase
     public override void ActivateSkill()
     {
         base.ActivateSkill();
-
-        if (Owner.CreatureType == ECreatureType.Monster && SkillData.AnimName != null)
-            Owner.Anim.Play(SkillData.AnimName);
-        else // Player
-        {
-            string animName = $"{SkillData.AnimName}_LookDown_{Owner.LookDown}";
-            Owner.Anim.Play(animName);
-        }
     }
 
     public override void OnSkillDelay(float delaySeconds)
@@ -41,6 +33,8 @@ public class FireBall : SkillBase
 
     protected override void OnAttackTargetHandler()
     {
+        base.OnAttackTargetHandler();
+
         AnimatorStateInfo currentAnim = Owner.Anim.GetCurrentAnimatorStateInfo(0);
         if (currentAnim.IsName(SkillData.AnimName) || currentAnim.IsName($"{SkillData.AnimName}_LookDown_{Owner.LookDown}"))
             OnAttackEvent();
@@ -51,32 +45,23 @@ public class FireBall : SkillBase
         GenerateProjectile(Owner, Owner.GenerateSkillPosition, ProjectileOnHit);
     }
 
-    /*protected override void OnAnimComplateHandler()
-    {
-        *//*if (Owner.Target.IsValid() == false) // Projectile이라 필요없다
-            return;*//*
-
-        if (Owner.CreatureState == CreatureState.DoSkill)
-            Owner.CreatureState = CreatureState.Idle;
-    }*/
-
-    public void ProjectileOnHit(BaseController cc)
+    public void ProjectileOnHit(BaseController cc, Vector3 position)
     {
         if (cc.IsValid() == false)
             return;
 
         cc.OnDamaged(Owner, this);
-        //GenerateRangeSkill(Explosion, Owner, _lifeTime, projectile.transform.position, Vector2.one, ExplosionOnHit);
+        GenerateRangeSkill(Owner, position, ExplosionOnHit, "FireBall_Explosion.prefab");
     }
 
 
 
-    public void ExplosionOnHit(CreatureController cc)
+    public void ExplosionOnHit(BaseController cc)
     {
         if (cc.IsValid() == false)
             return;
 
-        //cc.OnDamaged(Owner, Explosion.damage);
+        cc.OnDamaged(Owner, this);
         
         cc.OnBurnEx(Owner, 3,  this); // Extension // To Do : Parsing
     }

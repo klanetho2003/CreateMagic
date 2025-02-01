@@ -18,7 +18,7 @@ public class EffectedCreature : CreatureController
 
     #region Burn
 
-    int _burnDamage = 5;
+    //int _burnDamage = 5;
 
     public bool _isOnBurn { get { return _burnDuration > 0; } }
 
@@ -52,10 +52,11 @@ public class EffectedCreature : CreatureController
 
     #endregion
 
-    protected virtual void OnBurnDamaged()
+    protected virtual void OnBurnDamaged(SkillBase skill)
     {
+        _skill = skill;
         // effect
-        OnDamaged(_owner, _skill);
+        OnDamaged(_owner, skill);
     }
 
     protected override void Clear()
@@ -97,7 +98,7 @@ public class EffectedCreature : CreatureController
 
             if (_lastDamageSeconds >= DamageCycle)
             {
-                OnBurnDamaged();
+                OnBurnDamaged(_skill);
                 // To Do : Effect Ãß°¡
 
                 _lastDamageSeconds = 0;

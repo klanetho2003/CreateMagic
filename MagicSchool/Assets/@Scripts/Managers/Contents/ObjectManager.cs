@@ -9,8 +9,8 @@ public class ObjectManager // ID 부여하는 함수, Object들 들고 있는 등
     public PlayerController Player { get; private set; }
     public HashSet<MonsterController> Monsters { get; } = new HashSet<MonsterController>();
     public HashSet<ProjectileController> Projectiles { get; } = new HashSet<ProjectileController>();
+    public HashSet<RangeSkillController> RangeSkills { get; } = new HashSet<RangeSkillController>();
     public HashSet<JamController> Jams { get; } = new HashSet<JamController>();
-
 
     public T Spawn<T>(Vector3 position, int templateID = 0) where T : BaseController
     {
@@ -48,6 +48,13 @@ public class ObjectManager // ID 부여하는 함수, Object들 들고 있는 등
 
             projectile.SetInfo(templateID);
         }
+        else if (obj.ObjectType == EObjectType.RangeSkill)
+        {
+            RangeSkillController rangeSkill = go.GetComponent<RangeSkillController>();
+            RangeSkills.Add(rangeSkill);
+
+            rangeSkill.SetInfo(templateID);
+        }
         else if (obj.ObjectType == EObjectType.Env)
         {
             JamController jc = obj as JamController;
@@ -62,63 +69,27 @@ public class ObjectManager // ID 부여하는 함수, Object들 들고 있는 등
         }
 
         return obj as T;
+    }
 
-        #region 구버전
-        /*System.Type type = typeof(T);
+    public T Spawn<T>(Vector3 position, int templateID, string prefabLab) where T : BaseController
+    {
+        if (prefabLab == null)
+            return null;
 
-        if (type == typeof(PlayerController))
+        GameObject prefab = Managers.Resource.Instantiate(prefabLab, pooling: true);
+        prefab.name = prefabLab;
+        prefab.transform.position = position;
+
+        BaseController prefabObj = prefab.GetComponent<BaseController>();
+
+        if (prefabObj.ObjectType == EObjectType.RangeSkill)
         {
-            // ToDo - Data 연동
-            GameObject go = Managers.Resource.Instantiate("Magicion_01.prefab", pooling: true);
-            go.name = "player";
-            go.transform.position = position;
+            RangeSkillController rangeSkill = prefab.GetComponent<RangeSkillController>();
 
-            PlayerController pc = go.GetOrAddComponent<PlayerController>();
-            Player = pc;
-            pc.Init();
-
-            return pc as T;
-        }
-        else if (type == typeof(MonsterController))
-        {
-            Data.CreatureData creatureData;
-
-            if (Managers.Data.CreatureDic.TryGetValue(templateID, out creatureData) == false)
-            {
-                Debug.LogError($"ObjectManager Spawn MOnster Failed {creatureData.DescriptionTextID}");
-                return null;
-            }
-
-            GameObject go = Managers.Resource.Instantiate("creatureData.prefab", pooling: true);
-            go.transform.position = position;
-
-            MonsterController mc = go.GetOrAddComponent<MonsterController>();
-            Monsters.Add(mc);
-            mc.Init();
-
-            return mc as T;
-        }
-        else if (type == typeof(JamController))
-        {
-            GameObject go = Managers.Resource.Instantiate(Define.EXP_JAM_PREFAB, pooling: true);
-            go.transform.position = position;
-
-            JamController jc = go.GetOrAddComponent<JamController>();
-            Jams.Add(jc);
-            jc.Init();
-
-            string key = UnityEngine.Random.Range(0, 2) == 0 ? "EXPJam_01.sprite" : "EXPJam_02.sprite";
-            Sprite sprite = Managers.Resource.Load<Sprite>(key);
-            go.GetComponent<SpriteRenderer>().sprite = sprite;
-
-            //TEMP
-            GameObject.Find("@Grid").GetComponent<GridController>().Add(go);
-
-            return jc as T;
+            rangeSkill.SetInfo(templateID);
         }
 
-        return null;*/
-        #endregion
+        return prefabObj as T;
     }
 
     public void Despawn<T>(T obj) where T : BaseController
@@ -145,6 +116,11 @@ public class ObjectManager // ID 부여하는 함수, Object들 들고 있는 등
         {
             ProjectileController projectile = obj as ProjectileController;
             Projectiles.Remove(projectile);
+        }
+        else if (obj.ObjectType == EObjectType.ProjecTile)
+        {
+            RangeSkillController rangeSkill = obj as RangeSkillController;
+            RangeSkills.Remove(rangeSkill);
         }
         else if (obj.ObjectType == EObjectType.Env)
         {

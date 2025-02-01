@@ -1,9 +1,9 @@
-DataId,Name,ClassName,Description,ProjectileId,PrefabLabel,IconLabel,AnimName,CoolTime,DamageMultiplier,SkillDuration,AnimImpactDuration,CastingSound,SkillRange,ScaleMultiplier,TargetCount,Effects,NextLevelId,AoE,EffectSize,ActivateSkillDelay,CompleteSkillDelay
-10001,ê¸°ë³¸ê³µê²©,NormalAttack,ê·¼ì ‘í‰íƒ€,0,,BattleSkillIcon_01,NormalAttack,1.2,1,0,0,EnergyBolt_Start,0,1,20,,,,,0,
-10002,ìœ„ìë“œ ì§ì„ í‰íƒ€,NormalAttack,ì£¼ë³€ì˜ ì ì„ í–¥í•´ ì—ë„ˆì§€ ë³¼íŠ¸ë¥¼ ë°œì‚¬í•œë‹¤,70001,ProjectilePrefab,BattleSkillIcon_01,NormalAttack,1.2,1,0,0,EnergyBolt_Start,0,1,20,,,,,0,
-10003,í™”ì‚´ë“  ê³ ë¸”ë¦° í‰íƒ€,NormalAttack,ì£¼ë³€ì˜ ì ì„ í–¥í•´ ì—ë„ˆì§€ ë³¼íŠ¸ë¥¼ ë°œì‚¬í•œë‹¤,70002,ProjectilePrefab,BattleSkillIcon_01,attack_b,1.2,1.28,0,0,EnergyBolt_Start,0,1,20,,,,,,
-10004,ë³´ìŠ¤ ì›í˜• ê³µê²©,AreaAttack,ë³´ìŠ¤ ì›í˜• ê³µê²©,0,SpellIndicator,,skill_a,5,1,0.9,0.9,,3,1,20,,,,,,
-10005,ëŒì§„,Dash,ëŒì§„,0,SpellIndicator,,attack,7,1,2,2,,5,1,20,,,,,,
-171,FireBall,FireBall,To Do,70002,ProjectilePrefab,,NormalAttack,1.2,20,0,0,EnergyBolt_Start,0,0,20,,,,,2.5,1
-90001,CastingImapct,CastingImapct,To Do,,,,NormalAttack,1.2,5,0,0,EnergyBolt_Start,0,0,20,,,,,,
-90171,FireBall_Explosion,FireBall_Explosion,To Do,,,,NormalAttack,1.2,10,0,0,EnergyBolt_Start,0,0,20,,10009,80001,CircleSmall,,
+DataId,Name,ClassName,Description,ProjectileId,RangeSkillId,PrefabLabel,IconLabel,AnimName,CoolTime,DamageMultiplier,SkillDuration,AnimImpactDuration,CastingSound,SkillRange,ScaleMultiplier,TargetCount,Effects,NextLevelId,AoE,EffectSize,ActivateSkillDelay,CompleteSkillDelay
+10001,±âº»°ø°İ,NormalAttack,±ÙÁ¢ÆòÅ¸,0,,,BattleSkillIcon_01,NormalAttack,1.2,1,0,0,EnergyBolt_Start,0,1,20,,,,,0,
+10002,À§ÀÚµå Á÷¼±ÆòÅ¸,NormalAttack,ÁÖº¯ÀÇ ÀûÀ» ÇâÇØ ¿¡³ÊÁö º¼Æ®¸¦ ¹ß»çÇÑ´Ù,70001,,ProjectilePrefab,BattleSkillIcon_01,NormalAttack,1.2,1,0,0,EnergyBolt_Start,0,1,20,,,,,0,
+10003,È­»ìµç °íºí¸° ÆòÅ¸,NormalAttack,ÁÖº¯ÀÇ ÀûÀ» ÇâÇØ ¿¡³ÊÁö º¼Æ®¸¦ ¹ß»çÇÑ´Ù,70002,,ProjectilePrefab,BattleSkillIcon_01,attack_b,1.2,1.28,0,0,EnergyBolt_Start,0,1,20,,,,,,
+10004,º¸½º ¿øÇü °ø°İ,AreaImpact,º¸½º ¿øÇü °ø°İ,0,,SpellIndicator,,NormalAttack,5,1,0.9,0.46,,3,1,20,,,,,,
+10005,µ¹Áø,Dash,µ¹Áø,0,,SpellIndicator,,attack,7,1,2,2,,5,1,20,,,,,,
+171,FireBall,FireBall,To Do,70002,80001,ProjectilePrefab,,NormalAttack,1.2,20,0,0,EnergyBolt_Start,0,0,20,,,,,0,0
+90001,CastingImapct,CastingImapct,To Do,,,,,NormalAttack,1.2,5,0,0,EnergyBolt_Start,0,0,20,,,,,,
+90171,FireBall_Explosion,FireBall_Explosion,To Do,,,,,NormalAttack,1.2,10,0,0,EnergyBolt_Start,0,0,20,,10009,80001,CircleSmall,,

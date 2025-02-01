@@ -91,7 +91,8 @@ public class MonsterController : EffectedCreature
         }
 
         // DoSkill
-        Skills.CurrentSkill.ActivateSkillOrDelay();
+        SkillBase skill = Skills.CurrentSkill;
+        skill.ActivateSkillOrDelay();
 
         LookAtTarget(Target);
 
@@ -99,7 +100,7 @@ public class MonsterController : EffectedCreature
         /*var trackEntry = SkeletonAnim.state.GetCurrent(0);
         float delay = trackEntry.Animation.Duration;*/
 
-        StartWait(1.6f);
+        StartWait(skill.SkillData.ActivateSkillDelay + 1.6f);
     }
 
     protected override void UpdateDameged()
@@ -151,13 +152,21 @@ public class MonsterController : EffectedCreature
         Skills = gameObject.GetOrAddComponent<BaseSkillBook>();
         Skills.SetInfo(this, CreatureData);
 
-        AnimationEventManager.BindEvent(this, "OnDestroy", () =>
+        AnimationEventManager.BindEvent(this/*, "OnDestroy"*/, () =>
         {
             if (CreatureState != CreatureState.Dead)
                 return;
 
             CreatureState = CreatureState.Idle;
             Managers.Object.Despawn(this);
+        });
+
+        AnimationEventManager.BindEvent(this, /*"OnDamaged_Complate",*/ () =>
+        {
+            if (CreatureState != CreatureState.Dameged)
+                return;
+
+            CreatureState = CreatureState.Idle;
         });
     }
 
