@@ -9,7 +9,6 @@ public class ObjectManager // ID 부여하는 함수, Object들 들고 있는 등
     public PlayerController Player { get; private set; }
     public HashSet<MonsterController> Monsters { get; } = new HashSet<MonsterController>();
     public HashSet<ProjectileController> Projectiles { get; } = new HashSet<ProjectileController>();
-    public HashSet<RangeSkillController> RangeSkills { get; } = new HashSet<RangeSkillController>();
     public HashSet<JamController> Jams { get; } = new HashSet<JamController>();
 
     public T Spawn<T>(Vector3 position, int templateID = 0) where T : BaseController
@@ -48,13 +47,6 @@ public class ObjectManager // ID 부여하는 함수, Object들 들고 있는 등
 
             projectile.SetInfo(templateID);
         }
-        else if (obj.ObjectType == EObjectType.RangeSkill)
-        {
-            RangeSkillController rangeSkill = go.GetComponent<RangeSkillController>();
-            RangeSkills.Add(rangeSkill);
-
-            rangeSkill.SetInfo(templateID);
-        }
         else if (obj.ObjectType == EObjectType.Env)
         {
             JamController jc = obj as JamController;
@@ -82,11 +74,11 @@ public class ObjectManager // ID 부여하는 함수, Object들 들고 있는 등
 
         BaseController prefabObj = prefab.GetComponent<BaseController>();
 
-        if (prefabObj.ObjectType == EObjectType.RangeSkill)
+        if (prefabObj.ObjectType == EObjectType.ProjecTile)
         {
-            RangeSkillController rangeSkill = prefab.GetComponent<RangeSkillController>();
+            ProjectileController pc = prefab.GetComponent<ProjectileController>();
 
-            rangeSkill.SetInfo(templateID);
+            pc.SetInfo(templateID);
         }
 
         return prefabObj as T;
@@ -116,11 +108,6 @@ public class ObjectManager // ID 부여하는 함수, Object들 들고 있는 등
         {
             ProjectileController projectile = obj as ProjectileController;
             Projectiles.Remove(projectile);
-        }
-        else if (obj.ObjectType == EObjectType.ProjecTile)
-        {
-            RangeSkillController rangeSkill = obj as RangeSkillController;
-            RangeSkills.Remove(rangeSkill);
         }
         else if (obj.ObjectType == EObjectType.Env)
         {

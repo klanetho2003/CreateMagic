@@ -26,7 +26,7 @@
     },
     {
       "DataId": 201001,
-      "DescriptionTextID": "워리어",
+      "DescriptionTextID": "������",
       "Label": "HeroPrefab",
       "ColliderOffsetX": 0.0,
       "ColliderOffsetY": 0.5,

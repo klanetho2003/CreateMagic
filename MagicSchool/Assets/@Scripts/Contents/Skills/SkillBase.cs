@@ -21,9 +21,7 @@ public abstract class SkillBase : MonoBehaviour // ½ºÅ³À» ½ºÆù > ActiveSkill ¹ßµ
 
         // Handle AnimEvent
         if (Owner.Anim != null)
-        {
             BindEvent(Owner, OnAttackTargetHandler);
-        }
     }
 
     private void OnDisable() // °ÔÀÓ °­Á¾
@@ -35,7 +33,7 @@ public abstract class SkillBase : MonoBehaviour // ½ºÅ³À» ½ºÆù > ActiveSkill ¹ßµ
         if (Owner.Anim == null)
             return;
 
-        //UnbindEvent(Owner, "OnAttackTarget", OnAttackTargetHandler);
+        UnbindEvent(Owner, OnAttackTargetHandler);
     }
 
     protected virtual void OnAttackTargetHandler()
@@ -119,7 +117,7 @@ public abstract class SkillBase : MonoBehaviour // ½ºÅ³À» ½ºÆù > ActiveSkill ¹ßµ
 
     }
 
-    protected virtual void GenerateProjectile(CreatureController onwer, Vector3 spawnPos, Action<BaseController, Vector3> onHit)
+    protected virtual ProjectileController GenerateProjectile(CreatureController onwer, Vector3 spawnPos, Action<BaseController, Vector3> onHit)
     {
         ProjectileController projectile = Managers.Object.Spawn<ProjectileController>(spawnPos, SkillData.ProjectileId);
 
@@ -141,10 +139,14 @@ public abstract class SkillBase : MonoBehaviour // ½ºÅ³À» ½ºÆù > ActiveSkill ¹ßµ
         }
 
         projectile.SetSpawnInfo(Owner, this, excludeMask, onHit);
+
+        return projectile;
     }
 
-    protected virtual void GenerateRangeSkill(CreatureController onwer, Vector3 spawnPos, Action<BaseController> onHit, string prefabLab = null)
+    protected virtual ProjectileController GenerateProjectile(CreatureController onwer, Vector3 spawnPos, Action<BaseController, Vector3> onHit, string prefabLab)
     {
+        ProjectileController projectile = Managers.Object.Spawn<ProjectileController>(spawnPos, SkillData.AfterSkillId, prefabLab);
+
         // Ãæµ¹ÇÏ±â ½ÈÀº Ä£±¸µé settting
         LayerMask excludeMask = 0;
         excludeMask.AddLayer(ELayer.Default);
@@ -162,26 +164,13 @@ public abstract class SkillBase : MonoBehaviour // ½ºÅ³À» ½ºÆù > ActiveSkill ¹ßµ
                 break;
         }
 
-        RangeSkillController rangeSkill;
+        projectile.SetSpawnInfo(Owner, this, excludeMask, onHit);
 
-        if (prefabLab != null)
-            rangeSkill = Managers.Object.Spawn<RangeSkillController>(spawnPos, SkillData. RangeSkillId, prefabLab);
-        else
-            rangeSkill = Managers.Object.Spawn<RangeSkillController>(spawnPos, SkillData.RangeSkillId);
-
-        rangeSkill.SetSpawnInfo(Owner, this, excludeMask, onHit);
+        return projectile;
     }
 
 
-
-    
-
-
-
-
     #region Skill Delay
-    
-
 
     //ÈÄµô
     public void CompleteSkillDelay(float waitSeconds)

@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static Define;
 
 public class CastingImpact : SkillBase
 {
@@ -10,16 +11,21 @@ public class CastingImpact : SkillBase
     float _moveDistance = 10f;
     float _backSpeed = 30.0f;
 
+    public override void SetInfo(CreatureController owner, int skillTemplateID)
+    {
+        base.SetInfo(owner, skillTemplateID);
+    }
+
     public override void ActivateSkill()
     {
         Vector3 spawnPos;
 
-        if (Owner.CreatureType == Define.ECreatureType.Student)
+        if (Owner.CreatureType == ECreatureType.Student)
             spawnPos = Owner.GetComponent<PlayerController>().Shadow.transform.position;
         else
             spawnPos = Owner.CenterPosition;
 
-        GenerateRangeSkill(Owner, spawnPos, AfterTrigger);
+        GenerateProjectile(Owner, spawnPos, AfterTrigger);
 
         _defaultSize = _defaultSize * 1.2f;
     }
@@ -29,22 +35,22 @@ public class CastingImpact : SkillBase
         _defaultSize = Vector3.one;
     }
 
-    public void AfterTrigger(BaseController cc)
+    public void AfterTrigger(BaseController bc, Vector3 vec)
     {
-        if (cc.IsValid() == false)
+        if (bc.IsValid() == false)
             return;
         if (Owner.IsValid() == false)
             return;
 
-        if (cc.GetComponent<CreatureController>().CreatureType != Define.ECreatureType.Monster)
-            return;
-        if (cc.TryGetComponent(out MonsterController mc))
+        if (bc.ObjectType != EObjectType.Creature)
             return;
 
-        mc.OnDamaged(Owner, this);
+        CreatureController cc = bc.GetComponent<CreatureController>();
+
+        cc.OnDamaged(Owner, this);
 
         Vector3 dir = cc.transform.position - Owner.transform.position;
-        mc.MoveMonsterPosition(dir.normalized, _backSpeed, _moveDistance, () => { mc.CreatureState = Define.CreatureState.Moving; });
+        cc.MoveMonsterPosition(dir.normalized, _backSpeed, _moveDistance, () => { cc.CreatureState = Define.CreatureState.Moving; });
     }
 
     protected override void OnAttackTargetHandler()

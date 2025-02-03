@@ -50,7 +50,7 @@ public class BaseSkillBook : MonoBehaviour // 일종의 스킬 매니저
 
     #endregion
 
-    public /*virtual */void SetInfo(CreatureController owner, CreatureData creatureData)
+    public void SetInfo(CreatureController owner, CreatureData creatureData)
     {
         _owner = owner;
 

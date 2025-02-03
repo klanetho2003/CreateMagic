@@ -232,4 +232,42 @@ public class CreatureController : BaseController
     }
 
     #endregion
+
+    #region Move
+
+    public float moveDistance { get; protected set; } = 0.0f;
+    Coroutine _coMoveLength;
+    public virtual void MoveMonsterPosition(Vector3 dirNor, float speed, float distance, Action onCompleteMove = null)
+    {
+        if (this.IsValid() == false)
+            return;
+
+        if (_coMoveLength != null)
+            StopCoroutine(_coMoveLength);
+
+        _coMoveLength = StartCoroutine(CoMoveLength(dirNor, speed, distance, onCompleteMove));
+    }
+    protected IEnumerator CoMoveLength(Vector3 dirNor, float speed, float distance, Action onCompleteMove = null)
+    {
+        while (distance > moveDistance)
+        {
+            if (this.IsValid() == false)
+                yield break;
+
+            Vector3 newPos = transform.position + dirNor * speed * Time.deltaTime;
+
+            GetComponent<Rigidbody2D>().MovePosition(newPos);
+
+            moveDistance += speed * Time.deltaTime;
+
+            yield return null;
+        }
+
+        moveDistance = 0.0f;
+        onCompleteMove.Invoke();
+
+        StopCoroutine(_coMoveLength);
+        _coMoveLength = null;
+    }
+    #endregion
 }

@@ -92,6 +92,8 @@ public class MonsterController : EffectedCreature
 
         // DoSkill
         SkillBase skill = Skills.CurrentSkill;
+        if (skill == null)
+            return;
         skill.ActivateSkillOrDelay();
 
         LookAtTarget(Target);
@@ -187,43 +189,6 @@ public class MonsterController : EffectedCreature
         SetRigidBodyVelocity(dir.normalized * MoveSpeed);
     }
 
-    #region Move Methods
-    
-    public float moveDistance { get; protected set; } = 0.0f;
-    Coroutine _coMoveLength;
-    public virtual void MoveMonsterPosition(Vector3 dirNor, float speed, float distance, Action onCompleteMove = null)
-    {
-        if (this.IsValid() == false)
-            return;
-
-        if (_coMoveLength != null)
-            StopCoroutine(_coMoveLength);
-
-        _coMoveLength = StartCoroutine(CoMoveLength(dirNor, speed, distance, onCompleteMove));
-    }
-    protected IEnumerator CoMoveLength(Vector3 dirNor, float speed, float distance, Action onCompleteMove = null)
-    {
-        while (distance > moveDistance)
-        {
-            if (this.IsValid() == false)
-                yield break;
-
-            Vector3 newPos = transform.position + dirNor * speed * Time.deltaTime;
-
-            GetComponent<Rigidbody2D>().MovePosition(newPos);
-
-            moveDistance += speed * Time.deltaTime;
-
-            yield return null;
-        }
-
-        moveDistance = 0.0f;
-        onCompleteMove.Invoke();
-
-        StopCoroutine(_coMoveLength);
-        _coMoveLength = null;
-    }
-
     public virtual void MoveMonsterPosition(Transform creature, float speed)
     {
         Vector3 dir = transform.position - creature.position;
@@ -231,7 +196,6 @@ public class MonsterController : EffectedCreature
 
         GetComponent<Rigidbody2D>().MovePosition(newPos);
     }
-    #endregion
 
     #region Battle
 

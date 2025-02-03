@@ -30,11 +30,11 @@ public static class AnimationEventManager
 
     
     /// 특정 BaseController 인스턴스와 바인딩된 애니메이션 이벤트를 해제
-    public static void UnbindEvent(BaseController controller, string eventName, Action callback)
+    public static void UnbindEvent(BaseController controller, Action callback)
     {
         if (eventListeners.ContainsKey(controller) == false)
         {
-            Debug.LogWarning($"No listeners found for event: {eventName} and controller: {controller.name}");
+            Debug.LogWarning($"No listeners found for event: in controller >> {controller.name}");
             return;
         }
 
@@ -45,7 +45,7 @@ public static class AnimationEventManager
             eventListeners.Remove(controller);
         }
 
-        Debug.Log($"Unbound event: {eventName} from controller: {controller.name}");
+        Debug.Log($"Unbound event from controller: {controller.name}");
     }
 
     public static void UnbindEventAll(BaseController controller)
