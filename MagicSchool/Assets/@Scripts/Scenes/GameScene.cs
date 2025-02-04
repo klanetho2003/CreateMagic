@@ -55,8 +55,7 @@ public class GameScene : MonoBehaviour
 
         _spawningPool = gameObject.GetOrAddComponent<SpawningPool>();
 
-        var map = Managers.Resource.Instantiate("Map_Prototype.prefab");
-        map.name = "@Map";
+        Managers.Map.LoadMap("Prototype");
 
         Camera.main.GetComponent<CameraController>().Target = player.gameObject;
 

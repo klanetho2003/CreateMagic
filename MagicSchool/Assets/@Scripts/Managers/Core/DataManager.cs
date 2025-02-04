@@ -6,7 +6,7 @@ using System.IO;
 using System.Xml.Serialization;
 using UnityEngine;
 
-interface ILoader<Key, Value>
+public interface ILoader<Key, Value>
 {
     Dictionary<Key, Value> MakeDict();
 }

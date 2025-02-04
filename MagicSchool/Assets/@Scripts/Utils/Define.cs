@@ -102,6 +102,20 @@ public static class Define
         Projectile = 10,
     }
 
+    public enum EColliderSize
+    {
+        Small,
+        Normal,
+        Big,
+    }
+
+    public enum ECellCollisionType
+    {
+        None,
+        SemiWall,
+        Wall,
+    }
+
     public const string EXP_JAM_PREFAB = "EXPJam.prefab";
     
     public const string Fire_Ball_ID = "N1QA";
@@ -156,6 +170,10 @@ public static class Define
     public const int MONSTER_DEFAULT_RANGED_ATTACK_RANGE = 3;
     public const int INIT_SKILLKEY = 0;
     public const int PROJECTILE_DISTANCE_MAX = 1000;
+
+    public const char MAP_TOOL_WALL = '0';
+    public const char MAP_TOOL_NONE = '1';
+    public const char MAP_TOOL_SEMI_WALL = '2';
 
     public static class AnimationName
     {
