@@ -11,9 +11,9 @@ public class ObjectManager // ID 부여하는 함수, Object들 들고 있는 등
     public HashSet<ProjectileController> Projectiles { get; } = new HashSet<ProjectileController>();
     public HashSet<JamController> Jams { get; } = new HashSet<JamController>();
 
-    public T Spawn<T>(Vector3 position, int templateID = 0) where T : BaseController
+    public T Spawn<T>(Vector3 position, int templateID = 0, string prefabLab = null) where T : BaseController
     {
-        string prefabName = typeof(T).Name;
+        string prefabName = (prefabLab != null) ? prefabLab : typeof(T).Name;
 
         GameObject go = Managers.Resource.Instantiate(prefabName, pooling: true);
         go.name = prefabName;
@@ -61,27 +61,6 @@ public class ObjectManager // ID 부여하는 함수, Object들 들고 있는 등
         }
 
         return obj as T;
-    }
-
-    public T Spawn<T>(Vector3 position, int templateID, string prefabLab) where T : BaseController
-    {
-        if (prefabLab == null)
-            return null;
-
-        GameObject prefab = Managers.Resource.Instantiate(prefabLab, pooling: true);
-        prefab.name = prefabLab;
-        prefab.transform.position = position;
-
-        BaseController prefabObj = prefab.GetComponent<BaseController>();
-
-        if (prefabObj.ObjectType == EObjectType.ProjecTile)
-        {
-            ProjectileController pc = prefab.GetComponent<ProjectileController>();
-
-            pc.SetInfo(templateID);
-        }
-
-        return prefabObj as T;
     }
 
     public void Despawn<T>(T obj) where T : BaseController

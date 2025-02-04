@@ -117,9 +117,13 @@ public abstract class SkillBase : MonoBehaviour // 스킬을 스폰 > ActiveSkill 발�
 
     }
 
-    protected virtual ProjectileController GenerateProjectile(CreatureController onwer, Vector3 spawnPos, Action<BaseController, Vector3> onHit)
+    protected virtual ProjectileController GenerateProjectile(CreatureController onwer, Vector3 spawnPos, Action<BaseController, Vector3> onHit, string prefabLab = null)
     {
-        ProjectileController projectile = Managers.Object.Spawn<ProjectileController>(spawnPos, SkillData.ProjectileId);
+        ProjectileController projectile;
+        if (prefabLab == null)
+            projectile = Managers.Object.Spawn<ProjectileController>(spawnPos, SkillData.ProjectileId);
+        else
+            projectile = Managers.Object.Spawn<ProjectileController>(spawnPos, SkillData.AfterSkillId, prefabLab);
 
         // 충돌하기 싫은 친구들 settting
         LayerMask excludeMask = 0;
@@ -142,33 +146,6 @@ public abstract class SkillBase : MonoBehaviour // 스킬을 스폰 > ActiveSkill 발�
 
         return projectile;
     }
-
-    protected virtual ProjectileController GenerateProjectile(CreatureController onwer, Vector3 spawnPos, Action<BaseController, Vector3> onHit, string prefabLab)
-    {
-        ProjectileController projectile = Managers.Object.Spawn<ProjectileController>(spawnPos, SkillData.AfterSkillId, prefabLab);
-
-        // 충돌하기 싫은 친구들 settting
-        LayerMask excludeMask = 0;
-        excludeMask.AddLayer(ELayer.Default);
-        excludeMask.AddLayer(ELayer.Projectile);
-        excludeMask.AddLayer(ELayer.Env);
-        excludeMask.AddLayer(ELayer.Obstacle);
-
-        switch (Owner.CreatureType)
-        {
-            case ECreatureType.Student:
-                excludeMask.AddLayer(ELayer.Student);
-                break;
-            case ECreatureType.Monster:
-                excludeMask.AddLayer(ELayer.Monster);
-                break;
-        }
-
-        projectile.SetSpawnInfo(Owner, this, excludeMask, onHit);
-
-        return projectile;
-    }
-
 
     #region Skill Delay
 
