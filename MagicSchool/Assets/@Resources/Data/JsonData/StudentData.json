@@ -19,9 +19,9 @@
       "MaterialID": "Magicion_01",
       "AnimatorDataID": "Magicion01_Animator",
       "SortingLayerName": "Player",
-      "DefaultSkillId": 171,
+      "DefaultSkillId": 90001,
       "EnvSkillId": 0,
-      "SkillAId": 0,
+      "SkillAId": 171,
       "SkillBId": 0
     },
     {

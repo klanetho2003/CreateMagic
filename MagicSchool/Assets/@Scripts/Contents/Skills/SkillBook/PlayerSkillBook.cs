@@ -80,19 +80,19 @@ public class PlayerSkillBook : BaseSkillBook
                 #region N1, N2, N3, N4
                 
                 case KeyDownEvent.N1:
-                    //castingImpact.DoSkill();
+                    DefaultSkill.ActivateSkill();
                     _currentCommand = value;
                     break;
                 case KeyDownEvent.N2:
-                    //castingImpact.DoSkill();
+                    DefaultSkill.ActivateSkill();
                     _currentCommand = value;
                     break;
                 case KeyDownEvent.N3:
-                    //castingImpact.DoSkill();
+                    DefaultSkill.ActivateSkill();
                     _currentCommand = value;
                     break;
                 case KeyDownEvent.N4:
-                    //castingImpact.DoSkill();
+                    DefaultSkill.ActivateSkill();
                     _currentCommand = value;
                     break;
 
@@ -101,16 +101,16 @@ public class PlayerSkillBook : BaseSkillBook
                 #region Q, W, E, R
 
                 case KeyDownEvent.Q:
-                    //castingImpact.DoSkill();
+                    DefaultSkill.ActivateSkill();
                     break;
                 case KeyDownEvent.W:
-                    //castingImpact.DoSkill();
+                    DefaultSkill.ActivateSkill();
                     break;
                 case KeyDownEvent.E:
-                    //castingImpact.DoSkill();
+                    DefaultSkill.ActivateSkill();
                     break;
                 case KeyDownEvent.R:
-                    //castingImpact.DoSkill();
+                    DefaultSkill.ActivateSkill();
                     break;
 
                 #endregion

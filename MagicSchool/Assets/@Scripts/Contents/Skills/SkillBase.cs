@@ -172,41 +172,4 @@ public abstract class SkillBase : MonoBehaviour // 스킬을 스폰 > ActiveSkill 발�
         _coOnSkillDelay = null;
     }
     #endregion
-
-    #region Destory
-    Coroutine _coDestory;
-
-    public void StartDestory<T>(T bc, float delaySeconds) where T : BaseController
-    {
-        if (delaySeconds < 0)
-            return;
-
-        StopDestory();
-
-        _coDestory = StartCoroutine(CoDestroy(bc, delaySeconds));
-    }
-
-    public void StopDestory()
-    {
-        if (_coDestory != null)
-        {
-            StopCoroutine(_coDestory);
-            _coDestory = null;
-        }
-    }
-
-    IEnumerator CoDestroy<T>(T bc, float delaySeconds) where T : BaseController
-    {
-        yield return new WaitForSeconds(delaySeconds);
-
-        if (bc.IsValid())
-        {
-            Managers.Object.Despawn(bc);
-        }
-        /*else if (this.IsValid())
-        {
-            Managers.Object.Despawn(this);
-        }*/
-    }
-    #endregion
 }
