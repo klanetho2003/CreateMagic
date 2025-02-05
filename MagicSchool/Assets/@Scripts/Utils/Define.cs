@@ -159,7 +159,13 @@ public static class Define
         ConeBig,
     }
 
-
+    public enum EFindPathResult
+    {
+        Fail_LerpCell,
+        Fail_NoPath,
+        Fail_MoveTo,
+        Success,
+    }
 
     //HARD CODING
     public const float EFFECT_SMALL_RADIUS = 2.5f;
@@ -174,6 +180,9 @@ public static class Define
     public const char MAP_TOOL_WALL = '0';
     public const char MAP_TOOL_NONE = '1';
     public const char MAP_TOOL_SEMI_WALL = '2';
+
+    public const int PLAYER_DEFAULT_MOVE_DEPTH = 5;
+    public const int MONSTER_DEFAULT_MOVE_DEPTH = 10;
 
     public static class AnimationName
     {

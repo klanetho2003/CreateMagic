@@ -61,7 +61,7 @@ public class MonsterController : EffectedCreature
 
     protected override void UpdateMoving()
     {
-        if (Target.IsValid() == false)
+        if (Target.IsValid() == false && LerpCellPosCompleted)
         {
             CreatureState = CreatureState.Idle;
             return;
@@ -75,7 +75,7 @@ public class MonsterController : EffectedCreature
         if (_coWait != null)
             return;
 
-        if (Target.IsValid() == false/* || Target.ObjectType == EObjectType.HeroCamp*/)
+        if (Target.IsValid() == false && LerpCellPosCompleted/* || Target.ObjectType == EObjectType.HeroCamp*/)
         {
             CreatureState = CreatureState.Idle;
             return;
@@ -113,7 +113,6 @@ public class MonsterController : EffectedCreature
 
     protected override void UpdateDead()
     {
-        SetRigidBodyVelocity(Vector3.zero);
         //if (_coWait == null) { }
             //OnDead(); To Do 일단 CreatureController에 넣어두었다
     }
@@ -175,26 +174,17 @@ public class MonsterController : EffectedCreature
     protected override void FixedUpdateMoving() // 물리와 연관돼 있으면
     {
         if (CreatureState != CreatureState.Moving)
-        {
-            SetRigidBodyVelocity(Vector3.zero); // To Do : 길찾기
             return;
-        }
         
         if (Target.IsValid() == false)
             return;
 
-        Vector3 dir = Target.transform.position - transform.position;
         CheckAttackTarget(/*dir.sqrMagnitude, */AttackDistance);
 
-        SetRigidBodyVelocity(dir.normalized * MoveSpeed);
-    }
-
-    public virtual void MoveMonsterPosition(Transform creature, float speed)
-    {
-        Vector3 dir = transform.position - creature.position;
-        Vector3 newPos = transform.position + dir.normalized * speed * Time.deltaTime;
-
-        GetComponent<Rigidbody2D>().MovePosition(newPos);
+        //Vector3 dir = Target.transform.position - transform.position;
+        //Vector3 destPos = transform.position + (dir * MoveSpeed * Time.fixedDeltaTime * 10);
+        EFindPathResult result = FindPathAndMoveToCellPos(Target.transform.position, MONSTER_DEFAULT_MOVE_DEPTH);
+        LerpToCellPos(CreatureData.MoveSpeed);
     }
 
     #region Battle

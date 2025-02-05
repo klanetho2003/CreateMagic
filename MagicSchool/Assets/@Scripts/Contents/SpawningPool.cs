@@ -47,7 +47,7 @@ public class SpawningPool : MonoBehaviour
         if (Managers.Map.CanGo(randCellPos) == false)
             return;
 
-        MonsterController mc = Managers.Object.Spawn<MonsterController>(Vector3.zero, Random.Range(MONSTER_MAGESKELETON_ID, MONSTER_MAGESKELETON_ID + 1));
+        MonsterController mc = Managers.Object.Spawn<MonsterController>(Vector3.zero, Random.Range(MONSTER_ASSASIN_ID, MONSTER_ASSASIN_ID + 1));
         mc.SetCellPos(randCellPos, true);
 
         // Value

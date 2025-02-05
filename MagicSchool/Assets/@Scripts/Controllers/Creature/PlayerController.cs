@@ -215,6 +215,15 @@ public class PlayerController : CreatureController
         
         CreatureType = ECreatureType.Student;
 
+        // Event
+        Managers.Game.OnMoveDirChanged -= HandleOnMoveDirChange;
+        Managers.Game.OnMoveDirChanged += HandleOnMoveDirChange; // 객체 참조값과 함께 함수를 전달하기에 가능한 구독
+        Managers.Input.OnKeyDownHandler -= HandleOnKeyDown;
+        Managers.Input.OnKeyDownHandler += HandleOnKeyDown;
+
+        Collider.isTrigger = true;
+        //RigidBody.simulated = false;
+
         return true;
     }
 
@@ -223,12 +232,6 @@ public class PlayerController : CreatureController
         base.SetInfo(templateID);
 
         _stemp = SpriteRenderer; // ?
-
-        // Event
-        Managers.Game.OnMoveDirChanged -= HandleOnMoveDirChange;
-        Managers.Game.OnMoveDirChanged += HandleOnMoveDirChange; // 객체 참조값과 함께 함수를 전달하기에 가능한 구독
-        Managers.Input.OnKeyDownHandler -= HandleOnKeyDown;
-        Managers.Input.OnKeyDownHandler += HandleOnKeyDown;
 
         AnimationEventManager.BindEvent(this, /*"OnDamaged_Complate",*/ () =>
         {
@@ -260,7 +263,7 @@ public class PlayerController : CreatureController
     {
         base.UpdateController();
 
-        CollectEnv();
+        //CollectEnv();
     }
 
     #region State Pattern
