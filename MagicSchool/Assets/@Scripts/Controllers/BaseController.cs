@@ -210,7 +210,7 @@ public class BaseController : MonoBehaviour
 
         if (dir.x < 0)
             LookLeft = true;
-        else
+        else if (dir.x > 0)
             LookLeft = false;
 
         if (dir.magnitude < 0.01f)
