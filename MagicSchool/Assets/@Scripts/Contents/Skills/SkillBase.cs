@@ -11,6 +11,7 @@ using Unity.VisualScripting;
 public abstract class SkillBase : MonoBehaviour // ½ºÅ³À» ½ºÆù > ActiveSkill ¹ßµ¿ >>> ½ºÅ³ ½ÃÀü
 {
     public CreatureController Owner { get; set; }
+    public float RemainCoolTime { get; set; }
 
     public Data.SkillData SkillData { get; protected set; }
 
@@ -21,9 +22,7 @@ public abstract class SkillBase : MonoBehaviour // ½ºÅ³À» ½ºÆù > ActiveSkill ¹ßµ
 
         // Handle AnimEvent
         if (Owner.Anim != null)
-        {
             BindEvent(Owner, OnAttackTargetHandler);
-        }
     }
 
     private void OnDisable() // °ÔÀÓ °­Á¾
@@ -35,14 +34,20 @@ public abstract class SkillBase : MonoBehaviour // ½ºÅ³À» ½ºÆù > ActiveSkill ¹ßµ
         if (Owner.Anim == null)
             return;
 
-        //UnbindEvent(Owner, "OnAttackTarget", OnAttackTargetHandler);
+        UnbindEvent(Owner, OnAttackTargetHandler);
     }
 
     protected virtual void OnAttackTargetHandler()
     {
         if (Owner.CreatureState != CreatureState.DoSkill)
             return;
+
+        AnimatorStateInfo currentAnim = Owner.Anim.GetCurrentAnimatorStateInfo(0);
+        if (currentAnim.IsName(SkillData.AnimName) || currentAnim.IsName($"{SkillData.AnimName}_LookDown_{Owner.LookDown}"))
+            OnAttackEvent();
     }
+
+    protected abstract void OnAttackEvent();
 
     #region Init Method
     void Awake()
@@ -61,8 +66,6 @@ public abstract class SkillBase : MonoBehaviour // ½ºÅ³À» ½ºÆù > ActiveSkill ¹ßµ
         return true;
     }
     #endregion
-
-    #region Activate Skill Or Delay
     
     public void ActivateSkillOrDelay()
     {
@@ -73,13 +76,20 @@ public abstract class SkillBase : MonoBehaviour // ½ºÅ³À» ½ºÆù > ActiveSkill ¹ßµ
         else if (delaySeconds > 0)
             OnSkillDelay(delaySeconds);
     }
-    
+
+    #region Activate Skill Or Delay
+
     public virtual void ActivateSkill()
     {
         Owner.CreatureState = CreatureState.DoSkill;
 
         if (Owner.CreatureType == ECreatureType.Monster && SkillData.AnimName != null)
-            Owner.Anim.Play(SkillData.AnimName);
+        {
+            Owner.Anim.Play(SkillData.AnimName, -1, 0f);
+            Owner.Skills.ActivateSkills.Remove(this);
+
+            StartCoroutine(CoCountdownCooldown());
+        }
         else // Player
         {
             string animName = $"{SkillData.AnimName}_LookDown_{Owner.LookDown}";
@@ -119,9 +129,24 @@ public abstract class SkillBase : MonoBehaviour // ½ºÅ³À» ½ºÆù > ActiveSkill ¹ßµ
 
     }
 
-    protected virtual void GenerateProjectile(CreatureController onwer, Vector3 spawnPos, Action<BaseController, Vector3> onHit)
+    private IEnumerator CoCountdownCooldown()
     {
-        ProjectileController projectile = Managers.Object.Spawn<ProjectileController>(spawnPos, SkillData.ProjectileId);
+        RemainCoolTime = SkillData.CoolTime;
+        yield return new WaitForSeconds(SkillData.CoolTime);
+        RemainCoolTime = 0;
+
+        // Ready Skill Add
+        if (Owner.Skills != null)
+            Owner.Skills.ActivateSkills.Add(this);
+    }
+
+    protected virtual ProjectileController GenerateProjectile(CreatureController onwer, Vector3 spawnPos, Action<BaseController, Vector3> onHit, string prefabLab = null)
+    {
+        ProjectileController projectile;
+        if (prefabLab == null)
+            projectile = Managers.Object.Spawn<ProjectileController>(spawnPos, SkillData.ProjectileId);
+        else
+            projectile = Managers.Object.Spawn<ProjectileController>(spawnPos, SkillData.AfterSkillId, prefabLab);
 
         // Ãæµ¹ÇÏ±â ½ÈÀº Ä£±¸µé settting
         LayerMask excludeMask = 0;
@@ -141,47 +166,11 @@ public abstract class SkillBase : MonoBehaviour // ½ºÅ³À» ½ºÆù > ActiveSkill ¹ßµ
         }
 
         projectile.SetSpawnInfo(Owner, this, excludeMask, onHit);
+
+        return projectile;
     }
-
-    protected virtual void GenerateRangeSkill(CreatureController onwer, Vector3 spawnPos, Action<BaseController> onHit, string prefabLab = null)
-    {
-        // Ãæµ¹ÇÏ±â ½ÈÀº Ä£±¸µé settting
-        LayerMask excludeMask = 0;
-        excludeMask.AddLayer(ELayer.Default);
-        excludeMask.AddLayer(ELayer.Projectile);
-        excludeMask.AddLayer(ELayer.Env);
-        excludeMask.AddLayer(ELayer.Obstacle);
-
-        switch (Owner.CreatureType)
-        {
-            case ECreatureType.Student:
-                excludeMask.AddLayer(ELayer.Student);
-                break;
-            case ECreatureType.Monster:
-                excludeMask.AddLayer(ELayer.Monster);
-                break;
-        }
-
-        RangeSkillController rangeSkill;
-
-        if (prefabLab != null)
-            rangeSkill = Managers.Object.Spawn<RangeSkillController>(spawnPos, SkillData. RangeSkillId, prefabLab);
-        else
-            rangeSkill = Managers.Object.Spawn<RangeSkillController>(spawnPos, SkillData.RangeSkillId);
-
-        rangeSkill.SetSpawnInfo(Owner, this, excludeMask, onHit);
-    }
-
-
-
-    
-
-
-
 
     #region Skill Delay
-    
-
 
     //ÈÄµô
     public void CompleteSkillDelay(float waitSeconds)
@@ -204,43 +193,6 @@ public abstract class SkillBase : MonoBehaviour // ½ºÅ³À» ½ºÆù > ActiveSkill ¹ßµ
 
         Owner.CreatureState = Define.CreatureState.Idle;
         _coOnSkillDelay = null;
-    }
-    #endregion
-
-    #region Destory
-    Coroutine _coDestory;
-
-    public void StartDestory<T>(T bc, float delaySeconds) where T : BaseController
-    {
-        if (delaySeconds < 0)
-            return;
-
-        StopDestory();
-
-        _coDestory = StartCoroutine(CoDestroy(bc, delaySeconds));
-    }
-
-    public void StopDestory()
-    {
-        if (_coDestory != null)
-        {
-            StopCoroutine(_coDestory);
-            _coDestory = null;
-        }
-    }
-
-    IEnumerator CoDestroy<T>(T bc, float delaySeconds) where T : BaseController
-    {
-        yield return new WaitForSeconds(delaySeconds);
-
-        if (bc.IsValid())
-        {
-            Managers.Object.Despawn(bc);
-        }
-        /*else if (this.IsValid())
-        {
-            Managers.Object.Despawn(this);
-        }*/
     }
     #endregion
 }

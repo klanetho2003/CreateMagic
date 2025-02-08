@@ -41,8 +41,8 @@ MonoBehaviour:
     m_SerializedLabels:
     - PreLoad
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 585e49bcb099dc54a8cbbfab95f5412e
-    m_Address: RangeSkillData
+  - m_GUID: d27d331d21fafff4a8b32926fdd5ea53
+    m_Address: PrototypeCollision
     m_ReadOnly: 0
     m_SerializedLabels:
     - PreLoad

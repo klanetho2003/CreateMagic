@@ -42,8 +42,13 @@ public class SpawningPool : MonoBehaviour
             return;
 
         // TEMP : DataID ?
-        Vector3 ranPos = Utils.GenerateMonsterSpawnPosition(Managers.Game.Player.transform.position, 5, 10);
-        MonsterController mc = Managers.Object.Spawn<MonsterController>(ranPos, Random.Range(MONSTER_MAGESKELETON_ID, MONSTER_MAGESKELETON_ID + 1));
+        //Vector3 ranPos = Utils.GenerateMonsterSpawnPosition(Managers.Game.Player.transform.position, 5, 10);
+        Vector3Int randCellPos = new Vector3Int(0 + Random.Range(-3,3), 0 + Random.Range(-3, 3), 0);
+        if (Managers.Map.CanGo(randCellPos) == false)
+            return;
+
+        MonsterController mc = Managers.Object.Spawn<MonsterController>(Vector3.zero, Random.Range(MONSTER_ASSASIN_ID, MONSTER_ASSASIN_ID + 1));
+        mc.SetCellPos(randCellPos, true);
 
         // Value
         mc.Hp = mc.MaxHp;

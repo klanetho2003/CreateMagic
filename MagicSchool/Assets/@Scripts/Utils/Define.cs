@@ -102,6 +102,20 @@ public static class Define
         Projectile = 10,
     }
 
+    public enum EColliderSize
+    {
+        Small,
+        Normal,
+        Big,
+    }
+
+    public enum ECellCollisionType
+    {
+        None,
+        SemiWall,
+        Wall,
+    }
+
     public const string EXP_JAM_PREFAB = "EXPJam.prefab";
     
     public const string Fire_Ball_ID = "N1QA";
@@ -145,7 +159,13 @@ public static class Define
         ConeBig,
     }
 
-
+    public enum EFindPathResult
+    {
+        Fail_LerpCell,
+        Fail_NoPath,
+        Fail_MoveTo,
+        Success,
+    }
 
     //HARD CODING
     public const float EFFECT_SMALL_RADIUS = 2.5f;
@@ -156,6 +176,13 @@ public static class Define
     public const int MONSTER_DEFAULT_RANGED_ATTACK_RANGE = 3;
     public const int INIT_SKILLKEY = 0;
     public const int PROJECTILE_DISTANCE_MAX = 1000;
+
+    public const char MAP_TOOL_WALL = '0';
+    public const char MAP_TOOL_NONE = '1';
+    public const char MAP_TOOL_SEMI_WALL = '2';
+
+    public const int PLAYER_DEFAULT_MOVE_DEPTH = 5;
+    public const int MONSTER_DEFAULT_MOVE_DEPTH = 10;
 
     public static class AnimationName
     {

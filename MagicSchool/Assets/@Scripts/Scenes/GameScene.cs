@@ -49,14 +49,14 @@ public class GameScene : MonoBehaviour
         //Data ½ÃÆ® Load
         Managers.Data.Init();
 
-        Managers.UI.ShowSceneUI<UI_GameScene>();
+        
+        //Managers.UI.ShowSceneUI<UI_GameScene>();
 
         var player = Managers.Object.Spawn<PlayerController>(Vector3.zero, MAGICION01_ID);
 
-        _spawningPool = gameObject.GetOrAddComponent<SpawningPool>();
+        Managers.Map.LoadMap("Prototype");
 
-        var map = Managers.Resource.Instantiate("Map_Prototype.prefab");
-        map.name = "@Map";
+        //_spawningPool = gameObject.GetOrAddComponent<SpawningPool>();
 
         Camera.main.GetComponent<CameraController>().Target = player.gameObject;
 

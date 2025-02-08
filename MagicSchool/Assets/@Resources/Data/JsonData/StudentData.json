@@ -19,14 +19,14 @@
       "MaterialID": "Magicion_01",
       "AnimatorDataID": "Magicion01_Animator",
       "SortingLayerName": "Player",
-      "DefaultSkillId": 171,
+      "DefaultSkillId": 90001,
       "EnvSkillId": 0,
-      "SkillAId": 0,
+      "SkillAId": 171,
       "SkillBId": 0
     },
     {
       "DataId": 201001,
-      "DescriptionTextID": "워리어",
+      "DescriptionTextID": "������",
       "Label": "HeroPrefab",
       "ColliderOffsetX": 0.0,
       "ColliderOffsetY": 0.5,

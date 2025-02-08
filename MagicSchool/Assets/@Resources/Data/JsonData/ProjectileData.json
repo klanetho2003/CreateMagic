@@ -11,7 +11,8 @@
       "Duration": 0.0,
       "HitSound": 0.0,
       "ProjRange": 0.0,
-      "ProjSpeed": 10.0
+      "ProjSpeed": 10.0,
+      "ReserveDestroyTime": 5.0
     },
     {
       "DataId": 70002,
@@ -24,20 +25,22 @@
       "Duration": 0.0,
       "HitSound": 0.0,
       "ProjRange": 0.0,
-      "ProjSpeed": 5.0
+      "ProjSpeed": 5.0,
+      "ReserveDestroyTime": 5.0
     },
     {
       "DataId": 70003,
       "Name": "Impact",
       "ClassName": "Projectile",
-      "ComponentName": "LinearMotion",
-      "MaterialID": null,
-      "AnimatorDataID": null,
+      "ComponentName": null,
+      "MaterialID": "CreatureDefaultMat",
+      "AnimatorDataID": "CastingImpact01AnimController",
       "PrefabLabel": "ProjectilePrefab",
       "Duration": 0.0,
       "HitSound": 0.0,
       "ProjRange": 0.0,
-      "ProjSpeed": 5.0
+      "ProjSpeed": 5.0,
+      "ReserveDestroyTime": 0.75
     },
     {
       "DataId": 70004,
@@ -50,7 +53,8 @@
       "Duration": 0.0,
       "HitSound": 0.0,
       "ProjRange": 0.0,
-      "ProjSpeed": 5.0
+      "ProjSpeed": 5.0,
+      "ReserveDestroyTime": 0.0
     },
     {
       "DataId": 70005,
@@ -63,7 +67,8 @@
       "Duration": 0.0,
       "HitSound": 0.0,
       "ProjRange": 0.0,
-      "ProjSpeed": 5.0
+      "ProjSpeed": 5.0,
+      "ReserveDestroyTime": 0.0
     },
     {
       "DataId": 70006,
@@ -76,7 +81,8 @@
       "Duration": 0.0,
       "HitSound": 0.0,
       "ProjRange": 0.0,
-      "ProjSpeed": 5.0
+      "ProjSpeed": 5.0,
+      "ReserveDestroyTime": 0.0
     },
     {
       "DataId": 70007,
@@ -89,7 +95,8 @@
       "Duration": 0.0,
       "HitSound": 0.0,
       "ProjRange": 0.0,
-      "ProjSpeed": 5.0
+      "ProjSpeed": 5.0,
+      "ReserveDestroyTime": 0.0
     },
     {
       "DataId": 70008,
@@ -102,7 +109,22 @@
       "Duration": 0.0,
       "HitSound": 0.0,
       "ProjRange": 0.0,
-      "ProjSpeed": 5.0
+      "ProjSpeed": 5.0,
+      "ReserveDestroyTime": 0.0
+    },
+    {
+      "DataId": 80001,
+      "Name": "Impact",
+      "ClassName": "RangeSKill",
+      "ComponentName": null,
+      "MaterialID": null,
+      "AnimatorDataID": null,
+      "PrefabLabel": "FireBall_Explosion.prefab",
+      "Duration": 0.0,
+      "HitSound": 0.0,
+      "ProjRange": 0.0,
+      "ProjSpeed": 0.0,
+      "ReserveDestroyTime": 1.0
     }
   ]
 }

@@ -170,6 +170,9 @@ public class CreatureController : BaseController
 
         // State
         CreatureState = CreatureState.Idle;
+
+        // Map Move
+        //StartCoroutine(CoLerpToCellPos());
     }
 
     #region Wait
@@ -230,6 +233,112 @@ public class CreatureController : BaseController
             // OnDead()
         }
     }
+
+    #endregion
+
+    #region Move ±¸¹öÀü
+
+    public float moveDistance { get; protected set; } = 0.0f;
+    Coroutine _coMoveLength;
+    public virtual void MoveMonsterPosition(Vector3 dirNor, float speed, float distance, Action onCompleteMove = null)
+    {
+        if (this.IsValid() == false)
+            return;
+
+        if (_coMoveLength != null)
+            StopCoroutine(_coMoveLength);
+
+        _coMoveLength = StartCoroutine(CoMoveLength(dirNor, speed, distance, onCompleteMove));
+    }
+    protected IEnumerator CoMoveLength(Vector3 dirNor, float speed, float distance, Action onCompleteMove = null)
+    {
+        while (distance > moveDistance)
+        {
+            if (this.IsValid() == false)
+                yield break;
+
+            Vector3 newPos = transform.position + dirNor * speed * Time.deltaTime;
+
+            GetComponent<Rigidbody2D>().MovePosition(newPos);
+
+            moveDistance += speed * Time.deltaTime;
+
+            yield return null;
+        }
+
+        moveDistance = 0.0f;
+        onCompleteMove.Invoke();
+
+        StopCoroutine(_coMoveLength);
+        _coMoveLength = null;
+    }
+    #endregion
+
+    #region Map
+
+    public EFindPathResult FindPathAndMoveToCellPos(Vector3 destWorldPos, int maxDepth, bool forceMoveCloser = false)
+    {
+        Vector3Int destCellPos = Managers.Map.World2Cell(destWorldPos);
+        return FindPathAndMoveToCellPos(destCellPos, maxDepth, forceMoveCloser);
+    }
+
+    public EFindPathResult FindPathAndMoveToCellPos(Vector3Int destCellPos, int maxDepth, bool forceMoveCloser = false)
+    {
+        if (LerpCellPosCompleted == false)
+            return EFindPathResult.Fail_LerpCell;
+
+        // A*
+        List<Vector3Int> path = Managers.Map.FindPath(CellPos, destCellPos, maxDepth);
+        if (path.Count < 2)
+            return EFindPathResult.Fail_NoPath;
+
+        if (forceMoveCloser)
+        {
+            Vector3Int diff1 = CellPos - destCellPos;
+            Vector3Int diff2 = path[1] - destCellPos;
+            if (diff1.sqrMagnitude <= diff2.sqrMagnitude)
+                return EFindPathResult.Fail_NoPath;
+        }
+
+        Vector3Int dirCellPos = path[1] - CellPos;
+        //
+        Vector3Int nextPos = CellPos + dirCellPos;
+
+        if (Managers.Map.MoveTo(this, nextPos) == false)
+            return EFindPathResult.Fail_MoveTo;
+
+        return EFindPathResult.Success;
+    }
+
+    public bool MoveToCellPos(Vector3Int destCellPos, int maxDepth, bool forceMoveCloser = false)
+    {
+        if (LerpCellPosCompleted == false)
+            return false;
+
+        return Managers.Map.MoveTo(this, destCellPos);
+    }
+
+    // if use in Coroutine
+    /*protected IEnumerator CoLerpToCellPos()
+    {
+        while (true)
+        {
+            Hero hero = this as Hero;
+            if (hero != null)
+            {
+                float div = 5;
+                Vector3 campPos = Managers.Object.Camp.Destination.transform.position;
+                Vector3Int campCellPos = Managers.Map.World2Cell(campPos);
+                float ratio = Math.Max(1, (CellPos - campCellPos).magnitude / div);
+
+                LerpToCellPos(CreatureData.MoveSpeed * ratio);
+            }
+            else
+                LerpToCellPos(CreatureData.MoveSpeed);
+
+            yield return null;
+        }
+    }*/
 
     #endregion
 }

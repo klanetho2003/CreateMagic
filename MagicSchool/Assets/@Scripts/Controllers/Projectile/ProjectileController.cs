@@ -35,15 +35,11 @@ public class ProjectileController : BaseController
         // First Sprite
         // SpriteRenderer.sprite
 
-        // Met & Anim // 따로 빼야하나
-        SpriteRenderer.material = Managers.Resource.Load<Material>(ProjectileData.MaterialID);
-        Anim.runtimeAnimatorController = Managers.Resource.Load<RuntimeAnimatorController>(ProjectileData.AnimatorDataID);
+        if (ProjectileData.MaterialID != null)
+            SpriteRenderer.material = Managers.Resource.Load<Material>(ProjectileData.MaterialID);
 
-        if (Anim == null) // To Do : Data가 쌓이면 DataManager 안 Interface에 Validation하는 코드를 넣
-        {
-            Debug.LogWarning($"Projectile Anim Missing {ProjectileData.Name}");
-            return;
-        }
+        if (ProjectileData.AnimatorDataID != null)
+            Anim.runtimeAnimatorController = Managers.Resource.Load<RuntimeAnimatorController>(ProjectileData.AnimatorDataID);
     }
 
     public void SetSpawnInfo(CreatureController owner, SkillBase skill, LayerMask layer, Action<BaseController, Vector3> onHit) // SkillBase 중Generate함수 끝 부분에 위치,
@@ -52,7 +48,7 @@ public class ProjectileController : BaseController
         Owner = owner;
         Skill = skill;
         _onHit = onHit;
-        TargetPosition = (owner.Target == null) ? (owner.GenerateSkillPosition - owner.transform.position).normalized * PROJECTILE_DISTANCE_MAX : owner.Target.CenterPosition;
+        TargetPosition = (owner.Target == null) ? (owner.GenerateSkillPosition - owner.CenterPosition).normalized * PROJECTILE_DISTANCE_MAX : owner.Target.CenterPosition;
 
         // Rule
         Collider.excludeLayers = layer;
@@ -61,16 +57,19 @@ public class ProjectileController : BaseController
         if (ProjectileMotion != null)
             Destroy(ProjectileMotion); // Remove Component when Pooling revive
 
+        // Reserve
+        StartCoroutine(CoReserveDestroy(ProjectileData.ReserveDestroyTime));
+
+        // Motion
         string compoenetName = ProjectileData.ComponentName;
+        if (compoenetName == null)
+            return;
+
         ProjectileMotion = gameObject.AddComponent(Type.GetType(compoenetName)) as ProjectileMotionBase;
-        
 
         LinearMotion linearMotion = ProjectileMotion as LinearMotion;
         if (linearMotion != null)
             linearMotion.SetInfo(ProjectileData.DataId, owner.GenerateSkillPosition, TargetPosition, () => Managers.Object.Despawn(this));
-
-        // Reserve
-        StartCoroutine(CoReserveDestroy(5.0f));
     }
 
     private void OnTriggerEnter2D(Collider2D other)
@@ -81,8 +80,6 @@ public class ProjectileController : BaseController
 
         // To Do
         _onHit.Invoke(target, transform.position);
-
-        Managers.Object.Despawn(this);
     }
 
     private IEnumerator CoReserveDestroy(float lifeTime)

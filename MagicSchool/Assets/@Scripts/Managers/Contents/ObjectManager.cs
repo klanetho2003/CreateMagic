@@ -9,12 +9,11 @@ public class ObjectManager // ID 부여하는 함수, Object들 들고 있는 등
     public PlayerController Player { get; private set; }
     public HashSet<MonsterController> Monsters { get; } = new HashSet<MonsterController>();
     public HashSet<ProjectileController> Projectiles { get; } = new HashSet<ProjectileController>();
-    public HashSet<RangeSkillController> RangeSkills { get; } = new HashSet<RangeSkillController>();
     public HashSet<JamController> Jams { get; } = new HashSet<JamController>();
 
-    public T Spawn<T>(Vector3 position, int templateID = 0) where T : BaseController
+    public T Spawn<T>(Vector3 position, int templateID = 0, string prefabLab = null) where T : BaseController
     {
-        string prefabName = typeof(T).Name;
+        string prefabName = (prefabLab != null) ? prefabLab : typeof(T).Name;
 
         GameObject go = Managers.Resource.Instantiate(prefabName, pooling: true);
         go.name = prefabName;
@@ -48,13 +47,6 @@ public class ObjectManager // ID 부여하는 함수, Object들 들고 있는 등
 
             projectile.SetInfo(templateID);
         }
-        else if (obj.ObjectType == EObjectType.RangeSkill)
-        {
-            RangeSkillController rangeSkill = go.GetComponent<RangeSkillController>();
-            RangeSkills.Add(rangeSkill);
-
-            rangeSkill.SetInfo(templateID);
-        }
         else if (obj.ObjectType == EObjectType.Env)
         {
             JamController jc = obj as JamController;
@@ -69,27 +61,6 @@ public class ObjectManager // ID 부여하는 함수, Object들 들고 있는 등
         }
 
         return obj as T;
-    }
-
-    public T Spawn<T>(Vector3 position, int templateID, string prefabLab) where T : BaseController
-    {
-        if (prefabLab == null)
-            return null;
-
-        GameObject prefab = Managers.Resource.Instantiate(prefabLab, pooling: true);
-        prefab.name = prefabLab;
-        prefab.transform.position = position;
-
-        BaseController prefabObj = prefab.GetComponent<BaseController>();
-
-        if (prefabObj.ObjectType == EObjectType.RangeSkill)
-        {
-            RangeSkillController rangeSkill = prefab.GetComponent<RangeSkillController>();
-
-            rangeSkill.SetInfo(templateID);
-        }
-
-        return prefabObj as T;
     }
 
     public void Despawn<T>(T obj) where T : BaseController
@@ -116,11 +87,6 @@ public class ObjectManager // ID 부여하는 함수, Object들 들고 있는 등
         {
             ProjectileController projectile = obj as ProjectileController;
             Projectiles.Remove(projectile);
-        }
-        else if (obj.ObjectType == EObjectType.ProjecTile)
-        {
-            RangeSkillController rangeSkill = obj as RangeSkillController;
-            RangeSkills.Remove(rangeSkill);
         }
         else if (obj.ObjectType == EObjectType.Env)
         {
@@ -172,6 +138,56 @@ public class ObjectManager // ID 부여하는 함수, Object들 들고 있는 등
         foreach (var monster in monsters)
             Managers.Object.Despawn(monster);
     }
+
+    #region Skill 판정
+    
+    public List<CreatureController> FindConeRangeTarget(CreatureController owner, Vector3 dir, float range, int angleRange, bool isAllies = false)
+    {
+        List<CreatureController> targets = new List<CreatureController>();
+        List<CreatureController> ret = new List<CreatureController>();
+
+        ECreatureType targetType = Utils.DetermineTargetType(owner.CreatureType, isAllies);
+
+        if (targetType == ECreatureType.Monster)
+        {
+            var objs = Managers.Map.GatherObjects<MonsterController>(owner.transform.position, range, range);
+            targets.AddRange(objs);
+        }
+        else if (targetType == ECreatureType.Student)
+        {
+            var objs = Managers.Map.GatherObjects<PlayerController>(owner.transform.position, range, range);
+            targets.AddRange(objs);
+        }
+
+        foreach (var target in targets)
+        {
+            // 1. 거리 안에 있는가?
+            var targetPos = target.transform.position;
+            float distance = Vector3.Distance(targetPos, owner.transform.position);
+
+            if (distance > range)
+                continue;
+
+            // 2. 각도 check
+            if (angleRange != 360)
+            {
+                BaseController ownerTarget = (owner as CreatureController).Target;
+
+                // 2. 부채꼴
+                float dot = Vector3.Dot((targetPos - owner.transform.position).normalized, dir.normalized);
+                float degree = Mathf.Rad2Deg * Mathf.Acos(dot);
+
+                if (degree > angleRange / 2f)
+                    continue;
+            }
+
+            ret.Add(target);
+        }
+
+        return ret;
+    }
+
+    #endregion
 }
 
 

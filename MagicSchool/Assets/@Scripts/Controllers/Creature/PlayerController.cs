@@ -215,6 +215,15 @@ public class PlayerController : CreatureController
         
         CreatureType = ECreatureType.Student;
 
+        // Event
+        Managers.Game.OnMoveDirChanged -= HandleOnMoveDirChange;
+        Managers.Game.OnMoveDirChanged += HandleOnMoveDirChange; // 객체 참조값과 함께 함수를 전달하기에 가능한 구독
+        Managers.Input.OnKeyDownHandler -= HandleOnKeyDown;
+        Managers.Input.OnKeyDownHandler += HandleOnKeyDown;
+
+        Collider.isTrigger = true;
+        //RigidBody.simulated = false;
+
         return true;
     }
 
@@ -223,12 +232,6 @@ public class PlayerController : CreatureController
         base.SetInfo(templateID);
 
         _stemp = SpriteRenderer; // ?
-
-        // Event
-        Managers.Game.OnMoveDirChanged -= HandleOnMoveDirChange;
-        Managers.Game.OnMoveDirChanged += HandleOnMoveDirChange; // 객체 참조값과 함께 함수를 전달하기에 가능한 구독
-        Managers.Input.OnKeyDownHandler -= HandleOnKeyDown;
-        Managers.Input.OnKeyDownHandler += HandleOnKeyDown;
 
         AnimationEventManager.BindEvent(this, /*"OnDamaged_Complate",*/ () =>
         {
@@ -247,7 +250,7 @@ public class PlayerController : CreatureController
 
     void InitShadow()
     {
-        _shadow.localPosition = new Vector2(_shadow.localPosition.x, -0.55f);
+        _shadow.localPosition = new Vector2(_shadow.localPosition.x, 0f);
     }
 
     private void OnDestroy()
@@ -260,7 +263,7 @@ public class PlayerController : CreatureController
     {
         base.UpdateController();
 
-        CollectEnv();
+        //CollectEnv();
     }
 
     #region State Pattern
@@ -310,7 +313,11 @@ public class PlayerController : CreatureController
             return;
         }
 
-        SetRigidBodyVelocity(_moveDir.normalized * MoveSpeed);
+        Vector3 destPos = _moveDir.normalized * MoveSpeed;
+        Vector3Int destCellPos = Managers.Map.World2Cell(destPos + transform.position);
+
+        SetRigidBodyVelocity(destPos);
+        Managers.Map.MoveTo(this, destCellPos);
     }
 
     void MoveIndicator()

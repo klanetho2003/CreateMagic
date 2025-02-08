@@ -61,7 +61,7 @@ public class MonsterController : EffectedCreature
 
     protected override void UpdateMoving()
     {
-        if (Target.IsValid() == false)
+        if (Target.IsValid() == false && LerpCellPosCompleted)
         {
             CreatureState = CreatureState.Idle;
             return;
@@ -74,8 +74,8 @@ public class MonsterController : EffectedCreature
     {
         if (_coWait != null)
             return;
-
-        if (Target.IsValid() == false/* || Target.ObjectType == EObjectType.HeroCamp*/)
+        
+        if (Target.IsValid() == false && LerpCellPosCompleted/* || Target.ObjectType == EObjectType.HeroCamp*/)
         {
             CreatureState = CreatureState.Idle;
             return;
@@ -84,6 +84,7 @@ public class MonsterController : EffectedCreature
         Vector3 dir = (Target.CenterPosition - CenterPosition);
         float distToTargetSqr = dir.sqrMagnitude;
         float attackDistanceSqr = AttackDistance * AttackDistance;
+
         if (distToTargetSqr > attackDistanceSqr)
         {
             CreatureState = CreatureState.Moving;
@@ -92,15 +93,13 @@ public class MonsterController : EffectedCreature
 
         // DoSkill
         SkillBase skill = Skills.CurrentSkill;
+        if (skill == null)
+            return;
         skill.ActivateSkillOrDelay();
 
         LookAtTarget(Target);
 
-        // To Do : Animation Delay Data Parsing
-        /*var trackEntry = SkeletonAnim.state.GetCurrent(0);
-        float delay = trackEntry.Animation.Duration;*/
-
-        StartWait(skill.SkillData.ActivateSkillDelay + 1.6f);
+        StartWait(skill.SkillData.ActivateSkillDelay + skill.SkillData.SkillDuration);
     }
 
     protected override void UpdateDameged()
@@ -111,7 +110,6 @@ public class MonsterController : EffectedCreature
 
     protected override void UpdateDead()
     {
-        SetRigidBodyVelocity(Vector3.zero);
         //if (_coWait == null) { }
             //OnDead(); To Do 일단 CreatureController에 넣어두었다
     }
@@ -123,7 +121,6 @@ public class MonsterController : EffectedCreature
         float attackDistenceSqr = attackRange * attackRange;
 
         if (distToTargetSqr <= attackDistenceSqr)
-            //skill.ActivateSkillOrDelay();
             CreatureState = CreatureState.DoSkill;
         else
             CreatureState = CreatureState.Moving;
@@ -145,9 +142,9 @@ public class MonsterController : EffectedCreature
     {
         base.SetInfo(templateID);
 
-        CreatureState = CreatureState.Moving;
-
         Target = Managers.Object.Player;
+
+        CreatureState = CreatureState.Idle;
 
         Skills = gameObject.GetOrAddComponent<BaseSkillBook>();
         Skills.SetInfo(this, CreatureData);
@@ -173,65 +170,18 @@ public class MonsterController : EffectedCreature
     protected override void FixedUpdateMoving() // 물리와 연관돼 있으면
     {
         if (CreatureState != CreatureState.Moving)
-        {
-            SetRigidBodyVelocity(Vector3.zero); // To Do : 길찾기
             return;
-        }
         
         if (Target.IsValid() == false)
             return;
 
-        Vector3 dir = Target.transform.position - transform.position;
         CheckAttackTarget(/*dir.sqrMagnitude, */AttackDistance);
 
-        SetRigidBodyVelocity(dir.normalized * MoveSpeed);
+        //Vector3 dir = Target.transform.position - transform.position;
+        //Vector3 destPos = transform.position + (dir * MoveSpeed * Time.fixedDeltaTime * 10);
+        EFindPathResult result = FindPathAndMoveToCellPos(Target.transform.position, MONSTER_DEFAULT_MOVE_DEPTH);
+        LerpToCellPos(CreatureData.MoveSpeed);
     }
-
-    #region Move Methods
-    
-    public float moveDistance { get; protected set; } = 0.0f;
-    Coroutine _coMoveLength;
-    public virtual void MoveMonsterPosition(Vector3 dirNor, float speed, float distance, Action onCompleteMove = null)
-    {
-        if (this.IsValid() == false)
-            return;
-
-        if (_coMoveLength != null)
-            StopCoroutine(_coMoveLength);
-
-        _coMoveLength = StartCoroutine(CoMoveLength(dirNor, speed, distance, onCompleteMove));
-    }
-    protected IEnumerator CoMoveLength(Vector3 dirNor, float speed, float distance, Action onCompleteMove = null)
-    {
-        while (distance > moveDistance)
-        {
-            if (this.IsValid() == false)
-                yield break;
-
-            Vector3 newPos = transform.position + dirNor * speed * Time.deltaTime;
-
-            GetComponent<Rigidbody2D>().MovePosition(newPos);
-
-            moveDistance += speed * Time.deltaTime;
-
-            yield return null;
-        }
-
-        moveDistance = 0.0f;
-        onCompleteMove.Invoke();
-
-        StopCoroutine(_coMoveLength);
-        _coMoveLength = null;
-    }
-
-    public virtual void MoveMonsterPosition(Transform creature, float speed)
-    {
-        Vector3 dir = transform.position - creature.position;
-        Vector3 newPos = transform.position + dir.normalized * speed * Time.deltaTime;
-
-        GetComponent<Rigidbody2D>().MovePosition(newPos);
-    }
-    #endregion
 
     #region Battle
 

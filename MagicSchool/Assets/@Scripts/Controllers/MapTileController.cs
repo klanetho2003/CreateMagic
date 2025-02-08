@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MapTileController : MonoBehaviour
+public class MapTileController : MonoBehaviour // ¹«ÇÑ¸Ê
 {
 	private void OnTriggerExit2D(Collider2D collision)
 	{

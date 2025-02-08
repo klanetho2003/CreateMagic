@@ -6,6 +6,8 @@ using static Define;
 
 public class FireBall : SkillBase
 {
+
+    #region Init Method
     public override bool Init()
     {
         if (base.Init() == false)
@@ -14,6 +16,9 @@ public class FireBall : SkillBase
 
         return true;
     }
+    #endregion
+
+    ProjectileController projectile;
 
     public override void SetInfo(CreatureController owner, int monsterSkillTemplateID)
     {
@@ -34,15 +39,11 @@ public class FireBall : SkillBase
     protected override void OnAttackTargetHandler()
     {
         base.OnAttackTargetHandler();
-
-        AnimatorStateInfo currentAnim = Owner.Anim.GetCurrentAnimatorStateInfo(0);
-        if (currentAnim.IsName(SkillData.AnimName) || currentAnim.IsName($"{SkillData.AnimName}_LookDown_{Owner.LookDown}"))
-            OnAttackEvent();
     }
 
-    protected virtual void OnAttackEvent()
+    protected override void OnAttackEvent()
     {
-        GenerateProjectile(Owner, Owner.GenerateSkillPosition, ProjectileOnHit);
+        projectile = GenerateProjectile(Owner, Owner.GenerateSkillPosition, ProjectileOnHit);
     }
 
     public void ProjectileOnHit(BaseController cc, Vector3 position)
@@ -51,12 +52,12 @@ public class FireBall : SkillBase
             return;
 
         cc.OnDamaged(Owner, this);
-        GenerateRangeSkill(Owner, position, ExplosionOnHit, "FireBall_Explosion.prefab");
+        GenerateProjectile(Owner, position, ExplosionOnHit, "FireBall_Explosion.prefab");
+
+        Managers.Object.Despawn(projectile);
     }
 
-
-
-    public void ExplosionOnHit(BaseController cc)
+    public void ExplosionOnHit(BaseController cc, Vector3 vec)
     {
         if (cc.IsValid() == false)
             return;
