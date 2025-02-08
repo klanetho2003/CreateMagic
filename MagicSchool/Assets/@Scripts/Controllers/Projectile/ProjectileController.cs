@@ -48,7 +48,7 @@ public class ProjectileController : BaseController
         Owner = owner;
         Skill = skill;
         _onHit = onHit;
-        TargetPosition = (owner.Target == null) ? (owner.GenerateSkillPosition - owner.CenterPosition).normalized * PROJECTILE_DISTANCE_MAX : owner.Target.CenterPosition;
+        TargetPosition = (owner.Target == null) ? (owner.GenerateSkillPosition - owner.transform.position).normalized * PROJECTILE_DISTANCE_MAX : owner.Target.CenterPosition;
 
         // Rule
         Collider.excludeLayers = layer;

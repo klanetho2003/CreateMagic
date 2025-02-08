@@ -25,6 +25,6 @@ public class AreaImpact : AreaSkillBase
 
     protected override void OnAttackTargetHandler()
     {
-        base.OnAttackTargetHandler();
+        // To Do
     }
 }

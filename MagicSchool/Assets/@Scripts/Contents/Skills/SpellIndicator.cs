@@ -59,9 +59,6 @@ public class SpellIndicator : BaseController
 
         while (elapsedTime < _skillData.AnimImpactDuration)
         {
-            if (_owner.CreatureState != CreatureState.DoSkill)
-                Cancel();
-
             value = Mathf.Lerp(0f, 1f, elapsedTime / _skillData.AnimImpactDuration);
             _coneSprite.material.SetFloat("_Duration", value);
             elapsedTime += Time.deltaTime;

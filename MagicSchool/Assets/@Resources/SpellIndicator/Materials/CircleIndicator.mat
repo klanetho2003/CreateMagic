@@ -42,7 +42,7 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _Angle: 360
+    - _Angle: 108
     - _DstBlend: 1
     - _Duration: 1
     - _EnableExternalAlpha: 0
@@ -54,7 +54,7 @@ Material:
     - _Sector: 1
     - _SrcBlend: 1
     m_Colors:
-    - _Color: {r: 0, g: 0.9587159, b: 1, a: 1}
+    - _Color: {r: 0.14509805, g: 0.9647059, b: 1, a: 1}
     - _Flip: {r: 1, g: 1, b: 1, a: 1}
     - _FlowColor: {r: 1, g: 0.043137256, b: 0, a: 1}
     - _RendererColor: {r: 1, g: 1, b: 1, a: 1}

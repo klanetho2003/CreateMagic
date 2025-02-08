@@ -58,8 +58,4 @@ public class CastingImpact : SkillBase
         
     }
 
-    protected override void OnAttackEvent()
-    {
-        throw new NotImplementedException();
-    }
 }

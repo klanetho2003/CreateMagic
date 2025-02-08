@@ -11,7 +11,6 @@ using Unity.VisualScripting;
 public abstract class SkillBase : MonoBehaviour // ½ºÅ³À» ½ºÆù > ActiveSkill ¹ßµ¿ >>> ½ºÅ³ ½ÃÀü
 {
     public CreatureController Owner { get; set; }
-    public float RemainCoolTime { get; set; }
 
     public Data.SkillData SkillData { get; protected set; }
 
@@ -41,13 +40,7 @@ public abstract class SkillBase : MonoBehaviour // ½ºÅ³À» ½ºÆù > ActiveSkill ¹ßµ
     {
         if (Owner.CreatureState != CreatureState.DoSkill)
             return;
-
-        AnimatorStateInfo currentAnim = Owner.Anim.GetCurrentAnimatorStateInfo(0);
-        if (currentAnim.IsName(SkillData.AnimName) || currentAnim.IsName($"{SkillData.AnimName}_LookDown_{Owner.LookDown}"))
-            OnAttackEvent();
     }
-
-    protected abstract void OnAttackEvent();
 
     #region Init Method
     void Awake()
@@ -66,6 +59,8 @@ public abstract class SkillBase : MonoBehaviour // ½ºÅ³À» ½ºÆù > ActiveSkill ¹ßµ
         return true;
     }
     #endregion
+
+    #region Activate Skill Or Delay
     
     public void ActivateSkillOrDelay()
     {
@@ -76,20 +71,13 @@ public abstract class SkillBase : MonoBehaviour // ½ºÅ³À» ½ºÆù > ActiveSkill ¹ßµ
         else if (delaySeconds > 0)
             OnSkillDelay(delaySeconds);
     }
-
-    #region Activate Skill Or Delay
-
+    
     public virtual void ActivateSkill()
     {
         Owner.CreatureState = CreatureState.DoSkill;
 
         if (Owner.CreatureType == ECreatureType.Monster && SkillData.AnimName != null)
-        {
-            Owner.Anim.Play(SkillData.AnimName, -1, 0f);
-            Owner.Skills.ActivateSkills.Remove(this);
-
-            StartCoroutine(CoCountdownCooldown());
-        }
+            Owner.Anim.Play(SkillData.AnimName);
         else // Player
         {
             string animName = $"{SkillData.AnimName}_LookDown_{Owner.LookDown}";
@@ -127,17 +115,6 @@ public abstract class SkillBase : MonoBehaviour // ½ºÅ³À» ½ºÆù > ActiveSkill ¹ßµ
     public virtual void CancelSkill()
     {
 
-    }
-
-    private IEnumerator CoCountdownCooldown()
-    {
-        RemainCoolTime = SkillData.CoolTime;
-        yield return new WaitForSeconds(SkillData.CoolTime);
-        RemainCoolTime = 0;
-
-        // Ready Skill Add
-        if (Owner.Skills != null)
-            Owner.Skills.ActivateSkills.Add(this);
     }
 
     protected virtual ProjectileController GenerateProjectile(CreatureController onwer, Vector3 spawnPos, Action<BaseController, Vector3> onHit, string prefabLab = null)
