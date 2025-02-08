@@ -313,7 +313,13 @@ public class PlayerController : CreatureController
             return;
         }
 
-        SetRigidBodyVelocity(_moveDir.normalized * MoveSpeed);
+        Vector3 destPos = _moveDir.normalized * MoveSpeed;
+        Vector3Int destCellPos = Managers.Map.World2Cell(destPos + transform.position);
+
+        SetRigidBodyVelocity(destPos);
+        Managers.Map.MoveTo(this, destCellPos);
+
+        Debug.Log(CellPos);
     }
 
     void MoveIndicator()

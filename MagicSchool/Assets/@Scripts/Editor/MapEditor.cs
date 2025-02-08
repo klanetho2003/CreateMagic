@@ -51,53 +51,53 @@ public class MapEditor : MonoBehaviour
 
 		Debug.Log("Map Collision Generation Complete");
 	}
-/*
-	[MenuItem("Tools/Create Object Tile Asset %#o")]
-	public static void CreateObjectTile()
-	{
-		// Monster
-		Dictionary<int, Data.MonsterData> MonsterDic = LoadJson<Data.MonsterDataLoader, int, Data.MonsterData>("MonsterData").MakeDict();
-		foreach (var data in MonsterDic.Values)
-		{
-			CustomTile customTile = ScriptableObject.CreateInstance<CustomTile>();
-			customTile.Name = data.DescriptionTextID;
-			customTile.DataTemplateID = data.DataId;
-			customTile.ObjectType = Define.EObjectType.Creature;
-			customTile.CreatureType = Define.ECreatureType.Monster;
 
-			string name = $"{data.DataId}_{data.DescriptionTextID}";
-			string path = "Assets/@Resources/TileMaps/Tiles/Dev/Monster";
-			path = Path.Combine(path, $"{name}.Asset");
+    [MenuItem("Tools/Create Object Tile Asset %#o")]
+    public static void CreateObjectTile()
+    {
+        // Monster
+        Dictionary<int, Data.MonsterData> MonsterDic = LoadJson<Data.MonsterDataLoader, int, Data.MonsterData>("MonsterData").MakeDict();
+        foreach (var data in MonsterDic.Values)
+        {
+            CustomTile customTile = ScriptableObject.CreateInstance<CustomTile>();
+            customTile.Name = data.DescriptionTextID;
+            customTile.DataTemplateID = data.DataId;
+            customTile.ObjectType = Define.EObjectType.Creature;
+            customTile.CreatureType = Define.ECreatureType.Monster;
 
-			if (File.Exists(path))
-				continue;
+            string name = $"{data.DataId}_{data.DescriptionTextID}";
+            string path = "Assets/@Resources/TileMap/Dev/Monster";
+            path = Path.Combine(path, $"{name}.Asset");
 
-			AssetDatabase.CreateAsset(customTile, path);
-		}
+            if (File.Exists(path))
+                continue;
 
-		// Env
-		Dictionary<int, Data.EnvData> Env = LoadJson<Data.EnvDataLoader, int, Data.EnvData>("EnvData").MakeDict();
-		foreach (var data in Env.Values)
-		{
+            AssetDatabase.CreateAsset(customTile, path);
+        }
 
-			CustomTile customTile = ScriptableObject.CreateInstance<CustomTile>();
-			customTile.Name = data.DescriptionTextID;
-			customTile.DataTemplateID = data.DataId;
-			customTile.ObjectType = Define.EObjectType.Env;
-			customTile.CreatureType = Define.ECreatureType.None;
+        // Env
+        /*Dictionary<int, Data.EnvData> Env = LoadJson<Data.EnvDataLoader, int, Data.EnvData>("EnvData").MakeDict();
+        foreach (var data in Env.Values)
+        {
 
-			string name = $"{data.DataId}_{data.DescriptionTextID}";
-			string path = "Assets/@Resources/TileMaps/Tiles/Dev/Env";
-			path = Path.Combine(path, $"{name}.Asset");
+            CustomTile customTile = ScriptableObject.CreateInstance<CustomTile>();
+            customTile.Name = data.DescriptionTextID;
+            customTile.DataTemplateID = data.DataId;
+            customTile.ObjectType = Define.EObjectType.Env;
+            customTile.CreatureType = Define.ECreatureType.None;
 
-			if (File.Exists(path))
-				continue;
+            string name = $"{data.DataId}_{data.DescriptionTextID}";
+            string path = "Assets/@Resources/TileMaps/Tiles/Dev/Env";
+            path = Path.Combine(path, $"{name}.Asset");
 
-			AssetDatabase.CreateAsset(customTile, path);
-		}
-	}*/
+            if (File.Exists(path))
+                continue;
 
-	private static Loader LoadJson<Loader, Key, Value>(string path) where Loader : ILoader<Key, Value>
+            AssetDatabase.CreateAsset(customTile, path);
+        }*/
+    }
+
+    private static Loader LoadJson<Loader, Key, Value>(string path) where Loader : ILoader<Key, Value>
 	{
 		TextAsset textAsset = UnityEditor.AssetDatabase.LoadAssetAtPath<TextAsset>($"Assets/@Resources/Data/JsonData/{path}.json");
 		return JsonConvert.DeserializeObject<Loader>(textAsset.text);

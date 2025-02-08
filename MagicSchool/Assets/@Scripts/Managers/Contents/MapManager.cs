@@ -40,7 +40,7 @@ public class MapManager
 
         ParseCollisionData(map, mapName);
 
-        //SpawnObjectsByData(map, mapName);
+        SpawnObjectsByData(map, mapName);
     }
 
     public void DestroyMap()
@@ -91,15 +91,15 @@ public class MapManager
         }
     }
 
-    /*void SpawnObjectsByData(GameObject map, string mapName, string tilemap = "Tilemap_Object")
+    void SpawnObjectsByData(GameObject map, string mapName, string tilemap = "Tilemap_Object")
     {
-        Tilemap tm = Util.FindChild<Tilemap>(map, tilemap, true);
+        Tilemap tm = Utils.FindChild<Tilemap>(map, tilemap, true);
 
         if (tm != null)
             tm.gameObject.SetActive(false);
 
         // TEMP
-        return;
+        //return;
 
         for (int y = tm.cellBounds.yMax; y >= tm.cellBounds.yMin; y--)
         {
@@ -110,28 +110,32 @@ public class MapManager
                 if (tile == null)
                     continue;
 
-                if (tile.ObjectType == Define.EObjectType.Env)
+                /*if (tile.ObjectType == Define.EObjectType.Env)
                 {
                     Vector3 worldPos = Cell2World(cellPos);
                     Env env = Managers.Object.Spawn<Env>(worldPos, tile.DataTemplateID);
                     env.SetCellPos(cellPos, true);
                 }
                 else
-                {
+                {*/
                     if (tile.CreatureType == Define.ECreatureType.Monster)
                     {
                         Vector3 worldPos = Cell2World(cellPos);
-                        Monster monster = Managers.Object.Spawn<Monster>(worldPos, tile.DataTemplateID);
+                        MonsterController monster = Managers.Object.Spawn<MonsterController>(worldPos, tile.DataTemplateID);
                         monster.SetCellPos(cellPos, true);
+
+                        // Value
+                        monster.Hp = monster.MaxHp;
+                        monster.CreatureState = Define.CreatureState.Moving;
                     }
-                    else if (tile.CreatureType == Define.ECreatureType.Npc)
+                    /*else if (tile.CreatureType == Define.ECreatureType.Npc)
                     {
 
-                    }
-                }
+                    }*/
+                //}
             }
         }
-    }*/
+    }
 
     public bool MoveTo(CreatureController obj, Vector3Int cellPos, bool forceMove = false)
     {
