@@ -39,13 +39,9 @@ public class FireBall : SkillBase
     protected override void OnAttackTargetHandler()
     {
         base.OnAttackTargetHandler();
-
-        AnimatorStateInfo currentAnim = Owner.Anim.GetCurrentAnimatorStateInfo(0);
-        if (currentAnim.IsName(SkillData.AnimName) || currentAnim.IsName($"{SkillData.AnimName}_LookDown_{Owner.LookDown}"))
-            OnAttackEvent();
     }
 
-    protected virtual void OnAttackEvent()
+    protected override void OnAttackEvent()
     {
         projectile = GenerateProjectile(Owner, Owner.GenerateSkillPosition, ProjectileOnHit);
     }

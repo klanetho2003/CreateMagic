@@ -92,6 +92,11 @@ public class EgoSword : RepeatSkill
         throw new System.NotImplementedException();
     }
 
+    protected override void OnAttackEvent()
+    {
+        throw new System.NotImplementedException();
+    }
+
     /*protected override void OnAnimComplateHandler()
     {
         throw new System.NotImplementedException();

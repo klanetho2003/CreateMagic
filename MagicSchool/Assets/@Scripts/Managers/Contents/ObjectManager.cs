@@ -138,6 +138,56 @@ public class ObjectManager // ID 부여하는 함수, Object들 들고 있는 등
         foreach (var monster in monsters)
             Managers.Object.Despawn(monster);
     }
+
+    #region Skill 판정
+    
+    public List<CreatureController> FindConeRangeTarget(CreatureController owner, Vector3 dir, float range, int angleRange, bool isAllies = false)
+    {
+        List<CreatureController> targets = new List<CreatureController>();
+        List<CreatureController> ret = new List<CreatureController>();
+
+        ECreatureType targetType = Utils.DetermineTargetType(owner.CreatureType, isAllies);
+
+        if (targetType == ECreatureType.Monster)
+        {
+            var objs = Managers.Map.GatherObjects<MonsterController>(owner.transform.position, range, range);
+            targets.AddRange(objs);
+        }
+        else if (targetType == ECreatureType.Student)
+        {
+            var objs = Managers.Map.GatherObjects<PlayerController>(owner.transform.position, range, range);
+            targets.AddRange(objs);
+        }
+
+        foreach (var target in targets)
+        {
+            // 1. 거리 안에 있는가?
+            var targetPos = target.transform.position;
+            float distance = Vector3.Distance(targetPos, owner.transform.position);
+
+            if (distance > range)
+                continue;
+
+            // 2. 각도 check
+            if (angleRange != 360)
+            {
+                BaseController ownerTarget = (owner as CreatureController).Target;
+
+                // 2. 부채꼴
+                float dot = Vector3.Dot((targetPos - owner.transform.position).normalized, dir.normalized);
+                float degree = Mathf.Rad2Deg * Mathf.Acos(dot);
+
+                if (degree > angleRange / 2f)
+                    continue;
+            }
+
+            ret.Add(target);
+        }
+
+        return ret;
+    }
+
+    #endregion
 }
 
 

@@ -29,12 +29,9 @@ public class NormalAttack : SkillBase
     protected override void OnAttackTargetHandler()
     {
         base.OnAttackTargetHandler();
-
-        if (Owner.Anim.GetCurrentAnimatorStateInfo(0).IsName(SkillData.AnimName))
-            OnAttackEvent();
     }
 
-    protected virtual void OnAttackEvent()
+    protected override void OnAttackEvent()
     {
         if (Owner.Target.IsValid() == false)
             return;
@@ -49,15 +46,6 @@ public class NormalAttack : SkillBase
             GenerateProjectile(Owner, Owner.CenterPosition, ProjectileOnHit);
         }
     }
-
-    /*protected override void OnAnimComplateHandler()
-    {
-        if (Owner.Target.IsValid() == false)
-            return;
-
-        if (Owner.CreatureState == Define.CreatureState.DoSkill)
-            Owner.CreatureState = Define.CreatureState.Moving;
-    }*/
 
     public void ProjectileOnHit(BaseController cc, Vector3 position)
     {

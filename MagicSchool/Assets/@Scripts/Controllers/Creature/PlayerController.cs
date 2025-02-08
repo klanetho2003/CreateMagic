@@ -250,7 +250,7 @@ public class PlayerController : CreatureController
 
     void InitShadow()
     {
-        _shadow.localPosition = new Vector2(_shadow.localPosition.x, -0.55f);
+        _shadow.localPosition = new Vector2(_shadow.localPosition.x, 0f);
     }
 
     private void OnDestroy()
@@ -318,8 +318,6 @@ public class PlayerController : CreatureController
 
         SetRigidBodyVelocity(destPos);
         Managers.Map.MoveTo(this, destCellPos);
-
-        Debug.Log(CellPos);
     }
 
     void MoveIndicator()

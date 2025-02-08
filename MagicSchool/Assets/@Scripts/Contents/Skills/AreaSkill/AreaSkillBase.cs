@@ -61,4 +61,19 @@ public class AreaSkillBase : SkillBase
     {
         base.OnAttackTargetHandler();
     }
+
+    protected override void OnAttackEvent()
+    {
+        // Damage 범위 판정
+        float radius = Utils.GetEffectRadius(SkillData.EffectSize);
+        List<CreatureController> targets = Managers.Object.FindConeRangeTarget(Owner, _skillDir, radius, _angleRange);
+
+        foreach (var target in targets)
+        {
+            if (target.IsValid())
+            {
+                target.OnDamaged(Owner, this);
+            }
+        }
+    }
 }
