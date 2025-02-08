@@ -314,7 +314,7 @@ public class PlayerController : CreatureController
         }
 
         Vector3 destPos = _moveDir.normalized * MoveSpeed;
-        Vector3Int destCellPos = Managers.Map.World2Cell(destPos + transform.position);
+        Vector3Int destCellPos = Managers.Map.World2Cell(transform.position);
 
         SetRigidBodyVelocity(destPos);
         Managers.Map.MoveTo(this, destCellPos);

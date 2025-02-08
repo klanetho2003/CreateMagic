@@ -53,8 +53,9 @@ public class GameScene : MonoBehaviour
         //Managers.UI.ShowSceneUI<UI_GameScene>();
 
         var player = Managers.Object.Spawn<PlayerController>(Vector3.zero, MAGICION01_ID);
-
-        Managers.Map.LoadMap("Prototype");
+        
+        Managers.Map.LoadMap("@Map_Prototype_Inside");
+        Managers.Map.MoveTo(player, Vector3Int.zero);
 
         //_spawningPool = gameObject.GetOrAddComponent<SpawningPool>();
 

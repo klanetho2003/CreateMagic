@@ -45,7 +45,7 @@
       "MaterialID": "Skeleton",
       "AnimatorDataID": "Skeleton_Animator",
       "SortingLayerName": "Monster",
-      "DefaultSkillId": 10004,
+      "DefaultSkillId": 10001,
       "EnvSkillId": 0,
       "SkillAId": 0,
       "SkillBId": 0

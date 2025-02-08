@@ -1,6 +1,6 @@
 DataId,DescriptionTextID,Label,ColliderOffsetX,ColliderOffsetY,ColliderRadius,MaxHp,UpMaxHp,Atk,AtkRange,AtkBonus,MoveSpeed,CriRate,Cridamage,IconImage,MaterialID,AnimatorDataID,SortingLayerName,DefaultSkillId,EnvSkillId,SkillAId,SkillBId,DropItemId
 202001,Assassin,MonsterPrefab,-0.05,0.7,0.7,300,5,2,1.5,2,2,0,1.5,003.sprite,Assassin,Assassin_Animator,Monster,10001,0,0,0,400000
-202002,Skeleton,MonsterPrefab,0.05,0.8,0.8,400,5,2,1.5,2,4,0,1.5,003.sprite,Skeleton,Skeleton_Animator,Monster,10004,0,0,0,400000
+202002,Skeleton,MonsterPrefab,0.05,0.8,0.8,400,5,2,1.5,2,4,0,1.5,003.sprite,Skeleton,Skeleton_Animator,Monster,10001,0,0,0,400000
 202003,SkeletonWithShield,MonsterPrefab,0.05,0.8,0.8,700,5,2,1.5,2,4,0,1.5,003.sprite,SkeletonWithShield,SkeletonWithShield_Animator,Monster,10001,0,0,0,400000
 202004,Mage_Skeleton,MonsterPrefab,0,0.75,0.8,500,4,2,4,2,4,0,1.5,003.sprite,Mage_Skeleton,MageSkeleton_Animator,Monster,0,0,0,0,400000
 202005,MageSkeleton-RustyShield,MonsterPrefab,0,0.75,0.8,400,4,2,4,2,4,0,1.5,003.sprite,MageSkeleton-RustyShield,MageSkeletonWithShield_Animator,Monster,0,0,0,0,400000
