@@ -74,7 +74,7 @@ public class MonsterController : EffectedCreature
     {
         if (_coWait != null)
             return;
-        
+
         if (Target.IsValid() == false && LerpCellPosCompleted/* || Target.ObjectType == EObjectType.HeroCamp*/)
         {
             CreatureState = CreatureState.Idle;
@@ -84,7 +84,6 @@ public class MonsterController : EffectedCreature
         Vector3 dir = (Target.CenterPosition - CenterPosition);
         float distToTargetSqr = dir.sqrMagnitude;
         float attackDistanceSqr = AttackDistance * AttackDistance;
-
         if (distToTargetSqr > attackDistanceSqr)
         {
             CreatureState = CreatureState.Moving;
@@ -99,7 +98,11 @@ public class MonsterController : EffectedCreature
 
         LookAtTarget(Target);
 
-        StartWait(skill.SkillData.ActivateSkillDelay + skill.SkillData.SkillDuration);
+        // To Do : Animation Delay Data Parsing
+        /*var trackEntry = SkeletonAnim.state.GetCurrent(0);
+        float delay = trackEntry.Animation.Duration;*/
+
+        StartWait(skill.SkillData.ActivateSkillDelay + 1.6f);
     }
 
     protected override void UpdateDameged()
@@ -121,6 +124,7 @@ public class MonsterController : EffectedCreature
         float attackDistenceSqr = attackRange * attackRange;
 
         if (distToTargetSqr <= attackDistenceSqr)
+            //skill.ActivateSkillOrDelay();
             CreatureState = CreatureState.DoSkill;
         else
             CreatureState = CreatureState.Moving;
@@ -142,9 +146,9 @@ public class MonsterController : EffectedCreature
     {
         base.SetInfo(templateID);
 
-        Target = Managers.Object.Player;
+        CreatureState = CreatureState.Moving;
 
-        CreatureState = CreatureState.Idle;
+        Target = Managers.Object.Player;
 
         Skills = gameObject.GetOrAddComponent<BaseSkillBook>();
         Skills.SetInfo(this, CreatureData);
