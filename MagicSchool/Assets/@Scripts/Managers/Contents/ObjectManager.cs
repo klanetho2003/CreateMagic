@@ -11,6 +11,13 @@ public class ObjectManager // ID 부여하는 함수, Object들 들고 있는 등
     public HashSet<ProjectileController> Projectiles { get; } = new HashSet<ProjectileController>();
     public HashSet<JamController> Jams { get; } = new HashSet<JamController>();
 
+    public void ShowDamageFont(Vector2 position, float damage, Transform parent, bool isCritical = false)
+    {
+        GameObject go = Managers.Resource.Instantiate("DamageFont", pooling: true);
+        DamageFont damageText = go.GetComponent<DamageFont>();
+        damageText.SetInfo(position, damage, parent, isCritical);
+    }
+
     public T Spawn<T>(Vector3 position, int templateID = 0, string prefabLab = null) where T : BaseController
     {
         string prefabName = (prefabLab != null) ? prefabLab : typeof(T).Name;

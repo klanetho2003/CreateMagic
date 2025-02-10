@@ -159,7 +159,7 @@ public class CreatureController : BaseController
         sg.sortingOrder = SortingLayers.CREATURE;
 
         // Skills
-        //CreatureData.SkillList; //일단 skip
+        //CreatureData.SkillList; // 각 Controller SetInfo에서 초기화 하는 중
 
         // Stat
         MaxHp = CreatureData.MaxHp;
@@ -172,7 +172,7 @@ public class CreatureController : BaseController
         CreatureState = CreatureState.Idle;
 
         // Map Move
-        //StartCoroutine(CoLerpToCellPos());
+        //StartCoroutine(CoLerpToCellPos()); // MonsterController 내부 Update에서 하는 중
     }
 
     #region Wait
@@ -226,6 +226,8 @@ public class CreatureController : BaseController
         Hp = Mathf.Clamp(Hp - finalDamage, 0, MaxHp);
 
         CreatureState = CreatureState.Dameged;
+
+        Managers.Object.ShowDamageFont(CenterPosition, finalDamage, transform, false);
 
         if (Hp <= 0)
         {
