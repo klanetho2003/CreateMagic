@@ -51,7 +51,7 @@ public class SpawningPool : MonoBehaviour
         mc.SetCellPos(randCellPos, true);
 
         // Value
-        mc.Hp = mc.MaxHp;
+        mc.Hp = mc.MaxHp.BaseValue;
         mc.CreatureState = Define.CreatureState.Moving;
     }
 }

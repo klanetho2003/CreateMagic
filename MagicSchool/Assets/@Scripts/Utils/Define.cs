@@ -167,6 +167,13 @@ public static class Define
         Success,
     }
 
+    public enum EStatModType
+    {
+        Add,
+        PercentAdd,
+        PercentMult,
+    }
+
     //HARD CODING
     public const float EFFECT_SMALL_RADIUS = 2.5f;
     public const float EFFECT_NORMAL_RADIUS = 4.5f;

@@ -74,7 +74,7 @@ public class CreatureController : BaseController
     public Data.CreatureData CreatureData { get; private set; }
     public ECreatureType CreatureType { get; protected set; } = ECreatureType.None;
 
-    #region Stats
+    /*#region Stats 구버전
     public float Hp { get; set; }
     public float MaxHp { get; set; }
     public float MaxHpBonusRate { get; set; }
@@ -89,6 +89,19 @@ public class CreatureController : BaseController
     public float DamageReduction { get; set; }
     public float MoveSpeedRate { get; set; }
     public float MoveSpeed { get; set; }
+    #endregion*/
+
+    #region Stats
+    public float Hp { get; set; }
+    public CreatureStat MaxHp;
+    public CreatureStat Atk;
+    public CreatureStat CriRate;
+    public CreatureStat CriDamage;
+    public CreatureStat ReduceDamageRate;
+    public CreatureStat LifeStealRate;
+    public CreatureStat ThornsDamageRate; // 쏜즈
+    public CreatureStat MoveSpeed;
+    public CreatureStat AttackSpeedRate;
     #endregion
 
     protected float AttackDistance
@@ -162,10 +175,16 @@ public class CreatureController : BaseController
         //CreatureData.SkillList; // 각 Controller SetInfo에서 초기화 하는 중
 
         // Stat
-        MaxHp = CreatureData.MaxHp;
         Hp = CreatureData.MaxHp;
-        Atk = CreatureData.Atk;
-        MoveSpeed = CreatureData.MoveSpeed;
+        MaxHp = new CreatureStat(CreatureData.MaxHp);
+        Atk = new CreatureStat(CreatureData.Atk);
+        CriRate = new CreatureStat(CreatureData.CriRate);
+        CriDamage = new CreatureStat(CreatureData.Cridamage);
+        ReduceDamageRate = new CreatureStat(0);
+        LifeStealRate = new CreatureStat(0);
+        ThornsDamageRate = new CreatureStat(0);
+        MoveSpeed = new CreatureStat(CreatureData.MoveSpeed);
+        AttackSpeedRate = new CreatureStat(1);
 
 
         // State
@@ -222,12 +241,12 @@ public class CreatureController : BaseController
         if (creature == null)
             return;
 
-        float finalDamage = creature.Atk; // To Do * 피해량 * 크리티컬 등등
-        Hp = Mathf.Clamp(Hp - finalDamage, 0, MaxHp);
+        float finalDamage = creature.Atk.Value;
+        Hp = Mathf.Clamp(Hp - finalDamage, 0, MaxHp.Value);
 
         CreatureState = CreatureState.Dameged;
 
-        Managers.Object.ShowDamageFont(CenterPosition, finalDamage, transform, false);
+        Managers.Object.ShowDamageFont(CenterPosition, finalDamage, transform);
 
         if (Hp <= 0)
         {

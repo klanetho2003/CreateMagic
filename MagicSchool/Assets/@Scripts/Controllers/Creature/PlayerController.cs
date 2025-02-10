@@ -313,7 +313,7 @@ public class PlayerController : CreatureController
             return;
         }
 
-        Vector3 destPos = _moveDir.normalized * MoveSpeed;
+        Vector3 destPos = _moveDir.normalized * MoveSpeed.Value;
         Vector3Int destCellPos = Managers.Map.World2Cell(transform.position);
 
         SetRigidBodyVelocity(destPos);
@@ -322,7 +322,7 @@ public class PlayerController : CreatureController
 
     void MoveIndicator()
     {
-        Vector3 dir = _moveDir * MoveSpeed * Time.deltaTime;
+        Vector3 dir = _moveDir * MoveSpeed.Value * Time.deltaTime;
 
         if (_moveDir == Vector2.zero)
             return;
@@ -357,6 +357,9 @@ public class PlayerController : CreatureController
 
     public override void OnDamaged(BaseController attacker, SkillBase skill)
     {
+        if (this.CreatureState == CreatureState.Dameged)
+            return;
+
         base.OnDamaged(attacker, skill);
 
         SetDamagedMaterial();

@@ -125,7 +125,7 @@ public class MapManager
                         monster.SetCellPos(cellPos, true);
 
                         // Value
-                        monster.Hp = monster.MaxHp;
+                        monster.Hp = monster.MaxHp.BaseValue;
                         monster.CreatureState = Define.CreatureState.Moving;
                     }
                     /*else if (tile.CreatureType == Define.ECreatureType.Npc)

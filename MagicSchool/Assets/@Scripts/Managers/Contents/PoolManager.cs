@@ -44,7 +44,7 @@ class Pool
     GameObject OnCreate()
     {
         GameObject go = GameObject.Instantiate(_prefab);
-        go.transform.parent = Root;
+        go.transform.SetParent(Root);
         go.name = _prefab.name;
         return go;
     }
