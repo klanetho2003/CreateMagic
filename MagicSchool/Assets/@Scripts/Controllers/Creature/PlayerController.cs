@@ -233,13 +233,31 @@ public class PlayerController : CreatureController
 
         _stemp = SpriteRenderer; // ?
 
-        AnimationEventManager.BindEvent(this, /*"OnDamaged_Complate",*/ () =>
+        AnimationEventManager.BindEvent(this, () =>
         {
-            if (CreatureState != CreatureState.Dameged)
-                return;
-
-            CreatureState = CreatureState.Idle;
-            SetDamagedMaterial();
+            switch (CreatureState)
+            {
+                case CreatureState.Idle:
+                    break;
+                case CreatureState.Moving:
+                    break;
+                case CreatureState.Casting:
+                    break;
+                case CreatureState.FrontDelay:
+                    break;
+                case CreatureState.DoSkill:
+                    break;
+                case CreatureState.BackDelay:
+                    break;
+                case CreatureState.Dameged:
+                    CreatureState = CreatureState.Idle;
+                    SetDamagedMaterial();
+                    break;
+                case CreatureState.Dead:
+                    break;
+                default:
+                    break;
+            }
         });
 
         // Skill

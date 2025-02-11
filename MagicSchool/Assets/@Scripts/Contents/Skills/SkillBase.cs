@@ -93,7 +93,7 @@ public abstract class SkillBase : MonoBehaviour // 스킬을 스폰 > ActiveSkill 발�
         else // Player
         {
             string animName = $"{SkillData.AnimName}_LookDown_{Owner.LookDown}";
-            Owner.Anim.Play(animName);
+            Owner.Anim.Play(animName, -1, 0f);
         }
     }
 
@@ -146,7 +146,7 @@ public abstract class SkillBase : MonoBehaviour // 스킬을 스폰 > ActiveSkill 발�
         if (prefabLab == null)
             projectile = Managers.Object.Spawn<ProjectileController>(spawnPos, SkillData.ProjectileId);
         else
-            projectile = Managers.Object.Spawn<ProjectileController>(spawnPos, SkillData.AfterSkillId, prefabLab);
+            projectile = Managers.Object.SpawnGameObject<ProjectileController>(spawnPos, prefabLab, SkillData.AfterSkillId);
 
         // 충돌하기 싫은 친구들 settting
         LayerMask excludeMask = 0;

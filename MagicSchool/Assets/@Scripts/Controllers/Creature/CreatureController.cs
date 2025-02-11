@@ -74,6 +74,8 @@ public class CreatureController : BaseController
     public Data.CreatureData CreatureData { get; private set; }
     public ECreatureType CreatureType { get; protected set; } = ECreatureType.None;
 
+    public EffectComponent Effects { get; set; }
+
     /*#region Stats 구버전
     public float Hp { get; set; }
     public float MaxHp { get; set; }
@@ -166,10 +168,7 @@ public class CreatureController : BaseController
         SpriteRenderer.material = Managers.Resource.Load<Material>(CreatureData.MaterialID);
 
         // Animatior
-        Anim.runtimeAnimatorController = Managers.Resource.Load<RuntimeAnimatorController>(CreatureData.AnimatorDataID);
-        SortingGroup sg = gameObject.GetOrAddComponent<SortingGroup>();
-        sg.sortingLayerName = CreatureData.SortingLayerName;
-        sg.sortingOrder = SortingLayers.CREATURE;
+        SetAnimation(CreatureData.AnimatorDataID, CreatureData.SortingLayerName, SortingLayers.CREATURE);
 
         // Skills
         //CreatureData.SkillList; // 각 Controller SetInfo에서 초기화 하는 중

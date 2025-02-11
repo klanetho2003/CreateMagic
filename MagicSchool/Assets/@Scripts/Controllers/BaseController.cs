@@ -1,6 +1,8 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Rendering;
 using static Define;
 
 public class BaseController : MonoBehaviour
@@ -165,6 +167,18 @@ public class BaseController : MonoBehaviour
     public void OnAnimationEvent(string eventName)
     {
         AnimationEventManager.OnAnimationEvent(this, eventName);
+    }
+
+    protected virtual void SetAnimation(string dataLabel, string sortingLayerName, int sortingOrder)
+    {
+        if (Anim == null)
+            return;
+
+        // Animatior
+        Anim.runtimeAnimatorController = Managers.Resource.Load<RuntimeAnimatorController>(dataLabel);
+        SortingGroup sg = gameObject.GetOrAddComponent<SortingGroup>();
+        sg.sortingLayerName = sortingLayerName;
+        sg.sortingOrder = sortingOrder;
     }
 
     #endregion

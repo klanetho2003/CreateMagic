@@ -9,6 +9,7 @@ public class ObjectManager // ID 부여하는 함수, Object들 들고 있는 등
     public PlayerController Player { get; private set; }
     public HashSet<MonsterController> Monsters { get; } = new HashSet<MonsterController>();
     public HashSet<ProjectileController> Projectiles { get; } = new HashSet<ProjectileController>();
+    public HashSet<EffectBase> Effects { get; } = new HashSet<EffectBase>();
     public HashSet<JamController> Jams { get; } = new HashSet<JamController>();
 
     public void ShowDamageFont(Vector2 position, float damage, Transform parent, bool isCritical = false)
@@ -18,9 +19,41 @@ public class ObjectManager // ID 부여하는 함수, Object들 들고 있는 등
         damageText.SetInfo(position, damage, parent, isCritical);
     }
 
-    public T Spawn<T>(Vector3 position, int templateID = 0, string prefabLab = null) where T : BaseController
+    //Temp
+    public T SpawnGameObject<T>(Vector3 position, string prefabName, int templateID = 0) where T : BaseController
     {
-        string prefabName = (prefabLab != null) ? prefabLab : typeof(T).Name;
+        GameObject go = Managers.Resource.Instantiate(prefabName, pooling: true);
+        go.transform.position = position;
+
+        BaseController obj = go.GetComponent<BaseController>();
+
+        if (obj.ObjectType == EObjectType.ProjecTile)
+        {
+            ProjectileController projectile = go.GetComponent<ProjectileController>();
+            Projectiles.Add(projectile);
+
+            projectile.SetInfo(templateID);
+        }
+
+        return obj as T;
+    }
+
+    public GameObject SpawnGameObject(Vector3 position, string prefabName)
+    {
+        GameObject go = Managers.Resource.Instantiate(prefabName, pooling: true);
+        go.transform.position = position;
+        return go;
+    }
+
+    public T Spawn<T>(Vector3Int cellPos, int templateID) where T : BaseController
+    {
+        Vector3 spawnPos = Managers.Map.Cell2World(cellPos);
+        return Spawn<T>(spawnPos, templateID);
+    }
+
+    public T Spawn<T>(Vector3 position, int templateID = 0) where T : BaseController
+    {
+        string prefabName = typeof(T).Name;
 
         GameObject go = Managers.Resource.Instantiate(prefabName, pooling: true);
         go.name = prefabName;
