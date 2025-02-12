@@ -47,7 +47,7 @@
       "SortingLayerName": "Monster",
       "DefaultSkillId": 10001,
       "EnvSkillId": 0,
-      "SkillAId": 0,
+      "SkillAId": 10004,
       "SkillBId": 0
     },
     {

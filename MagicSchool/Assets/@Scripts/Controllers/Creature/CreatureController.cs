@@ -189,6 +189,10 @@ public class CreatureController : BaseController
         // State
         CreatureState = CreatureState.Idle;
 
+        // Effect
+        Effects = gameObject.AddComponent<EffectComponent>();
+        Effects.SetInfo(this);
+
         // Map Move
         //StartCoroutine(CoLerpToCellPos()); // MonsterController 내부 Update에서 하는 중
     }
@@ -252,6 +256,10 @@ public class CreatureController : BaseController
             CreatureState = CreatureState.Dead;
             // OnDead()
         }
+
+        // Skill에 따른 Effect 적용
+        if (skill.SkillData.EffectIds != null)
+            Effects.GenerateEffects(skill.SkillData.EffectIds.ToArray(), EEffectSpawnType.Skill);
     }
 
     #endregion

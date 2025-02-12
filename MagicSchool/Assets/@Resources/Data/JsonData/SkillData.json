@@ -93,7 +93,9 @@
       "SkillRange": 3.0,
       "ScaleMultiplier": 1.0,
       "TargetCount": 20,
-      "EffectIds": null,
+      "EffectIds": [
+        62002
+      ],
       "NextLevelId": 0,
       "AoEId": 0,
       "EffectSize": 0,

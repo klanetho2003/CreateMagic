@@ -60,8 +60,13 @@ public class EffectBase : BaseController
 
 	protected virtual void ShowEffect()
 	{
-        if (Anim != null)
-            Owner.Anim.Play(EffectData.AnimName, -1, 0f);
+        if (Anim == null)
+            return;
+
+        if (Anim.runtimeAnimatorController == null)
+            return;
+
+        Anim.Play(EffectData.AnimName, -1, 0f);
     }
 
 	protected void AddModifier(CreatureStat stat, object source, int order = 0)

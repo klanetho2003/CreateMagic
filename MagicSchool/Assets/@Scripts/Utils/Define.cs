@@ -38,6 +38,7 @@ public static class Define
         DoSkill,
         BackDelay,
         Dameged,
+        Stun,
         Dead,
     }
 

@@ -145,7 +145,7 @@ public abstract class SkillBase : MonoBehaviour // 스킬을 스폰 > ActiveSkill 발�
         ProjectileController projectile;
         if (prefabLab == null)
             projectile = Managers.Object.Spawn<ProjectileController>(spawnPos, SkillData.ProjectileId);
-        else
+        else // projectile인 Explosion을 skill로 바꾼다(컴포넌트 파고, skillData 추가) + 새로판 Explosion컴포넌트에 FireBall에 있는 Burn 부분 옮겨야한다
             projectile = Managers.Object.SpawnGameObject<ProjectileController>(spawnPos, prefabLab, SkillData.AfterSkillId);
 
         // 충돌하기 싫은 친구들 settting

@@ -125,6 +125,8 @@ public class PlayerController : CreatureController
                 break;
             case CreatureState.Dameged:
                 {
+                    SetDamagedMaterial();
+
                     if (LookDown)
                         Anim.Play("DamagedFront");
                     else
@@ -253,6 +255,9 @@ public class PlayerController : CreatureController
                     CreatureState = CreatureState.Idle;
                     SetDamagedMaterial();
                     break;
+                case CreatureState.Stun:
+                    SetDamagedMaterial();
+                    break;
                 case CreatureState.Dead:
                     break;
                 default:
@@ -379,8 +384,6 @@ public class PlayerController : CreatureController
             return;
 
         base.OnDamaged(attacker, skill);
-
-        SetDamagedMaterial();
     }
 
     protected override void OnDead(BaseController attacker, SkillBase skill)

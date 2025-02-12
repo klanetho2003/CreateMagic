@@ -132,6 +132,11 @@ public class ObjectManager // ID 부여하는 함수, Object들 들고 있는 등
         {
             // To Do
         }
+        else if (obj.ObjectType == EObjectType.Effect)
+        {
+            EffectBase effect = obj as EffectBase;
+            Effects.Remove(effect);
+        }
 
         Managers.Resource.Destroy(obj.gameObject);
 
