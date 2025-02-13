@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Unity.VisualScripting;
 using UnityEngine;
 using static Define;
 
@@ -185,11 +186,11 @@ public class ObjectManager // ID 부여하는 함수, Object들 들고 있는 등
     }
 
     #region Skill 판정
-    
-    public List<CreatureController> FindConeRangeTarget(CreatureController owner, Vector3 dir, float range, int angleRange, bool isAllies = false)
+
+    public List<CreatureController> FindConeRangeTargets(CreatureController owner, Vector3 dir, float range, int angleRange, bool isAllies = false)
     {
-        List<CreatureController> targets = new List<CreatureController>();
-        List<CreatureController> ret = new List<CreatureController>();
+        HashSet<CreatureController> targets = new HashSet<CreatureController>();
+        HashSet<CreatureController> ret = new HashSet<CreatureController>();
 
         ECreatureType targetType = Utils.DetermineTargetType(owner.CreatureType, isAllies);
 
@@ -229,7 +230,38 @@ public class ObjectManager // ID 부여하는 함수, Object들 들고 있는 등
             ret.Add(target);
         }
 
-        return ret;
+        return ret.ToList();
+    }
+
+    public List<CreatureController> FindCircleRangeTargets(CreatureController owner, Vector3 startPos, float range, bool isAllies = false)
+    {
+        HashSet<CreatureController> targets = new HashSet<CreatureController>();
+        HashSet<CreatureController> ret = new HashSet<CreatureController>();
+
+        ECreatureType targetType = Utils.DetermineTargetType(owner.CreatureType, isAllies);
+
+        if (targetType == ECreatureType.Monster)
+        {
+            var objs = Managers.Map.GatherObjects<MonsterController>(owner.transform.position, range, range);
+            targets.AddRange(objs); 
+        }
+        else if (targetType == ECreatureType.Student)
+        {
+            var objs = Managers.Map.GatherObjects<PlayerController>(owner.transform.position, range, range);
+            targets.AddRange(objs);
+        }
+
+        foreach (var target in targets)
+        {
+            // 1. 거리안에 있는지 확인
+            var targetPos = target.transform.position;
+            float distSqr = (targetPos - startPos).sqrMagnitude;
+
+            if (distSqr < range * range)
+                ret.Add(target);
+        }
+
+        return ret.ToList();
     }
 
     #endregion

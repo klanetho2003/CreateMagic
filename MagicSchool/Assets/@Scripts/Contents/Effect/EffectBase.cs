@@ -6,7 +6,8 @@ using static Define;
 
 public class EffectBase : BaseController
 {
-	public CreatureController Owner;
+    public SkillBase Skill;
+    public CreatureController Owner;
 	public EffectData EffectData;
 	public EEffectType EffectType;
 
@@ -22,12 +23,14 @@ public class EffectBase : BaseController
 		return true;
 	}
 
-	public virtual void SetInfo(int templateID, CreatureController owner, EEffectSpawnType spawnType)
+	public virtual void SetInfo(int templateID, CreatureController owner, EEffectSpawnType spawnType, SkillBase skill)
 	{
 		DataTemplateID = templateID;
 		EffectData = Managers.Data.EffectDic[templateID];
 
-		Owner = owner;
+        Skill = skill;
+
+        Owner = owner;
 		_spawnType = spawnType;
 
 		if (string.IsNullOrEmpty(EffectData.AnimatorDataID) == false)

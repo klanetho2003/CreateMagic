@@ -6,4 +6,4 @@ DataId,Name,ClassName,Description,ProjectileId,AfterSkillId,PrefabLabel,IconLabe
 10005,돌진,Dash,돌진,0,,SpellIndicator,,attack,7,1,2,2,,5,1,20,,,,,,
 171,FireBall,FireBall,To Do,70002,80001,ProjectilePrefab,,NormalAttack,1.2,20,0,0,EnergyBolt_Start,0,0,20,,,,,0,0
 90001,CastingImapct,CastingImpact,To Do,70003,,,,,1.2,5,0,0,EnergyBolt_Start,0,0,20,,,,,,
-90171,FireBall_Explosion,FireBall_Explosion,To Do,,,,,NormalAttack,1.2,10,0,0,EnergyBolt_Start,0,0,20,,10009,80001,CircleSmall,,
+90171,FireBall_Explosion,FireBall_Explosion,To Do,,,,,,,10,0,0,EnergyBolt_Start,1,1,20,,,80001,CircleSmall,,

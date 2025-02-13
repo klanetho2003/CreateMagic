@@ -231,6 +231,32 @@ public class CreatureController : BaseController
 
     #region Battle
 
+    public void HandleDotDamage(EffectBase effect)
+    {
+        if (effect == null)
+            return;
+        /*if (effect.Owner.IsValid() == false) // DeBuff를 건 객체가 지속시간 이전에 Despanw되면 Debuff도 사라지게 할 것인가?
+            return;*/
+
+        // TEMP
+        float damage = (Hp * effect.EffectData.PercentAdd) + effect.EffectData.Amount;
+        if (effect.EffectData.ClassName.Contains("Heal"))
+            damage *= -1f;
+
+        float finalDamage = Mathf.Round(damage);
+        Hp = Mathf.Clamp(Hp - finalDamage, 0, MaxHp.Value);
+
+        Managers.Object.ShowDamageFont(CenterPosition, finalDamage, transform, false);
+
+        // TODO : OnDamaged 통합
+        if (Hp <= 0)
+        {
+            OnDead(effect.Owner, effect.Skill);
+            CreatureState = CreatureState.Dead;
+            return;
+        }
+    }
+
     public override void OnDamaged(BaseController attacker, SkillBase skill)
     {
         base.OnDamaged(attacker, skill);
@@ -255,11 +281,17 @@ public class CreatureController : BaseController
         {
             CreatureState = CreatureState.Dead;
             // OnDead()
+
+            return;
         }
 
         // Skill에 따른 Effect 적용
         if (skill.SkillData.EffectIds != null)
-            Effects.GenerateEffects(skill.SkillData.EffectIds.ToArray(), EEffectSpawnType.Skill);
+            Effects.GenerateEffects(skill.SkillData.EffectIds.ToArray(), EEffectSpawnType.Skill, skill);
+
+        // AOE
+        if (skill != null && skill.SkillData.AoEId != 0)
+            skill.GenerateAoE(transform.position);
     }
 
     #endregion

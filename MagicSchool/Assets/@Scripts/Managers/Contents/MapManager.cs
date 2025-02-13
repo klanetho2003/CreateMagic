@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 using static Define;
@@ -160,7 +161,7 @@ public class MapManager
     #region Helpers
     public List<T> GatherObjects<T>(Vector3 pos, float rangeX, float rangeY) where T : BaseController
     {
-        List<T> objects = new List<T>();
+        HashSet<T> objects = new HashSet<T>();
 
         Vector3Int left = World2Cell(pos + new Vector3(-rangeX, 0));
         Vector3Int right = World2Cell(pos + new Vector3(+rangeX, 0));
@@ -186,7 +187,7 @@ public class MapManager
             }
         }
 
-        return objects;
+        return objects.ToList();
     }
 
     public BaseController GetObject(Vector3Int cellPos)
