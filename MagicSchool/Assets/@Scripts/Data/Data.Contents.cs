@@ -238,7 +238,6 @@ namespace Data
         public string ClassName;
         public string Description;
         public int ProjectileId;
-        public int AfterSkillId;
         public string PrefabLabel;
         public string IconLabel;
         public string AnimName;
@@ -349,6 +348,7 @@ namespace Data
     {
         public int DataId;
         public string Name;
+        public string PrefabLabel;
         public string ClassName;
         public string SkeletonDataID;
         public string SoundLabel;

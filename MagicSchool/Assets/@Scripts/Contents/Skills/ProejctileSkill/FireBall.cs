@@ -46,18 +46,18 @@ public class FireBall : SkillBase
         projectile = GenerateProjectile(Owner, Owner.GenerateSkillPosition, ProjectileOnHit);
     }
 
-    public void ProjectileOnHit(BaseController cc, Vector3 position)
+    public void ProjectileOnHit(BaseController cc)
     {
         if (cc.IsValid() == false)
             return;
 
         cc.OnDamaged(Owner, this);
-        GenerateProjectile(Owner, position, ExplosionOnHit, "FireBall_Explosion.prefab");
+        //GenerateProjectile(Owner, position, ExplosionOnHit, "FireBall_Explosion.prefab");
 
         Managers.Object.Despawn(projectile);
     }
 
-    public void ExplosionOnHit(BaseController cc, Vector3 vec)
+    /*public void ExplosionOnHit(BaseController cc, Vector3 vec)
     {
         if (cc.IsValid() == false)
             return;
@@ -65,5 +65,5 @@ public class FireBall : SkillBase
         cc.OnDamaged(Owner, this);
         
         cc.OnBurnEx(Owner, 3,  this); // Extension // To Do : Parsing
-    }
+    }*/
 }

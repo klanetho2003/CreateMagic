@@ -20,25 +20,6 @@ public class ObjectManager // ID 부여하는 함수, Object들 들고 있는 등
         damageText.SetInfo(position, damage, parent, isCritical);
     }
 
-    //Temp
-    public T SpawnGameObject<T>(Vector3 position, string prefabName, int templateID = 0) where T : BaseController
-    {
-        GameObject go = Managers.Resource.Instantiate(prefabName, pooling: true);
-        go.transform.position = position;
-
-        BaseController obj = go.GetComponent<BaseController>();
-
-        if (obj.ObjectType == EObjectType.ProjecTile)
-        {
-            ProjectileController projectile = go.GetComponent<ProjectileController>();
-            Projectiles.Add(projectile);
-
-            projectile.SetInfo(templateID);
-        }
-
-        return obj as T;
-    }
-
     public GameObject SpawnGameObject(Vector3 position, string prefabName)
     {
         GameObject go = Managers.Resource.Instantiate(prefabName, pooling: true);

@@ -7,7 +7,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 using static Define;
 
-public class MonsterController : EffectedCreature
+public class MonsterController : CreatureController
 {
     #region Animation
 

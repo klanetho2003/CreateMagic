@@ -54,8 +54,9 @@ public class AoEBase : BaseController
 		_effectSize = skill.SkillData.EffectSize;
 		_radius = Utils.GetEffectRadius(_effectSize);
 		_collider.radius = _radius;
-		_skillDir = (Owner.Target.transform.position - Owner.transform.position).normalized;
-	}
+        if (Owner.Target.IsValid() == true)
+            _skillDir = (Owner.Target.transform.position - Owner.transform.position).normalized;
+    }
 
 	protected void ApplyEffectsInRange(int angle)
 	{

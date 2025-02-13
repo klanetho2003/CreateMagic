@@ -20,18 +20,6 @@ public static class Extension
         return Utils.FindChild<T>(go, name = null, recursive = false);
     }
 
-    public static void OnBurnEx(this BaseController cc, CreatureController owner, int addDuration, SkillBase skill)
-    {
-        if (cc.IsValid() == false)
-            return;
-
-        EffectedCreature effectedCC = cc.gameObject.GetComponent<EffectedCreature>();
-        if (effectedCC == null)
-            return;
-
-        effectedCC.OnBurn(owner, addDuration, skill);
-    }
-
     public static bool IsValid(this GameObject go)
     {
         return go != null && go.activeSelf;

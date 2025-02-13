@@ -35,7 +35,7 @@ public class CastingImpact : SkillBase
         _defaultSize = Vector3.one;
     }
 
-    public void AfterTrigger(BaseController bc, Vector3 vec)
+    public void AfterTrigger(BaseController bc)
     {
         if (bc.IsValid() == false)
             return;

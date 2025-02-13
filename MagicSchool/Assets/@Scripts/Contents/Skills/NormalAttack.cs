@@ -47,7 +47,7 @@ public class NormalAttack : SkillBase
         }
     }
 
-    public void ProjectileOnHit(BaseController cc, Vector3 position)
+    public void ProjectileOnHit(BaseController cc)
     {
         if (cc.IsValid() == false)
             return;

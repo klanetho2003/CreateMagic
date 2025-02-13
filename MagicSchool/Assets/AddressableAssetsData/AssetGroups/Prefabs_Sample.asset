@@ -63,7 +63,7 @@ MonoBehaviour:
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 8e19594c89ad2c44a83a22b1318750c3
-    m_Address: FireBall_Explosion.prefab
+    m_Address: FireExplosionAoE
     m_ReadOnly: 0
     m_SerializedLabels:
     - PreLoad

@@ -19463,9 +19463,8 @@ GameObject:
   - component: {fileID: 6666264472694865590}
   - component: {fileID: 4573448686893008523}
   - component: {fileID: 6789645133421222222}
-  - component: {fileID: 8872556273592720847}
   m_Layer: 0
-  m_Name: FireBall_Explosion
+  m_Name: FireExplosionAoE
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -24615,15 +24614,3 @@ SpriteRenderer:
   m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &8872556273592720847
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8194992990867289339}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bd92e6db0e63e004ab7851744947cd19, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 

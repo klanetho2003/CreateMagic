@@ -140,13 +140,9 @@ public abstract class SkillBase : MonoBehaviour // 스킬을 스폰 > ActiveSkill 발�
             Owner.Skills.ActivateSkills.Add(this);
     }
 
-    protected virtual ProjectileController GenerateProjectile(CreatureController onwer, Vector3 spawnPos, Action<BaseController, Vector3> onHit, string prefabLab = null)
+    protected virtual ProjectileController GenerateProjectile(CreatureController onwer, Vector3 spawnPos, Action<BaseController> onHit)
     {
-        ProjectileController projectile;
-        if (prefabLab == null)
-            projectile = Managers.Object.Spawn<ProjectileController>(spawnPos, SkillData.ProjectileId);
-        else // projectile인 Explosion을 skill로 바꾼다(컴포넌트 파고, skillData 추가) + 새로판 Explosion컴포넌트에 FireBall에 있는 Burn 부분 옮겨야한다
-            projectile = Managers.Object.SpawnGameObject<ProjectileController>(spawnPos, prefabLab, SkillData.AfterSkillId);
+        ProjectileController projectile = Managers.Object.Spawn<ProjectileController>(spawnPos, SkillData.ProjectileId);
 
         // 충돌하기 싫은 친구들 settting
         LayerMask excludeMask = 0;
@@ -184,7 +180,8 @@ public abstract class SkillBase : MonoBehaviour // 스킬을 스폰 > ActiveSkill 발�
             return;
         }
 
-        GameObject go = Managers.Object.SpawnGameObject(spawnPos, "AoE");
+        string spawnLabel = (Managers.Data.AoEDic[id].PrefabLabel != null) ? Managers.Data.AoEDic[id].PrefabLabel : "AoE";
+        GameObject go = Managers.Object.SpawnGameObject(spawnPos, spawnLabel);
         go.name = Managers.Data.AoEDic[id].ClassName;
         aoe = go.AddComponent(componentType) as AoEBase;
         aoe.SetInfo(SkillData.AoEId, Owner, this);
