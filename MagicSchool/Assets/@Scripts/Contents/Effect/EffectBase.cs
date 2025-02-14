@@ -32,13 +32,14 @@ public class EffectBase : BaseController
 
         Owner = owner;
 		_spawnType = spawnType;
-
-		if (string.IsNullOrEmpty(EffectData.AnimatorDataID) == false)
-        {
-            SetAnimation(EffectData.AnimatorDataID, EffectData.SortingLayerName, SortingLayers.SKILL_EFFECT);
-        }
-
         EffectType = EffectData.EffectType;
+
+        if (string.IsNullOrEmpty(EffectData.SpriteID) == false)
+            SpriteRenderer.sprite = Managers.Resource.Load<Sprite>(EffectData.SpriteID);
+        if (string.IsNullOrEmpty(EffectData.MaterialID) == false)
+            SpriteRenderer.material = Managers.Resource.Load<Material>(EffectData.MaterialID);
+        if (string.IsNullOrEmpty(EffectData.AnimatorDataID) == false)
+            SetAnimation(EffectData.AnimatorDataID, EffectData.SortingLayerName, SortingLayers.SKILL_EFFECT);
 
 		// AoE
 		if (_spawnType == EEffectSpawnType.External)
@@ -63,13 +64,17 @@ public class EffectBase : BaseController
 
 	protected virtual void ShowEffect()
 	{
+        // Owner에게 적용한 이상상태 시각 효과 적용
+        SetMaterial();
+
         if (Anim == null)
             return;
 
         if (Anim.runtimeAnimatorController == null)
             return;
 
-        Anim.Play(EffectData.AnimName, -1, 0f);
+        if (EffectData.AnimName != null)
+            Anim.Play(EffectData.AnimName, -1, 0f);
     }
 
 	protected void AddModifier(CreatureStat stat, object source, int order = 0)
@@ -102,7 +107,10 @@ public class EffectBase : BaseController
 	{
 		Debug.Log($"ClearEffect - {gameObject.name} {EffectData.ClassName} -> {clearType}");
 
-		switch (clearType)
+        // Owner에게 적용한 이상상태 시각 효과 초기화
+        SetMaterial();
+
+        switch (clearType)
 		{
 			case EEffectClearType.TimeOut:
 			case EEffectClearType.TriggerOutAoE:
@@ -152,5 +160,22 @@ public class EffectBase : BaseController
 
 		Remains = 0;
 		ClearEffect(EEffectClearType.TimeOut);
-	}
+    }
+
+    void SetMaterial()
+    {
+        if (Owner.IsValid() == false)
+            return;
+        if (Owner.SpriteRenderer.material == null)
+            return;
+
+        if (Remains > 0)
+            SetOwnerMaterial();
+        else
+            ResetOwnerMaterial();
+    }
+
+    protected virtual void SetOwnerMaterial() { }
+
+    protected virtual void ResetOwnerMaterial() { }
 }

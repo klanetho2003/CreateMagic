@@ -139,7 +139,6 @@ public class DataTransformer : EditorWindow
             return null;
 
         TypeConverter converter = TypeDescriptor.GetConverter(type);
-        Debug.Log(value);
         return converter.ConvertFromString(value);
     }
 

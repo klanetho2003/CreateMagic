@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
-  m_Name: Material
+  m_Name: Material_Creature
   m_EditorClassIdentifier: 
-  m_GroupName: Material
+  m_GroupName: Material_Creature
   m_Data:
     m_SerializedData: []
   m_GUID: c6aab245afc42984f8cb91f18df12f69
@@ -49,12 +49,6 @@ MonoBehaviour:
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 95685420d04f0c14c8f647a8e837ddd2
     m_Address: Magicion_01
-    m_ReadOnly: 0
-    m_SerializedLabels:
-    - PreLoad
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: adb187127e27a264fa077a0788671c40
-    m_Address: FireBall
     m_ReadOnly: 0
     m_SerializedLabels:
     - PreLoad

@@ -317,6 +317,8 @@ namespace Data
         public string DescriptionTextID;
         public string AnimatorDataID;
         public string AnimName;
+        public string MaterialID;
+        public string SpriteID;
         public string SortingLayerName;
         public string IconLabel;
         public string SoundLabel;

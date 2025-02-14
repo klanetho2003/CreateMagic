@@ -1,0 +1,36 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
+  m_Name: Material_Effect
+  m_EditorClassIdentifier: 
+  m_GroupName: Material_Effect
+  m_Data:
+    m_SerializedData: []
+  m_GUID: a3c8952f1d4de144ab4cde4d31d7b08c
+  m_SerializeEntries:
+  - m_GUID: f3d0b0abb61ba834f816959f0bcec0b5
+    m_Address: BurnEffect
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: adb187127e27a264fa077a0788671c40
+    m_Address: FireBall
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - PreLoad
+    FlaggedDuringContentUpdateRestriction: 0
+  m_ReadOnly: 0
+  m_Settings: {fileID: 11400000, guid: 75ee46cc5156e824ebaac0c11ee626a5, type: 2}
+  m_SchemaSet:
+    m_Schemas:
+    - {fileID: 11400000, guid: c89be68a585f340478b8d0ba29754ed9, type: 2}
+    - {fileID: 11400000, guid: 6d96412ac7e722349b29e53c34f1edc8, type: 2}

@@ -76,23 +76,6 @@ public class CreatureController : BaseController
 
     public EffectComponent Effects { get; set; }
 
-    /*#region Stats 구버전
-    public float Hp { get; set; }
-    public float MaxHp { get; set; }
-    public float MaxHpBonusRate { get; set; }
-    public float HealBonusRate { get; set; }
-    public float HpRegen { get; set; }
-    public float Atk { get; set; }
-    public float AttackRate { get; set; }
-    public float Def { get; set; }
-    public float DefRate { get; set; }
-    public float CriRate { get; set; }
-    public float CriDamage { get; set; }
-    public float DamageReduction { get; set; }
-    public float MoveSpeedRate { get; set; }
-    public float MoveSpeed { get; set; }
-    #endregion*/
-
     #region Stats
     public float Hp { get; set; }
     public CreatureStat MaxHp;
@@ -254,8 +237,8 @@ public class CreatureController : BaseController
         // TODO : OnDamaged 통합
         if (Hp <= 0)
         {
-            OnDead(effect.Owner, effect.Skill);
             CreatureState = CreatureState.Dead;
+            //OnDead(effect.Owner, effect.Skill);
             return;
         }
     }

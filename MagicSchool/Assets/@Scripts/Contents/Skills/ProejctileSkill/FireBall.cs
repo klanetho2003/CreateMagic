@@ -52,18 +52,7 @@ public class FireBall : SkillBase
             return;
 
         cc.OnDamaged(Owner, this);
-        //GenerateProjectile(Owner, position, ExplosionOnHit, "FireBall_Explosion.prefab");
 
         Managers.Object.Despawn(projectile);
     }
-
-    /*public void ExplosionOnHit(BaseController cc, Vector3 vec)
-    {
-        if (cc.IsValid() == false)
-            return;
-
-        cc.OnDamaged(Owner, this);
-        
-        cc.OnBurnEx(Owner, 3,  this); // Extension // To Do : Parsing
-    }*/
 }

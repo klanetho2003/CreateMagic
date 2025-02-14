@@ -33,15 +33,12 @@ public class ProjectileController : BaseController
         ProjectileData = Managers.Data.ProjectileDic[dataTemplateID];
 
         // Name
-        gameObject.name = $"{ProjectileData.DataId}_{ProjectileData.Name}"; // To Do : string data sheet
+        gameObject.name = $"{ProjectileData.DataId}_{ProjectileData.Name}";
 
-        // First Sprite
-        // SpriteRenderer.sprite
-
-        if (ProjectileData.MaterialID != null)
+        if (string.IsNullOrEmpty(ProjectileData.MaterialID) == false)
             SpriteRenderer.material = Managers.Resource.Load<Material>(ProjectileData.MaterialID);
 
-        if (ProjectileData.AnimatorDataID != null)
+        if (string.IsNullOrEmpty(ProjectileData.AnimatorDataID) == false) 
             Anim.runtimeAnimatorController = Managers.Resource.Load<RuntimeAnimatorController>(ProjectileData.AnimatorDataID);
     }
 
