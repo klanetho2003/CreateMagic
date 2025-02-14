@@ -140,6 +140,9 @@ public class CreatureController : BaseController
         if (base.Init() == false)
             return false;
 
+        Collider = gameObject.GetComponent<CircleCollider2D>();
+        RigidBody = GetComponent<Rigidbody2D>();
+
         ObjectType = EObjectType.Creature;
         CreatureState = CreatureState.Idle;
 

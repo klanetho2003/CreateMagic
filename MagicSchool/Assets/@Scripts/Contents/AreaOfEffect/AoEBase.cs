@@ -42,6 +42,7 @@ public class AoEBase : BaseController
 
 		_collider = GetComponent<CircleCollider2D>();
 		_collider.isTrigger = true;
+
 		return true;
 	}
 

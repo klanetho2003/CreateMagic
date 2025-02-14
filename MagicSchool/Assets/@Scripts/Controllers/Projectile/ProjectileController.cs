@@ -19,6 +19,9 @@ public class ProjectileController : BaseController
         if (base.Init() == false)
             return false;
 
+        Collider = gameObject.GetComponent<CircleCollider2D>();
+        RigidBody = GetComponent<Rigidbody2D>();
+
         ObjectType = EObjectType.ProjecTile;
         SpriteRenderer.sortingOrder = SortingLayers.PROJECTILE;
 

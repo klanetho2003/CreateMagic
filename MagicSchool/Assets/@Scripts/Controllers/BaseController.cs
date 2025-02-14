@@ -8,8 +8,8 @@ using static Define;
 public class BaseController : MonoBehaviour
 {
     public EObjectType ObjectType { get; protected set; } = EObjectType.None;
-    public CircleCollider2D Collider { get; private set; }
-    public Rigidbody2D RigidBody { get; private set; }
+    public CircleCollider2D Collider { get; protected set; }
+    public Rigidbody2D RigidBody { get; protected set; }
     public Animator Anim { get; private set; }
     public SpriteRenderer SpriteRenderer { get; private set; }
 
@@ -73,10 +73,8 @@ public class BaseController : MonoBehaviour
     {
         if (_init)
             return false;
-
-        Collider = gameObject.GetComponent<CircleCollider2D>();
+        
         Anim = GetComponent<Animator>();
-        RigidBody = GetComponent<Rigidbody2D>();
         SpriteRenderer = GetComponent<SpriteRenderer>();
 
         _init = true;
