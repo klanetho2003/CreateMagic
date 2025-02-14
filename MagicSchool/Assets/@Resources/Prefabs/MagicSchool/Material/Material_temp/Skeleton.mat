@@ -118,7 +118,7 @@ Material:
     - _DistortAmount: 0.5
     - _DistortTexXSpeed: 5
     - _DistortTexYSpeed: 5
-    - _EditorDrawers: 4
+    - _EditorDrawers: 2
     - _FadeAmount: 0.3
     - _FadeBurnGlow: 124
     - _FadeBurnTransition: 0.112
@@ -164,9 +164,9 @@ Material:
     - _InnerOutlineGlow: 4
     - _InnerOutlineThickness: 1
     - _LitAmount: 1
-    - _MaxXUV: 0.048574783
+    - _MaxXUV: 0.07779765
     - _MaxYUV: 0.5498784
-    - _MinXUV: 0.022382136
+    - _MinXUV: 0.034666426
     - _MinYUV: 0.3183034
     - _MotionBlurAngle: 0.1
     - _MotionBlurDist: 1.25
