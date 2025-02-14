@@ -23,16 +23,18 @@ public class AoEBase : BaseController
 	{
 		base.OnDisable();
 
-		// 1. clear target
-		_targets.Clear();
+        // Debuff는 AoE가 삭제 되어도 유지 되어야하지 않을까
 
-		// 2. clear Effect
-		foreach (var effect in _activeEffects)
-		{
-			if (effect.IsValid())
-				effect.ClearEffect(EEffectClearType.TriggerOutAoE);
-		}
-		_activeEffects.Clear();
+		//// 1. clear target
+		//_targets.Clear();
+        //
+		//// 2. clear Effect
+		//foreach (var effect in _activeEffects)
+		//{
+		//	if (effect.IsValid())
+		//		effect.ClearEffect(EEffectClearType.TriggerOutAoE);
+		//}
+		//_activeEffects.Clear();
 	}
 
 	public override bool Init()

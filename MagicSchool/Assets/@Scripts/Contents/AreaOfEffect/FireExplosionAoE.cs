@@ -53,7 +53,7 @@ public class FireExplosionAoE : AoEBase
             {
                 _targets.Add(t);
 
-                List<EffectBase> effects = target.Effects.GenerateEffects(_aoEData.EnemyEffects.ToArray(), EEffectSpawnType.External, _skillBase);
+                List<EffectBase> effects = target.Effects.GenerateEffects(_aoEData.EnemyEffects.ToArray(), EEffectSpawnType.Skill, _skillBase);
                 _activeEffects.AddRange(effects);
             }
         }

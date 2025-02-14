@@ -2,7 +2,7 @@
   "aoes": [
     {
       "DataId": 80001,
-      "Name": "�͵�Ȯ��1 AOE",
+      "Name": "맹독확산1 AOE",
       "PrefabLabel": null,
       "ClassName": "PoisonSpreadAoE",
       "SkeletonDataID": "loren_skill_1_SkeletonData",
@@ -16,7 +16,7 @@
     },
     {
       "DataId": 80002,
-      "Name": "�͵�Ȯ��2 AOE",
+      "Name": "맹독확산2 AOE",
       "PrefabLabel": null,
       "ClassName": "PoisonSpreadAoE",
       "SkeletonDataID": "loren_skill_1_SkeletonData",
@@ -30,7 +30,7 @@
     },
     {
       "DataId": 80003,
-      "Name": "�͵�Ȯ��3 AOE",
+      "Name": "맹독확산3 AOE",
       "PrefabLabel": null,
       "ClassName": "PoisonSpreadAoE",
       "SkeletonDataID": "loren_skill_1_SkeletonData",
@@ -44,7 +44,7 @@
     },
     {
       "DataId": 80004,
-      "Name": "�ñ�Ȯ��1 AOE",
+      "Name": "냉기확산1 AOE",
       "PrefabLabel": null,
       "ClassName": "ColdSpreadAoE",
       "SkeletonDataID": "loren_skill_2_SkeletonData",
@@ -58,7 +58,7 @@
     },
     {
       "DataId": 80005,
-      "Name": "�ñ�Ȯ��2 AOE",
+      "Name": "냉기확산2 AOE",
       "PrefabLabel": null,
       "ClassName": "ColdSpreadAoE",
       "SkeletonDataID": "loren_skill_2_SkeletonData",
@@ -72,7 +72,7 @@
     },
     {
       "DataId": 80006,
-      "Name": "�ñ�Ȯ��3 AOE",
+      "Name": "냉기확산3 AOE",
       "PrefabLabel": null,
       "ClassName": "ColdSpreadAoE",
       "SkeletonDataID": "loren_skill_2_SkeletonData",
@@ -86,7 +86,7 @@
     },
     {
       "DataId": 80007,
-      "Name": "ȭ���� AOE",
+      "Name": "화염검 AOE",
       "PrefabLabel": null,
       "ClassName": "ConeShapeAoE",
       "SkeletonDataID": "owen_skill_1_SkeletonData",
@@ -100,7 +100,7 @@
     },
     {
       "DataId": 80008,
-      "Name": "ȭ���� AOE",
+      "Name": "화염검 AOE",
       "PrefabLabel": null,
       "ClassName": "ConeShapeAoE",
       "SkeletonDataID": "owen_skill_1_SkeletonData",
@@ -114,7 +114,7 @@
     },
     {
       "DataId": 80009,
-      "Name": "ȭ���� AOE",
+      "Name": "화염검 AOE",
       "PrefabLabel": null,
       "ClassName": "ConeShapeAoE",
       "SkeletonDataID": "owen_skill_1_SkeletonData",
@@ -128,7 +128,7 @@
     },
     {
       "DataId": 80010,
-      "Name": "����ȭ���� AOE",
+      "Name": "다중화염검 AOE",
       "PrefabLabel": null,
       "ClassName": "CircleShapeAoE",
       "SkeletonDataID": "owen_skill_2_SkeletonData",
@@ -140,7 +140,7 @@
     },
     {
       "DataId": 80011,
-      "Name": "����ȭ���� AOE",
+      "Name": "다중화염검 AOE",
       "PrefabLabel": null,
       "ClassName": "CircleShapeAoE",
       "SkeletonDataID": "owen_skill_2_SkeletonData",
@@ -152,7 +152,7 @@
     },
     {
       "DataId": 80012,
-      "Name": "����ȭ���� AOE",
+      "Name": "다중화염검 AOE",
       "PrefabLabel": null,
       "ClassName": "CircleShapeAoE",
       "SkeletonDataID": "owen_skill_2_SkeletonData",
@@ -164,7 +164,7 @@
     },
     {
       "DataId": 80013,
-      "Name": "������ ��Ÿ 1",
+      "Name": "인형의 난타 1",
       "PrefabLabel": null,
       "ClassName": "CircleShapeAoE",
       "SkeletonDataID": "veti_skill_1_SkeletonData",
@@ -176,7 +176,7 @@
     },
     {
       "DataId": 80014,
-      "Name": "������ ��Ÿ 2",
+      "Name": "인형의 난타 2",
       "PrefabLabel": null,
       "ClassName": "CircleShapeAoE",
       "SkeletonDataID": "veti_skill_1_SkeletonData",
@@ -188,7 +188,7 @@
     },
     {
       "DataId": 80015,
-      "Name": "������ ��Ÿ 3",
+      "Name": "인형의 난타 3",
       "PrefabLabel": null,
       "ClassName": "CircleShapeAoE",
       "SkeletonDataID": "veti_skill_1_SkeletonData",
@@ -200,7 +200,7 @@
     },
     {
       "DataId": 80016,
-      "Name": "������ �극�� 1",
+      "Name": "인형의 브레스 1",
       "PrefabLabel": null,
       "ClassName": "ConeShapeAoE",
       "SkeletonDataID": "owen_skill_1_SkeletonData",
@@ -214,7 +214,7 @@
     },
     {
       "DataId": 80017,
-      "Name": "������ �극�� 2",
+      "Name": "인형의 브레스 2",
       "PrefabLabel": null,
       "ClassName": "ConeShapeAoE",
       "SkeletonDataID": "owen_skill_1_SkeletonData",
@@ -228,7 +228,7 @@
     },
     {
       "DataId": 80018,
-      "Name": "������ �극�� 3",
+      "Name": "인형의 브레스 3",
       "PrefabLabel": null,
       "ClassName": "ConeShapeAoE",
       "SkeletonDataID": "owen_skill_1_SkeletonData",
@@ -242,7 +242,7 @@
     },
     {
       "DataId": 80019,
-      "Name": "�ǹ���Ÿ AoE",
+      "Name": "권법연타 AoE",
       "PrefabLabel": null,
       "ClassName": "CircleShapeAoE",
       "SkeletonDataID": "veti_skill_1_SkeletonData",
@@ -257,7 +257,7 @@
     },
     {
       "DataId": 80020,
-      "Name": "�ǹ���Ÿ AoE",
+      "Name": "권법연타 AoE",
       "PrefabLabel": null,
       "ClassName": "CircleShapeAoE",
       "SkeletonDataID": "veti_skill_1_SkeletonData",
@@ -272,7 +272,7 @@
     },
     {
       "DataId": 80021,
-      "Name": "�ǹ���Ÿ AoE",
+      "Name": "권법연타 AoE",
       "PrefabLabel": null,
       "ClassName": "CircleShapeAoE",
       "SkeletonDataID": "veti_skill_1_SkeletonData",

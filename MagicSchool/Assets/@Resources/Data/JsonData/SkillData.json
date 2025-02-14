@@ -94,7 +94,7 @@
       ],
       "NextLevelId": 0,
       "AoEId": 0,
-      "EffectSize": 0,
+      "EffectSize": 1,
       "ActivateSkillDelay": 0.0,
       "CompleteSkillDelay": 0.0
     },
@@ -133,7 +133,7 @@
       "AnimName": "NormalAttack",
       "CoolTime": 1.2,
       "DamageMultiplier": 20.0,
-      "SkillDuration": 0.0,
+      "SkillDuration": 1.1,
       "AnimImpactDuration": 0.0,
       "CastingSound": "EnergyBolt_Start",
       "SkillRange": 0.0,
@@ -142,7 +142,7 @@
       "EffectIds": null,
       "NextLevelId": 0,
       "AoEId": 80022,
-      "EffectSize": 2,
+      "EffectSize": 0,
       "ActivateSkillDelay": 0.0,
       "CompleteSkillDelay": 0.0
     },

@@ -231,8 +231,9 @@ public class CreatureController : BaseController
 
         float finalDamage = Mathf.Round(damage);
         Hp = Mathf.Clamp(Hp - finalDamage, 0, MaxHp.Value);
-
         Managers.Object.ShowDamageFont(CenterPosition, finalDamage, transform, false);
+
+        CreatureState = CreatureState.Dameged;
 
         // TODO : OnDamaged ХыЧе
         if (Hp <= 0)
@@ -258,10 +259,9 @@ public class CreatureController : BaseController
 
         float finalDamage = creature.Atk.Value;
         Hp = Mathf.Clamp(Hp - finalDamage, 0, MaxHp.Value);
+        Managers.Object.ShowDamageFont(CenterPosition, finalDamage, transform);
 
         CreatureState = CreatureState.Dameged;
-
-        Managers.Object.ShowDamageFont(CenterPosition, finalDamage, transform);
 
         if (Hp <= 0)
         {

@@ -44,11 +44,8 @@ public class EffectBase : BaseController
 		// AoE
 		if (_spawnType == EEffectSpawnType.External)
 			Remains = float.MaxValue;
-		else
-			Remains = EffectData.TickTime * EffectData.TickCount;
-
-        // Duration = EffectData.TickTime * EffectData.TickCount;
-        // Period = EffectData.TickTime;
+        else
+            Remains = EffectData.TickTime * EffectData.TickCount;
 
         AnimationEventManager.BindEvent(this, () =>
         {

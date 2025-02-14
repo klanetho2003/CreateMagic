@@ -216,8 +216,8 @@ public static class Define
     }
 
     //HARD CODING
-    public const float EFFECT_SMALL_RADIUS = 2.5f;
-    public const float EFFECT_NORMAL_RADIUS = 4.5f;
+    public const float EFFECT_SMALL_RADIUS = 1f;
+    public const float EFFECT_NORMAL_RADIUS = 2.5f;
     public const float EFFECT_BIG_RADIUS = 5.5f;
 
     public const int MONSTER_DEFAULT_MELEE_ATTACK_RANGE = 1;
