@@ -223,12 +223,12 @@ public class ObjectManager // ID 부여하는 함수, Object들 들고 있는 등
 
         if (targetType == ECreatureType.Monster)
         {
-            var objs = Managers.Map.GatherObjects<MonsterController>(owner.transform.position, range, range);
+            var objs = Managers.Map.GatherObjects<MonsterController>(startPos/*owner.transform.position*/, range, range); // owner 기준에서 skill 기준으로 변경
             targets.AddRange(objs); 
         }
         else if (targetType == ECreatureType.Student)
         {
-            var objs = Managers.Map.GatherObjects<PlayerController>(owner.transform.position, range, range);
+            var objs = Managers.Map.GatherObjects<PlayerController>(startPos/*owner.transform.position*/, range, range); // owner 기준에서 skill 기준으로 변경
             targets.AddRange(objs);
         }
 

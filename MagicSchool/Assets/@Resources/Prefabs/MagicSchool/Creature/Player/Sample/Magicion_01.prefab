@@ -223,6 +223,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 125a25173ce8f974591434d86cd0403d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  MaxHp:
+    _value: 0
+  Atk:
+    _value: 0
+  CriRate:
+    _value: 0
+  CriDamage:
+    _value: 0
+  ReduceDamageRate:
+    _value: 0
+  LifeStealRate:
+    _value: 0
+  ThornsDamageRate:
+    _value: 0
+  MoveSpeed:
+    _value: 0
+  AttackSpeedRate:
+    _value: 0
   _playerSkills: {fileID: 0}
   _skillBook: {fileID: 0}
   _indicator: {fileID: 8168667114578815600}
@@ -603,6 +621,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7283843678028847408}
   - component: {fileID: 891258544793832010}
+  - component: {fileID: 7124712577427034891}
   m_Layer: 8
   m_Name: Virtual Camera
   m_TagString: Untagged
@@ -665,6 +684,21 @@ MonoBehaviour:
         m_Calls: []
   m_LegacyBlendHint: 0
   m_ComponentOwner: {fileID: 5926194656474867507}
+--- !u!114 &7124712577427034891
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4543266799798196628}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f453f694addf4275988fac205bc91968, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_BoundingShape2D: {fileID: 0}
+  m_Damping: 0.5
+  m_MaxWindowSize: -1
 --- !u!1 &4911347605851133873
 GameObject:
   m_ObjectHideFlags: 0
