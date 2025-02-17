@@ -153,7 +153,7 @@ public class PlayerSkillBook : BaseSkillBook
             skill.ActivateSkillOrDelay();
 
             _owner.StartWait(skill.SkillData.ActivateSkillDelay + skill.SkillData.SkillDuration);
-            Debug.Log($"Do Skill Key : {skillKey}");
+            Debug.Log($"Do Skill Key : {skillKey} in ActivateSkillOrDelay");
         }
 
         return _owner.CreatureState;
@@ -174,7 +174,7 @@ public class PlayerSkillBook : BaseSkillBook
         }
 
         key += _inputQueue.Dequeue() - 10;
-        Debug.Log($"Do Skill Key : {key}");
+        Debug.Log($"Do Skill Key : {key} in BuildCommandKey");
 
         return key;
     }

@@ -112,9 +112,9 @@ public class PlayerController : CreatureController
             case CreatureState.Casting:
                 {
                     if (LookDown)
-                        Anim.Play("CastingFront");
+                        Anim.Play("Casting_LookDown_True");
                     else
-                        Anim.Play("CastingBack");
+                        Anim.Play("Casting_LookDown_False");
                 }
                 break;
             case CreatureState.FrontDelay:

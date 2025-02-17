@@ -11,24 +11,65 @@ public class CastingImpact : SkillBase
     float _moveDistance = 10f;
     float _backSpeed = 30.0f;
 
-    public override void SetInfo(CreatureController owner, int skillTemplateID)
+    #region Init Method
+    public override bool Init()
     {
-        base.SetInfo(owner, skillTemplateID);
+        if (base.Init() == false)
+            return false;
+
+
+        return true;
+    }
+    #endregion
+
+    ProjectileController projectile;
+
+    public override void SetInfo(CreatureController owner, int monsterSkillTemplateID)
+    {
+        base.SetInfo(owner, monsterSkillTemplateID);
     }
 
     public override void ActivateSkill()
     {
-        Vector3 spawnPos;
+        if (Owner.CreatureType == ECreatureType.Monster && SkillData.AnimName != null)
+        {
+            Owner.Anim.Play(SkillData.AnimName, -1, 0f);
+            Owner.Skills.ActivateSkills.Remove(this);
 
-        if (Owner.CreatureType == ECreatureType.Student)
-            spawnPos = Owner.GetComponent<PlayerController>().Shadow.transform.position;
-        else
-            spawnPos = Owner.CenterPosition;
+            //StartCoroutine(CoCountdownCooldown());
 
-        GenerateProjectile(Owner, spawnPos, AfterTrigger);
-
-        _defaultSize = _defaultSize * 1.2f;
+            projectile = GenerateProjectile(Owner, Owner.GenerateSkillPosition, ProjectileOnHit);
+        }
+        else if (Owner.CreatureType == ECreatureType.Student)
+        {
+            PlayerController pc = Owner as PlayerController;
+            projectile = GenerateProjectile(Owner, pc.Shadow.position, ProjectileOnHit);
+        }
     }
+
+    public void ProjectileOnHit(BaseController cc)
+    {
+        if (cc.IsValid() == false)
+            return;
+
+        cc.OnDamaged(Owner, this);
+    }
+
+    protected override void OnAttackTargetHandler()
+    {
+        base.OnAttackTargetHandler();
+    }
+
+    protected override void OnAttackEvent()
+    {
+        
+    }
+
+
+
+
+
+
 
     public void InitSize()
     {
@@ -51,15 +92,5 @@ public class CastingImpact : SkillBase
 
         Vector3 dir = cc.transform.position - Owner.transform.position;
         cc.MoveMonsterPosition(dir.normalized, _backSpeed, _moveDistance, () => { cc.CreatureState = Define.CreatureState.Moving; });
-    }
-
-    protected override void OnAttackTargetHandler()
-    {
-        
-    }
-
-    protected override void OnAttackEvent()
-    {
-        throw new NotImplementedException();
     }
 }

@@ -352,12 +352,13 @@ namespace Data
         public string Name;
         public string PrefabLabel;
         public string ClassName;
-        public string SkeletonDataID;
+        public string AnimatorDataID;
         public string SoundLabel;
         public float Duration;
         public List<int> AllyEffects = new List<int>();
         public List<int> EnemyEffects = new List<int>();
         public string AnimName;
+        public string SortingLayerName;
     }
 
     [Serializable]

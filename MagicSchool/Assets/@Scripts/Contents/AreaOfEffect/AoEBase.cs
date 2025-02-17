@@ -82,6 +82,9 @@ public class AoEBase : BaseController
 
 	private void ApplyEffectsToTargets(List<CreatureController> targets, int[] effects, bool applyDamage)
 	{
+        if (targets.Count == 0)
+            return;
+
 		foreach (var target in targets)
 		{
             CreatureController t = target as CreatureController;

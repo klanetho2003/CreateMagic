@@ -5,247 +5,265 @@
       "Name": "�͵�Ȯ��1 AOE",
       "PrefabLabel": null,
       "ClassName": "PoisonSpreadAoE",
-      "SkeletonDataID": "loren_skill_1_SkeletonData",
+      "AnimatorDataID": "loren_skill_1_SkeletonData",
       "SoundLabel": null,
       "Duration": 5.0,
       "AllyEffects": null,
       "EnemyEffects": [
         60006
       ],
-      "AnimName": "idle"
+      "AnimName": "idle",
+      "SortingLayerName": "Skill"
     },
     {
       "DataId": 80002,
       "Name": "�͵�Ȯ��2 AOE",
       "PrefabLabel": null,
       "ClassName": "PoisonSpreadAoE",
-      "SkeletonDataID": "loren_skill_1_SkeletonData",
+      "AnimatorDataID": "loren_skill_1_SkeletonData",
       "SoundLabel": null,
       "Duration": 5.0,
       "AllyEffects": null,
       "EnemyEffects": [
         60007
       ],
-      "AnimName": "idle"
+      "AnimName": "idle",
+      "SortingLayerName": "Skill"
     },
     {
       "DataId": 80003,
       "Name": "�͵�Ȯ��3 AOE",
       "PrefabLabel": null,
       "ClassName": "PoisonSpreadAoE",
-      "SkeletonDataID": "loren_skill_1_SkeletonData",
+      "AnimatorDataID": "loren_skill_1_SkeletonData",
       "SoundLabel": null,
       "Duration": 5.0,
       "AllyEffects": null,
       "EnemyEffects": [
         60008
       ],
-      "AnimName": "idle"
+      "AnimName": "idle",
+      "SortingLayerName": "Skill"
     },
     {
       "DataId": 80004,
       "Name": "�ñ�Ȯ��1 AOE",
       "PrefabLabel": null,
       "ClassName": "ColdSpreadAoE",
-      "SkeletonDataID": "loren_skill_2_SkeletonData",
+      "AnimatorDataID": "loren_skill_2_SkeletonData",
       "SoundLabel": null,
       "Duration": 0.5,
       "AllyEffects": null,
       "EnemyEffects": [
         60009
       ],
-      "AnimName": "idle"
+      "AnimName": "idle",
+      "SortingLayerName": "Skill"
     },
     {
       "DataId": 80005,
       "Name": "�ñ�Ȯ��2 AOE",
       "PrefabLabel": null,
       "ClassName": "ColdSpreadAoE",
-      "SkeletonDataID": "loren_skill_2_SkeletonData",
+      "AnimatorDataID": "loren_skill_2_SkeletonData",
       "SoundLabel": null,
       "Duration": 0.5,
       "AllyEffects": null,
       "EnemyEffects": [
         60010
       ],
-      "AnimName": "idle"
+      "AnimName": "idle",
+      "SortingLayerName": "Skill"
     },
     {
       "DataId": 80006,
       "Name": "�ñ�Ȯ��3 AOE",
       "PrefabLabel": null,
       "ClassName": "ColdSpreadAoE",
-      "SkeletonDataID": "loren_skill_2_SkeletonData",
+      "AnimatorDataID": "loren_skill_2_SkeletonData",
       "SoundLabel": null,
       "Duration": 0.5,
       "AllyEffects": null,
       "EnemyEffects": [
         60011
       ],
-      "AnimName": "idle"
+      "AnimName": "idle",
+      "SortingLayerName": "Skill"
     },
     {
       "DataId": 80007,
       "Name": "ȭ���� AOE",
       "PrefabLabel": null,
       "ClassName": "ConeShapeAoE",
-      "SkeletonDataID": "owen_skill_1_SkeletonData",
+      "AnimatorDataID": "owen_skill_1_SkeletonData",
       "SoundLabel": null,
       "Duration": 1.0,
       "AllyEffects": null,
       "EnemyEffects": [
         60012
       ],
-      "AnimName": "skill_a_small"
+      "AnimName": "skill_a_small",
+      "SortingLayerName": "Skill"
     },
     {
       "DataId": 80008,
       "Name": "ȭ���� AOE",
       "PrefabLabel": null,
       "ClassName": "ConeShapeAoE",
-      "SkeletonDataID": "owen_skill_1_SkeletonData",
+      "AnimatorDataID": "owen_skill_1_SkeletonData",
       "SoundLabel": null,
       "Duration": 1.0,
       "AllyEffects": null,
       "EnemyEffects": [
         60013
       ],
-      "AnimName": "skill_a_normal"
+      "AnimName": "skill_a_normal",
+      "SortingLayerName": "Skill"
     },
     {
       "DataId": 80009,
       "Name": "ȭ���� AOE",
       "PrefabLabel": null,
       "ClassName": "ConeShapeAoE",
-      "SkeletonDataID": "owen_skill_1_SkeletonData",
+      "AnimatorDataID": "owen_skill_1_SkeletonData",
       "SoundLabel": null,
       "Duration": 1.0,
       "AllyEffects": null,
       "EnemyEffects": [
         60014
       ],
-      "AnimName": "skill_a_big"
+      "AnimName": "skill_a_big",
+      "SortingLayerName": "Skill"
     },
     {
       "DataId": 80010,
       "Name": "����ȭ���� AOE",
       "PrefabLabel": null,
       "ClassName": "CircleShapeAoE",
-      "SkeletonDataID": "owen_skill_2_SkeletonData",
+      "AnimatorDataID": "owen_skill_2_SkeletonData",
       "SoundLabel": null,
       "Duration": 1.0,
       "AllyEffects": null,
       "EnemyEffects": null,
-      "AnimName": "skill_b_small"
+      "AnimName": "skill_b_small",
+      "SortingLayerName": "Skill"
     },
     {
       "DataId": 80011,
       "Name": "����ȭ���� AOE",
       "PrefabLabel": null,
       "ClassName": "CircleShapeAoE",
-      "SkeletonDataID": "owen_skill_2_SkeletonData",
+      "AnimatorDataID": "owen_skill_2_SkeletonData",
       "SoundLabel": null,
       "Duration": 1.0,
       "AllyEffects": null,
       "EnemyEffects": null,
-      "AnimName": "skill_b_normal"
+      "AnimName": "skill_b_normal",
+      "SortingLayerName": "Skill"
     },
     {
       "DataId": 80012,
       "Name": "����ȭ���� AOE",
       "PrefabLabel": null,
       "ClassName": "CircleShapeAoE",
-      "SkeletonDataID": "owen_skill_2_SkeletonData",
+      "AnimatorDataID": "owen_skill_2_SkeletonData",
       "SoundLabel": null,
       "Duration": 1.0,
       "AllyEffects": null,
       "EnemyEffects": null,
-      "AnimName": "skill_b_big"
+      "AnimName": "skill_b_big",
+      "SortingLayerName": "Skill"
     },
     {
       "DataId": 80013,
       "Name": "������ ��Ÿ 1",
       "PrefabLabel": null,
       "ClassName": "CircleShapeAoE",
-      "SkeletonDataID": "veti_skill_1_SkeletonData",
+      "AnimatorDataID": "veti_skill_1_SkeletonData",
       "SoundLabel": null,
       "Duration": 0.0,
       "AllyEffects": null,
       "EnemyEffects": null,
-      "AnimName": "skill_a_small"
+      "AnimName": "skill_a_small",
+      "SortingLayerName": "Skill"
     },
     {
       "DataId": 80014,
       "Name": "������ ��Ÿ 2",
       "PrefabLabel": null,
       "ClassName": "CircleShapeAoE",
-      "SkeletonDataID": "veti_skill_1_SkeletonData",
+      "AnimatorDataID": "veti_skill_1_SkeletonData",
       "SoundLabel": null,
       "Duration": 0.0,
       "AllyEffects": null,
       "EnemyEffects": null,
-      "AnimName": "skill_a_normal"
+      "AnimName": "skill_a_normal",
+      "SortingLayerName": "Skill"
     },
     {
       "DataId": 80015,
       "Name": "������ ��Ÿ 3",
       "PrefabLabel": null,
       "ClassName": "CircleShapeAoE",
-      "SkeletonDataID": "veti_skill_1_SkeletonData",
+      "AnimatorDataID": "veti_skill_1_SkeletonData",
       "SoundLabel": null,
       "Duration": 0.0,
       "AllyEffects": null,
       "EnemyEffects": null,
-      "AnimName": "skill_a_big"
+      "AnimName": "skill_a_big",
+      "SortingLayerName": "Skill"
     },
     {
       "DataId": 80016,
       "Name": "������ �극�� 1",
       "PrefabLabel": null,
       "ClassName": "ConeShapeAoE",
-      "SkeletonDataID": "owen_skill_1_SkeletonData",
+      "AnimatorDataID": "owen_skill_1_SkeletonData",
       "SoundLabel": null,
       "Duration": 0.0,
       "AllyEffects": null,
       "EnemyEffects": [
         60012
       ],
-      "AnimName": "skill_a_small"
+      "AnimName": "skill_a_small",
+      "SortingLayerName": "Skill"
     },
     {
       "DataId": 80017,
       "Name": "������ �극�� 2",
       "PrefabLabel": null,
       "ClassName": "ConeShapeAoE",
-      "SkeletonDataID": "owen_skill_1_SkeletonData",
+      "AnimatorDataID": "owen_skill_1_SkeletonData",
       "SoundLabel": null,
       "Duration": 0.0,
       "AllyEffects": null,
       "EnemyEffects": [
         60013
       ],
-      "AnimName": "skill_a_normal"
+      "AnimName": "skill_a_normal",
+      "SortingLayerName": "Skill"
     },
     {
       "DataId": 80018,
       "Name": "������ �극�� 3",
       "PrefabLabel": null,
       "ClassName": "ConeShapeAoE",
-      "SkeletonDataID": "owen_skill_1_SkeletonData",
+      "AnimatorDataID": "owen_skill_1_SkeletonData",
       "SoundLabel": null,
       "Duration": 0.0,
       "AllyEffects": null,
       "EnemyEffects": [
         60014
       ],
-      "AnimName": "skill_a_big"
+      "AnimName": "skill_a_big",
+      "SortingLayerName": "Skill"
     },
     {
       "DataId": 80019,
       "Name": "�ǹ���Ÿ AoE",
       "PrefabLabel": null,
       "ClassName": "CircleShapeAoE",
-      "SkeletonDataID": "veti_skill_1_SkeletonData",
+      "AnimatorDataID": "veti_skill_1_SkeletonData",
       "SoundLabel": null,
       "Duration": 0.0,
       "AllyEffects": [
@@ -253,14 +271,15 @@
         61005
       ],
       "EnemyEffects": null,
-      "AnimName": "skill_a_small"
+      "AnimName": "skill_a_small",
+      "SortingLayerName": "Skill"
     },
     {
       "DataId": 80020,
       "Name": "�ǹ���Ÿ AoE",
       "PrefabLabel": null,
       "ClassName": "CircleShapeAoE",
-      "SkeletonDataID": "veti_skill_1_SkeletonData",
+      "AnimatorDataID": "veti_skill_1_SkeletonData",
       "SoundLabel": null,
       "Duration": 0.0,
       "AllyEffects": [
@@ -268,14 +287,15 @@
         61005
       ],
       "EnemyEffects": null,
-      "AnimName": "skill_a_normal"
+      "AnimName": "skill_a_normal",
+      "SortingLayerName": "Skill"
     },
     {
       "DataId": 80021,
       "Name": "�ǹ���Ÿ AoE",
       "PrefabLabel": null,
       "ClassName": "CircleShapeAoE",
-      "SkeletonDataID": "veti_skill_1_SkeletonData",
+      "AnimatorDataID": "veti_skill_1_SkeletonData",
       "SoundLabel": null,
       "Duration": 0.0,
       "AllyEffects": [
@@ -283,21 +303,23 @@
         61005
       ],
       "EnemyEffects": null,
-      "AnimName": "skill_a_big"
+      "AnimName": "skill_a_big",
+      "SortingLayerName": "Skill"
     },
     {
       "DataId": 80022,
       "Name": "Explosion",
       "PrefabLabel": "FireExplosionAoE",
       "ClassName": "FireExplosionAoE",
-      "SkeletonDataID": null,
+      "AnimatorDataID": null,
       "SoundLabel": null,
       "Duration": 1.0,
       "AllyEffects": null,
       "EnemyEffects": [
         60012
       ],
-      "AnimName": null
+      "AnimName": null,
+      "SortingLayerName": "Skill"
     }
   ]
 }

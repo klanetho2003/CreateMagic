@@ -50,6 +50,9 @@ public class ProjectileController : BaseController
         _onHit = onHit;
         TargetPosition = (owner.Target == null) ? (owner.GenerateSkillPosition - owner.CenterPosition).normalized * PROJECTILE_DISTANCE_MAX : owner.Target.CenterPosition;
 
+        // Size
+        Collider.radius = ProjectileData.ProjRange;
+
         // Rule
         Collider.excludeLayers = layer;
 

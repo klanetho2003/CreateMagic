@@ -1,10 +1,11 @@
 DataId,Name,ClassName,ComponentName,MaterialID,AnimatorDataID,PrefabLabel,Duration,HitSound,ProjRange,ProjSpeed,ReserveDestroyTime
 70001,DarkBall,Projectile,LinearMotion,CreatureDefaultMat,DarkBall_Animator,ProjectilePrefab,,,,10,5
-70002,FireBall,Projectile,LinearMotion,FireBall,FireBall_Animator,ProjectilePrefab,,,,5,5
+70002,FireBall,Projectile,LinearMotion,FireBall,FireBall_Animator,ProjectilePrefab,,,0.5,5,5
 70003,Impact,Projectile,,CreatureDefaultMat,CastingImpact01AnimController,ProjectilePrefab,,,,5,0.75
 70004,¸Íµ¶È®»ê2,PoisonSpreadProj,ParabolaMotion,,,ProjectilePrefab,,,,5,
 70005,¸Íµ¶È®»ê3,PoisonSpreadProj,ParabolaMotion,,,ProjectilePrefab,,,,5,
 70006,³Ã±â È®»ê1,ColdSpreadProj,ParabolaMotion,,,projectilePrefab,,,,5,
 70007,³Ã±â È®»ê2,ColdSpreadProj,ParabolaMotion,,,projectilePrefab,,,,5,
 70008,³Ã±â È®»ê3,ColdSpreadProj,ParabolaMotion,,,projectilePrefab,,,,5,
+80000,CastingImpact_01,Projectile,,CreatureDefaultMat,CastingImpact01AnimController,projectilePrefab,,,1,0,1
 80001,Impact,RangeSKill,,,,FireBall_Explosion.prefab,,,,,1
