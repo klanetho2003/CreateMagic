@@ -66,31 +66,8 @@ public class CastingImpact : SkillBase
     }
 
 
-
-
-
-
-
     public void InitSize()
     {
         _defaultSize = Vector3.one;
-    }
-
-    public void AfterTrigger(BaseController bc)
-    {
-        if (bc.IsValid() == false)
-            return;
-        if (Owner.IsValid() == false)
-            return;
-
-        if (bc.ObjectType != EObjectType.Creature)
-            return;
-
-        CreatureController cc = bc.GetComponent<CreatureController>();
-
-        cc.OnDamaged(Owner, this);
-
-        Vector3 dir = cc.transform.position - Owner.transform.position;
-        cc.MoveMonsterPosition(dir.normalized, _backSpeed, _moveDistance, () => { cc.CreatureState = Define.CreatureState.Moving; });
     }
 }

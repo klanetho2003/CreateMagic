@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -17,31 +18,26 @@ public class KnockBack : CCBase
     {
         base.ApplyEffect();
 
-        StopCoroutine((DoKnockBack(lastState)));
-        StartCoroutine(DoKnockBack(lastState));
+        StopCoroutine((DoKnockBack()));
+        StartCoroutine(DoKnockBack());
     }
 
-    // TODO
-    // 에어본 중에 또 에어본을 맞는 경우
-    // 에어본 중에 넉백 당하는 경우
-    // 넉백중에 에어본 하는 경우
-    IEnumerator DoKnockBack(CreatureState lastState)
+    public float moveDistance { get; private set; } = 0.0f;
+   
+    protected IEnumerator DoKnockBack()
     {
-        float journeyLength = EffectData.Amount;
-        float totalTime = journeyLength / EFFECT_KNOCKBACK_SPEED;
-        float elapsedTime = 0; // Count Time
-
-        Vector3 originalPosition = Owner.transform.position;
-        Vector3 DestPosition = (originalPosition - Skill.Owner.transform.position).normalized * journeyLength;
-
-        while (elapsedTime < totalTime)
+        while (EffectData.Amount > moveDistance)
         {
-            elapsedTime += Time.deltaTime;
+            if (this.IsValid() == false)
+                yield break;
 
-            float normalizedTime = elapsedTime / totalTime;
-            Vector3 currentPos = Vector3.Lerp(originalPosition, DestPosition, normalizedTime);
-            Owner.transform.position = currentPos;
-            Owner.SetCellPos(Managers.Map.World2Cell(currentPos), false);
+            Vector3 dirNor = (Owner.transform.position - Skill.Owner.transform.position).normalized;
+            Vector3 newPos = transform.position + dirNor * EFFECT_KNOCKBACK_SPEED * Time.deltaTime;
+
+            Owner.RigidBody.MovePosition(newPos);
+            Owner.SetCellPos(Managers.Map.World2Cell(newPos), false);
+
+            moveDistance += EFFECT_KNOCKBACK_SPEED * Time.deltaTime;
 
             yield return null;
         }
@@ -49,6 +45,8 @@ public class KnockBack : CCBase
         // 넉백 상태가 끝난 후 상태 복귀
         if (Owner.CreatureState == CreatureState.Dameged)
             Owner.CreatureState = CreatureState.Idle;
+
+        moveDistance = 0.0f;
 
         ClearEffect(EEffectClearType.EndOfAirborne);
     }

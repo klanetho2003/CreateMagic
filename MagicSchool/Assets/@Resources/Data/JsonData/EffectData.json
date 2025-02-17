@@ -316,7 +316,7 @@
       "SortingLayerName": "Skill",
       "IconLabel": null,
       "SoundLabel": null,
-      "Amount": 1.0,
+      "Amount": 10.0,
       "PercentAdd": 0.0,
       "PercentMult": 0.0,
       "TickTime": 0.0,

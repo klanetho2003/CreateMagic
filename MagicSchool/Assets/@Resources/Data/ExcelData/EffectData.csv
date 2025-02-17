@@ -15,7 +15,7 @@ DataId,Name,ClassName,Description,AnimatorDataID,AnimName,MaterialID,SpriteID,So
 61009,받는피해버프,ReduceDmgBuff,Amount + percent,,,,,Skill,,,0.3,0,0,1,5,Buff
 61010,받는피해디버프,ReduceDmgBuff,Amount + percent,,,,,Skill,,,-0.3,0,0,1,5,Debuff
 61011,가시,ThornsBuff,총 데미지의 몇퍼만큼 데미지 반사,,,,,Skill,,,0.3,0,0,1,5,Debuff
-62001,넉백,KnockBack,한틱에 넉백(수치는 클라에서 조절),,,,,Skill,,,0.5,0,0,0,0,Debuff
+62001,넉백,KnockBack,한틱에 넉백(수치는 클라에서 조절),,,,,Skill,,,10,0,0,0,0,Debuff
 62002,에어본,Airborne,Duration동안 에어본,,,,,Skill,,,0,0,0,1,1,CrowdControl
 62003,땡기기,PullEffect,한틱당 조금씩 댕김,,,,,Skill,,,0,0,0,0.5,1,CrowdControl
 62004,스턴,Stun,Duration 동안 스턴,stun_SkeletonData,,,,Skill,,,0,0,0,1,2,CrowdControl

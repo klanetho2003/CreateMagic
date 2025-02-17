@@ -220,7 +220,7 @@ public static class Define
     public const float EFFECT_NORMAL_RADIUS = 2.5f;
     public const float EFFECT_BIG_RADIUS = 5.5f;
 
-    public const float EFFECT_KNOCKBACK_SPEED = 2f;
+    public const float EFFECT_KNOCKBACK_SPEED = 50f;
 
     public const int MONSTER_DEFAULT_MELEE_ATTACK_RANGE = 1;
     public const int MONSTER_DEFAULT_RANGED_ATTACK_RANGE = 3;
