@@ -63,7 +63,7 @@ public class PlayerSkillBook : BaseSkillBook
     Queue<int> _inputQueue = new Queue<int>(); // N 번째 값까지만 넣는 방법은 어떤가
     public Queue<int> InputQueue {  get { return _inputQueue; } }
 
-    public int ScaleMultiple_DefaultSkill { get; private set; } = SCALEMULTIPLE_DEFAULT_DEFAULTSKILL;
+    public int DefaultSkill_CastingStack { get; private set; } = 0;
 
     KeyDownEvent _currentCommand;
     public KeyDownEvent Command
@@ -123,17 +123,17 @@ public class PlayerSkillBook : BaseSkillBook
                 case KeyDownEvent.A:
                     //castingImpact.InitSize();
                     _owner.CreatureState = TryDoSkill();
-                    ScaleMultiple_DefaultSkill = SCALEMULTIPLE_DEFAULT_DEFAULTSKILL;
+                    DefaultSkill_CastingStack = 0;
                     break;
                 case KeyDownEvent.S:
                     //castingImpact.InitSize();
                     _owner.CreatureState = TryDoSkill();
-                    ScaleMultiple_DefaultSkill = SCALEMULTIPLE_DEFAULT_DEFAULTSKILL;
+                    DefaultSkill_CastingStack = 0;
                     break;
                 case KeyDownEvent.D:
                     //castingImpact.InitSize();
                     _owner.CreatureState = TryDoSkill();
-                    ScaleMultiple_DefaultSkill = SCALEMULTIPLE_DEFAULT_DEFAULTSKILL;
+                    DefaultSkill_CastingStack = 0;
                     break;
 
                 #endregion
@@ -148,7 +148,7 @@ public class PlayerSkillBook : BaseSkillBook
     {
         DefaultSkill.ActivateSkill();
 
-        ScaleMultiple_DefaultSkill++;
+        DefaultSkill_CastingStack++;
     }
 
     CreatureState TryDoSkill()

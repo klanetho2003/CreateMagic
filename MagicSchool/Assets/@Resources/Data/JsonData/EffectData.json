@@ -529,15 +529,15 @@
       "PercentAdd": 0.05,
       "PercentMult": 0.0,
       "TickTime": 1.0,
-      "TickCount": 5.0,
+      "TickCount": 3.0,
       "EffectType": 1
     },
     {
       "DataId": 60013,
       "Name": "ȭ��2",
-      "ClassName": "DotBase",
+      "ClassName": "Burn",
       "DescriptionTextID": "��ƽ�� �ִ�ü�� 1% ��Ʈ�� 5������",
-      "AnimatorDataID": "debuff_burning_SkeletonData",
+      "AnimatorDataID": "Burning_Animator",
       "AnimName": null,
       "MaterialID": null,
       "SpriteID": null,
@@ -548,7 +548,7 @@
       "PercentAdd": 0.05,
       "PercentMult": 0.0,
       "TickTime": 1.0,
-      "TickCount": 5.0,
+      "TickCount": 6.0,
       "EffectType": 1
     },
     {

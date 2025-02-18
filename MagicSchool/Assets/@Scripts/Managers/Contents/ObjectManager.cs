@@ -204,6 +204,8 @@ public class ObjectManager // ID 부여하는 함수, Object들 들고 있는 등
                 float dot = Vector3.Dot((targetPos - owner.transform.position).normalized, dir.normalized);
                 float degree = Mathf.Rad2Deg * Mathf.Acos(dot);
 
+                Debug.Log($"degree : {degree}, angleRange / 2f : {angleRange / 2f}");
+
                 if (degree > angleRange / 2f)
                     continue;
             }

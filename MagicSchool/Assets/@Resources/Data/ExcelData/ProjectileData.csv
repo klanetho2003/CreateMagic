@@ -8,4 +8,4 @@ DataId,Name,ClassName,ComponentName,MaterialID,AnimatorDataID,PrefabLabel,Durati
 70007,³Ã±â È®»ê2,ColdSpreadProj,ParabolaMotion,,,projectilePrefab,,,,5,
 70008,³Ã±â È®»ê3,ColdSpreadProj,ParabolaMotion,,,projectilePrefab,,,,5,
 80000,CastingImpact_01,Projectile,,CreatureDefaultMat,CastingImpact01AnimController,projectilePrefab,,,1,0,1
-80001,Impact,RangeSKill,,,,FireBall_Explosion.prefab,,,,,1
+80001,FireBreath_01,Projectile,,CreatureDefaultMat,FireBreath01AnimController,projectilePrefab,,,1,0,0.5

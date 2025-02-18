@@ -27,7 +27,7 @@ public class AreaSkillBase : SkillBase
         }
         else
         {
-            _skillDir = Owner.CenterPosition;
+            _skillDir = (Owner.GenerateSkillPosition - Owner.CenterPosition).normalized;
         }
         
     }
@@ -64,7 +64,7 @@ public class AreaSkillBase : SkillBase
 
     protected override void OnAttackEvent()
     {
-        // Damage 범위 판정
+        // Damage w범위 판정
         float radius = Utils.GetEffectRadius(SkillData.EffectSize);
         List<CreatureController> targets = Managers.Object.FindConeRangeTargets(Owner, _skillDir, radius, _angleRange);
 

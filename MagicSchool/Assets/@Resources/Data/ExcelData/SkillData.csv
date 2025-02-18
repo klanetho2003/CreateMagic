@@ -5,5 +5,6 @@ DataId,Name,ClassName,Description,ProjectileId,PrefabLabel,IconLabel,AnimName,Co
 10004,AreaImpact,AreaImpact,보스 원형 공격,0,SpellIndicator,,AreaImpact,5,1,1.8,0.5,,3,1,20,62002,,,CircleNormal,,
 10005,,,,,,,,,,,,,,,,,,,,,
 10006,돌진,Dash,돌진,0,SpellIndicator,,attack,7,1,2,2,,3,1,20,,,,,,
-171,FireBall,FireBall,To Do,70002,ProjectilePrefab,,NormalAttack,1.2,20,1.1,0,EnergyBolt_Start,0,0,20,,,80022,CircleSmall,0,0
-90001,CastingImpact,CastingImpact,주변 적을 튕겨낸다,80000,ProjectilePrefab,,Casting,0,1,0,0,,,3,,62001,,,CircleSmall,0,0
+90001,CastingImpact,CastingImpact,주변 적을 튕겨낸다,80000,ProjectilePrefab,,Casting,0,1,0,0,,,0.5,,62001,,,CircleSmall,0,0
+171,FireBall,FireBall,전방으로 화염구를 던진다,70002,ProjectilePrefab,,NormalAttack,1.2,20,1.1,0,EnergyBolt_Start,0,0,20,,,80022,CircleSmall,0,0
+1892,FireBreath,FireBreath,전방 다수에 적에게 화염을 뿌린다,80001,ProjectilePrefab,,NormalAttack,0,1,0.5,0,,0,0,,62001&60013,,,CircleNormal,,

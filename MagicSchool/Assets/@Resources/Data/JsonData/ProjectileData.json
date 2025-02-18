@@ -128,17 +128,17 @@
     },
     {
       "DataId": 80001,
-      "Name": "Impact",
-      "ClassName": "RangeSKill",
+      "Name": "FireBreath_01",
+      "ClassName": "Projectile",
       "ComponentName": null,
-      "MaterialID": null,
-      "AnimatorDataID": null,
-      "PrefabLabel": "FireBall_Explosion.prefab",
+      "MaterialID": "CreatureDefaultMat",
+      "AnimatorDataID": "FireBreath01AnimController",
+      "PrefabLabel": "projectilePrefab",
       "Duration": 0.0,
       "HitSound": 0.0,
-      "ProjRange": 0.0,
+      "ProjRange": 1.0,
       "ProjSpeed": 0.0,
-      "ReserveDestroyTime": 1.0
+      "ReserveDestroyTime": 0.5
     }
   ]
 }

@@ -71,10 +71,11 @@ MonoBehaviour:
     m_SerializedLabels:
     - PreLoad
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 5f3b82f530c24dd48961a1d428ed91d8
-    m_Address: Burning_Animator
+  - m_GUID: 25449c53d4b03634f90a9d8a10d2bd99
+    m_Address: FireBreath01AnimController
     m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - PreLoad
     FlaggedDuringContentUpdateRestriction: 0
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 75ee46cc5156e824ebaac0c11ee626a5, type: 2}
