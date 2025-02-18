@@ -6,4 +6,4 @@ DataId,Name,ClassName,Description,ProjectileId,PrefabLabel,IconLabel,AnimName,Co
 10005,,,,,,,,,,,,,,,,,,,,,
 10006,돌진,Dash,돌진,0,SpellIndicator,,attack,7,1,2,2,,3,1,20,,,,,,
 171,FireBall,FireBall,To Do,70002,ProjectilePrefab,,NormalAttack,1.2,20,1.1,0,EnergyBolt_Start,0,0,20,,,80022,CircleSmall,0,0
-90001,CastingImpact,CastingImpact,주변 적을 튕겨낸다,80000,ProjectilePrefab,,Casting,0,1,0,0,,,,,62001,,,,0,0
+90001,CastingImpact,CastingImpact,주변 적을 튕겨낸다,80000,ProjectilePrefab,,Casting,0,1,0,0,,,3,,62001,,,CircleSmall,0,0

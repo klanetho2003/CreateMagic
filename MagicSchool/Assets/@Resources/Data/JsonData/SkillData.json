@@ -185,7 +185,7 @@
       "AnimImpactDuration": 0.0,
       "CastingSound": null,
       "SkillRange": 0.0,
-      "ScaleMultiplier": 0.0,
+      "ScaleMultiplier": 3.0,
       "TargetCount": 0,
       "EffectIds": [
         62001

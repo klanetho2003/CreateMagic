@@ -4,13 +4,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using static Define;
 
-public class CastingImpact : SkillBase
+public class CastingImpact : AreaSkillBase // Only Player
 {
-    // To Do : Data Pasing
-    Vector3 _defaultSize = Vector3.one;
-    float _moveDistance = 10f;
-    float _backSpeed = 30.0f;
-
     #region Init Method
     public override bool Init()
     {
@@ -22,52 +17,44 @@ public class CastingImpact : SkillBase
     }
     #endregion
 
-    ProjectileController projectile;
+    PlayerController _pc;
 
     public override void SetInfo(CreatureController owner, int monsterSkillTemplateID)
     {
         base.SetInfo(owner, monsterSkillTemplateID);
+
+        _pc = Owner as PlayerController;
     }
 
     public override void ActivateSkill()
     {
-        if (Owner.CreatureType == ECreatureType.Monster && SkillData.AnimName != null)
+        if (Owner.CreatureType != ECreatureType.Student)
         {
-            Owner.Anim.Play(SkillData.AnimName, -1, 0f);
-            Owner.Skills.ActivateSkills.Remove(this);
-
-            //StartCoroutine(CoCountdownCooldown());
-
-            projectile = GenerateProjectile(Owner, Owner.GenerateSkillPosition, ProjectileOnHit);
-        }
-        else if (Owner.CreatureType == ECreatureType.Student)
-        {
-            PlayerController pc = Owner as PlayerController;
-            projectile = GenerateProjectile(Owner, pc.Shadow.position, ProjectileOnHit);
-        }
-    }
-
-    public void ProjectileOnHit(BaseController cc)
-    {
-        if (cc.IsValid() == false)
+            Debug.LogError("이 Skill은 오직 Player만 사용할 수 있도록 설계된 Skill 입니다. 개발자에게 문의하세요.");
             return;
+        }
 
-        cc.OnDamaged(Owner, this);
-    }
-
-    protected override void OnAttackTargetHandler()
-    {
-        base.OnAttackTargetHandler();
+        OnAttackEvent();
     }
 
     protected override void OnAttackEvent()
     {
-        
-    }
+        // Damage 범위
+        float radius = Utils.GetEffectRadius(SkillData.EffectSize) * _pc.PlayerSkills.ScaleMultiple_DefaultSkill;
 
+        // 보여주기용
+        ProjectileController _projectile = GenerateProjectile(_pc, _pc.transform.position);
+        _projectile.transform.localScale *= radius;
+        _projectile.Collider.radius = radius;
 
-    public void InitSize()
-    {
-        _defaultSize = Vector3.one;
+        List<CreatureController> targets = Managers.Object.FindConeRangeTargets(_pc, _skillDir, radius, _angleRange);
+
+        foreach (var target in targets)
+        {
+            if (target.IsValid())
+            {
+                target.OnDamaged(_pc, this);
+            }
+        }
     }
 }

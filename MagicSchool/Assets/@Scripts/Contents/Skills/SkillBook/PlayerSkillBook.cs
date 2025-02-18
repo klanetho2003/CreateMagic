@@ -8,8 +8,7 @@ using static Define;
 
 public class PlayerSkillBook : BaseSkillBook
 {
-    public Dictionary<int, SkillBase> SkillDict { get; } = new Dictionary<int, SkillBase>();
-
+    #region Init Method
     public override bool Init()
     {
         if (base.Init() == false)
@@ -17,6 +16,9 @@ public class PlayerSkillBook : BaseSkillBook
 
         return true;
     }
+    #endregion
+
+    public Dictionary<int, SkillBase> SkillDict { get; } = new Dictionary<int, SkillBase>();
 
     public override void AddSkill(int skillTemplateID, ESkillSlot skillSlot)
     {
@@ -57,10 +59,11 @@ public class PlayerSkillBook : BaseSkillBook
                 break;
         }
     }
-
     
     Queue<int> _inputQueue = new Queue<int>(); // N 번째 값까지만 넣는 방법은 어떤가
     public Queue<int> InputQueue {  get { return _inputQueue; } }
+
+    public int ScaleMultiple_DefaultSkill { get; private set; } = SCALEMULTIPLE_DEFAULT_DEFAULTSKILL;
 
     KeyDownEvent _currentCommand;
     public KeyDownEvent Command
@@ -80,19 +83,19 @@ public class PlayerSkillBook : BaseSkillBook
                 #region N1, N2, N3, N4
                 
                 case KeyDownEvent.N1:
-                    DefaultSkill.ActivateSkill();
+                    DoDefaultSkillAndSetCount();
                     _currentCommand = value;
                     break;
                 case KeyDownEvent.N2:
-                    DefaultSkill.ActivateSkill();
+                    DoDefaultSkillAndSetCount();
                     _currentCommand = value;
                     break;
                 case KeyDownEvent.N3:
-                    DefaultSkill.ActivateSkill();
+                    DoDefaultSkillAndSetCount();
                     _currentCommand = value;
                     break;
                 case KeyDownEvent.N4:
-                    DefaultSkill.ActivateSkill();
+                    DoDefaultSkillAndSetCount();
                     _currentCommand = value;
                     break;
 
@@ -101,16 +104,16 @@ public class PlayerSkillBook : BaseSkillBook
                 #region Q, W, E, R
 
                 case KeyDownEvent.Q:
-                    DefaultSkill.ActivateSkill();
+                    DoDefaultSkillAndSetCount();
                     break;
                 case KeyDownEvent.W:
-                    DefaultSkill.ActivateSkill();
+                    DoDefaultSkillAndSetCount();
                     break;
                 case KeyDownEvent.E:
-                    DefaultSkill.ActivateSkill();
+                    DoDefaultSkillAndSetCount();
                     break;
                 case KeyDownEvent.R:
-                    DefaultSkill.ActivateSkill();
+                    DoDefaultSkillAndSetCount();
                     break;
 
                 #endregion
@@ -120,14 +123,17 @@ public class PlayerSkillBook : BaseSkillBook
                 case KeyDownEvent.A:
                     //castingImpact.InitSize();
                     _owner.CreatureState = TryDoSkill();
+                    ScaleMultiple_DefaultSkill = SCALEMULTIPLE_DEFAULT_DEFAULTSKILL;
                     break;
                 case KeyDownEvent.S:
                     //castingImpact.InitSize();
                     _owner.CreatureState = TryDoSkill();
+                    ScaleMultiple_DefaultSkill = SCALEMULTIPLE_DEFAULT_DEFAULTSKILL;
                     break;
                 case KeyDownEvent.D:
                     //castingImpact.InitSize();
                     _owner.CreatureState = TryDoSkill();
+                    ScaleMultiple_DefaultSkill = SCALEMULTIPLE_DEFAULT_DEFAULTSKILL;
                     break;
 
                 #endregion
@@ -136,6 +142,13 @@ public class PlayerSkillBook : BaseSkillBook
                     break;
             }
         }
+    }
+
+    void DoDefaultSkillAndSetCount()
+    {
+        DefaultSkill.ActivateSkill();
+
+        ScaleMultiple_DefaultSkill++;
     }
 
     CreatureState TryDoSkill()

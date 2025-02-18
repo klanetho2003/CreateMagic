@@ -82,7 +82,8 @@ public class ProjectileController : BaseController
             return;
 
         // To Do
-        _onHit.Invoke(target);
+        if (_onHit != null)
+            _onHit.Invoke(target);
     }
 
     private IEnumerator CoReserveDestroy(float lifeTime)

@@ -9,10 +9,10 @@ public class PlayerController : CreatureController
 {
     float EnvCollectDist { get; set; } = 1.0f;
 
-    public PlayerSkillBook _playerSkills;
+    public PlayerSkillBook PlayerSkills { get; private set; }
     public override BaseSkillBook Skills
     {
-        get { return _playerSkills as BaseSkillBook; }
+        get { return PlayerSkills as BaseSkillBook; }
         protected set { base.Skills = value; }
     }
 
@@ -206,7 +206,7 @@ public class PlayerController : CreatureController
         if (CreatureState == CreatureState.DoSkill)
             return;
 
-        _playerSkills.Command = key;
+        PlayerSkills.Command = key;
     }
     #endregion
 
@@ -266,7 +266,7 @@ public class PlayerController : CreatureController
         });
 
         // Skill
-        _playerSkills = gameObject.GetOrAddComponent<PlayerSkillBook>();
+        PlayerSkills = gameObject.GetOrAddComponent<PlayerSkillBook>();
         Skills.SetInfo(this, CreatureData);
     }
 
@@ -293,8 +293,8 @@ public class PlayerController : CreatureController
 
     protected override void UpdateIdle()
     {
-        if (_playerSkills.InputQueue.Count > 0)
-            _playerSkills.InputQueue.Clear();
+        if (PlayerSkills.InputQueue.Count > 0)
+            PlayerSkills.InputQueue.Clear();
 
         if (_moveDir != Vector2.zero) { CreatureState = CreatureState.Moving; return; }
     }
