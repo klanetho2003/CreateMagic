@@ -178,6 +178,10 @@ public class MapManager
             {
                 Vector3Int tilePos = new Vector3Int(x, y, 0);
 
+                // Debug Temp
+                /*GameObject maker = Managers.Resource.Instantiate("PositionMaker_temp");
+                maker.transform.position = tilePos;*/
+
                 // 타입에 맞는 리스트 리턴
                 T obj = GetObject(tilePos) as T;
                 if (obj == null)

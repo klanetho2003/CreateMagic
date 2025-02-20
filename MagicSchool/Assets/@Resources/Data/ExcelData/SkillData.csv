@@ -8,3 +8,8 @@ DataId,Name,ClassName,Description,ProjectileId,PrefabLabel,IconLabel,AnimName,Co
 90001,CastingImpact,CastingImpact,주변 적을 튕겨낸다,80000,ProjectilePrefab,,Casting,0,1,0,0,,,0.5,,62001,,,CircleSmall,0,0
 171,FireBall,FireBall,전방으로 화염구를 던진다,70002,ProjectilePrefab,,NormalAttack,1.2,20,1.1,0,EnergyBolt_Start,0,0,20,,,80022,CircleSmall,0,0
 1892,FireBreath,FireBreath,전방 다수에 적에게 화염을 뿌린다,80001,ProjectilePrefab,,NormalAttack,0,1,0.5,0,,0,0,,62001&60013,,,CircleNormal,,
+,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,62001&60013,,,,,

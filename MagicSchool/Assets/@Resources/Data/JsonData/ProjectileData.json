@@ -130,7 +130,7 @@
       "DataId": 80001,
       "Name": "FireBreath_01",
       "ClassName": "Projectile",
-      "ComponentName": null,
+      "ComponentName": "LinearMotion",
       "MaterialID": "CreatureDefaultMat",
       "AnimatorDataID": "FireBreath01AnimController",
       "PrefabLabel": "projectilePrefab",

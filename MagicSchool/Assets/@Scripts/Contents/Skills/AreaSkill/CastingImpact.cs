@@ -47,7 +47,7 @@ public class CastingImpact : AreaSkillBase // Only Player
         _projectile.transform.localScale *= radius;
         _projectile.Collider.radius = radius;
 
-        List<CreatureController> targets = Managers.Object.FindConeRangeTargets(_pc, _skillDir, radius, _angleRange);
+        List<CreatureController> targets = Managers.Object.FindCircleRangeTargets(_pc, _pc.transform.position, radius);
 
         foreach (var target in targets)
         {

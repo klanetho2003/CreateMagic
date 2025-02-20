@@ -14,7 +14,7 @@ public abstract class SkillBase : MonoBehaviour // ½ºÅ³À» ½ºÆù > ActiveSkill ¹ßµ
     public float RemainCoolTime { get; set; }
 
     public Data.SkillData SkillData { get; protected set; }
-    public SkillBase LastSkill { get; protected set; }
+    public SkillBase CurrentSkill { get; protected set; }
 
     public virtual void SetInfo(CreatureController owner, int skillTemplateID)
     {
@@ -43,12 +43,14 @@ public abstract class SkillBase : MonoBehaviour // ½ºÅ³À» ½ºÆù > ActiveSkill ¹ßµ
         if (Owner.CreatureState != CreatureState.DoSkill)
             return;
 
-        if (LastSkill != this) // OnAttackEvent¸¦ ±¸µ¶ÇÏ°í ÀÖ´Â skillµéÀÌ ÀÏ°ý »ç¿ëµÇ´Â ¹®Á¦ ÇØ°á Temp
+        if (CurrentSkill != this) // OnAttackEvent¸¦ ±¸µ¶ÇÏ°í ÀÖ´Â skillµéÀÌ ÀÏ°ý »ç¿ëµÇ´Â ¹®Á¦ ÇØ°á Temp
             return;
 
         AnimatorStateInfo currentAnim = Owner.Anim.GetCurrentAnimatorStateInfo(0);
         if (currentAnim.IsName(SkillData.AnimName) || currentAnim.IsName($"{SkillData.AnimName}_LookDown_{Owner.LookDown}"))
             OnAttackEvent();
+
+        CurrentSkill = null;
     }
 
     protected abstract void OnAttackEvent();
@@ -74,7 +76,7 @@ public abstract class SkillBase : MonoBehaviour // ½ºÅ³À» ½ºÆù > ActiveSkill ¹ßµ
     public void ActivateSkillOrDelay()
     {
         float delaySeconds = SkillData.ActivateSkillDelay;
-        LastSkill = this;
+        CurrentSkill = this;
 
         if (delaySeconds == 0)
             ActivateSkill();

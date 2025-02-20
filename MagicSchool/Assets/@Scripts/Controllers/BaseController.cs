@@ -18,6 +18,7 @@ public class BaseController : MonoBehaviour
 
     public int DataTemplateID { get; set; }
 
+    #region Look Helpers
 
     bool _lookLeft = true;
     public bool LookLeft
@@ -43,7 +44,18 @@ public class BaseController : MonoBehaviour
 
     public void LookAtTarget(BaseController target)
     {
-        Vector2 dir = target.transform.position - transform.position;
+        Vector3 targetPos = target.transform.position;
+        LookAtTarget(targetPos);
+    }
+
+    public void LookAtTarget(Vector3 targetPos)
+    {
+        Vector2 dir = targetPos - transform.position;
+        LookAtTarget(dir);
+    }
+
+    public void LookAtTarget(Vector2 dir)
+    {
         if (dir.x < 0)
             LookLeft = true;
         else
@@ -59,6 +71,7 @@ public class BaseController : MonoBehaviour
         return new Vector3(0, 0, angle);
     }
 
+    #endregion
 
     #region Init & Disable
 
@@ -73,7 +86,7 @@ public class BaseController : MonoBehaviour
     {
         if (_init)
             return false;
-        
+
         Anim = GetComponent<Animator>();
         SpriteRenderer = GetComponent<SpriteRenderer>();
 
@@ -103,7 +116,7 @@ public class BaseController : MonoBehaviour
     #endregion
 
     #region FixedUpdate
-    
+
     void FixedUpdate()
     {
         FixedUpdateController();
@@ -189,6 +202,7 @@ public class BaseController : MonoBehaviour
     #region Map
     public bool LerpCellPosCompleted { get; protected set; }
 
+    [SerializeField]
     Vector3Int _cellPos;
     public Vector3Int CellPos
     {

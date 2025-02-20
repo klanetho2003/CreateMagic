@@ -8,7 +8,7 @@ public class FireBreath : AreaSkillBase
     {
         base.SetInfo(owner, skillTemplateID);
 
-        _angleRange = 90; // To Do Data Sheet
+        _angleRange = 120; // To Do Data Sheet
     }
 
     public override void ActivateSkill()
@@ -26,5 +26,13 @@ public class FireBreath : AreaSkillBase
         base.OnAttackEvent();
 
         ProjectileController _projectile = GenerateProjectile(Owner, Owner.GenerateSkillPosition);
+        Vector2 lookDir = (Owner.GenerateSkillPosition - Owner.CenterPosition)/*.normalized*/;
+        //_projectile.LookAtTarget(lookDir);
+
+        _projectile.transform.rotation = Quaternion.Euler(0, 0, Mathf.Atan2(lookDir.y, lookDir.x) * Mathf.Rad2Deg);
+
+
+        float radius = Utils.GetEffectRadius(SkillData.EffectSize);
+        _projectile.Collider.radius = radius;
     }
 }

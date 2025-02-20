@@ -543,6 +543,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 685b590e967c42b458f34819ee3bd914, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _cellPos: {x: 0, y: 0, z: 0}
 --- !u!156049354 &984791632
 Grid:
   m_ObjectHideFlags: 0

@@ -109,10 +109,10 @@ public class AoEBase : BaseController
 		Managers.Object.Despawn(this);
 	}
 
-	private void OnDrawGizmos()
+	/*private void OnDrawGizmos()
 	{
 		Gizmos.color = Color.green;
 		Gizmos.DrawWireSphere(transform.position, 3);
-	}
+	}*/
 
 }

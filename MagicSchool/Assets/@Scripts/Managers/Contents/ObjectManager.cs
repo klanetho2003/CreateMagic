@@ -168,6 +168,7 @@ public class ObjectManager // ID 부여하는 함수, Object들 들고 있는 등
 
     #region Skill 판정
 
+    // Player는 Indicator, Monster는 Center
     public List<CreatureController> FindConeRangeTargets(CreatureController owner, Vector3 dir, float range, int angleRange, bool isAllies = false)
     {
         HashSet<CreatureController> targets = new HashSet<CreatureController>();
@@ -177,12 +178,12 @@ public class ObjectManager // ID 부여하는 함수, Object들 들고 있는 등
 
         if (targetType == ECreatureType.Monster)
         {
-            var objs = Managers.Map.GatherObjects<MonsterController>(owner.transform.position, range, range);
+            var objs = Managers.Map.GatherObjects<MonsterController>(owner.GenerateSkillPosition, range, range);
             targets.AddRange(objs);
         }
         else if (targetType == ECreatureType.Student)
         {
-            var objs = Managers.Map.GatherObjects<PlayerController>(owner.transform.position, range, range);
+            var objs = Managers.Map.GatherObjects<PlayerController>(owner.GenerateSkillPosition, range, range);
             targets.AddRange(objs);
         }
 
@@ -190,7 +191,7 @@ public class ObjectManager // ID 부여하는 함수, Object들 들고 있는 등
         {
             // 1. 거리 안에 있는가?
             var targetPos = target.transform.position;
-            float distance = Vector3.Distance(targetPos, owner.transform.position);
+            float distance = Vector3.Distance(targetPos, owner.GenerateSkillPosition);
 
             if (distance > range)
                 continue;
@@ -201,10 +202,8 @@ public class ObjectManager // ID 부여하는 함수, Object들 들고 있는 등
                 BaseController ownerTarget = (owner as CreatureController).Target;
 
                 // 2. 부채꼴
-                float dot = Vector3.Dot((targetPos - owner.transform.position).normalized, dir.normalized);
+                float dot = Vector3.Dot((targetPos - owner.GenerateSkillPosition).normalized, dir.normalized);
                 float degree = Mathf.Rad2Deg * Mathf.Acos(dot);
-
-                Debug.Log($"degree : {degree}, angleRange / 2f : {angleRange / 2f}");
 
                 if (degree > angleRange / 2f)
                     continue;
@@ -237,7 +236,7 @@ public class ObjectManager // ID 부여하는 함수, Object들 들고 있는 등
         foreach (var target in targets)
         {
             // 1. 거리안에 있는지 확인
-            var targetPos = target.transform.position;
+            var targetPos = target.CenterPosition;
             float distSqr = (targetPos - startPos).sqrMagnitude;
 
             if (distSqr < range * range)
