@@ -15,13 +15,8 @@ MonoBehaviour:
   m_GroupName: Material_Skill
   m_Data:
     m_SerializedData: []
-  m_GUID: a3c8952f1d4de144ab4cde4d31d7b08c
+  m_GUID: 90d17c197aba412408f56905b0f103cf
   m_SerializeEntries:
-  - m_GUID: f3d0b0abb61ba834f816959f0bcec0b5
-    m_Address: BurnEffect
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: adb187127e27a264fa077a0788671c40
     m_Address: FireBall
     m_ReadOnly: 0
@@ -38,5 +33,5 @@ MonoBehaviour:
   m_Settings: {fileID: 11400000, guid: 75ee46cc5156e824ebaac0c11ee626a5, type: 2}
   m_SchemaSet:
     m_Schemas:
-    - {fileID: 11400000, guid: c89be68a585f340478b8d0ba29754ed9, type: 2}
-    - {fileID: 11400000, guid: 6d96412ac7e722349b29e53c34f1edc8, type: 2}
+    - {fileID: 11400000, guid: 36143d4ef07146445a065b3ceb289265, type: 2}
+    - {fileID: 11400000, guid: 7232a1f7f118c5942b52d7295c8fd052, type: 2}

@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 
 public class Burn : DotBase
@@ -17,6 +18,19 @@ public class Burn : DotBase
         base.ProcessDot();
     }
 
+    public override bool ClearEffect(Define.EEffectClearType clearType)
+    {
+        if (EffectComponent.BurnQueue.Count < 1)
+            return base.ClearEffect(clearType);
+
+        // New Burn Start
+        Burn burn = EffectComponent.BurnQueue.Dequeue() as Burn;
+        EffectComponent.ActiveEffects.Add(burn);
+        burn.ApplyEffect();
+
+        return base.ClearEffect(clearType);
+    }
+
     protected override void SetOwnerMaterial()
     {
         base.SetOwnerMaterial();
@@ -28,6 +42,9 @@ public class Burn : DotBase
 
     protected override void ResetOwnerMaterial()
     {
+        if (EffectComponent.BurnQueue.Count > 0)
+            return;
+
         base.ResetOwnerMaterial();
 
         Owner.SpriteRenderer.material.DisableKeyword("GLOW_ON");

@@ -216,6 +216,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8fa3578ccc2fdd842a132465188992a2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _cellPos: {x: 0, y: 0, z: 0}
   MaxHp:
     _value: 0
   Atk:

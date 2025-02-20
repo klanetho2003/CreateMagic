@@ -8,6 +8,7 @@ public class EffectBase : BaseController
 {
     public SkillBase Skill;
     public CreatureController Owner;
+    public EffectComponent EffectComponent { get { return Owner.Effects; } }
 	public EffectData EffectData;
 	public EEffectType EffectType;
 
@@ -104,9 +105,6 @@ public class EffectBase : BaseController
 	{
 		Debug.Log($"ClearEffect - {gameObject.name} {EffectData.ClassName} -> {clearType}");
 
-        // Owner에게 적용한 이상상태 시각 효과 초기화
-        SetMaterial();
-
         switch (clearType)
 		{
 			case EEffectClearType.TimeOut:
@@ -138,7 +136,7 @@ public class EffectBase : BaseController
 	{
 		float sumTime = 0f;
 
-		ProcessDot();
+		/*ProcessDot();*/ // Debuff가 걸리자마자 데미지를 줄 것인가?
 
 		while (Remains > 0)
 		{
@@ -156,7 +154,8 @@ public class EffectBase : BaseController
 		}
 
 		Remains = 0;
-		ClearEffect(EEffectClearType.TimeOut);
+        SetMaterial(); // Owner에게 적용한 이상상태 시각 효과 초기화
+        ClearEffect(EEffectClearType.TimeOut);
     }
 
     void SetMaterial()

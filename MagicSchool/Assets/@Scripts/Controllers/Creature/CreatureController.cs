@@ -176,7 +176,7 @@ public class CreatureController : BaseController
         CreatureState = CreatureState.Idle;
 
         // Effect
-        Effects = gameObject.AddComponent<EffectComponent>();
+        Effects = gameObject.GetOrAddComponent<EffectComponent>();
         Effects.SetInfo(this);
 
         // Map Move

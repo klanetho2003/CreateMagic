@@ -7,6 +7,7 @@ using static Define;
 public class EffectComponent : MonoBehaviour
 {
 	public List<EffectBase> ActiveEffects = new List<EffectBase>();
+	public Queue<EffectBase> BurnQueue = new Queue<EffectBase>();
 	private CreatureController _owner;
 
 	public void SetInfo(CreatureController Owner)
@@ -35,6 +36,17 @@ public class EffectComponent : MonoBehaviour
             effect.transform.parent = _owner.Effects.transform;
             effect.transform.localPosition = Vector2.zero;
             Managers.Object.Effects.Add(effect);
+
+            // Temp : Burn같은 친구들은 ElementalEffect를 상속 받는 것으로 다시 만들어야할 듯
+            if (className == "Burn")
+            {
+                BurnQueue.Enqueue(effect);
+                effect.SetInfo(id, _owner, spawnType, skill);
+
+                if (BurnQueue.Count > 1)
+                    continue;
+            }
+            //
 
             ActiveEffects.Add(effect);
             generatedEffects.Add(effect);
