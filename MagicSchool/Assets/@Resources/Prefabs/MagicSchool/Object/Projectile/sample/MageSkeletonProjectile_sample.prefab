@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 880101175587944340}
   - component: {fileID: 1635737771914403791}
   m_Layer: 0
-  m_Name: MageSkeletonProjectile
+  m_Name: MageSkeletonProjectile_sample
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

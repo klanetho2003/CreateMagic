@@ -10,13 +10,30 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
-  m_Name: Material_Effect
+  m_Name: Material_Skill
   m_EditorClassIdentifier: 
-  m_GroupName: Material_Effect
+  m_GroupName: Material_Skill
   m_Data:
     m_SerializedData: []
   m_GUID: a3c8952f1d4de144ab4cde4d31d7b08c
-  m_SerializeEntries: []
+  m_SerializeEntries:
+  - m_GUID: f3d0b0abb61ba834f816959f0bcec0b5
+    m_Address: BurnEffect
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: adb187127e27a264fa077a0788671c40
+    m_Address: FireBall
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - PreLoad
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: be954a0bf02187c438e40f4837337654
+    m_Address: FireBreath
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - PreLoad
+    FlaggedDuringContentUpdateRestriction: 0
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 75ee46cc5156e824ebaac0c11ee626a5, type: 2}
   m_SchemaSet:

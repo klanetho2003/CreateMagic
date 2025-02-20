@@ -42,8 +42,6 @@ public class KnockBack : CCBase
             yield return null;
         }
 
-        Owner.SetCellPos(Managers.Map.World2Cell(Owner.CellPos), true);
-
         // 넉백 상태가 끝난 후 상태 복귀
         if (Owner.CreatureState == CreatureState.Dameged)
             Owner.CreatureState = CreatureState.Idle;
