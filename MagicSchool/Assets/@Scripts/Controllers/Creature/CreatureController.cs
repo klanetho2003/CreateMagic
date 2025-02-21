@@ -213,6 +213,24 @@ public class CreatureController : BaseController
         return bc.IsValid();
     }
 
+    public virtual void SetRigidBodyVelocity(Vector2 velocity)
+    {
+        if (RigidBody == null)
+            return;
+
+        if (velocity.x < 0 && CreatureState != CreatureState.Casting)
+            LookLeft = true;
+        else if (velocity.x > 0 && CreatureState != CreatureState.Casting)
+            LookLeft = false;
+
+        if (velocity.y < 0)
+            LookDown = true;
+        else if (velocity.y > 0)
+            LookDown = false;
+
+        RigidBody.velocity = velocity;
+    }
+
     #endregion
 
     #region Battle

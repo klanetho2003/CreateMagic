@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
@@ -49,6 +50,8 @@ public class PlayerController : CreatureController
 
             _moveDir = value.normalized;
 
+            if (CreatureState == CreatureState.Casting)
+                return;
             UpdateAnimation();
         }
     }
@@ -308,7 +311,7 @@ public class PlayerController : CreatureController
 
     protected override void UpdateCasting()
     {
-        MoveIndicator();
+        //MoveIndicator();
     }
 
     protected override void UpdateDoSkill()

@@ -140,24 +140,6 @@ public class BaseController : MonoBehaviour
     {
     }
 
-    public virtual void SetRigidBodyVelocity(Vector2 velocity)
-    {
-        if (RigidBody == null)
-            return;
-
-        if (velocity.x < 0)
-            LookLeft = true;
-        else if (velocity.x > 0)
-            LookLeft = false;
-
-        if (velocity.y < 0)
-            LookDown = true;
-        else if (velocity.y > 0)
-            LookDown = false;
-
-        RigidBody.velocity = velocity;
-    }
-
     public virtual void FlipX(bool flag)
     {
         if (Anim == null)
