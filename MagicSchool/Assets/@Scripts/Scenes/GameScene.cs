@@ -3,20 +3,47 @@ using System.Collections.Generic;
 using UnityEngine;
 using static Define;
 
-public class GameScene : MonoBehaviour
+public class GameScene : BaseScene
 {
-    void Start()
+    public override bool Init()
     {
-        Managers.Resource.LoadAllAsync<Object>("PreLoad", (key, count, totalCount) =>
-        {
-            Debug.Log($"{key} {count}/{totalCount}");
+        if (base.Init() == false)
+            return false;
 
-            if (count == totalCount)
-            {
-                StartLoaded();
-            }
-        });
-	}
+        SceneType = EScene.GameScene;
+
+        //Managers.UI.ShowSceneUI<UI_GameScene>();
+
+        var player = Managers.Object.Spawn<PlayerController>(Vector3.zero, MAGICION01_ID);
+
+        Managers.Map.LoadMap("@Map_Prototype_Inside");
+
+        Managers.Map.MoveTo(player, Vector3Int.zero);
+
+        /*Managers.Game.OnJamCountChanged -= HandleOnJamCountChanged;
+        Managers.Game.OnJamCountChanged += HandleOnJamCountChanged;
+        Managers.Game.OnKillCountChanged -= HandleOnKillCountChanged;
+        Managers.Game.OnKillCountChanged += HandleOnKillCountChanged;*/
+
+        return true;
+    }
+
+    public override void Clear()
+    {
+
+    }
+
+
+
+
+
+
+
+
+
+
+
+
 
     SpawningPool _spawningPool;
 
@@ -40,31 +67,7 @@ public class GameScene : MonoBehaviour
                         break;
                 }
             }
-            //Animation
         }
-    }
-
-    void StartLoaded()
-    {
-        //Data ½ÃÆ® Load
-        Managers.Data.Init();
-
-        
-        //Managers.UI.ShowSceneUI<UI_GameScene>();
-
-        var player = Managers.Object.Spawn<PlayerController>(Vector3.zero, MAGICION01_ID);
-        
-        Managers.Map.LoadMap("@Map_Prototype_Inside");
-        Managers.Map.MoveTo(player, Vector3Int.zero);
-
-        //_spawningPool = gameObject.GetOrAddComponent<SpawningPool>();
-
-        Camera.main.GetComponent<CameraController>().Target = player.gameObject;
-
-        Managers.Game.OnJamCountChanged -= HandleOnJamCountChanged;
-        Managers.Game.OnJamCountChanged += HandleOnJamCountChanged;
-        Managers.Game.OnKillCountChanged -= HandleOnKillCountChanged;
-        Managers.Game.OnKillCountChanged += HandleOnKillCountChanged;
     }
 
 

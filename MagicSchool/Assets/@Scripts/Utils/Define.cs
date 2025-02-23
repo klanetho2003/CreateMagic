@@ -4,6 +4,13 @@ using UnityEngine;
 
 public static class Define
 {
+    public enum EScene
+    {
+        Unknown,
+        TitleScene,
+        GameScene,
+    }
+
     public enum EObjectType
     {
         None,

@@ -18,8 +18,8 @@ public class UI_SkillSelectPopup : UI_Popup
         if (base.Init() == false)
             return false;
 
-        BindObject(typeof(GameObjects));
-        _grid = GetGameObject((int)GameObjects.SkillCardSelectListObject).transform;
+        BindObjects(typeof(GameObjects));
+        _grid = GetObject((int)GameObjects.SkillCardSelectListObject).transform;
 
         PopulateGrid();//그리드는 채워줄 함수
 

@@ -44,19 +44,19 @@ public class UI_SkillCardItem : UI_Base
         if (base.Init() == false)
             return false;
 
-        BindText(typeof(Texts));
-        BindImage(typeof(Images));
-        BindObject(typeof(GameObjects));
+        BindTexts(typeof(Texts));
+        BindImages(typeof(Images));
+        BindObjects(typeof(GameObjects));
 
         cardNameText = GetText((int)Texts.CardNameText);
         skillDescriptionText = GetText((int)Texts.SkillDescriptionText);
         skillImage = GetImage((int)Images.SkillImage);
-        skillCardBackgroundImage = GetGameObject((int)GameObjects.SkillCardBackgroundImage);
+        skillCardBackgroundImage = GetObject((int)GameObjects.SkillCardBackgroundImage);
 
         RefreshTexts();
         skillImage.sprite = Managers.Resource.Load<Sprite>("EgoSwordIcon_01.sprite");
 
-        BindEvent(skillCardBackgroundImage.gameObject, () =>
+        BindEvent(skillCardBackgroundImage.gameObject, (Event) =>
         {
             //Managers.Game.Player.Skills.AddSkill<EgoSword>(/*transform.position*/);
             Managers.UI.ClosePopUp();

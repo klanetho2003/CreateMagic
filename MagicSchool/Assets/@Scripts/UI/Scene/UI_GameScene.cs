@@ -22,7 +22,7 @@ public class UI_GameScene : UI_Scene
             return false;
 
         #region ObjectBind
-        BindText(typeof(Texts));
+        BindTexts(typeof(Texts));
         Bind<Slider>(typeof(Sliders));
         #endregion
 
