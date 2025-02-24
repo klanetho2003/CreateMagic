@@ -16,6 +16,7 @@ public class MapManager
 
     // (CellPos, BaseController)
     Dictionary<Vector3Int, BaseController> _cells = new Dictionary<Vector3Int, BaseController>();
+    public StageTransition StageTransition;
 
     private int MinX;
     private int MaxX;
@@ -34,6 +35,8 @@ public class MapManager
         GameObject map = Managers.Resource.Instantiate(mapName);
         map.transform.position = Vector3.zero;
         map.name = $"@Map_{mapName}";
+
+        StageTransition = map.GetComponent<StageTransition>();
 
         Map = map;
         MapName = mapName;

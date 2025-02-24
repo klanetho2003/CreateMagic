@@ -9,9 +9,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: afdc0ee9919def148a724e20b25fd2a9, type: 3}
+  m_Script: {fileID: 0}
   m_Name: 202005_MageSkeleton-RustyShield
-  m_EditorClassIdentifier: 
+  m_EditorClassIdentifier: Assembly-CSharp::CustomTile
   m_Sprite: {fileID: 855613230, guid: 935a3b88fce92f24eb95a8299810b0d7, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_Transform:

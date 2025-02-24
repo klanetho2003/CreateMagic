@@ -49,7 +49,7 @@ public class Stage : MonoBehaviour
         if (TilemapObject == null)
             Debug.LogError("TilemapObject must be assigned in the inspector.", this);
         
-        TilemapTerrain = Utils.FindChild<Tilemap>(gameObject, "Terrain_01", true);
+        TilemapTerrain = Utils.FindChild<Tilemap>(gameObject, "Tilemap_floor", true);
         SaveSpawnInfos();
     }
 
@@ -66,8 +66,8 @@ public class Stage : MonoBehaviour
 
     public void LoadStage()
     {
-        if (IsActive)
-            return;
+        /*if (IsActive)
+            return;*/
 
         IsActive = true;
         gameObject.SetActive(true);
@@ -76,8 +76,8 @@ public class Stage : MonoBehaviour
 
     public void UnLoadStage()
     {
-        if (IsActive == false)
-            return;
+        /*if (IsActive == false)
+            return;*/
 
         IsActive = false;
         gameObject.SetActive(false);

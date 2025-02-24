@@ -344,6 +344,7 @@ public class PlayerController : CreatureController
 
         SetRigidBodyVelocity(destPos);
         Managers.Map.MoveTo(this, destCellPos);
+        Managers.Map.StageTransition.CheckMapChanged(destCellPos);
     }
 
     void MoveIndicator()

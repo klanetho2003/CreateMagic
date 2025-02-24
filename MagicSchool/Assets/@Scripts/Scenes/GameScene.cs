@@ -18,6 +18,7 @@ public class GameScene : BaseScene
 
         //Managers.Map.LoadMap("@Map_Prototype_Inside");
         Managers.Map.LoadMap("BaseMap");
+        Managers.Map.StageTransition.SetInfo();
 
         Managers.Map.MoveTo(player, Vector3Int.zero);
 
