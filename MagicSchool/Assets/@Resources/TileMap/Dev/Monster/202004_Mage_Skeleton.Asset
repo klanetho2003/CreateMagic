@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: afdc0ee9919def148a724e20b25fd2a9, type: 3}
   m_Name: 202004_Mage_Skeleton
   m_EditorClassIdentifier: 
-  m_Sprite: {fileID: -823782870, guid: 4fcc519e127067e4a8ca8af6984c9c10, type: 3}
+  m_Sprite: {fileID: -823782870, guid: 399319152344716439012f1b8f65ee1c, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_Transform:
     e00: 1
@@ -35,5 +35,7 @@ MonoBehaviour:
   m_Flags: 1
   m_ColliderType: 1
   ObjectType: 2
-  DataTemplateID: 202004
+  DataId: 202004
   Name: Mage_Skeleton
+  isStartPos: 0
+  isWayPoint: 0

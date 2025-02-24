@@ -312,7 +312,7 @@ public class CreatureController : BaseController
             return EFindPathResult.Fail_LerpCell;
 
         // A*
-        List<Vector3Int> path = Managers.Map.FindPath(CellPos, destCellPos, maxDepth);
+        List<Vector3Int> path = Managers.Map.FindPath(this, CellPos, destCellPos, maxDepth);
         if (path.Count < 2)
             return EFindPathResult.Fail_NoPath;
 

@@ -105,7 +105,7 @@ public class MapManager
 
     public bool MoveTo(CreatureController obj, Vector3Int cellPos, bool forceMove = false)
     {
-        if (CanGo(cellPos) == false)
+        if (CanGo(obj, cellPos) == false)
             return false;
 
         // 기존 좌표에 있던 오브젝트를 삭제한다
@@ -186,7 +186,7 @@ public class MapManager
 
     public bool AddObject(BaseController obj, Vector3Int cellPos)
     {
-        if (CanGo(cellPos) == false)
+        if (CanGo(obj, cellPos) == false)
         {
             Debug.LogWarning($"AddObject Failed");
             return false;
@@ -203,12 +203,12 @@ public class MapManager
         return true;
     }
 
-    public bool CanGo(Vector3 worldPos, bool ignoreObjects = false, bool ignoreSemiWall = false)
+    public bool CanGo(BaseController self, Vector3 worldPos, bool ignoreObjects = false, bool ignoreSemiWall = false)
     {
-        return CanGo(World2Cell(worldPos), ignoreObjects, ignoreSemiWall);
+        return CanGo(self, World2Cell(worldPos), ignoreObjects, ignoreSemiWall);
     }
 
-    public bool CanGo(Vector3Int cellPos, bool ignoreObjects = false, bool ignoreSemiWall = false)
+    public bool CanGo(BaseController self, Vector3Int cellPos, bool ignoreObjects = false, bool ignoreSemiWall = false)
     {
         if (cellPos.x < MinX || cellPos.x > MaxX)
             return false;
@@ -268,7 +268,7 @@ public class MapManager
 		new Vector3Int(-1, 1, 0), // LU
 	};
 
-    public List<Vector3Int> FindPath(Vector3Int startCellPos, Vector3Int destCellPos, int maxDepth = 10)
+    public List<Vector3Int> FindPath(BaseController self, Vector3Int startCellPos, Vector3Int destCellPos, int maxDepth = 10)
     {
         // 지금까지 제일 좋은 후보 기록.
         Dictionary<Vector3Int, int> best = new Dictionary<Vector3Int, int>();
@@ -313,7 +313,7 @@ public class MapManager
                 Vector3Int next = pos + delta;
 
                 // 갈 수 없는 장소면 스킵.
-                if (CanGo(next) == false)
+                if (CanGo(self, next) == false)
                     continue;
 
                 // 예약 진행

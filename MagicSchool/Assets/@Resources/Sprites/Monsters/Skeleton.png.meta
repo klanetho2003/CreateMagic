@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 5c3c31b7b6ccde544a35e9bb488bea19
+guid: f78723dbe36a69a4cb82c97831f35010
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -43,7 +43,7 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 1
+  spriteMode: 2
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
@@ -111,7 +111,7 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 1
+    textureCompression: 0
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -121,7 +121,28 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
-    sprites: []
+    sprites:
+    - serializedVersion: 2
+      name: Skeleton
+      rect:
+        serializedVersion: 2
+        x: 62
+        y: 41
+        width: 96
+        height: 96
+      alignment: 9
+      pivot: {x: 0.5, y: 0.32}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 65abdf6dbb82ea24e8b1430288cdbac0
+      internalID: 909837547
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
@@ -132,7 +153,15 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      Skeleton: 909837547
+      Skeleton 1 - animations-idle_1: 1442033826
+      Skeleton 1 - animations-idle_2: -384955448
+      Skeleton 1 - animations-idle_3: 654441533
+      Skeleton 1 - animations-idle_4: 1716443300
+      Skeleton 1 - animations-idle_5: -807172598
+      Skeleton 1 - animations-idle_6: 1774093273
+      Skeleton 1 - animations-idle_7: 428136118
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

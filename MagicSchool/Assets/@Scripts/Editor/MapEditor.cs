@@ -55,24 +55,36 @@ public class MapEditor : MonoBehaviour
     [MenuItem("Tools/Create Object Tile Asset %#o")]
     public static void CreateObjectTile()
     {
-        // Monster
+        #region Monster
         Dictionary<int, Data.MonsterData> MonsterDic = LoadJson<Data.MonsterDataLoader, int, Data.MonsterData>("MonsterData").MakeDict();
         foreach (var data in MonsterDic.Values)
         {
+            /*if (data.DataId < 202000)
+                continue;*/
+
             CustomTile customTile = ScriptableObject.CreateInstance<CustomTile>();
             customTile.Name = data.DescriptionTextID;
-            customTile.DataTemplateID = data.DataId;
-            customTile.ObjectType = Define.EObjectType.Monster;
+            string spriteName = data.IconImage;
+            spriteName = spriteName.Replace(".sprite", "");
 
+            Sprite spr = AssetDatabase.LoadAssetAtPath<Sprite>($"Assets/@Resources/Sprites/Monsters/{spriteName}.png");
+            customTile.sprite = spr;
+            customTile.DataId = data.DataId;
+            customTile.ObjectType = Define.EObjectType.Monster;
             string name = $"{data.DataId}_{data.DescriptionTextID}";
             string path = "Assets/@Resources/TileMap/Dev/Monster";
             path = Path.Combine(path, $"{name}.Asset");
 
-            if (File.Exists(path))
+            if (path == "")
                 continue;
 
+            if (File.Exists(path))
+            {
+                continue;
+            }
             AssetDatabase.CreateAsset(customTile, path);
         }
+        #endregion
 
         // Env
         /*Dictionary<int, Data.EnvData> Env = LoadJson<Data.EnvDataLoader, int, Data.EnvData>("EnvData").MakeDict();

@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: afdc0ee9919def148a724e20b25fd2a9, type: 3}
   m_Name: 202003_SkeletonWithShield
   m_EditorClassIdentifier: 
-  m_Sprite: {fileID: -743760744, guid: a80ef5832a25e2a47a8b1c70b82fcafb, type: 3}
+  m_Sprite: {fileID: -743760744, guid: 445d35163c2b10d49bcfa17b6e199299, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_Transform:
     e00: 1
@@ -35,5 +35,7 @@ MonoBehaviour:
   m_Flags: 1
   m_ColliderType: 1
   ObjectType: 2
-  DataTemplateID: 202003
+  DataId: 202003
   Name: SkeletonWithShield
+  isStartPos: 0
+  isWayPoint: 0

@@ -6,7 +6,7 @@ using static Define;
 public class SpawningPool : MonoBehaviour
 {
     float _spawnInterval = 0.2f;
-    int _maxMonsterCount = 2;
+    // int _maxMonsterCount = 2;
     Coroutine _coUpdateSpawningPool;
 
     public bool Stopped { get; set; } = false;
@@ -26,32 +26,32 @@ public class SpawningPool : MonoBehaviour
     {
         while (true)
         {
-            TrySpawn();
+            //TrySpawn();
             yield return new WaitForSeconds(_spawnInterval);
         }
         
     }
 
-    void TrySpawn()
-    {
-        if (Stopped)
-            return;
-
-        int monsterCount = Managers.Object.Monsters.Count;
-        if (monsterCount >= _maxMonsterCount)
-            return;
-
-        // TEMP : DataID ?
-        //Vector3 ranPos = Utils.GenerateMonsterSpawnPosition(Managers.Game.Player.transform.position, 5, 10);
-        Vector3Int randCellPos = new Vector3Int(0 + Random.Range(-3,3), 0 + Random.Range(-3, 3), 0);
-        if (Managers.Map.CanGo(randCellPos) == false)
-            return;
-
-        MonsterController mc = Managers.Object.Spawn<MonsterController>(Vector3.zero, Random.Range(MONSTER_ASSASIN_ID, MONSTER_ASSASIN_ID + 1));
-        mc.SetCellPos(randCellPos, true);
-
-        // Value
-        mc.Hp = mc.MaxHp.BaseValue;
-        mc.CreatureState = Define.CreatureState.Moving;
-    }
+    //void TrySpawn()
+    //{
+    //    if (Stopped)
+    //        return;
+    //
+    //    int monsterCount = Managers.Object.Monsters.Count;
+    //    if (monsterCount >= _maxMonsterCount)
+    //        return;
+    //
+    //    // TEMP : DataID ?
+    //    //Vector3 ranPos = Utils.GenerateMonsterSpawnPosition(Managers.Game.Player.transform.position, 5, 10);
+    //    Vector3Int randCellPos = new Vector3Int(0 + Random.Range(-3,3), 0 + Random.Range(-3, 3), 0);
+    //    if (Managers.Map.CanGo(randCellPos) == false)
+    //        return;
+    //
+    //    MonsterController mc = Managers.Object.Spawn<MonsterController>(Vector3.zero, Random.Range(MONSTER_ASSASIN_ID, MONSTER_ASSASIN_ID + 1));
+    //    mc.SetCellPos(randCellPos, true);
+    //
+    //    // Value
+    //    mc.Hp = mc.MaxHp.BaseValue;
+    //    mc.CreatureState = Define.CreatureState.Moving;
+    //}
 }

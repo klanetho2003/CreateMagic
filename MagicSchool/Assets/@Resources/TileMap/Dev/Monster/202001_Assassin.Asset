@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: afdc0ee9919def148a724e20b25fd2a9, type: 3}
   m_Name: 202001_Assassin
   m_EditorClassIdentifier: 
-  m_Sprite: {fileID: 912874471, guid: eaf3ef0554f9f6e48a0183b887de72ba, type: 3}
+  m_Sprite: {fileID: 912874471, guid: fe55dd9403b6c5a4482387a7d98e5f91, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_Transform:
     e00: 1
@@ -35,5 +35,7 @@ MonoBehaviour:
   m_Flags: 1
   m_ColliderType: 1
   ObjectType: 2
-  DataTemplateID: 202001
+  DataId: 202001
   Name: Assassin
+  isStartPos: 0
+  isWayPoint: 0

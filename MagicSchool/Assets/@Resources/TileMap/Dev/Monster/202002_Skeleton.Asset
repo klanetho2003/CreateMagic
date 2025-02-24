@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: afdc0ee9919def148a724e20b25fd2a9, type: 3}
   m_Name: 202002_Skeleton
   m_EditorClassIdentifier: 
-  m_Sprite: {fileID: 909837547, guid: 63d7083d2b32dd74eb8fdc0a913971c8, type: 3}
+  m_Sprite: {fileID: 909837547, guid: f78723dbe36a69a4cb82c97831f35010, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_Transform:
     e00: 1
@@ -35,5 +35,7 @@ MonoBehaviour:
   m_Flags: 1
   m_ColliderType: 1
   ObjectType: 2
-  DataTemplateID: 202002
+  DataId: 202002
   Name: Skeleton
+  isStartPos: 0
+  isWayPoint: 0

@@ -68,12 +68,6 @@ MonoBehaviour:
     m_SerializedLabels:
     - PreLoad
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: b6473b8be2b60d246958e7b3e910d303
-    m_Address: '@Map_Prototype_Inside'
-    m_ReadOnly: 0
-    m_SerializedLabels:
-    - PreLoad
-    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 6bbff52b53e03f243ab8599cc356de3b
     m_Address: DamageFont
     m_ReadOnly: 0

@@ -41,18 +41,6 @@ MonoBehaviour:
     m_SerializedLabels:
     - PreLoad
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: d27d331d21fafff4a8b32926fdd5ea53
-    m_Address: PrototypeCollision
-    m_ReadOnly: 0
-    m_SerializedLabels:
-    - PreLoad
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 7e03c9d62211b97499e113f153498a21
-    m_Address: '@Map_Prototype_InsideCollision'
-    m_ReadOnly: 0
-    m_SerializedLabels:
-    - PreLoad
-    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 22c098d07beab31469461059266f29e8
     m_Address: EffectData
     m_ReadOnly: 0
@@ -61,6 +49,12 @@ MonoBehaviour:
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: aaf5ee81d453c0c44b26f3e617f41ccb
     m_Address: AoEData
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - PreLoad
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 9c36fa10d8b9539489b62f4db634d4fb
+    m_Address: BaseMapCollision
     m_ReadOnly: 0
     m_SerializedLabels:
     - PreLoad

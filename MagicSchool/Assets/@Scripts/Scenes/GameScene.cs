@@ -16,7 +16,8 @@ public class GameScene : BaseScene
 
         var player = Managers.Object.Spawn<PlayerController>(Vector3.zero, MAGICION01_ID);
 
-        Managers.Map.LoadMap("@Map_Prototype_Inside");
+        //Managers.Map.LoadMap("@Map_Prototype_Inside");
+        Managers.Map.LoadMap("BaseMap");
 
         Managers.Map.MoveTo(player, Vector3Int.zero);
 

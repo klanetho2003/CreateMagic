@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: afdc0ee9919def148a724e20b25fd2a9, type: 3}
   m_Name: 202005_MageSkeleton-RustyShield
   m_EditorClassIdentifier: 
-  m_Sprite: {fileID: -280264891, guid: 70ce73331193b1640b60b5709d3b8b07, type: 3}
+  m_Sprite: {fileID: 855613230, guid: 935a3b88fce92f24eb95a8299810b0d7, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_Transform:
     e00: 1
@@ -35,5 +35,7 @@ MonoBehaviour:
   m_Flags: 1
   m_ColliderType: 1
   ObjectType: 2
-  DataTemplateID: 202005
+  DataId: 202005
   Name: MageSkeleton-RustyShield
+  isStartPos: 0
+  isWayPoint: 0
