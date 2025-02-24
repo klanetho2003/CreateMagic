@@ -101,41 +101,6 @@ public class MapManager
 
         // TEMP
         //return;
-
-        for (int y = tm.cellBounds.yMax; y >= tm.cellBounds.yMin; y--)
-        {
-            for (int x = tm.cellBounds.xMin; x <= tm.cellBounds.xMax; x++)
-            {
-                Vector3Int cellPos = new Vector3Int(x, y, 0);
-                CustomTile tile = tm.GetTile(cellPos) as CustomTile;
-                if (tile == null)
-                    continue;
-
-                /*if (tile.ObjectType == Define.EObjectType.Env)
-                {
-                    Vector3 worldPos = Cell2World(cellPos);
-                    Env env = Managers.Object.Spawn<Env>(worldPos, tile.DataTemplateID);
-                    env.SetCellPos(cellPos, true);
-                }
-                else
-                {*/
-                    if (tile.CreatureType == Define.ECreatureType.Monster)
-                    {
-                        Vector3 worldPos = Cell2World(cellPos);
-                        MonsterController monster = Managers.Object.Spawn<MonsterController>(worldPos, tile.DataTemplateID);
-                        monster.SetCellPos(cellPos, true);
-
-                        // Value
-                        monster.Hp = monster.MaxHp.BaseValue;
-                        monster.CreatureState = Define.CreatureState.Moving;
-                    }
-                    /*else if (tile.CreatureType == Define.ECreatureType.Npc)
-                    {
-
-                    }*/
-                //}
-            }
-        }
     }
 
     public bool MoveTo(CreatureController obj, Vector3Int cellPos, bool forceMove = false)

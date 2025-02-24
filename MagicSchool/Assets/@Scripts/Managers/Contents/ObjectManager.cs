@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.AdaptivePerformance.Provider;
+using UnityEngine.LowLevel;
 using static Define;
 
 public class ObjectManager // ID 부여하는 함수, Object들 들고 있는 등
@@ -43,24 +45,20 @@ public class ObjectManager // ID 부여하는 함수, Object들 들고 있는 등
 
         BaseController obj = go.GetComponent<BaseController>();
 
-        if (obj.ObjectType == EObjectType.Creature)
+        if (obj.ObjectType == EObjectType.Student)
         {
-            CreatureController creature = go.GetComponent<CreatureController>();
-            switch (creature.CreatureType)
-            {
-                case ECreatureType.Student:
-                    // obj.transform.parent = PlayerRoot;
-                    PlayerController player = creature as PlayerController;
-                    Player = player;
-                    break;
-                case ECreatureType.Monster:
-                    // obj.transform.parent = MonsterRoot;
-                    MonsterController monster = creature as MonsterController;
-                    Monsters.Add(monster);
-                    break;
-            }
+            //obj.transform.parent = PlayerRoot;
+            PlayerController player = go.GetComponent<PlayerController>();
+            Player = player;
+            player.SetInfo(templateID);
 
-            creature.SetInfo(templateID);
+        }
+        else if (obj.ObjectType == EObjectType.Monster)
+        {
+            //obj.transform.parent = PlayerRoot;
+            MonsterController monster = go.GetComponent<MonsterController>();
+            Monsters.Add(monster);
+            monster.SetInfo(templateID);
         }
         else if (obj.ObjectType == EObjectType.ProjecTile)
         {
@@ -90,20 +88,17 @@ public class ObjectManager // ID 부여하는 함수, Object들 들고 있는 등
         if (obj.IsValid() == false)
             return;
 
-        if (obj.ObjectType == EObjectType.Creature)
+        EObjectType objectType = obj.ObjectType;
+
+        if (obj.ObjectType == EObjectType.Student)
         {
-            CreatureController creature = obj.GetComponent<CreatureController>();
-            switch (creature.CreatureType)
-            {
-                case ECreatureType.Student:
-                    PlayerController player = creature as PlayerController;
-                    Player = null;
-                    break;
-                case ECreatureType.Monster:
-                    MonsterController monster = creature as MonsterController;
-                    Monsters.Remove(monster);
-                    break;
-            }
+            PlayerController player = obj.GetComponent<PlayerController>();
+            Player = null;
+        }
+        else if (obj.ObjectType == EObjectType.Monster)
+        {
+            MonsterController monster = obj.GetComponent<MonsterController>();
+            Monsters.Remove(monster);
         }
         else if (obj.ObjectType == EObjectType.ProjecTile)
         {
@@ -174,14 +169,14 @@ public class ObjectManager // ID 부여하는 함수, Object들 들고 있는 등
         HashSet<CreatureController> targets = new HashSet<CreatureController>();
         HashSet<CreatureController> ret = new HashSet<CreatureController>();
 
-        ECreatureType targetType = Utils.DetermineTargetType(owner.CreatureType, isAllies);
+        EObjectType targetType = Utils.DetermineTargetType(owner.ObjectType, isAllies);
 
-        if (targetType == ECreatureType.Monster)
+        if (targetType == EObjectType.Monster)
         {
             var objs = Managers.Map.GatherObjects<MonsterController>(owner.GenerateSkillPosition, range, range);
             targets.AddRange(objs);
         }
-        else if (targetType == ECreatureType.Student)
+        else if (targetType == EObjectType.Student)
         {
             var objs = Managers.Map.GatherObjects<PlayerController>(owner.GenerateSkillPosition, range, range);
             targets.AddRange(objs);
@@ -220,14 +215,14 @@ public class ObjectManager // ID 부여하는 함수, Object들 들고 있는 등
         HashSet<CreatureController> targets = new HashSet<CreatureController>();
         HashSet<CreatureController> ret = new HashSet<CreatureController>();
 
-        ECreatureType targetType = Utils.DetermineTargetType(owner.CreatureType, isAllies);
+        EObjectType targetType = Utils.DetermineTargetType(owner.ObjectType, isAllies);
 
-        if (targetType == ECreatureType.Monster)
+        if (targetType == EObjectType.Monster)
         {
             var objs = Managers.Map.GatherObjects<MonsterController>(startPos/*owner.transform.position*/, range, range); // owner 기준에서 skill 기준으로 변경
             targets.AddRange(objs); 
         }
-        else if (targetType == ECreatureType.Student)
+        else if (targetType == EObjectType.Student)
         {
             var objs = Managers.Map.GatherObjects<PlayerController>(startPos/*owner.transform.position*/, range, range); // owner 기준에서 skill 기준으로 변경
             targets.AddRange(objs);

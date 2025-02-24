@@ -28,7 +28,7 @@ public class CastingImpact : AreaSkillBase // Only Player
 
     public override void ActivateSkill()
     {
-        if (Owner.CreatureType != ECreatureType.Student)
+        if (Owner.ObjectType != EObjectType.Student)
         {
             Debug.LogError("이 Skill은 오직 Player만 사용할 수 있도록 설계된 Skill 입니다. 개발자에게 문의하세요.");
             return;

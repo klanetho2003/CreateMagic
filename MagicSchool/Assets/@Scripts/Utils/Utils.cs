@@ -69,18 +69,18 @@ public class Utils
         return parseColor;
     }
 
-    public static ECreatureType DetermineTargetType(ECreatureType ownerType, bool findAllies)
+    public static EObjectType DetermineTargetType(EObjectType ownerType, bool findAllies)
     {
-        if (ownerType == ECreatureType.Student)
+        if (ownerType == EObjectType.Student)
         {
-            return findAllies ? ECreatureType.Student : ECreatureType.Monster;
+            return findAllies ? EObjectType.Student : EObjectType.Monster;
         }
-        if (ownerType == ECreatureType.Monster)
+        if (ownerType == EObjectType.Monster)
         {
-            return findAllies ? ECreatureType.Monster : ECreatureType.Student;
+            return findAllies ? EObjectType.Monster : EObjectType.Student;
         }
 
-        return ECreatureType.None;
+        return EObjectType.None;
     }
 
     public static float GetEffectRadius(EEffectSize size)

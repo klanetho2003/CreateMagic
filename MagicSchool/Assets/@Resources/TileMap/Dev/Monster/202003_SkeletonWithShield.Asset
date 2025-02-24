@@ -34,7 +34,6 @@ MonoBehaviour:
   m_InstancedGameObject: {fileID: 0}
   m_Flags: 1
   m_ColliderType: 1
-  ObjectType: 1
-  CreatureType: 2
+  ObjectType: 2
   DataTemplateID: 202003
   Name: SkeletonWithShield

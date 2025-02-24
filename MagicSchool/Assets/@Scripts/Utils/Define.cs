@@ -14,18 +14,12 @@ public static class Define
     public enum EObjectType
     {
         None,
-        Creature,
+        Student,
+        Monster,
+        Npc,
         ProjecTile,
         Env,
         Effect,
-    }
-
-    public enum ECreatureType
-    {
-        None,
-
-        Student,
-        Monster,
     }
 
     public enum ESkillType

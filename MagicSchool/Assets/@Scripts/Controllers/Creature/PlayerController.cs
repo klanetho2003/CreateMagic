@@ -218,7 +218,7 @@ public class PlayerController : CreatureController
         if (base.Init() == false)
             return false;
         
-        CreatureType = ECreatureType.Student;
+        ObjectType = EObjectType.Student;
 
         // Event
         Managers.Game.OnMoveDirChanged -= HandleOnMoveDirChange;
@@ -227,7 +227,7 @@ public class PlayerController : CreatureController
         Managers.Input.OnKeyDownHandler += HandleOnKeyDown;
 
         Collider.isTrigger = true;
-        //RigidBody.simulated = false;
+        // RigidBody.simulated = false;
 
         return true;
     }

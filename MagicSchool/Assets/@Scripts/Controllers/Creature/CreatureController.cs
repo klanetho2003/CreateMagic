@@ -72,7 +72,6 @@ public class CreatureController : BaseController
     public virtual Vector3 GenerateSkillPosition { get { return CenterPosition; } } // player override
 
     public Data.CreatureData CreatureData { get; private set; }
-    public ECreatureType CreatureType { get; protected set; } = ECreatureType.None;
 
     public EffectComponent Effects { get; set; }
 
@@ -126,7 +125,6 @@ public class CreatureController : BaseController
         Collider = gameObject.GetComponent<CircleCollider2D>();
         RigidBody = GetComponent<Rigidbody2D>();
 
-        ObjectType = EObjectType.Creature;
         CreatureState = CreatureState.Idle;
 
         return true;
@@ -136,7 +134,7 @@ public class CreatureController : BaseController
     {
         DataTemplateID = templateID;
 
-        if (CreatureType == ECreatureType.Student)
+        if (ObjectType == EObjectType.Student)
             CreatureData = Managers.Data.StudentDic[templateID];
         else
             CreatureData = Managers.Data.MonsterDic[templateID];

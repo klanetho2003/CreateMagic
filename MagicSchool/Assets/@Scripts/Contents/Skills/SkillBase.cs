@@ -90,7 +90,7 @@ public abstract class SkillBase : MonoBehaviour // 스킬을 스폰 > ActiveSkill 발�
     {
         Owner.CreatureState = CreatureState.DoSkill;
 
-        if (Owner.CreatureType == ECreatureType.Monster && SkillData.AnimName != null)
+        if (Owner.ObjectType == EObjectType.Monster && SkillData.AnimName != null)
         {
             Owner.Anim.Play(SkillData.AnimName, -1, 0f);
             Owner.Skills.ActivateSkills.Remove(this);
@@ -158,12 +158,12 @@ public abstract class SkillBase : MonoBehaviour // 스킬을 스폰 > ActiveSkill 발�
         excludeMask.AddLayer(ELayer.Env);
         excludeMask.AddLayer(ELayer.Obstacle);
 
-        switch (Owner.CreatureType)
+        switch (Owner.ObjectType)
         {
-            case ECreatureType.Student:
+            case EObjectType.Student:
                 excludeMask.AddLayer(ELayer.Student);
                 break;
-            case ECreatureType.Monster:
+            case EObjectType.Monster:
                 excludeMask.AddLayer(ELayer.Monster);
                 break;
         }

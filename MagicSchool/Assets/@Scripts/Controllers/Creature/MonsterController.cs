@@ -133,7 +133,7 @@ public class MonsterController : CreatureController
         if (base.Init() == false)
             return false; // 두 번 초기화하지 않도록 끊어주는 부분
 
-        CreatureType = ECreatureType.Monster;
+        ObjectType = EObjectType.Monster;
 
         return true;
     }
