@@ -57,3 +57,9 @@ TagManager:
   - name: Env
     uniqueID: 884693909
     locked: 0
+  - name: Npc
+    uniqueID: 2371264897
+    locked: 0
+  - name: UI
+    uniqueID: 2012338697
+    locked: 0

@@ -75,7 +75,7 @@ public class UIManager //Sort Order를 관리하기 위해 만든 클래스
         return sceneUI;
     }
 
-    public T ShowPopUI<T>(string name = null) where T : UI_Popup
+    public T ShowPopupUI<T>(string name = null) where T : UI_Popup
     {
         if (string.IsNullOrEmpty(name))
             name = typeof(T).Name;

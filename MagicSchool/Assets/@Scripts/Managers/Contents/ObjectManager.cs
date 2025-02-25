@@ -11,6 +11,7 @@ public class ObjectManager // ID 부여하는 함수, Object들 들고 있는 등
 {
     public PlayerController Player { get; private set; }
     public HashSet<MonsterController> Monsters { get; } = new HashSet<MonsterController>();
+    public HashSet<NpcController> Npcs { get; } = new HashSet<NpcController>();
     public HashSet<ProjectileController> Projectiles { get; } = new HashSet<ProjectileController>();
     public HashSet<EffectBase> Effects { get; } = new HashSet<EffectBase>();
     public HashSet<JamController> Jams { get; } = new HashSet<JamController>();
@@ -60,11 +61,16 @@ public class ObjectManager // ID 부여하는 함수, Object들 들고 있는 등
             Monsters.Add(monster);
             monster.SetInfo(templateID);
         }
+        else if (obj.ObjectType == EObjectType.Npc)
+        {
+            NpcController npc = go.GetComponent<NpcController>();
+            Npcs.Add(npc);
+            npc.SetInfo(templateID);
+        }
         else if (obj.ObjectType == EObjectType.ProjecTile)
         {
             ProjectileController projectile = go.GetComponent<ProjectileController>();
             Projectiles.Add(projectile);
-
             projectile.SetInfo(templateID);
         }
         else if (obj.ObjectType == EObjectType.Env)
@@ -99,6 +105,11 @@ public class ObjectManager // ID 부여하는 함수, Object들 들고 있는 등
         {
             MonsterController monster = obj.GetComponent<MonsterController>();
             Monsters.Remove(monster);
+        }
+        else if (obj.ObjectType == EObjectType.Npc)
+        {
+            NpcController npc = obj.GetComponent<NpcController>();
+            Npcs.Remove(npc);
         }
         else if (obj.ObjectType == EObjectType.ProjecTile)
         {

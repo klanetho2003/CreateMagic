@@ -44,7 +44,7 @@ public class MapManager
 
         ParseCollisionData(map, mapName);
 
-        SpawnObjectsByData(map, mapName);
+        // SpawnObjectsByData(map, mapName); // Stage∑Œ ¿Ãµø
     }
 
     public void DestroyMap()
@@ -93,17 +93,6 @@ public class MapManager
                 }
             }
         }
-    }
-
-    void SpawnObjectsByData(GameObject map, string mapName, string tilemap = "Tilemap_Object")
-    {
-        Tilemap tm = Utils.FindChild<Tilemap>(map, tilemap, true);
-
-        if (tm != null)
-            tm.gameObject.SetActive(false);
-
-        // TEMP
-        //return;
     }
 
     public bool MoveTo(CreatureController obj, Vector3Int cellPos, bool forceMove = false)

@@ -86,6 +86,29 @@ public class MapEditor : MonoBehaviour
         }
         #endregion
 
+        #region Npc
+        Dictionary<int, Data.NpcData> Npc = LoadJson<Data.NpcDataLoader, int, Data.NpcData>("NpcData").MakeDict();
+        foreach (var data in Npc.Values)
+        {
+        	CustomTile customTile = ScriptableObject.CreateInstance<CustomTile>();
+        	customTile.Name = data.Name;
+        	customTile.DataId = data.DataId;
+        	customTile.ObjectType = Define.EObjectType.Npc;
+        	string name = $"{data.DataId}_{data.Name}";
+            string path = "Assets/@Resources/TileMap/Dev/Npc";
+            path = Path.Combine(path, $"{name}.Asset");
+
+        	if (path == "")
+        		continue;
+
+        	if (File.Exists(path))
+        	{
+        		continue;
+        	}
+        	AssetDatabase.CreateAsset(customTile, path);
+        }
+        #endregion
+
         // Env
         /*Dictionary<int, Data.EnvData> Env = LoadJson<Data.EnvDataLoader, int, Data.EnvData>("EnvData").MakeDict();
         foreach (var data in Env.Values)

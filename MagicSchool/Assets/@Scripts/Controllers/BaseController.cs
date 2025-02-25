@@ -184,7 +184,6 @@ public class BaseController : MonoBehaviour
     #region Map
     public bool LerpCellPosCompleted { get; protected set; }
 
-    [SerializeField]
     Vector3Int _cellPos;
     public Vector3Int CellPos
     {

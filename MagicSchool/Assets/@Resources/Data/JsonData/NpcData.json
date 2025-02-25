@@ -1,0 +1,14 @@
+{
+  "creatures": [
+    {
+      "DataId": 500001,
+      "Name": "WayPoint",
+      "DescriptionTextID": null,
+      "NpcType": 2,
+      "PrefabLabel": "NpcPrefab",
+      "SpriteName": null,
+      "SortingLayerName": "Npc",
+      "AnimatorDataID": "Npc_Door_AnimController"
+    }
+  ]
+}
