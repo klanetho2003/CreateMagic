@@ -50,8 +50,6 @@ public class PlayerController : CreatureController
 
             _moveDir = value.normalized;
 
-            if (CreatureState == CreatureState.Casting)
-                return;
             UpdateAnimation();
         }
     }
@@ -311,7 +309,7 @@ public class PlayerController : CreatureController
 
     protected override void UpdateCasting()
     {
-        //MoveIndicator();
+        MoveIndicator();
     }
 
     protected override void UpdateDoSkill()
@@ -333,7 +331,7 @@ public class PlayerController : CreatureController
 
     protected override void FixedUpdateMoving()
     {
-        if (CreatureState != CreatureState.Moving && CreatureState != CreatureState.Casting)
+        if (CreatureState != CreatureState.Moving && CreatureState != CreatureState.Casting && CreatureState != CreatureState.FrontDelay)
         {
             SetRigidBodyVelocity(Vector3.zero); // To Do : ±Ê√£±‚
             return;

@@ -215,18 +215,20 @@ public class CreatureController : BaseController
     {
         if (RigidBody == null)
             return;
+        RigidBody.velocity = velocity;
 
-        if (velocity.x < 0 && CreatureState != CreatureState.Casting)
+        if (CreatureState != CreatureState.Moving && CreatureState != CreatureState.Casting)
+            return;
+
+        if (velocity.x < 0)
             LookLeft = true;
-        else if (velocity.x > 0 && CreatureState != CreatureState.Casting)
+        else if (velocity.x > 0)
             LookLeft = false;
 
         if (velocity.y < 0)
             LookDown = true;
         else if (velocity.y > 0)
             LookDown = false;
-
-        RigidBody.velocity = velocity;
     }
 
     #endregion

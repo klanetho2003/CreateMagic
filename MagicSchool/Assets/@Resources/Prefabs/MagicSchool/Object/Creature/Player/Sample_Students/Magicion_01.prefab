@@ -241,7 +241,6 @@ MonoBehaviour:
     _value: 0
   AttackSpeedRate:
     _value: 0
-  _playerSkills: {fileID: 0}
   _skillBook: {fileID: 0}
   _indicator: {fileID: 8168667114578815600}
   _fireSocket: {fileID: 5714248315554333730}
