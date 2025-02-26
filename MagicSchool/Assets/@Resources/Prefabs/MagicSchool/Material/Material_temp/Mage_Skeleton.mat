@@ -13,11 +13,8 @@ Material:
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords:
   - ATLAS_ON
-  - FADE_ON
   - GLOWLIGHT_ON
   - GLOWTEX_ON
-  - GLOW_ON
-  - OUTBASE_ON
   m_InvalidKeywords:
   - _GLOWAFFECTLIGHT_ON
   m_LightmapFlags: 4
@@ -167,9 +164,9 @@ Material:
     - _InnerOutlineGlow: 4
     - _InnerOutlineThickness: 1
     - _LitAmount: 1
-    - _MaxXUV: 0.07779765
-    - _MaxYUV: 0.5817595
-    - _MinXUV: 0.04206065
+    - _MaxXUV: 0.07441662
+    - _MaxYUV: 0.6090323
+    - _MinXUV: 0.04092429
     - _MinYUV: 0.31852782
     - _MotionBlurAngle: 0.1
     - _MotionBlurDist: 1.25

@@ -95,7 +95,7 @@
       "MaterialID": "Mage_Skeleton",
       "AnimatorDataID": "MageSkeleton_Animator",
       "SortingLayerName": "Monster",
-      "DefaultSkillId": 0,
+      "DefaultSkillId": 10002,
       "EnvSkillId": 0,
       "SkillAId": 0,
       "SkillBId": 0
@@ -120,7 +120,7 @@
       "MaterialID": "MageSkeleton-RustyShield",
       "AnimatorDataID": "MageSkeletonWithShield_Animator",
       "SortingLayerName": "Monster",
-      "DefaultSkillId": 0,
+      "DefaultSkillId": 10002,
       "EnvSkillId": 0,
       "SkillAId": 0,
       "SkillBId": 0

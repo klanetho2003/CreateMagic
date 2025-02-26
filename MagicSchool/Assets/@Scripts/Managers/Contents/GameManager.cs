@@ -69,7 +69,11 @@ public class GameManager
     public void TeleportPlayer(Vector3Int cellPos)
     {
         Vector3Int randCellPos = Managers.Game.GetNearbyPosition(Player, cellPos);
+
+        Player.Cam.enabled = false;
         Managers.Map.MoveTo(Player, randCellPos, forceMove: true);
+        Player.Cam.enabled = true;
+
 
         // Pet이 있을 경우 아래 코드로 변환
         /*foreach (var hero in Managers.Object.Heroes)

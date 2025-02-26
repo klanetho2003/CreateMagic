@@ -1,3 +1,4 @@
+using Cinemachine;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
@@ -17,24 +18,19 @@ public class PlayerController : CreatureController
         protected set { base.Skills = value; }
     }
 
-    #region SerializeField in Prefab
+    #region Child Init
 
-    [SerializeField]
-    Transform _skillBook;
-    [SerializeField]
     Transform _indicator;
-    [SerializeField]
     Transform _fireSocket;
-    [SerializeField]
     Transform _shadow;
-    [SerializeField]
     SpriteRenderer _stemp;
+    CinemachineVirtualCamera _cam;
 
-    public Transform SkillBook { get { return _skillBook; } }
     public Transform Shadow { get { return _shadow; } }
     public Transform Indicator { get { return _indicator; } }
     public Vector3 FireSocket { get { return _fireSocket.position; } }
     public Vector3 ShootDir { get { return (_fireSocket.position - _indicator.position).normalized; } }
+    public CinemachineVirtualCamera Cam { get { return _cam; } }
 
     #endregion
 
@@ -121,6 +117,7 @@ public class PlayerController : CreatureController
             case CreatureState.FrontDelay:
                 break;
             case CreatureState.DoSkill:
+                _stemp.flipX = !LookLeft;
                 break;
             case CreatureState.BackDelay:
                 break;
@@ -234,7 +231,14 @@ public class PlayerController : CreatureController
     {
         base.SetInfo(templateID);
 
-        _stemp = SpriteRenderer; // ?
+        #region Child Init
+        _stemp = Utils.FindChild<SpriteRenderer>(gameObject, "Stemp", true);
+        _stemp.enabled = false;
+        _indicator = Utils.FindChild<Transform>(gameObject, "Indicator", true);
+        _fireSocket = Utils.FindChild<Transform>(gameObject, "FireSocket", true);
+        _shadow = Utils.FindChild<Transform>(gameObject, "Shadow", true);
+        _cam = Utils.FindChild<CinemachineVirtualCamera>(gameObject, "Virtual Camera", true);
+        #endregion
 
         AnimationEventManager.BindEvent(this, () =>
         {

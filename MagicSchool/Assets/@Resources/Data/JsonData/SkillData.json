@@ -35,7 +35,7 @@
       "AnimName": "NormalAttack",
       "CoolTime": 1.2,
       "DamageMultiplier": 1.0,
-      "SkillDuration": 0.0,
+      "SkillDuration": 1.7,
       "AnimImpactDuration": 0.0,
       "CastingSound": "EnergyBolt_Start",
       "SkillRange": 0.0,
