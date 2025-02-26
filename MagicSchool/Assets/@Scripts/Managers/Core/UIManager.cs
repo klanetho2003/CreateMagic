@@ -56,7 +56,7 @@ public class UIManager //Sort Order를 관리하기 위해 만든 클래스
         if (string.IsNullOrEmpty(name))
             name = typeof(T).Name;
 
-        GameObject go = Managers.Resource.Instantiate($"{name}.prefab", parent, pooling);
+        GameObject go = Managers.Resource.Instantiate($"{name}", parent, pooling);
         go.transform.SetParent(parent);
         return go.GetOrAddComponent<T>();
     }
@@ -66,7 +66,7 @@ public class UIManager //Sort Order를 관리하기 위해 만든 클래스
         if (string.IsNullOrEmpty(name))
             name = typeof(T).Name;
 
-        GameObject go = Managers.Resource.Instantiate($"{name}.prefab");
+        GameObject go = Managers.Resource.Instantiate($"{name}");
         T sceneUI = go.GetOrAddComponent<T>();
         _sceneUI = sceneUI;
 
@@ -80,7 +80,7 @@ public class UIManager //Sort Order를 관리하기 위해 만든 클래스
         if (string.IsNullOrEmpty(name))
             name = typeof(T).Name;
 
-        GameObject go = Managers.Resource.Instantiate($"{name}.prefab");
+        GameObject go = Managers.Resource.Instantiate($"{name}");
         T popup = go.GetOrAddComponent<T>();
         _popupStack.Push(popup);
 
@@ -91,7 +91,7 @@ public class UIManager //Sort Order를 관리하기 위해 만든 클래스
         return popup;
     }
 
-    public void ClosePopUp(UI_Popup popup) // 매게변수 popup이 삭제가 되는 건지 확인하기 위한 용도
+    public void ClosePopupUI(UI_Popup popup) // 매게변수 popup이 삭제가 되는 건지 확인하기 위한 용도
     {
         if (_popupStack.Count == 0)
             return;
@@ -101,10 +101,10 @@ public class UIManager //Sort Order를 관리하기 위해 만든 클래스
             Debug.Log("Clone Popup Failed");
             return;
         }
-        ClosePopUp();
+        ClosePopupUI();
     }
 
-    public void ClosePopUp()
+    public void ClosePopupUI()
     {
         if (_popupStack.Count == 0)
             return;
@@ -120,7 +120,7 @@ public class UIManager //Sort Order를 관리하기 위해 만든 클래스
     public void CloseAllPopUpUI()
     {
         while (_popupStack.Count > 0)
-            ClosePopUp();
+            ClosePopupUI();
     }
 
     public void Clear()

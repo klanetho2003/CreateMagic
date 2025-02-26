@@ -38,4 +38,4 @@ MonoBehaviour:
   DataId: 500001
   Name: WayPoint
   isStartPos: 0
-  isWayPoint: 0
+  isWayPoint: 1

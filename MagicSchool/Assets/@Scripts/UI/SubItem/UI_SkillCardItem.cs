@@ -59,7 +59,7 @@ public class UI_SkillCardItem : UI_Base
         BindEvent(skillCardBackgroundImage.gameObject, (Event) =>
         {
             //Managers.Game.Player.Skills.AddSkill<EgoSword>(/*transform.position*/);
-            Managers.UI.ClosePopUp();
+            Managers.UI.ClosePopupUI();
         });
 
         return true;

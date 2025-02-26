@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class GameManager
 {
@@ -56,6 +57,49 @@ public class GameManager
             _killCount = value;
             OnKillCountChanged?.Invoke(value);
         }
+    }
+    #endregion
+
+    #region Teleport
+    public void TeleportPlayer(Vector3 position)
+    {
+        TeleportPlayer(Managers.Map.World2Cell(position));
+    }
+
+    public void TeleportPlayer(Vector3Int cellPos)
+    {
+        Vector3Int randCellPos = Managers.Game.GetNearbyPosition(Player, cellPos);
+        Managers.Map.MoveTo(Player, randCellPos, forceMove: true);
+
+        // Pet이 있을 경우 아래 코드로 변환
+        /*foreach (var hero in Managers.Object.Heroes)
+        {
+            Vector3Int randCellPos = Managers.Game.GetNearbyPosition(hero, cellPos);
+            Managers.Map.MoveTo(hero, randCellPos, forceMove: true);
+        }*/
+
+        /*Vector3 worldPos = Managers.Map.Cell2World(cellPos);
+        Managers.Object.Camp.ForceMove(worldPos);
+        Camera.main.transform.position = worldPos;*/
+    }
+    #endregion
+
+    #region Helper
+    public Vector3Int GetNearbyPosition(BaseController student, Vector3Int pivot, int range = 5)
+    {
+        int x = Random.Range(-range, range);
+        int y = Random.Range(-range, range);
+
+        for (int i = 0; i < 100; i++)
+        {
+            Vector3Int randCellPos = pivot + new Vector3Int(x, y, 0);
+            if (Managers.Map.CanGo(student, randCellPos))
+                return randCellPos;
+        }
+
+        Debug.LogError($"GetNearbyPosition Failed");
+
+        return Vector3Int.zero;
     }
     #endregion
 }
