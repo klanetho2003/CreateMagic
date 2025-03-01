@@ -1,7 +1,9 @@
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 using static Define;
+using static UnityEngine.AdaptivePerformance.Provider.AdaptivePerformanceSubsystemDescriptor;
 
 public struct ObjectSpawnInfo
 {
@@ -97,23 +99,41 @@ public class Stage : MonoBehaviour
             switch (info.ObjectType)
             {
                 case EObjectType.Monster:
-                    MonsterController monster = Managers.Object.Spawn<MonsterController>(worldPos, info.DataId);
-                    monster.SetCellPos(cellPos, true);
-                    _spawnObjects.Add(monster);
+                    StartSpawnDelay(worldPos, cellPos, info);
                     break;
                 case EObjectType.Npc:
                     NpcController npc = Managers.Object.Spawn<NpcController>(worldPos, info.DataId);
                     npc.SetCellPos(cellPos, true);
                     _spawnObjects.Add(npc);
                     break;
-                    /*case EObjectType.Env:
-                        Env env = Managers.Object.Spawn<Env>(worldPos, info.DataId);
-                        env.SetCellPos(cellPos, true);
-                        _spawnObjects.Add(env);
-                        break;*/
+                /*case EObjectType.Env:
+                    Env env = Managers.Object.Spawn<Env>(worldPos, info.DataId);
+                    env.SetCellPos(cellPos, true);
+                    _spawnObjects.Add(env);
+                    break;*/
             }
         }
     }
+    #region Start SpawnDelay
+    void StartSpawnDelay(Vector3 worldPos, Vector3Int cellPos, ObjectSpawnInfo info)
+    {
+        StartCoroutine(CoSpawnDelay(3, worldPos, cellPos, info));
+    }
+
+    IEnumerator CoSpawnDelay(float seconds, Vector3 worldPos, Vector3Int cellPos, ObjectSpawnInfo info)
+    {
+        GameObject go = Managers.Resource.Instantiate("PositionMaker_temp", pooling: true);
+        go.transform.position = worldPos;
+
+        yield return new WaitForSeconds(seconds);
+
+        Managers.Resource.Destroy(go);
+
+        MonsterController monster = Managers.Object.Spawn<MonsterController>(worldPos, info.DataId);
+        monster.SetCellPos(cellPos, true);
+        _spawnObjects.Add(monster);
+    }
+    #endregion
 
     private void DespawnObjects()
     {

@@ -129,11 +129,6 @@ public static class Define
     }
 
     public const string EXP_JAM_PREFAB = "EXPJam.prefab";
-    
-    public const string Fire_Ball_ID = "N1QA";
-    public const string CastingImapct_ID = "N1";
-    public const int EGO_SWORD_ID = 10;
-    public const string Spawner_ID = "_Generater";
 
     #region Creatrue ID
     public const int MAGICION01_ID = 201000;
