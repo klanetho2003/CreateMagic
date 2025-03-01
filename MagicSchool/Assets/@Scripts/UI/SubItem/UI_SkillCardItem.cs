@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -6,6 +7,8 @@ using UnityEngine.UI;
 
 public class UI_SkillCardItem : UI_Base
 {
+    #region Binding
+
     enum Texts
     {
         CardNameText,
@@ -31,6 +34,8 @@ public class UI_SkillCardItem : UI_Base
     Image skillImage;
 
     GameObject skillCardBackgroundImage;
+
+    #endregion
 
     public void SetInfo(int templateID)
     {
@@ -67,8 +72,8 @@ public class UI_SkillCardItem : UI_Base
 
     void RefreshTexts()
     {
-        cardNameText.text = "25년 행운 펀치";
-        skillDescriptionText.text = "25년은 뭐든 할 수 있게 된다.";
+        cardNameText.text = "멍멍멍";
+        skillDescriptionText.text = "몬헌 저는 태도할 예정입니다.";
     }
 
     public void OnClick() // ToDo

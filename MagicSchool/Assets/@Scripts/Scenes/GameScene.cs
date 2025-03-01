@@ -22,10 +22,12 @@ public class GameScene : BaseScene
 
         Managers.Map.MoveTo(player, Vector3Int.zero);
 
-        /*Managers.Game.OnJamCountChanged -= HandleOnJamCountChanged;
-        Managers.Game.OnJamCountChanged += HandleOnJamCountChanged;
+
         Managers.Game.OnKillCountChanged -= HandleOnKillCountChanged;
-        Managers.Game.OnKillCountChanged += HandleOnKillCountChanged;*/
+        Managers.Game.OnKillCountChanged += HandleOnKillCountChanged;
+
+        /*Managers.Game.OnJamCountChanged -= HandleOnJamCountChanged;
+        Managers.Game.OnJamCountChanged += HandleOnJamCountChanged;*/
 
         return true;
     }
@@ -33,6 +35,33 @@ public class GameScene : BaseScene
     public override void Clear()
     {
 
+    }
+
+    void HandleOnKillCountChanged(int killCount)
+    {
+        /*UI_GameScene uiGameScene = Managers.UI.SceneUI.GetComponent<UI_GameScene>();
+        uiGameScene.SetKillCount(killCount);*/
+
+        if (killCount == 1)
+        {
+            /*StageType = Define.StageType.Boss;
+
+            Managers.Object.DespawnAllMonsters();
+
+            Vector2 spawnPos = Utils.GenerateMonsterSpawnPosition(Managers.Game.Player.transform.position, 4, 8);*/
+            // Boss Spawn
+
+            Managers.UI.ShowPopupUI<UI_SkillSelectPopup>();
+        }
+    }
+
+    private void OnDestroy()
+    {
+        if (Managers.Game != null)
+        {
+            Managers.Game.OnJamCountChanged -= HandleOnJamCountChanged;
+            Managers.Game.OnKillCountChanged -= HandleOnKillCountChanged;
+        }
     }
 
 
@@ -88,30 +117,5 @@ public class GameScene : BaseScene
 
         UI_GameScene uiGameScene = Managers.UI.SceneUI.GetComponent<UI_GameScene>();
         uiGameScene.SetJamCountRatio((float)jamCount / _remainingTotalJamCount);
-    }
-
-    void HandleOnKillCountChanged(int killCount)
-    {
-        UI_GameScene uiGameScene = Managers.UI.SceneUI.GetComponent<UI_GameScene>();
-        uiGameScene.SetKillCount(killCount);
-
-        if (killCount == 15)
-        {
-            StageType = Define.StageType.Boss;
-
-            Managers.Object.DespawnAllMonsters();
-
-            Vector2 spawnPos = Utils.GenerateMonsterSpawnPosition(Managers.Game.Player.transform.position, 4, 8);
-            // Boss Spawn
-        }
-    }
-
-    private void OnDestroy()
-    {
-        if (Managers.Game != null)
-        {
-            Managers.Game.OnJamCountChanged -= HandleOnJamCountChanged;
-            Managers.Game.OnKillCountChanged -= HandleOnKillCountChanged;
-        }
     }
 }

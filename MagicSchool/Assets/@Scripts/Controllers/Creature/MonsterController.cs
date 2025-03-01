@@ -210,9 +210,9 @@ public class MonsterController : CreatureController
         Managers.Game.KillCount++;
 
         //죽을 떄 보석 스폰
-        JamController jc = Managers.Object.Spawn<JamController>(transform.position);
+        // JamController jc = Managers.Object.Spawn<JamController>(transform.position);
 
-        Managers.Object.Despawn(this);
+        // Managers.Object.Despawn(this);
     }
 
     #endregion

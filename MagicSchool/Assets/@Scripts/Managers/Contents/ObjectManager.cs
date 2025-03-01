@@ -126,6 +126,12 @@ public class ObjectManager // ID 부여하는 함수, Object들 들고 있는 등
             Effects.Remove(effect);
         }
 
+        // To Do : Pool 정상화
+        {
+            string poolName = typeof(T).Name;
+            obj.gameObject.name = poolName;
+        }
+
         Managers.Resource.Destroy(obj.gameObject);
 
         #region 구버전

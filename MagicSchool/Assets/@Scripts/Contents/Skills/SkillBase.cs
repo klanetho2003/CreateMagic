@@ -28,14 +28,7 @@ public abstract class SkillBase : MonoBehaviour // 스킬을 스폰 > ActiveSkill 발�
 
     private void OnDisable() // 게임 강종
     {
-        if (Managers.Game == null)
-            return;
-        if (Owner.IsValid() == false)
-            return;
-        if (Owner.Anim == null)
-            return;
-
-        UnbindEvent(Owner, OnAttackTargetHandler);
+        Clear();
     }
 
     protected virtual void OnAttackTargetHandler()
@@ -219,4 +212,13 @@ public abstract class SkillBase : MonoBehaviour // 스킬을 스폰 > ActiveSkill 발�
         _coOnSkillDelay = null;
     }
     #endregion
+
+    protected virtual void Clear()
+    {
+        if (Managers.Game == null)
+            return;
+
+        if (Owner.IsValid() == true && Owner.Anim != null)
+            UnbindEvent(Owner, OnAttackTargetHandler);
+    }
 }

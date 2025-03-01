@@ -30,13 +30,13 @@ MonoBehaviour:
     - PreLoad
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: a9e7dde11dd3895419edde18324d648d
-    m_Address: UI_SkillCardItem.prefab
+    m_Address: UI_SkillCardItem
     m_ReadOnly: 0
     m_SerializedLabels:
     - PreLoad
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 84d073433a833014e8e99ba50adee07a
-    m_Address: UI_SkillSelectPopup.prefab
+    m_Address: UI_SkillSelectPopup
     m_ReadOnly: 0
     m_SerializedLabels:
     - PreLoad

@@ -18,6 +18,7 @@ public class CastingImpact : AreaSkillBase // Only Player
     #endregion
 
     PlayerController _pc;
+    ProjectileController _projectile;
 
     public override void SetInfo(CreatureController owner, int monsterSkillTemplateID)
     {
@@ -43,7 +44,7 @@ public class CastingImpact : AreaSkillBase // Only Player
         float radius = Utils.GetEffectRadius(SkillData.EffectSize) + _pc.PlayerSkills.DefaultSkill_CastingStack * SkillData.ScaleMultiplier;
 
         // 보여주기용
-        ProjectileController _projectile = GenerateProjectile(_pc, _pc.transform.position);
+        _projectile = GenerateProjectile(_pc, _pc.transform.position);
         _projectile.transform.localScale *= radius;
         _projectile.Collider.radius = radius;
 
@@ -56,5 +57,10 @@ public class CastingImpact : AreaSkillBase // Only Player
                 target.OnDamaged(_pc, this);
             }
         }
+    }
+
+    protected override void Clear()
+    {
+        base.Clear();
     }
 }

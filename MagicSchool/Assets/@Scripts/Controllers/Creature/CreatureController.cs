@@ -284,7 +284,7 @@ public class CreatureController : BaseController
         if (Hp <= 0)
         {
             CreatureState = CreatureState.Dead;
-            // OnDead()
+            OnDead(attacker, skill);
 
             return;
         }

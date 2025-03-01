@@ -55,4 +55,9 @@ public class FireBall : SkillBase
 
         Managers.Object.Despawn(projectile);
     }
+
+    protected override void Clear()
+    {
+        base.Clear();
+    }
 }

@@ -91,4 +91,14 @@ public class ProjectileController : BaseController
         yield return new WaitForSeconds(lifeTime);
         Managers.Object.Despawn(this);
     }
+
+    protected override void Clear()
+    {
+        base.Clear();
+
+        /* To Do : 모든 Projectile이 동일한 Prefab을 공유할 수 있도록 구현되어,
+        Pooling할 시 CastingImpact의 수정된 scale이 적용되는 문제가 생겼다.
+        Pooling 정상화하고, 아래 코드를 지우도록하자*/
+        transform.localScale = Vector3.one;
+    }
 }

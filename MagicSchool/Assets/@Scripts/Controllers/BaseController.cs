@@ -96,10 +96,7 @@ public class BaseController : MonoBehaviour
 
     protected virtual void OnDisable()
     {
-        if (Anim == null)
-            return;
-
-        AnimationEventManager.UnbindEventAll(this);
+        Clear();
     }
 
     #endregion
@@ -178,7 +175,11 @@ public class BaseController : MonoBehaviour
 
     protected virtual void Clear()
     {
+        if (Managers.Game == null)
+            return;
 
+        if (Anim != null)
+            AnimationEventManager.UnbindEventAll(this);
     }
 
     #region Map

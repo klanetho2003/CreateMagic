@@ -21,7 +21,7 @@ public class UI_SkillSelectPopup : UI_Popup
         BindObjects(typeof(GameObjects));
         _grid = GetObject((int)GameObjects.SkillCardSelectListObject).transform;
 
-        PopulateGrid();//그리드는 채워줄 함수
+        PopulateGrid();//그리드 채우기
 
         return true;
     }
@@ -35,8 +35,7 @@ public class UI_SkillSelectPopup : UI_Popup
 
         for (int i = 0; i < 1; i++)
         {
-            GameObject go = Managers.Resource.Instantiate("UI_SkillCardItem.prefab", _grid, false);
-            UI_SkillCardItem item = go.GetOrAddComponent<UI_SkillCardItem>();
+            UI_SkillCardItem item = Managers.UI.MakeSubItem<UI_SkillCardItem>(_grid.transform);
 
             _items.Add(item);
         }
