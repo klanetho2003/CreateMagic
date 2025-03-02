@@ -6,7 +6,7 @@ using System.IO;
 using UnityEditor;
 #endif
 
-public class CustomTile :Tile
+public class CustomTile : Tile
 {
     [Space] [Space] [Header("For Stone")]
     public Define.EObjectType ObjectType;

@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static Define;
 using Random = UnityEngine.Random;
 
 public class GameManager
@@ -55,7 +56,9 @@ public class GameManager
         set
         {
             _killCount = value;
-            OnKillCountChanged?.Invoke(value);
+
+            if (value > 0) // 0일 때는 Wave가 전환될 때
+                OnKillCountChanged?.Invoke(value);
         }
     }
     #endregion

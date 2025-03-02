@@ -13,7 +13,7 @@ public class UI_Popup : UI_Base
         return true;
     }
 
-    public virtual void ClosePopupUI()
+    public virtual void ClosePopupUISelf()
     {
         Managers.UI.ClosePopupUI(this);
     }

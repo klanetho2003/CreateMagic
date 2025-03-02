@@ -71,11 +71,6 @@ public static class Define
         D = 13,
     }
 
-    public enum Scene
-    {
-
-    }
-
     public enum Sound
     {
         Bgm,
@@ -93,10 +88,11 @@ public static class Define
         EndDrag,
     }
 
-    public enum StageType
+    public enum EMonsterWaveType
     {
-        Normal,
-        Boss,
+        Standby,
+        First,
+        Second,
     }
 
     public enum ELayer

@@ -100,5 +100,6 @@ public class ProjectileController : BaseController
         Pooling할 시 CastingImpact의 수정된 scale이 적용되는 문제가 생겼다.
         Pooling 정상화하고, 아래 코드를 지우도록하자*/
         transform.localScale = Vector3.one;
+        transform.rotation = Quaternion.Euler(0, 0, 0); ;
     }
 }

@@ -52,7 +52,7 @@ public class UI_WaypointPopup : UI_Popup
 
             item.SetInfo(stage, () =>
             {
-                Managers.UI.ClosePopupUI(this); // Popup class에 helper함수 하나 만들어 두었으니 그거 사용해도 될 듯
+                Managers.UI.ClosePopupUI(this); // SubItem
             });
 
             _items.Add(item);
@@ -61,7 +61,7 @@ public class UI_WaypointPopup : UI_Popup
 
     void OnClickCloseButton(PointerEventData evt)
     {
-        Managers.UI.ClosePopupUI(this);
+        ClosePopupUISelf();
     }
 }
 
