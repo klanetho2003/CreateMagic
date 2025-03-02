@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEditor;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.Rendering;
 using static Define;
@@ -239,6 +240,8 @@ public class CreatureController : BaseController
     {
         if (effect == null)
             return;
+        if (this.IsValid() == false)
+            return;
         /*if (effect.Owner.IsValid() == false) // DeBuff를 건 객체가 지속시간 이전에 Despanw되면 Debuff도 사라지게 할 것인가?
             return;*/
 
@@ -257,7 +260,7 @@ public class CreatureController : BaseController
         if (Hp <= 0)
         {
             CreatureState = CreatureState.Dead;
-            //OnDead(effect.Owner, effect.Skill);
+            OnDead(effect.Owner, effect.Skill);
             return;
         }
     }

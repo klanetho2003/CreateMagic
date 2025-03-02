@@ -12,18 +12,18 @@ public class GameScene : BaseScene
 
         SceneType = EScene.GameScene;
 
-        //Managers.UI.ShowSceneUI<UI_GameScene>();
-
         var player = Managers.Object.Spawn<PlayerController>(Vector3.zero, MAGICION01_ID);
 
         Managers.Map.LoadMap("BaseMap");
         Managers.Map.StageTransition.SetInfo();
 
         // Temp
-        Managers.Map.StageTransition.CurrentStage.CurrentWave = EMonsterWaveType.First;
+        // Managers.Map.StageTransition.CurrentStage.CurrentWave = EMonsterWaveType.First;
 
         Managers.Map.MoveTo(player, Vector3Int.zero);
 
+        // UI
+        Managers.UI.ShowSceneUI<UI_WaveCheatSceneUI>();
 
         Managers.Game.OnKillCountChanged -= HandleOnKillCountChanged;
         Managers.Game.OnKillCountChanged += HandleOnKillCountChanged;
@@ -54,8 +54,6 @@ public class GameScene : BaseScene
 
             Vector2 spawnPos = Utils.GenerateMonsterSpawnPosition(Managers.Game.Player.transform.position, 4, 8);*/
             // Boss Spawn
-
-            Managers.UI.ShowPopupUI<UI_SkillSelectPopup>();
 
             currentStage.CurrentWave++; // Start Next Stage
         }

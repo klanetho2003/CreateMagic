@@ -26,6 +26,6 @@ DataId,Name,ClassName,Description,AnimatorDataID,AnimName,MaterialID,SpriteID,So
 60009,빙결1,DotBase,Duration 동안 스턴,debuff_freezing_SkeletonData,,,,Skill,,,0,0,0,1,1,Debuff
 60010,빙결2,DotBase,Duration 동안 스턴,debuff_freezing_SkeletonData,,,,Skill,,,0,0,0,1,2,Debuff
 60011,빙결3,DotBase,Duration 동안 스턴,debuff_freezing_SkeletonData,,,,Skill,,,0,0,0,1,3,Debuff
-60012,화상1,Burn,한틱당 최대체력 1% 도트뎀 5초유지,Burning_Animator,,,,Skill,,,0,0.05,0,1,3,Debuff
-60013,화상2,Burn,한틱당 최대체력 1% 도트뎀 5초유지,Burning_Animator,,,,Skill,,,0,0.05,0,1,6,Debuff
+60012,화상1,Burn,한틱당 최대체력 1% 도트뎀 5초유지,Burning_Animator,,,,Skill,,,5,0.05,0,1,3,Debuff
+60013,화상2,Burn,한틱당 최대체력 1% 도트뎀 5초유지,Burning_Animator,,,,Skill,,,5,0.05,0,1,6,Debuff
 60014,화상3,DotBase,한틱당 최대체력 1% 도트뎀 5초유지,debuff_burning_SkeletonData,,,,Skill,,,0,0.05,0,1,5,Debuff

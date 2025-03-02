@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 using static Define;
@@ -39,6 +40,8 @@ public class Stage : MonoBehaviour
 
                 // To Do NPC Spawn
 
+                Managers.UI.ShowPopupUI<UI_SkillSelectPopup>();
+
                 return;
             }
 
@@ -51,6 +54,7 @@ public class Stage : MonoBehaviour
     private List<BaseController> _spawnObjects = new List<BaseController>();
     private List<ObjectSpawnInfo> _spawnInfos = new List<ObjectSpawnInfo>();
     private Dictionary<EMonsterWaveType, List<ObjectSpawnInfo>> _waveDataInfos = new Dictionary<EMonsterWaveType, List<ObjectSpawnInfo>>();
+    private List<EMonsterWaveType> _waveTypes = new List<EMonsterWaveType>();
 
     private ObjectSpawnInfo _startSpawnInfo;
     public ObjectSpawnInfo StartSpawnInfo
@@ -111,6 +115,25 @@ public class Stage : MonoBehaviour
 
     #region Wave Helprs
 
+    public List<EMonsterWaveType> GetWaveTypes() // Init할 때가 아니어도 실시간으로 추가된 Wave를 받을 수 있도록 구현
+    {
+        _waveTypes.Clear();
+        _waveTypes.AddRange(_waveDataInfos.Keys);
+        return _waveTypes;
+    }
+
+    public int GetMonsterCountInWave(EMonsterWaveType waveType)
+    {
+        if (_waveDataInfos.TryGetValue(waveType, out List<ObjectSpawnInfo> waveData) == false)
+        {
+            Debug.LogWarning($"WaveDataDintionary Has No Value >> {waveType} in {gameObject.name} Stage");
+
+            return 0;
+        }
+
+        return _waveDataInfos[waveType].Count;
+    }
+
     public void StartWave(EMonsterWaveType waveType)
     {
         if (_waveDataInfos.TryGetValue(waveType, out List<ObjectSpawnInfo> currentWave) == false)
@@ -144,19 +167,6 @@ public class Stage : MonoBehaviour
                         break;*/
             }
         }
-    }
-
-    public int GetMonsterCountInWave(EMonsterWaveType waveType)
-    {
-        if (_waveDataInfos.TryGetValue(waveType, out List<ObjectSpawnInfo> waveData) == false)
-        {
-            Debug.LogWarning($"WaveDataDintionary Has No Value >> {waveType} in {gameObject.name} Stage");
-
-            return 0;
-        }
-
-
-        return _waveDataInfos[waveType].Count;
     }
 
     #endregion
@@ -314,6 +324,8 @@ public class Stage : MonoBehaviour
         }
 
         _waveDataInfos.Clear();
+
+        _waveTypes.Clear();
         #endregion
     }
 }

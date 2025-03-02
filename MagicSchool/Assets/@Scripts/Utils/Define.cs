@@ -30,7 +30,8 @@ public static class Define
         BlackSmith,
         Guild,
         TreasureBox,
-        Dungeon
+        Dungeon,
+        WaveCheat,
     }
 
     public enum ESkillType

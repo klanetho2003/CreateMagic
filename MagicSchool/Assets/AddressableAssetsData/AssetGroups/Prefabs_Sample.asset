@@ -60,8 +60,7 @@ MonoBehaviour:
   - m_GUID: 5a3e7e141e5d3dc4c8355cf9f88a945c
     m_Address: CastingImpact_01.prefab
     m_ReadOnly: 0
-    m_SerializedLabels:
-    - PreLoad
+    m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 8e19594c89ad2c44a83a22b1318750c3
     m_Address: FireExplosionAoE
