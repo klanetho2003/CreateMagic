@@ -17,6 +17,9 @@ public class CreatureController : BaseController
 
         switch (CreatureState)
         {
+            case CreatureState.Spawning:
+                UpdateSpawning();
+                break;
             case CreatureState.Idle:
                 UpdateIdle();
                 break;
@@ -44,6 +47,7 @@ public class CreatureController : BaseController
         }
     }
 
+    protected virtual void UpdateSpawning() { }
     protected virtual void UpdateIdle() { }
     protected virtual void UpdateMoving() { }
     protected virtual void UpdateCasting() { }

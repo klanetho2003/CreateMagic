@@ -175,6 +175,7 @@ namespace Data
         public float CriRate;
         public float Cridamage;
         #endregion
+        public float SpawnDelaySeconds;
         public string IconImage;
         public string MaterialID;
         public string AnimatorDataID;

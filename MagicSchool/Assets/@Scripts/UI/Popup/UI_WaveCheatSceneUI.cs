@@ -39,7 +39,7 @@ public class UI_WaveCheatSceneUI : UI_Scene
 
         GameObject parent = GetObject((int)GameObjects.WaveList);
 
-        List<EMonsterWaveType> waveData = Managers.Map.StageTransition.CurrentStage.GetWaveTypes();
+        List<EMonsterWaveType> waveData = Managers.Map.StageTransition.CurrentStage.GetWaveTypesAll();
         foreach (var wave in waveData)
         {
             UI_WaveItem item = Managers.UI.MakeSubItem<UI_WaveItem>(parent.transform);

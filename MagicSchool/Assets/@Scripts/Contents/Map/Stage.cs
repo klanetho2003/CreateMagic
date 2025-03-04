@@ -33,8 +33,15 @@ public class Stage : MonoBehaviour
         get { return _currentWave; }
         set
         {
-            // Wave 총 개수 Check
-            if (MonsterWaveData.Count - 1 < (int)value)
+            // Check Wave Clear
+            if (CheckWaveClear(_currentWave) == false)
+                return;
+
+            // KillCount 초기화
+            Managers.Game.KillCount = 0;
+
+            // Check Stage Clear
+            if (CheckStageClear(value))
             {
                 Debug.Log($"{gameObject.name} Clear !!!");
 
@@ -115,11 +122,24 @@ public class Stage : MonoBehaviour
 
     #region Wave Helprs
 
-    public List<EMonsterWaveType> GetWaveTypes() // Init할 때가 아니어도 실시간으로 추가된 Wave를 받을 수 있도록 구현
+    public List<EMonsterWaveType> GetWaveTypesAll() // Init할 때가 아니어도 실시간으로 추가된 Wave를 받을 수 있도록 구현
     {
         _waveTypes.Clear();
         _waveTypes.AddRange(_waveDataInfos.Keys);
         return _waveTypes;
+    }
+
+    public bool CheckWaveClear(EMonsterWaveType currentWave)
+    {
+        int goalKill = GetMonsterCountInWave(currentWave);
+        int currentKill = Managers.Game.KillCount;
+
+        return (currentKill >= goalKill);
+    }
+
+    public bool CheckStageClear(EMonsterWaveType NextWave)
+    {
+        return (MonsterWaveData.Count - 1 < (int)NextWave);
     }
 
     public int GetMonsterCountInWave(EMonsterWaveType waveType)
@@ -127,22 +147,29 @@ public class Stage : MonoBehaviour
         if (_waveDataInfos.TryGetValue(waveType, out List<ObjectSpawnInfo> waveData) == false)
         {
             Debug.LogWarning($"WaveDataDintionary Has No Value >> {waveType} in {gameObject.name} Stage");
-
             return 0;
         }
 
         return _waveDataInfos[waveType].Count;
     }
 
-    public void StartWave(EMonsterWaveType waveType)
+    public void StartWave(EMonsterWaveType waveType, bool force = false)
     {
-        if (_waveDataInfos.TryGetValue(waveType, out List<ObjectSpawnInfo> currentWave) == false)
+        #region For Design -> if force == true
+        if (force)
+        {
+            Managers.Game.KillCount = 0;
+            _currentWave = waveType;
+        }
+        #endregion
+
+        if (_waveDataInfos.TryGetValue(waveType, out List<ObjectSpawnInfo> waveData) == false)
+        {
+            Debug.LogWarning($"WaveDataDintionary Has No Value >> {waveType} in {gameObject.name} Stage");
             return;
+        }
 
-        // KillCount 초기화
-        Managers.Game.KillCount = 0;
-
-        foreach (ObjectSpawnInfo info in currentWave)
+        foreach (ObjectSpawnInfo info in waveData)
         {
             Vector3 worldPos = info.WorldPos;
             Vector3Int cellPos = info.CellPos;
@@ -153,13 +180,15 @@ public class Stage : MonoBehaviour
             switch (info.ObjectType)
             {
                 case EObjectType.Monster:
-                    StartSpawnDelay(worldPos, cellPos, info); // Temp > Base로 깔아둬야하는 Object들이기에 딜레이가 없어도 될 듯
+                    MonsterController monster = Managers.Object.Spawn<MonsterController>(worldPos, info.DataId);
+                    monster.SetCellPos(cellPos, true);
+                    _spawnObjects.Add(monster);
                     break;
-                    /*case EObjectType.Npc:
-                        NpcController npc = Managers.Object.Spawn<NpcController>(worldPos, info.DataId);
-                        npc.SetCellPos(cellPos, true);
-                        _spawnObjects.Add(npc);
-                        break;*/
+                case EObjectType.Npc:
+                    NpcController npc = Managers.Object.Spawn<NpcController>(worldPos, info.DataId);
+                    npc.SetCellPos(cellPos, true);
+                    _spawnObjects.Add(npc);
+                    break;
                     /*case EObjectType.Env:
                         Env env = Managers.Object.Spawn<Env>(worldPos, info.DataId);
                         env.SetCellPos(cellPos, true);
@@ -172,25 +201,6 @@ public class Stage : MonoBehaviour
     #endregion
 
     #region Spawn & Despawn
-
-    private void StartSpawnDelay(Vector3 worldPos, Vector3Int cellPos, ObjectSpawnInfo info)
-    {
-        StartCoroutine(CoSpawnDelay(3, worldPos, cellPos, info));
-    }
-
-    IEnumerator CoSpawnDelay(float seconds, Vector3 worldPos, Vector3Int cellPos, ObjectSpawnInfo info)
-    {
-        GameObject go = Managers.Resource.Instantiate("PositionMaker_temp", pooling: true);
-        go.transform.position = worldPos;
-
-        yield return new WaitForSeconds(seconds);
-
-        Managers.Resource.Destroy(go);
-
-        MonsterController monster = Managers.Object.Spawn<MonsterController>(worldPos, info.DataId);
-        monster.SetCellPos(cellPos, true);
-        _spawnObjects.Add(monster);
-    }
 
     private void SpawnBaseObjects()
     {
@@ -205,7 +215,9 @@ public class Stage : MonoBehaviour
             switch (info.ObjectType)
             {
                 case EObjectType.Monster:
-                    StartSpawnDelay(worldPos, cellPos, info); // Temp > Base로 깔아둬야하는 Object들이기에 딜레이가 없어도 될 듯
+                    MonsterController monster = Managers.Object.Spawn<MonsterController>(worldPos, info.DataId);
+                    monster.SetCellPos(cellPos, true);
+                    _spawnObjects.Add(monster);
                     break;
                 case EObjectType.Npc:
                     NpcController npc = Managers.Object.Spawn<NpcController>(worldPos, info.DataId);
@@ -327,5 +339,7 @@ public class Stage : MonoBehaviour
 
         _waveTypes.Clear();
         #endregion
+
+        StopAllCoroutines();
     }
 }

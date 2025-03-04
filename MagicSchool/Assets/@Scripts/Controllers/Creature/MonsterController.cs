@@ -22,6 +22,9 @@ public class MonsterController : CreatureController
     {
         switch (CreatureState)
         {
+            case CreatureState.Spawning:
+                Anim.Play($"Spawning");
+                break;
             case CreatureState.Idle:
                 Anim.Play($"Idle");
                 break;
@@ -53,10 +56,22 @@ public class MonsterController : CreatureController
 
     #region AI - by StatePatern
 
+    protected override void UpdateSpawning()
+    {
+        if (Target.IsValid() == false)
+            return;
+        if (_coWait != null)
+            return;
+
+        CreatureState = CreatureState.Idle;
+    }
+
     protected override void UpdateIdle()
     {
-        if (Target.IsValid() == true)
-            CreatureState = CreatureState.Moving;
+        if (Target.IsValid() == false)
+            return;
+
+        CreatureState = CreatureState.Moving;
     }
 
     protected override void UpdateMoving()
@@ -144,7 +159,8 @@ public class MonsterController : CreatureController
 
         Target = Managers.Object.Player;
 
-        CreatureState = CreatureState.Idle;
+        CreatureState = CreatureState.Spawning;
+        StartWait(CreatureData.SpawnDelaySeconds);
 
         Skills = gameObject.GetOrAddComponent<BaseSkillBook>();
         Skills.SetInfo(this, CreatureData);

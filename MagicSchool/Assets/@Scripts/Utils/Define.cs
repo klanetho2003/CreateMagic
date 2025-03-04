@@ -44,6 +44,7 @@ public static class Define
 
     public enum CreatureState
     {
+        Spawning,
         Idle,
         Moving,
         Casting,
