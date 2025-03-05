@@ -119,7 +119,7 @@ public class GameScene : BaseScene
             _remainingTotalJamCount *= 2;
         }
 
-        UI_GameScene uiGameScene = Managers.UI.SceneUI.GetComponent<UI_GameScene>();
+        UI_GameScene_Temp uiGameScene = Managers.UI.SceneUI.GetComponent<UI_GameScene_Temp>();
         uiGameScene.SetJamCountRatio((float)jamCount / _remainingTotalJamCount);
     }
 }
