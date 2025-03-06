@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-class Cell
+class CellEX
 {
     public HashSet<GameObject> Objects { get; } = new HashSet<GameObject>();
 }
@@ -11,7 +11,7 @@ public class GridController : BaseController
 {
     UnityEngine.Grid _grid;
 
-    Dictionary<Vector3Int, Cell> _cells = new Dictionary<Vector3Int, Cell>();
+    Dictionary<Vector3Int, CellEX> _cells = new Dictionary<Vector3Int, CellEX>();
 
     public override bool Init()
     {
@@ -26,7 +26,7 @@ public class GridController : BaseController
     {
         Vector3Int cellPos = _grid.WorldToCell(go.transform.position);
 
-        Cell cell = GetCell(cellPos);
+        CellEX cell = GetCell(cellPos);
         if (cell == null)
             return;
 
@@ -37,20 +37,20 @@ public class GridController : BaseController
     {
         Vector3Int cellPos = _grid.WorldToCell(go.transform.position);
 
-        Cell cell = GetCell(cellPos);
+        CellEX cell = GetCell(cellPos);
         if (cell == null)
             return;
 
         cell.Objects.Remove(go);
     }
 
-    Cell GetCell(Vector3Int cellPos)
+    CellEX GetCell(Vector3Int cellPos)
     {
-        Cell cell = null;
+        CellEX cell = null;
 
         if (_cells.TryGetValue(cellPos, out cell) == false)
         {
-            cell = new Cell();
+            cell = new CellEX();
             _cells.Add(cellPos, cell);
         }
 

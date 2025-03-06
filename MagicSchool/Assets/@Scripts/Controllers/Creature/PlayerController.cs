@@ -341,10 +341,10 @@ public class PlayerController : CreatureController
             return;
         }
 
-        Vector3 destPos = _moveDir.normalized * MoveSpeed.Value;
-        Vector3Int destCellPos = Managers.Map.World2Cell(transform.position);
+        Vector3 dest = _moveDir.normalized * MoveSpeed.Value;
+        Vector3Int destCellPos = Managers.Map.World2Cell(transform.position + (dest * Time.fixedDeltaTime));
 
-        SetRigidBodyVelocity(destPos);
+        SetRigidBodyVelocity(dest);
         Managers.Map.MoveTo(this, destCellPos);
         Managers.Map.StageTransition.CheckMapChanged(destCellPos);
     }

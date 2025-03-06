@@ -7,6 +7,48 @@ using UnityEngine;
 using UnityEngine.Tilemaps;
 using static Define;
 
+public class Cell
+{
+    public BaseController bc;
+    public PlayerController pc;
+
+    public BaseController ReturnObjectByType(EObjectType objecyType)
+    {
+        switch (objecyType)
+        {
+            case EObjectType.Student:
+                return pc;
+            default:
+                return bc;
+        }
+    }
+
+    public void SetObjectByType(BaseController obj)
+    {
+        switch (obj.ObjectType)
+        {
+            case EObjectType.Student:
+                pc = obj as PlayerController;
+                break;
+            default:
+                bc = obj;
+                break;
+        }
+    }
+
+    public void RemoveObjectByType(EObjectType objecyType)
+    {
+        switch (objecyType)
+        {
+            case EObjectType.Student:
+                pc = null;
+                break;
+            default:
+                bc = null;
+                break;
+        }
+    }
+}
 
 public class MapManager
 {
@@ -15,7 +57,7 @@ public class MapManager
     public Grid CellGrid { get; private set; }
 
     // (CellPos, BaseController)
-    Dictionary<Vector3Int, BaseController> _cells = new Dictionary<Vector3Int, BaseController>();
+    Dictionary<Vector3Int, Cell> _cells = new Dictionary<Vector3Int, Cell>();
     public StageTransition StageTransition;
 
     private int MinX;
@@ -139,59 +181,90 @@ public class MapManager
                 /*GameObject maker = Managers.Resource.Instantiate("PositionMaker_temp");
                 maker.transform.position = tilePos;*/
 
-                // 타입에 맞는 리스트 리턴
-                T obj = GetObject(tilePos) as T;
-                if (obj == null)
-                    continue;
+                // 타입에 맞는 리스트 리턴 - Check필요
+                List<BaseController> tileObjs = GetObjects(tilePos);
+                foreach (var tileObj in tileObjs)
+                {
+                    T obj = tileObj as T;
+                    if (obj == null)
+                        continue;
 
-                objects.Add(obj);
+                    objects.Add(obj);
+                }
             }
         }
 
         return objects.ToList();
     }
 
-    public BaseController GetObject(Vector3Int cellPos)
+    public Cell GetCell(Vector3Int cellPos) // - Check필요
     {
-        // 없으면 null
-        _cells.TryGetValue(cellPos, out BaseController value);
-        return value;
+        Cell cell = null;
+
+        // 없으면 만들기
+        if (_cells.TryGetValue(cellPos, out cell) == false)
+        {
+            cell = new Cell();
+            _cells.Add(cellPos, cell);
+        }
+
+        return cell;
     }
 
-    public BaseController GetObject(Vector3 worldPos)
+    public List<BaseController> GetObjects(Vector3Int cellPos) // - Check필요
+    {
+        // To Do : 이 List Cell 안에 넣어서 최적화 필요
+        List<BaseController> objects = new List<BaseController>();
+
+        BaseController pc = GetCell(cellPos).ReturnObjectByType(EObjectType.Student);
+        if (pc.IsValid() != false)
+            objects.Add(pc);
+
+        BaseController bc = GetCell(cellPos).ReturnObjectByType(EObjectType.Monster);
+        if (bc.IsValid() != false)
+            objects.Add(bc);
+
+        return objects;
+    }
+
+    public List<BaseController> GetObjects(Vector3 worldPos)
     {
         Vector3Int cellPos = World2Cell(worldPos);
-        return GetObject(cellPos);
+        return GetObjects(cellPos);
     }
 
-    public bool RemoveObject(BaseController obj)
+    public bool RemoveObject(BaseController obj) // - Check필요
     {
-        BaseController prev = GetObject(obj.CellPos);
-
+        Cell cell = GetCell(obj.CellPos);
+        BaseController prev = cell.ReturnObjectByType(obj.ObjectType);
+        
         // 처음 신청했으면 해당 CellPos의 오브젝트가 본인이 아닐 수도 있음
         if (prev != obj)
             return false;
 
-        _cells[obj.CellPos] = null;
+        cell.RemoveObjectByType(obj.ObjectType);
         return true;
     }
 
-    public bool AddObject(BaseController obj, Vector3Int cellPos)
+    public bool AddObject(BaseController obj, Vector3Int cellPos) // - Check필요
     {
+        // To Do : 수정해야할지도
         if (CanGo(obj, cellPos) == false)
         {
-            Debug.LogWarning($"AddObject Failed");
+            Debug.LogWarning($"AddObject Failed_1");
             return false;
         }
+        //
 
-        BaseController prev = GetObject(cellPos);
+        Cell cell = GetCell(cellPos);
+        BaseController prev = cell.ReturnObjectByType(obj.ObjectType);
         if (prev != null)
         {
-            Debug.LogWarning($"AddObject Failed");
+            Debug.LogWarning($"{obj.name}, AddObject Failed_2");
             return false;
         }
 
-        _cells[cellPos] = obj;
+        cell.SetObjectByType(obj);
         return true;
     }
 
@@ -207,11 +280,20 @@ public class MapManager
         if (cellPos.y < MinY || cellPos.y > MaxY)
             return false;
 
-        if (ignoreObjects == false)
+        if (ignoreObjects == false) // - Check필요
         {
-            BaseController obj = GetObject(cellPos);
-            if (obj != null)
-                return false;
+            if (self.IsValid() == false)
+            {
+                List<BaseController> objs = GetObjects(cellPos);
+                if (objs.Count > 0)
+                    return false;
+            }
+            else if (self.ObjectType == EObjectType.Monster)
+            {
+                Cell cell = GetCell(cellPos);
+                if (cell.bc != null)
+                    return false;
+            }
         }
 
         int x = cellPos.x - MinX;

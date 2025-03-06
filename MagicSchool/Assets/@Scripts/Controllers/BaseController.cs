@@ -185,6 +185,7 @@ public class BaseController : MonoBehaviour
     #region Map
     public bool LerpCellPosCompleted { get; protected set; }
 
+    [SerializeField]
     Vector3Int _cellPos;
     public Vector3Int CellPos
     {
@@ -193,6 +194,9 @@ public class BaseController : MonoBehaviour
         {
             _cellPos = value;
             LerpCellPosCompleted = false;
+
+            /*GameObject go = Managers.Resource.Instantiate("PositionMaker_temp");
+            go.transform.position = _cellPos;*/
         }
     }
 

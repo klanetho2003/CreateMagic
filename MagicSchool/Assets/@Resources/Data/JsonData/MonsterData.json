@@ -13,7 +13,7 @@
       "Atk": 2.0,
       "AtkRange": 1.5,
       "AtkBonus": 2.0,
-      "MoveSpeed": 2.0,
+      "MoveSpeed": 1.0,
       "CriRate": 0.0,
       "Cridamage": 1.5,
       "SpawnDelaySeconds": 3.0,
