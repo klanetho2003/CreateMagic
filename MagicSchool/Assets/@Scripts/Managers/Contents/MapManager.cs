@@ -63,6 +63,13 @@ public class Cell
     }
 
     #endregion
+
+    public void Clear()
+    {
+        _objects.Clear();
+        bc = null;
+        pc = null;
+    }
 }
 
 public class MapManager
@@ -318,6 +325,9 @@ public class MapManager
 
     public void ClearObjects()
     {
+        foreach (var cell in _cells)
+            cell.Value.Clear();
+
         _cells.Clear();
     }
 
