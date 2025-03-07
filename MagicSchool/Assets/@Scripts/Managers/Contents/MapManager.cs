@@ -9,8 +9,17 @@ using static Define;
 
 public class Cell
 {
+    public HashSet<BaseController> _objects { get; private set; } = new HashSet<BaseController>();
+
     public BaseController bc;
     public PlayerController pc;
+
+    #region Helpers
+    
+    public List<BaseController> ReturnAllObject()
+    {
+        return _objects.ToList();
+    }
 
     public BaseController ReturnObjectByType(EObjectType objecyType)
     {
@@ -29,9 +38,11 @@ public class Cell
         {
             case EObjectType.Student:
                 pc = obj as PlayerController;
+                _objects.Add(obj);
                 break;
             default:
                 bc = obj;
+                _objects.Add(obj);
                 break;
         }
     }
@@ -42,12 +53,16 @@ public class Cell
         {
             case EObjectType.Student:
                 pc = null;
+                _objects.Remove(pc);
                 break;
             default:
                 bc = null;
+                _objects.Remove(bc);
                 break;
         }
     }
+
+    #endregion
 }
 
 public class MapManager
@@ -128,6 +143,7 @@ public class MapManager
                         break;
                     case Define.MAP_TOOL_NONE:
                         _collision[x, y] = ECellCollisionType.None;
+                        GetCell(new Vector3Int(x, y)); // 미리 만들어 두기
                         break;
                     case Define.MAP_TOOL_SEMI_WALL:
                         _collision[x, y] = ECellCollisionType.SemiWall;
@@ -181,11 +197,11 @@ public class MapManager
                 /*GameObject maker = Managers.Resource.Instantiate("PositionMaker_temp");
                 maker.transform.position = tilePos;*/
 
-                // 타입에 맞는 리스트 리턴 - Check필요
-                List<BaseController> tileObjs = GetObjects(tilePos);
-                foreach (var tileObj in tileObjs)
+                // 타입에 맞는 리스트 리턴
+                List<BaseController> cellObjs = GetObjects(tilePos);
+                foreach (var cellObj in cellObjs)
                 {
-                    T obj = tileObj as T;
+                    T obj = cellObj as T;
                     if (obj == null)
                         continue;
 
@@ -197,7 +213,7 @@ public class MapManager
         return objects.ToList();
     }
 
-    public Cell GetCell(Vector3Int cellPos) // - Check필요
+    public Cell GetCell(Vector3Int cellPos)
     {
         Cell cell = null;
 
@@ -211,18 +227,10 @@ public class MapManager
         return cell;
     }
 
-    public List<BaseController> GetObjects(Vector3Int cellPos) // - Check필요
+    public List<BaseController> GetObjects(Vector3Int cellPos)
     {
-        // To Do : 이 List Cell 안에 넣어서 최적화 필요
-        List<BaseController> objects = new List<BaseController>();
-
-        BaseController pc = GetCell(cellPos).ReturnObjectByType(EObjectType.Student);
-        if (pc.IsValid() != false)
-            objects.Add(pc);
-
-        BaseController bc = GetCell(cellPos).ReturnObjectByType(EObjectType.Monster);
-        if (bc.IsValid() != false)
-            objects.Add(bc);
+        Cell cell = GetCell(cellPos);
+        List<BaseController> objects = cell.ReturnAllObject();
 
         return objects;
     }
@@ -233,7 +241,7 @@ public class MapManager
         return GetObjects(cellPos);
     }
 
-    public bool RemoveObject(BaseController obj) // - Check필요
+    public bool RemoveObject(BaseController obj)
     {
         Cell cell = GetCell(obj.CellPos);
         BaseController prev = cell.ReturnObjectByType(obj.ObjectType);
@@ -246,15 +254,13 @@ public class MapManager
         return true;
     }
 
-    public bool AddObject(BaseController obj, Vector3Int cellPos) // - Check필요
+    public bool AddObject(BaseController obj, Vector3Int cellPos)
     {
-        // To Do : 수정해야할지도
         if (CanGo(obj, cellPos) == false)
         {
             Debug.LogWarning($"AddObject Failed_1");
             return false;
         }
-        //
 
         Cell cell = GetCell(cellPos);
         BaseController prev = cell.ReturnObjectByType(obj.ObjectType);
@@ -280,7 +286,7 @@ public class MapManager
         if (cellPos.y < MinY || cellPos.y > MaxY)
             return false;
 
-        if (ignoreObjects == false) // - Check필요
+        if (ignoreObjects == false)
         {
             if (self.IsValid() == false)
             {
@@ -288,10 +294,12 @@ public class MapManager
                 if (objs.Count > 0)
                     return false;
             }
-            else if (self.ObjectType == EObjectType.Monster)
+            else
             {
                 Cell cell = GetCell(cellPos);
-                if (cell.bc != null)
+                BaseController bc = cell.ReturnObjectByType(self.ObjectType);
+
+                if (bc != null)
                     return false;
             }
         }

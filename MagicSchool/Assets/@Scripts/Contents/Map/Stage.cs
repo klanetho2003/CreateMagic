@@ -59,7 +59,7 @@ public class Stage : MonoBehaviour
 
     [SerializeField]
     private List<BaseController> _spawnObjects = new List<BaseController>();
-    private List<ObjectSpawnInfo> _spawnInfos = new List<ObjectSpawnInfo>();
+    private List<ObjectSpawnInfo> _spawnBaseInfos = new List<ObjectSpawnInfo>();
     private Dictionary<EMonsterWaveType, List<ObjectSpawnInfo>> _waveDataInfos = new Dictionary<EMonsterWaveType, List<ObjectSpawnInfo>>();
     private List<EMonsterWaveType> _waveTypes = new List<EMonsterWaveType>();
 
@@ -107,7 +107,7 @@ public class Stage : MonoBehaviour
 
         IsActive = true;
         gameObject.SetActive(true);
-        SpawnBaseObjects();
+        SpawnObjects(_spawnBaseInfos);
     }
 
     public void UnLoadStage()
@@ -169,42 +169,16 @@ public class Stage : MonoBehaviour
             return;
         }
 
-        foreach (ObjectSpawnInfo info in waveData)
-        {
-            Vector3 worldPos = info.WorldPos;
-            Vector3Int cellPos = info.CellPos;
-
-            if (Managers.Map.CanGo(null, cellPos) == false)
-                return;
-
-            switch (info.ObjectType)
-            {
-                case EObjectType.Monster:
-                    MonsterController monster = Managers.Object.Spawn<MonsterController>(worldPos, info.DataId);
-                    monster.SetCellPos(cellPos, true);
-                    _spawnObjects.Add(monster);
-                    break;
-                case EObjectType.Npc:
-                    NpcController npc = Managers.Object.Spawn<NpcController>(worldPos, info.DataId);
-                    npc.SetCellPos(cellPos, true);
-                    _spawnObjects.Add(npc);
-                    break;
-                    /*case EObjectType.Env:
-                        Env env = Managers.Object.Spawn<Env>(worldPos, info.DataId);
-                        env.SetCellPos(cellPos, true);
-                        _spawnObjects.Add(env);
-                        break;*/
-            }
-        }
+        SpawnObjects(waveData);
     }
 
     #endregion
 
     #region Spawn & Despawn
 
-    private void SpawnBaseObjects()
+    private void SpawnObjects(List<ObjectSpawnInfo> infos)
     {
-        foreach (ObjectSpawnInfo info in _spawnInfos)
+        foreach (ObjectSpawnInfo info in infos)
         {
             Vector3 worldPos = info.WorldPos;
             Vector3Int cellPos = info.CellPos;
@@ -287,7 +261,7 @@ public class Stage : MonoBehaviour
                     WaypointSpawnInfo = info;
                 }
 
-                _spawnInfos.Add(info);
+                _spawnBaseInfos.Add(info);
             }
         }
         #endregion
