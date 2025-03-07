@@ -220,6 +220,13 @@ public static class Define
         CleanDebuff,
     }
 
+    public enum ELanguage
+    {
+        Korean,
+        English,
+        Japanese,
+    }
+
     //HARD CODING
     public const float EFFECT_SMALL_RADIUS = 1f;
     public const float EFFECT_NORMAL_RADIUS = 2.5f;

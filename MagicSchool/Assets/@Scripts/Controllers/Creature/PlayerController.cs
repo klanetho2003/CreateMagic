@@ -361,6 +361,7 @@ public class PlayerController : CreatureController
 
     #endregion
 
+    /* Temp Collect Env
     void CollectEnv()
     {
         float sqrCollectDist = EnvCollectDist * EnvCollectDist;
@@ -380,7 +381,7 @@ public class PlayerController : CreatureController
                 Managers.Object.Despawn(jam);
             }
         }
-    }
+    }*/
 
     #region Battle
 

@@ -1,0 +1,48 @@
+{
+  "texts": [
+    {
+      "DataId": "RookieName",
+      "KOR": "�����̸��谡 ��Ű"
+    },
+    {
+      "DataId": "RemName",
+      "KOR": "�ֵ��� ���� ��"
+    },
+    {
+      "DataId": "ToDoName",
+      "KOR": "empty"
+    },
+    {
+      "DataId": "RookieDescription",
+      "KOR": "������ �����Ͽ� ������ �ǰ���� �ΰ�"
+    },
+    {
+      "DataId": "RemDescription",
+      "KOR": "����� ������ ���̵����� �������� ������ �����ڵ� �� ����. �� ������ Ư���̸� ���� ���� ������ ����� �Ҿ����"
+    },
+    {
+      "DataId": "ToDoCreatureDescription",
+      "KOR": "empty"
+    },
+    {
+      "DataId": "RookieSkillAName",
+      "KOR": "���ϰ� ����ġ��"
+    },
+    {
+      "DataId": "RookieSkillBName",
+      "KOR": "���з� ��ġ��"
+    },
+    {
+      "DataId": "RemSkillAName",
+      "KOR": "�� �޸�"
+    },
+    {
+      "DataId": "RemSkillBName",
+      "KOR": "�� �޸�"
+    },
+    {
+      "DataId": "ToDoSkillDescription",
+      "KOR": "empty"
+    }
+  ]
+}

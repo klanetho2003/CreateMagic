@@ -273,6 +273,34 @@ namespace Data
 
     #endregion
 
+    #region SkillInfoData - To Do Skill과 매칭 되도록 Sheet부터 수정 필요
+    [Serializable]
+    public class SkillInfoData
+    {
+        public int DataId;
+        public string NameTextId;
+        public string DescriptionTextId;
+        public string Rarity;
+        public float GachaSpawnWeight;
+        public float GachaWeight;
+        public int GachaExpCount;
+        public string IconImage;
+    }
+
+    [Serializable]
+    public class SkillInfoDataLoader : ILoader<int, SkillInfoData>
+    {
+        public List<SkillInfoData> heroInfo = new List<SkillInfoData>();
+        public Dictionary<int, SkillInfoData> MakeDict()
+        {
+            Dictionary<int, SkillInfoData> dict = new Dictionary<int, SkillInfoData>();
+            foreach (SkillInfoData info in heroInfo)
+                dict.Add(info.DataId, info);
+            return dict;
+        }
+    }
+    #endregion
+
     #region Projetile Data
 
     [Serializable]
@@ -399,6 +427,28 @@ namespace Data
             Dictionary<int, NpcData> dict = new Dictionary<int, NpcData>();
             foreach (NpcData creature in creatures)
                 dict.Add(creature.DataId, creature);
+            return dict;
+        }
+    }
+    #endregion
+
+    #region TextData
+    [Serializable]
+    public class TextData
+    {
+        public string DataId;
+        public string KOR;
+    }
+
+    [Serializable]
+    public class TextDataLoader : ILoader<string, TextData>
+    {
+        public List<TextData> texts = new List<TextData>();
+        public Dictionary<string, TextData> MakeDict()
+        {
+            Dictionary<string, TextData> dict = new Dictionary<string, TextData>();
+            foreach (TextData text in texts)
+                dict.Add(text.DataId, text);
             return dict;
         }
     }

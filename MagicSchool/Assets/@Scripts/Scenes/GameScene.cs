@@ -63,7 +63,7 @@ public class GameScene : BaseScene
     {
         if (Managers.Game != null)
         {
-            Managers.Game.OnJamCountChanged -= HandleOnJamCountChanged;
+            // Managers.Game.OnJamCountChanged -= HandleOnJamCountChanged;
             Managers.Game.OnKillCountChanged -= HandleOnKillCountChanged;
         }
     }
