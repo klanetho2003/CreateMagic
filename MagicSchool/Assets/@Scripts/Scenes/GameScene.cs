@@ -23,13 +23,15 @@ public class GameScene : BaseScene
         Managers.Map.MoveTo(player, Vector3Int.zero);
 
         // UI
-        Managers.UI.ShowSceneUI<UI_WaveCheatSceneUI>();
+        Managers.UI.ShowSceneUI<UI_GameScene>();
 
         Managers.Game.OnKillCountChanged -= HandleOnKillCountChanged;
         Managers.Game.OnKillCountChanged += HandleOnKillCountChanged;
 
         /*Managers.Game.OnJamCountChanged -= HandleOnJamCountChanged;
         Managers.Game.OnJamCountChanged += HandleOnJamCountChanged;*/
+
+        Managers.UI.CacheAllPopups();
 
         return true;
     }

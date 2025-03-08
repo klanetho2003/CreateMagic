@@ -52,19 +52,25 @@ MonoBehaviour:
     - PreLoad
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 542ab304b5ee8a34b9494c51cd9af99d
-    m_Address: UI_StageItem
+    m_Address: UI_World_StageItem
     m_ReadOnly: 0
     m_SerializedLabels:
     - PreLoad
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: e858a9614c6962c4cb04469a1da60e75
-    m_Address: UI_WaveItem
+    m_Address: UI_GameScene_WaveItem
     m_ReadOnly: 0
     m_SerializedLabels:
     - PreLoad
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 54599b3e6b1f8e948a275998306f80ba
-    m_Address: UI_WaveCheatSceneUI
+  - m_GUID: be21321d82072af4bb6ecc107f918b24
+    m_Address: UI_GameScene
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - PreLoad
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: af03d45ab4040df468ef70c365b7a0ad
+    m_Address: UI_SkillsListPopup
     m_ReadOnly: 0
     m_SerializedLabels:
     - PreLoad

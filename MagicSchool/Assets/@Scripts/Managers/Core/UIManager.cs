@@ -1,5 +1,7 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -7,9 +9,15 @@ public class UIManager //Sort Order를 관리하기 위해 만든 클래스
 {
     int _order = 10;
 
-    Stack<UI_Popup> _popupStack = new Stack<UI_Popup>();
+    private Dictionary<string, UI_Popup> _popups = new Dictionary<string, UI_Popup>();
+    private Stack<UI_Popup> _popupStack = new Stack<UI_Popup>();
+
     UI_Scene _sceneUI = null;
-    public UI_Scene SceneUI { get { return _sceneUI; } }
+    public UI_Scene SceneUI
+    {
+        set { _sceneUI = value; }
+        get { return _sceneUI; }
+    }
 
     public GameObject Root
     {
@@ -20,6 +28,22 @@ public class UIManager //Sort Order를 관리하기 위해 만든 클래스
                 root = new GameObject { name = "@UI_Root" };
             return root;
         }
+    }
+
+    public void CacheAllPopups()
+    {
+        var list = AppDomain.CurrentDomain.GetAssemblies()
+            .SelectMany(assembly => assembly.GetTypes())
+            .Where(type => type.IsSubclassOf(typeof(UI_Popup)));
+
+        foreach (Type type in list)
+        {
+            CachePopupUI(type);
+        }
+
+        // ShowPopupUI<UI_WaypointPopup>();
+
+        CloseAllPopupUI();
     }
 
     public void SetCanvas(GameObject go, bool sort = true, int sortOrder = 0) //오더를 채워달라(우선순위)
@@ -51,14 +75,49 @@ public class UIManager //Sort Order를 관리하기 위해 만든 클래스
         }
     }
 
+    public T GetSceneUI<T>() where T : UI_Base
+    {
+        return _sceneUI as T;
+    }
+
+    public T MakeWorldSpaceUI<T>(Transform parent = null, string name = null) where T : UI_Base
+    {
+        if (string.IsNullOrEmpty(name))
+            name = typeof(T).Name;
+
+        GameObject go = Managers.Resource.Instantiate($"{name}");
+        if (parent != null)
+            go.transform.SetParent(parent);
+
+        Canvas canvas = go.GetOrAddComponent<Canvas>();
+        canvas.renderMode = RenderMode.WorldSpace;
+        canvas.worldCamera = Camera.main;
+
+        return Utils.GetOrAddComponent<T>(go);
+    }
+
     public T MakeSubItem<T>(Transform parent = null, string name = null, bool pooling = true) where T : UI_Base
     {
         if (string.IsNullOrEmpty(name))
             name = typeof(T).Name;
 
-        GameObject go = Managers.Resource.Instantiate($"{name}", parent, pooling);
+        GameObject go = Managers.Resource.Instantiate(name, parent, pooling);
         go.transform.SetParent(parent);
-        return go.GetOrAddComponent<T>();
+
+        return Utils.GetOrAddComponent<T>(go);
+    }
+
+    public T ShowBaseUI<T>(string name = null) where T : UI_Base
+    {
+        if (string.IsNullOrEmpty(name))
+            name = typeof(T).Name;
+
+        GameObject go = Managers.Resource.Instantiate(name);
+        T baseUI = Utils.GetOrAddComponent<T>(go);
+
+        go.transform.SetParent(Root.transform);
+
+        return baseUI;
     }
 
     public T ShowSceneUI<T>(string name = null) where T : UI_Scene
@@ -66,7 +125,7 @@ public class UIManager //Sort Order를 관리하기 위해 만든 클래스
         if (string.IsNullOrEmpty(name))
             name = typeof(T).Name;
 
-        GameObject go = Managers.Resource.Instantiate($"{name}");
+        GameObject go = Managers.Resource.Instantiate(name);
         T sceneUI = go.GetOrAddComponent<T>();
         _sceneUI = sceneUI;
 
@@ -75,20 +134,40 @@ public class UIManager //Sort Order를 관리하기 위해 만든 클래스
         return sceneUI;
     }
 
+    public void CachePopupUI(Type type)
+    {
+        string name = type.Name;
+
+        if (_popups.TryGetValue(name, out UI_Popup popup) == false)
+        {
+            GameObject go = Managers.Resource.Instantiate(name);
+            go.transform.SetParent(Root.transform);
+
+            popup = go.GetComponent<UI_Popup>();
+            _popups[name] = popup;
+        }
+
+        _popupStack.Push(popup);
+    }
+
     public T ShowPopupUI<T>(string name = null) where T : UI_Popup
     {
         if (string.IsNullOrEmpty(name))
             name = typeof(T).Name;
 
-        GameObject go = Managers.Resource.Instantiate($"{name}");
-        T popup = go.GetOrAddComponent<T>();
+        if (_popups.TryGetValue(name, out UI_Popup popup) == false)
+        {
+            GameObject go = Managers.Resource.Instantiate(name);
+            popup = Utils.GetOrAddComponent<T>(go);
+            _popups[name] = popup;
+        }
+
         _popupStack.Push(popup);
 
-        go.transform.SetParent(Root.transform);
+        popup.transform.SetParent(Root.transform);
+        popup.gameObject.SetActive(true);
 
-        RefreshTimeScale();
-
-        return popup;
+        return popup as T;
     }
 
     public void ClosePopupUI(UI_Popup popup) // 매게변수 popup이 삭제가 되는 건지 확인하기 위한 용도
@@ -101,6 +180,7 @@ public class UIManager //Sort Order를 관리하기 위해 만든 클래스
             Debug.Log("Clone Popup Failed");
             return;
         }
+
         ClosePopupUI();
     }
 
@@ -110,22 +190,29 @@ public class UIManager //Sort Order를 관리하기 위해 만든 클래스
             return;
 
         UI_Popup popup = _popupStack.Pop();
-        Managers.Resource.Destroy(popup.gameObject);
-        popup = null;
+
+        popup.gameObject.SetActive(false);
+        //Managers.Resource.Destroy(popup.gameObject);
+
         _order--;
 
         RefreshTimeScale();
     }
 
-    public void CloseAllPopUpUI()
+    public void CloseAllPopupUI()
     {
         while (_popupStack.Count > 0)
             ClosePopupUI();
     }
 
+    public int GetPopupCount()
+    {
+        return _popupStack.Count;
+    }
+
     public void Clear()
     {
-        CloseAllPopUpUI();
+        CloseAllPopupUI();
         _sceneUI = null;
     }
 

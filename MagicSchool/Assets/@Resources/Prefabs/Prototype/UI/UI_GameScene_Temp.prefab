@@ -1182,7 +1182,7 @@ GameObject:
   - component: {fileID: 3146652389643943604}
   - component: {fileID: 8021277962762889738}
   m_Layer: 5
-  m_Name: UI_GameScene
+  m_Name: UI_GameScene_Temp
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

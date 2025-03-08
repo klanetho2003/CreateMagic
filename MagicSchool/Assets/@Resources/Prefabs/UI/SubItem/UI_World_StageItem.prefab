@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 2661362549122182091}
   - component: {fileID: 4133495357964044799}
   m_Layer: 5
-  m_Name: UI_StageItem
+  m_Name: UI_World_StageItem
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

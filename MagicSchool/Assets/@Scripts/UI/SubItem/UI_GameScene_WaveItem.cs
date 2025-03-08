@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using static Define;
 
-public class UI_WaveItem : UI_Base
+public class UI_GameScene_WaveItem : UI_Base
 {
     private EMonsterWaveType _waveType;
 

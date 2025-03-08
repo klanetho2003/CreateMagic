@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class UI_StageItem : UI_Base
+public class UI_World_StageItem : UI_Base
 {
     private Stage _owner;
     public event Action OnCloseItem;
