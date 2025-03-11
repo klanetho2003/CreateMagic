@@ -2,17 +2,56 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using Unity.VisualScripting;
 using UnityEngine;
 using static Define;
 
+public class InputTracker
+{
+    private Queue<KeyDownEvent> _inputQueue = new Queue<KeyDownEvent>();
+    // private const int MAX_INPUTS = 10;
+
+    public void AddInput(KeyDownEvent input)
+    {
+        /*if (inputQueue.Count >= MAX_INPUTS)
+            inputQueue.Dequeue(); // 오래된 입력 제거*/
+
+        _inputQueue.Enqueue(input);
+    }
+
+    public int GetCombinedInput()
+    {
+        if (_inputQueue.Count == 0) return 0;
+
+        StringBuilder sb = new StringBuilder(_inputQueue.Count * 2); // 성능 최적화
+
+        foreach (var input in _inputQueue)
+        {
+            Debug.Log(input);
+            sb.Append((int)input); // Enum -> Int 변환 후 문자열로 추가
+        }
+
+        return int.Parse(sb.ToString());
+    }
+
+    public void Clear()
+    {
+        _inputQueue.Clear();
+    }
+}
+
 public class PlayerSkillBook : BaseSkillBook
 {
+    InputTracker inputTracker;
+
     #region Init Method
     public override bool Init()
     {
         if (base.Init() == false)
             return false;
+
+        inputTracker = new InputTracker();
 
         return true;
     }
@@ -60,8 +99,7 @@ public class PlayerSkillBook : BaseSkillBook
         }
     }
     
-    Queue<int> _inputQueue = new Queue<int>(); // N 번째 값까지만 넣는 방법은 어떤가
-    public Queue<int> InputQueue {  get { return _inputQueue; } }
+    
 
     public int DefaultSkill_CastingStack { get; private set; } = 0;
 
@@ -76,7 +114,8 @@ public class PlayerSkillBook : BaseSkillBook
 
             _owner.CreatureState = CreatureState.Casting;
 
-            _inputQueue.Enqueue(value.GetHashCode());
+            inputTracker.AddInput(value);
+           //_inputQueue.Enqueue(value.GetHashCode());
 
             switch (value)
             {
@@ -153,11 +192,14 @@ public class PlayerSkillBook : BaseSkillBook
 
     CreatureState TryDoSkill()
     {
-        int skillKey = BuildCommandKey();
+        int skillKey = inputTracker.GetCombinedInput();
 
         if (SkillDict.TryGetValue(skillKey, out SkillBase skill) == false)
         {
             Debug.Log($"Player Do not have --{skillKey}--");
+
+            //Clear
+            inputTracker.Clear();
 
             return CreatureState.Idle;
         }
@@ -169,10 +211,13 @@ public class PlayerSkillBook : BaseSkillBook
             Debug.Log($"Do Skill Key : {skillKey} in ActivateSkillOrDelay");
         }
 
+        //Clear
+        inputTracker.Clear();
+
         return _owner.CreatureState;
     }
 
-    int BuildCommandKey()
+    /*int BuildCommandKey()
     {
         int key = 0;
 
@@ -190,5 +235,5 @@ public class PlayerSkillBook : BaseSkillBook
         Debug.Log($"Do Skill Key : {key} in BuildCommandKey");
 
         return key;
-    }
+    }*/
 }

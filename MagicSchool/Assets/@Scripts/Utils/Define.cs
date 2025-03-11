@@ -67,7 +67,7 @@ public static class Define
         Q = 7,
         W = 8,
         E = 9,
-        R = 0,
+        R = 10,
         A = 11,
         S = 12,
         D = 13,

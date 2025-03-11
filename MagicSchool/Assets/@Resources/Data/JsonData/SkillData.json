@@ -173,7 +173,7 @@
       "CompleteSkillDelay": 0.0
     },
     {
-      "DataId": 171,
+      "DataId": 1711,
       "Name": "FireBall",
       "ClassName": "FireBall",
       "Description": "�������� ȭ������ ������",
@@ -197,7 +197,7 @@
       "CompleteSkillDelay": 0.0
     },
     {
-      "DataId": 1892,
+      "DataId": 18912,
       "Name": "FireBreath",
       "ClassName": "FireBreath",
       "Description": "���� �ټ��� ������ ȭ���� �Ѹ���",

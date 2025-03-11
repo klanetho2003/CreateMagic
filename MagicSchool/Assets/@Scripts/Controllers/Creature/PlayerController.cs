@@ -298,9 +298,6 @@ public class PlayerController : CreatureController
 
     protected override void UpdateIdle()
     {
-        if (PlayerSkills.InputQueue.Count > 0)
-            PlayerSkills.InputQueue.Clear();
-
         if (_moveDir != Vector2.zero) { CreatureState = CreatureState.Moving; return; }
     }
 
