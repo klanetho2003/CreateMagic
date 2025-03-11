@@ -21,7 +21,7 @@ public class UI_GameScene : UI_Scene
 
     PlayerController _playerCache;
     //Dictionary<SkillBase, GameObject> _navigationSkillDic = new Dictionary<SkillBase, GameObject>();
-    List<SkillBase> _usableSkillList = new List<SkillBase>();
+    List<SkillBase> _cachePlayerActivateSkills { get; set; }
 
     public override bool Init()
     {
@@ -29,6 +29,7 @@ public class UI_GameScene : UI_Scene
             return false;
 
         _playerCache = Managers.Game.Player;
+        _cachePlayerActivateSkills = Managers.Game.Player.PlayerSkills.ActivateSkills;
         #region Bind
         BindObjects(typeof(GameObjects));
         BindTexts(typeof(Texts));
@@ -100,7 +101,7 @@ public class UI_GameScene : UI_Scene
         if (_init == false)
             return;
 
-        if (_usableSkillList.Count < 1)
+        if (_cachePlayerActivateSkills.Count < 1)
         {
             foreach (var ui in _navSkillItems)
                 ui.gameObject.SetActive(false);
@@ -110,11 +111,11 @@ public class UI_GameScene : UI_Scene
 
         for (int i = 0; i < _navSkillItems.Count; i++)
         {
-            if (_usableSkillList.Count > i)
+            if (_cachePlayerActivateSkills.Count > i)
             {
-                GameObject ui = _navSkillItems[i].gameObject;
-                ui.SetActive(true);
-                // ui.SetInfo(_usableSkillList[i]); // Skill을 매개로 SetInfo 필요
+                UI_GameScene_NavSkillItem ui = _navSkillItems[i];
+                ui.gameObject.SetActive(true);
+                ui.SetInfo(_cachePlayerActivateSkills[i]); // Skill을 매개로 SetInfo 필요
             }
             else
             {
@@ -125,8 +126,6 @@ public class UI_GameScene : UI_Scene
 
     void HandleOnSkillValueChanged(List<SkillBase> skillList)
     {
-        _usableSkillList.Clear();
-        _usableSkillList = skillList;
         RefreshNavi();
 
         GetText((int)Texts.SkillValueText).text = _playerCache.PlayerSkills.InputTransformer.GetCombinedInputToString();

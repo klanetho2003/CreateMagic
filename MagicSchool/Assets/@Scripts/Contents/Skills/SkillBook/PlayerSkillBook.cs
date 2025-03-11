@@ -138,6 +138,7 @@ public class PlayerSkillBook : BaseSkillBook
                     ActivateSkills.Add(skill);
             }
             OnSkillValueChanged.Invoke(ActivateSkills);
+            ActivateSkills.Clear();
 
             switch (value)
             {
