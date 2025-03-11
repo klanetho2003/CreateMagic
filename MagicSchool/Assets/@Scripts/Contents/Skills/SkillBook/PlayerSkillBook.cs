@@ -7,43 +7,70 @@ using Unity.VisualScripting;
 using UnityEngine;
 using static Define;
 
-public class InputTracker
+public class InputTransformer
 {
     private Queue<KeyDownEvent> _inputQueue = new Queue<KeyDownEvent>();
-    // private const int MAX_INPUTS = 10;
+    public List<int> InputList { get; private set; } = new List<int>();
+
+    private const int MAX_INPUTS = 8; //  ASD가 두 자릿수이니, 최총 9자리수가 될 것
 
     public void AddInput(KeyDownEvent input)
     {
-        /*if (inputQueue.Count >= MAX_INPUTS)
-            inputQueue.Dequeue(); // 오래된 입력 제거*/
-
         _inputQueue.Enqueue(input);
+        InputList.Add((int)input);
     }
 
-    public int GetCombinedInput()
+    #region Get Value
+
+    // Dirty Flag 추가를 고민해볼 것
+    public int GetCombinedInputToInt()
     {
         if (_inputQueue.Count == 0) return 0;
+        if (_inputQueue.Count >= MAX_INPUTS) return 0;
 
         StringBuilder sb = new StringBuilder(_inputQueue.Count * 2); // 성능 최적화
 
         foreach (var input in _inputQueue)
         {
-            Debug.Log(input);
             sb.Append((int)input); // Enum -> Int 변환 후 문자열로 추가
         }
 
         return int.Parse(sb.ToString());
     }
 
+    public string GetCombinedInputToString()
+    {
+        if (_inputQueue.Count == 0) return string.Empty;
+
+        StringBuilder sb = new StringBuilder(_inputQueue.Count * 3); // 성능 최적화
+
+        bool first = true; // 첫 번째 값이면 " - " 제거
+        foreach (var input in _inputQueue)
+        {
+            if (!first) sb.Append(" - "); // 첫 번째 값이 아니면 " - " 추가
+            sb.Append(input);
+            first = false;
+        }
+
+        return sb.ToString();
+    }
+
+    #endregion
+
     public void Clear()
     {
         _inputQueue.Clear();
+        InputList.Clear();
     }
 }
 
 public class PlayerSkillBook : BaseSkillBook
 {
-    InputTracker inputTracker;
+    public Action<List<SkillBase>> OnSkillValueChanged;
+
+    public InputTransformer InputTransformer { get; private set; }
+
+    public Dictionary<int, SkillBase> SkillDict { get; } = new Dictionary<int, SkillBase>();
 
     #region Init Method
     public override bool Init()
@@ -51,13 +78,11 @@ public class PlayerSkillBook : BaseSkillBook
         if (base.Init() == false)
             return false;
 
-        inputTracker = new InputTracker();
+        InputTransformer = new InputTransformer();
 
         return true;
     }
     #endregion
-
-    public Dictionary<int, SkillBase> SkillDict { get; } = new Dictionary<int, SkillBase>();
 
     public override void AddSkill(int skillTemplateID, ESkillSlot skillSlot)
     {
@@ -77,7 +102,7 @@ public class PlayerSkillBook : BaseSkillBook
 
         skill.SetInfo(_owner, skillTemplateID);
 
-        SkillList.Add(skill);
+        // SkillList.Add(skill);
         SkillDict.Add(skillTemplateID, skill);
 
         switch (skillSlot)
@@ -88,21 +113,10 @@ public class PlayerSkillBook : BaseSkillBook
             case ESkillSlot.Env:
                 EnvSkill = skill;
                 break;
-            case ESkillSlot.A:
-                ASkill = skill;
-                ActivateSkills.Add(skill);
-                break;
-            case ESkillSlot.B:
-                BSkill = skill;
-                ActivateSkills.Add(skill);
-                break;
         }
     }
-    
-    
 
     public int DefaultSkill_CastingStack { get; private set; } = 0;
-
     KeyDownEvent _currentCommand;
     public KeyDownEvent Command
     {
@@ -114,8 +128,16 @@ public class PlayerSkillBook : BaseSkillBook
 
             _owner.CreatureState = CreatureState.Casting;
 
-            inputTracker.AddInput(value);
-           //_inputQueue.Enqueue(value.GetHashCode());
+            // Add InputValue
+            InputTransformer.AddInput(value);
+
+            // Skill 추천 List 갱신
+            foreach (SkillBase skill in SkillDict.Values)
+            {
+                if (Utils.IsIncludedList(skill.SkillData.InputValues, InputTransformer.InputList))
+                    ActivateSkills.Add(skill);
+            }
+            OnSkillValueChanged.Invoke(ActivateSkills);
 
             switch (value)
             {
@@ -183,6 +205,8 @@ public class PlayerSkillBook : BaseSkillBook
         }
     }
 
+    #region Do Skill
+
     void DoDefaultSkillAndSetCount()
     {
         DefaultSkill.ActivateSkill();
@@ -192,14 +216,14 @@ public class PlayerSkillBook : BaseSkillBook
 
     CreatureState TryDoSkill()
     {
-        int skillKey = inputTracker.GetCombinedInput();
+        int skillKey = InputTransformer.GetCombinedInputToInt();
 
         if (SkillDict.TryGetValue(skillKey, out SkillBase skill) == false)
         {
             Debug.Log($"Player Do not have --{skillKey}--");
 
             //Clear
-            inputTracker.Clear();
+            ClearSkillValue();
 
             return CreatureState.Idle;
         }
@@ -212,28 +236,16 @@ public class PlayerSkillBook : BaseSkillBook
         }
 
         //Clear
-        inputTracker.Clear();
+        ClearSkillValue();
 
         return _owner.CreatureState;
     }
 
-    /*int BuildCommandKey()
+    void ClearSkillValue()
     {
-        int key = 0;
+        InputTransformer.Clear();
+        ActivateSkills.Clear();
+    }
 
-        while (_inputQueue.Count > 1)
-        {
-            int index = _inputQueue.Dequeue();
-
-            for (int i = 0; i < _inputQueue.Count; i++)
-                index = index * 10;
-
-            key += index;
-        }
-
-        key += _inputQueue.Dequeue() - 10;
-        Debug.Log($"Do Skill Key : {key} in BuildCommandKey");
-
-        return key;
-    }*/
+    #endregion
 }

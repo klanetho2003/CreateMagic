@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using static Define;
 using Random = UnityEngine.Random;
@@ -102,6 +103,23 @@ public class Utils
             default:
                 return EFFECT_SMALL_RADIUS;
         }
+    }
+
+    public static bool IsIncludedList<T>(List<T> parentList, List<T>childList)
+    {
+        // 1. 리스트 길이 체크 (빠른 탈출)
+        if (childList.Count > parentList.Count)
+            return false;
+
+        // 2. 첫 번째 값이 일치하는 경우만 비교 (빠른 필터링)
+        if (!EqualityComparer<T>.Default.Equals(parentList[0], childList[0]))
+            return false;
+
+        // 3. 비교
+        if (parentList.Take(childList.Count).SequenceEqual(childList))
+            return true; // 일치하는 리스트 발견 시 반환
+
+        return false;
     }
 
     //Math Util

@@ -1439,7 +1439,7 @@ GameObject:
   - component: {fileID: 4352139645444006298}
   - component: {fileID: 1604611580686648719}
   m_Layer: 5
-  m_Name: TitleText
+  m_Name: SkillValueText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1494,8 +1494,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Skill Nav Temp
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 7e5141cf120369f459cca35208531e65, type: 2}
+  m_sharedMaterial: {fileID: -1185709121785741761, guid: 7e5141cf120369f459cca35208531e65, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -1598,8 +1598,8 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
-  m_Pivot: {x: 0, y: 1}
+  m_SizeDelta: {x: 0.0000000018626451, y: 0}
+  m_Pivot: {x: 1.0000001, y: 1}
 --- !u!222 &5363952195783511585
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1917,8 +1917,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -317, y: -370}
-  m_SizeDelta: {x: 470, y: 560}
+  m_AnchoredPosition: {x: -317, y: -504.76477}
+  m_SizeDelta: {x: 470, y: 830}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &4062248470609906943
 CanvasRenderer:
@@ -2123,10 +2123,10 @@ RectTransform:
   - {fileID: 6141164978868316766}
   m_Father: {fileID: 6276199613396312194}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: -77.49999}
-  m_SizeDelta: {x: 0, y: -155.00002}
+  m_AnchoredPosition: {x: -235, y: -492.5}
+  m_SizeDelta: {x: 470, y: 675}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &3263582199150093828
 GameObject:
@@ -2140,7 +2140,7 @@ GameObject:
   - component: {fileID: 7346363515415617642}
   - component: {fileID: 1204612173343141074}
   m_Layer: 5
-  m_Name: SkillList
+  m_Name: NavSkillItemList
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2163,7 +2163,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_SizeDelta: {x: -470, y: 0}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &7346363515415617642
 MonoBehaviour:
@@ -2196,10 +2196,10 @@ MonoBehaviour:
     m_Right: 0
     m_Top: 0
     m_Bottom: 0
-  m_ChildAlignment: 2
+  m_ChildAlignment: 0
   m_Spacing: 20
   m_ChildForceExpandWidth: 0
-  m_ChildForceExpandHeight: 1
+  m_ChildForceExpandHeight: 0
   m_ChildControlWidth: 0
   m_ChildControlHeight: 0
   m_ChildScaleWidth: 0

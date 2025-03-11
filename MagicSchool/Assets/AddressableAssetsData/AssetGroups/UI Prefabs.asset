@@ -75,6 +75,12 @@ MonoBehaviour:
     m_SerializedLabels:
     - PreLoad
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: bf388a7fd26181c4784084948f106af4
+    m_Address: UI_GameScene_NavSkillItem
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - PreLoad
+    FlaggedDuringContentUpdateRestriction: 0
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 75ee46cc5156e824ebaac0c11ee626a5, type: 2}
   m_SchemaSet:
