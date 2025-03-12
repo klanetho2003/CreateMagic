@@ -239,6 +239,7 @@ namespace Data
         public string ClassName;
         public string Description;
         public List<int> InputValues = new List<int>();
+        public string InputDescription;
         public int ProjectileId;
         public string PrefabLabel;
         public string IconLabel;

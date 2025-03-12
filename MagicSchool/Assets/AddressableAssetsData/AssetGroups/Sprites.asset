@@ -41,10 +41,17 @@ MonoBehaviour:
     m_SerializedLabels:
     - PreLoad
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: be304275dbf36014ca9828884588ac47
-    m_Address: BurnTexture.sprite
+  - m_GUID: 6488ac34197494040a8569d457c88384
+    m_Address: FireballIcon_01.sprite
     m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - PreLoad
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: f2be2be2ec34d1c4fa6a1b0e023c811a
+    m_Address: FireBreathIcon_01.sprite
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - PreLoad
     FlaggedDuringContentUpdateRestriction: 0
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 75ee46cc5156e824ebaac0c11ee626a5, type: 2}

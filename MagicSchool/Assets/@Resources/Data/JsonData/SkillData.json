@@ -8,6 +8,7 @@
       "InputValues": [
         0
       ],
+      "InputDescription": null,
       "ProjectileId": 0,
       "PrefabLabel": null,
       "IconLabel": "BattleSkillIcon_01",
@@ -35,6 +36,7 @@
       "InputValues": [
         0
       ],
+      "InputDescription": null,
       "ProjectileId": 70001,
       "PrefabLabel": "ProjectilePrefab",
       "IconLabel": "BattleSkillIcon_01",
@@ -62,6 +64,7 @@
       "InputValues": [
         0
       ],
+      "InputDescription": null,
       "ProjectileId": 70002,
       "PrefabLabel": "ProjectilePrefab",
       "IconLabel": "BattleSkillIcon_01",
@@ -89,6 +92,7 @@
       "InputValues": [
         0
       ],
+      "InputDescription": null,
       "ProjectileId": 0,
       "PrefabLabel": "SpellIndicator",
       "IconLabel": null,
@@ -118,6 +122,7 @@
       "InputValues": [
         0
       ],
+      "InputDescription": null,
       "ProjectileId": 0,
       "PrefabLabel": null,
       "IconLabel": null,
@@ -145,6 +150,7 @@
       "InputValues": [
         0
       ],
+      "InputDescription": null,
       "ProjectileId": 0,
       "PrefabLabel": "SpellIndicator",
       "IconLabel": null,
@@ -172,6 +178,7 @@
       "InputValues": [
         0
       ],
+      "InputDescription": null,
       "ProjectileId": 80000,
       "PrefabLabel": "ProjectilePrefab",
       "IconLabel": null,
@@ -203,9 +210,10 @@
         7,
         11
       ],
+      "InputDescription": "N1 - Q - A",
       "ProjectileId": 70002,
       "PrefabLabel": "ProjectilePrefab",
-      "IconLabel": null,
+      "IconLabel": "FireballIcon_01.sprite",
       "AnimName": "NormalAttack",
       "CoolTime": 1.2,
       "DamageMultiplier": 20.0,
@@ -233,9 +241,10 @@
         9,
         12
       ],
+      "InputDescription": "N1 - W - E - S",
       "ProjectileId": 80001,
       "PrefabLabel": "ProjectilePrefab",
-      "IconLabel": null,
+      "IconLabel": "FireBreathIcon_01.sprite",
       "AnimName": "NormalAttack",
       "CoolTime": 0.0,
       "DamageMultiplier": 1.0,

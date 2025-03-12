@@ -13,14 +13,18 @@ public class UI_GameScene_NavSkillItem : UI_Base
         ValueText,
     }
 
+    enum Images
+    {
+        SkillIconImage,
+    }
+
     public override bool Init()
     {
         if (base.Init() == false)
             return false;
 
         BindTexts(typeof(Texts));
-
-        Refresh();
+        BindImages(typeof(Images));
 
         return true;
     }
@@ -29,7 +33,6 @@ public class UI_GameScene_NavSkillItem : UI_Base
     {
         _skillBase = skill;
 
-        GetText((int)Texts.ValueText).text = $"{skill.SkillData.Name}";
         Refresh();
     }
 
@@ -37,5 +40,10 @@ public class UI_GameScene_NavSkillItem : UI_Base
     {
         if (_init == false)
             return;
+
+        GetText((int)Texts.ValueText).text = $"{_skillBase.SkillData.InputDescription}\n{_skillBase.SkillData.Name}";
+        GetImage((int)Images.SkillIconImage).sprite = Managers.Resource.Load<Sprite>(_skillBase.SkillData.IconLabel);
+
+        transform.localScale = Vector3.one;
     }
 }
