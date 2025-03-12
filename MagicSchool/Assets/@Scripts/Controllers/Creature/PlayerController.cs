@@ -283,8 +283,11 @@ public class PlayerController : CreatureController
 
     private void OnDestroy()
     {
-        if (Managers.Game != null)
-            Managers.Game.OnMoveDirChanged -= HandleOnMoveDirChange;
+        if (Managers.Game == null)
+            return;
+        Managers.Game.OnMoveDirChanged -= HandleOnMoveDirChange;
+        Managers.Input.OnKeyDownHandler -= HandleOnKeyDown;
+            
     }
     
     public override void UpdateController()
