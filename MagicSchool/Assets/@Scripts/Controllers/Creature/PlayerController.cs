@@ -1,4 +1,5 @@
 using Cinemachine;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
@@ -83,6 +84,11 @@ public class PlayerController : CreatureController
             }
         }
     }
+
+    #region Only Player Stat
+    public int Mp { get; set; }
+    public CreatureStat MaxMp;
+    #endregion
 
     #region Player Animation
 
@@ -231,6 +237,11 @@ public class PlayerController : CreatureController
     {
         base.SetInfo(templateID);
 
+        // Only Player Stat - Mp
+        Mp = 0/*CreatureData.MaxMp*/;
+        MaxMp = new CreatureStat(CreatureData.MaxMp);
+        StartMpUp(10); // 10이면 1.1초에 1 Up
+
         #region Child Init
         _stemp = Utils.FindChild<SpriteRenderer>(gameObject, "Stemp", true);
         _stemp.enabled = false;
@@ -287,13 +298,17 @@ public class PlayerController : CreatureController
             return;
         Managers.Game.OnMoveDirChanged -= HandleOnMoveDirChange;
         Managers.Input.OnKeyDownHandler -= HandleOnKeyDown;
-            
+
+        CancleMpUp();
     }
-    
+
+    float timeTemp;
     public override void UpdateController()
     {
         base.UpdateController();
 
+        timeTemp += Time.deltaTime;
+        Debug.Log($"Mp = {Mp}, Time = {timeTemp}");
         //CollectEnv();
     }
 
@@ -396,6 +411,47 @@ public class PlayerController : CreatureController
     protected override void OnDead(BaseController attacker, SkillBase skill)
     {
         base.OnDead(attacker, skill);
+    }
+
+    #endregion
+
+    #region Mp
+
+    public Action<float, float> OnMpGageChange;
+    Coroutine _coStartMpUp;
+    public void StartMpUp(int oneGaugeAmount)
+    {
+        _coStartMpUp = StartCoroutine(CoStartMpUp(oneGaugeAmount));
+    }
+
+    public IEnumerator CoStartMpUp(int oneGaugeAmount)
+    {
+        float sumTime = 0;
+
+        while (this.IsValid() && MaxMp.Value > Mp)
+        {
+            if (OnMpGageChange == null)
+                yield return null;
+
+            sumTime += Time.deltaTime;
+            OnMpGageChange.Invoke(sumTime, oneGaugeAmount);
+
+            if (sumTime > oneGaugeAmount)
+            {
+                // Mp Up
+                Mp += 1;
+                sumTime = 0;
+            }
+
+            yield return null;
+        }
+    }
+
+    public void CancleMpUp()
+    {
+        if (_coStartMpUp != null)
+            StopCoroutine(_coStartMpUp);
+        _coStartMpUp = null;
     }
 
     #endregion

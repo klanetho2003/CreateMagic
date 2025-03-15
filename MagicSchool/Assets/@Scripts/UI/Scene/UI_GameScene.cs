@@ -14,6 +14,10 @@ public class UI_GameScene : UI_Scene
     {
         SkillValueText,
     }
+    enum Sliders
+    {
+        MpBar,
+    }
 
     List<UI_GameScene_WaveItem> _waveItems = new List<UI_GameScene_WaveItem>();
     List<UI_GameScene_NavSkillItem> _navSkillItems = new List<UI_GameScene_NavSkillItem>();
@@ -33,6 +37,7 @@ public class UI_GameScene : UI_Scene
         #region Bind
         BindObjects(typeof(GameObjects));
         BindTexts(typeof(Texts));
+        BindSliders(typeof(Sliders));
         #endregion
 
         #region Instantiate Pre
@@ -63,6 +68,8 @@ public class UI_GameScene : UI_Scene
         //Event
         _playerCache.PlayerSkills.OnSkillValueChanged -= HandleOnSkillValueChanged;
         _playerCache.PlayerSkills.OnSkillValueChanged += HandleOnSkillValueChanged;
+        _playerCache.OnMpGageChange -= HandleOnMpGageChange;
+        _playerCache.OnMpGageChange += HandleOnMpGageChange;
 
         return true;
     }
@@ -95,6 +102,8 @@ public class UI_GameScene : UI_Scene
             }
         }
     }
+
+    #region Navi
 
     void RefreshNavi()
     {
@@ -131,7 +140,19 @@ public class UI_GameScene : UI_Scene
         GetText((int)Texts.SkillValueText).text = _playerCache.PlayerSkills.InputTransformer.GetCombinedInputToString();
     }
 
-    // To Do
-    // "__Input List<int>__"과 "__PlayerSkillBook 내부 skill List 내부 Skill Input List__" 비교 후, Skill을 반환받게 해야함. 
-    // 반환 받은 Skill과 UI GameObject가 매핑되도록 Dictionary를 하나를 파서 UI를 On한다.
+    #endregion
+
+    #region Mp
+
+    void HandleOnMpGageChange(float currentGageAmout, float oneGaugeAmount)
+    {
+        // Count를 곱하자
+        float sum = currentGageAmout / oneGaugeAmount;
+        GetSliders((int)Sliders.MpBar).value = (sum + _playerCache.Mp * oneGaugeAmount) / _playerCache.MaxMp.Value;
+    }
+    // PlayerMP(Queue Count)에 맞춰서 UI 보여주기
+
+    #endregion
+
+
 }

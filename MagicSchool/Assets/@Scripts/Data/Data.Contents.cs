@@ -166,6 +166,8 @@ namespace Data
         public float MaxHp;
         public float UpMaxHp;
 
+        public int MaxMp;
+
         public float Atk;
         public float AtkRange;
         public float AtkBonus;

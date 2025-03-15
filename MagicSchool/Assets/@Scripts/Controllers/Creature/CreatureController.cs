@@ -158,7 +158,7 @@ public class CreatureController : BaseController
 
         // Animatior
         SetAnimation(CreatureData.AnimatorDataID, CreatureData.SortingLayerName, SortingLayers.CREATURE);
-
+        
         // Skills
         //CreatureData.SkillList; // 각 Controller SetInfo에서 초기화 하는 중
 
