@@ -9,14 +9,11 @@ public class UI_GameScene : UI_Scene
     {
         WaveList,
         NavSkillItemList,
+        MpBar,
     }
     enum Texts
     {
         SkillValueText,
-    }
-    enum Sliders
-    {
-        MpBar,
     }
 
     List<UI_GameScene_WaveItem> _waveItems = new List<UI_GameScene_WaveItem>();
@@ -24,8 +21,13 @@ public class UI_GameScene : UI_Scene
     const int MAX_ITEM_COUNT = 30;
 
     PlayerController _playerCache;
-    //Dictionary<SkillBase, GameObject> _navigationSkillDic = new Dictionary<SkillBase, GameObject>();
     List<SkillBase> _cachePlayerActivateSkills { get; set; }
+
+    List<UI_GameScene_EachMpBar> _mpBarItems = new List<UI_GameScene_EachMpBar>();
+    public UI_GameScene_EachMpBar FillMpBar = null;
+
+    public Stack<UI_GameScene_EachMpBar> FullMpBars { get; } = new Stack<UI_GameScene_EachMpBar>();
+    public Stack<UI_GameScene_EachMpBar> NoneMpBars { get; } = new Stack<UI_GameScene_EachMpBar>();
 
     public override bool Init()
     {
@@ -34,10 +36,10 @@ public class UI_GameScene : UI_Scene
 
         _playerCache = Managers.Game.Player;
         _cachePlayerActivateSkills = Managers.Game.Player.PlayerSkills.ActivateSkills;
+
         #region Bind
         BindObjects(typeof(GameObjects));
         BindTexts(typeof(Texts));
-        BindSliders(typeof(Sliders));
         #endregion
 
         #region Instantiate Pre
@@ -60,16 +62,34 @@ public class UI_GameScene : UI_Scene
             _navSkillItems.Add(item);
         }
 
+        // Mp Bar
+        _mpBarItems.Clear();
+        GameObject _mpBarsParent = GetObject((int)GameObjects.MpBar);
+        for (int i = 0; i < _playerCache.MaxMp.Value; i++)
+        {
+            UI_GameScene_EachMpBar item = Managers.UI.MakeSubItem<UI_GameScene_EachMpBar>(_mpBarsParent.transform);
+            _mpBarItems.Add(item);
+        }
+
         #endregion
 
+        #region Refresh
         RefreshWave();
         RefreshNavi();
+        RefreshMp();
+        #endregion
 
-        //Event
+        #region Event
         _playerCache.PlayerSkills.OnSkillValueChanged -= HandleOnSkillValueChanged;
         _playerCache.PlayerSkills.OnSkillValueChanged += HandleOnSkillValueChanged;
-        _playerCache.OnMpGageChange -= HandleOnMpGageChange;
-        _playerCache.OnMpGageChange += HandleOnMpGageChange;
+
+        _playerCache.OnMpGaugeUpStart -= HandleOnMpGaugeUpStart;
+        _playerCache.OnMpGaugeUpStart += HandleOnMpGaugeUpStart;
+        _playerCache.OnMpGaugeFill -= HandleOnMpGaugeUp;
+        _playerCache.OnMpGaugeFill += HandleOnMpGaugeUp;
+        _playerCache.OnDecreaseMpGauge -= HandleOnDecreaseMpGauge;
+        _playerCache.OnDecreaseMpGauge += HandleOnDecreaseMpGauge;
+        #endregion
 
         return true;
     }
@@ -78,8 +98,11 @@ public class UI_GameScene : UI_Scene
     {
         RefreshWave();
         RefreshNavi();
+        RefreshMp();
     }
 
+    #region Wave
+    
     void RefreshWave()
     {
         if (_init == false)
@@ -102,6 +125,8 @@ public class UI_GameScene : UI_Scene
             }
         }
     }
+
+    #endregion 
 
     #region Navi
 
@@ -144,13 +169,69 @@ public class UI_GameScene : UI_Scene
 
     #region Mp
 
-    void HandleOnMpGageChange(float currentGageAmout, float oneGaugeAmount)
+    void RefreshMp()
     {
-        // Count를 곱하자
-        float sum = currentGageAmout / oneGaugeAmount;
-        GetSliders((int)Sliders.MpBar).value = (sum + _playerCache.Mp * oneGaugeAmount) / _playerCache.MaxMp.Value;
+        if (_init == false)
+            return;
+
+        foreach (var item in _mpBarItems)
+        {
+            item.SetInfo(this);
+            NoneMpBars.Push(item);
+            item.gameObject.SetActive(false);
+        }
+
+        for (int i = 0; i < _playerCache.MaxMp.Value; i++)
+        {
+            _mpBarItems[i].gameObject.SetActive(true);
+        }
     }
-    // PlayerMP(Queue Count)에 맞춰서 UI 보여주기
+
+    void HandleOnMpGaugeUpStart()
+    {
+        if (FillMpBar != null)
+        {
+            if (NoneMpBars.Count < 1)
+            {
+                FullMpBars.Push(FillMpBar);
+                FillMpBar = null;
+                return;
+            }
+
+            FullMpBars.Push(FillMpBar);
+        }
+
+        UI_GameScene_EachMpBar mpBar = NoneMpBars.Pop();
+        FillMpBar = mpBar;
+    }
+
+    void HandleOnMpGaugeUp()
+    {
+        if (FillMpBar != null)
+            FillMpBar.RefreshSlider();
+    }
+
+    void HandleOnDecreaseMpGauge()
+    {
+        while (_playerCache.Mp < FullMpBars.Count)
+        {
+            UI_GameScene_EachMpBar mpBar = FullMpBars.Pop();
+
+            if (FillMpBar != null)
+            {
+                mpBar.Slider.value = FillMpBar.Slider.value;
+                FillMpBar.ResetValue();
+                NoneMpBars.Push(FillMpBar);
+
+                FillMpBar = mpBar;
+            }
+            else
+            {
+                mpBar.ResetValue();
+                NoneMpBars.Push(mpBar);
+            }
+        }
+    }
 
     #endregion
 

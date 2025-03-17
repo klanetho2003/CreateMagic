@@ -123,11 +123,16 @@ public class PlayerSkillBook : BaseSkillBook
         get { return _currentCommand; }
         set
         {
+            if (Managers.Game.Player.DecreaseMp(1) == false)
+                return;
+
             if (_owner.CreatureState == CreatureState.DoSkill || _owner.CreatureState == CreatureState.FrontDelay || _owner.CreatureState == CreatureState.BackDelay)
                 return;
 
             _owner.CreatureState = CreatureState.Casting;
 
+            #region Skill Navigation
+            
             // Add InputValue
             InputTransformer.AddInput(value);
 
@@ -139,6 +144,8 @@ public class PlayerSkillBook : BaseSkillBook
             }
             OnSkillValueChanged.Invoke(ActivateSkills);
             ActivateSkills.Clear();
+
+            #endregion
 
             switch (value)
             {

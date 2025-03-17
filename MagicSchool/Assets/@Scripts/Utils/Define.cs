@@ -220,6 +220,13 @@ public static class Define
         CleanDebuff,
     }
 
+    public enum EMpStateType
+    {
+        Fill,
+        Full,
+        None,
+    }
+
     public enum ELanguage
     {
         Korean,

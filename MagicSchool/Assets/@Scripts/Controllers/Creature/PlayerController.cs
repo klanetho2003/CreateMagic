@@ -10,8 +10,6 @@ using static Define;
 
 public class PlayerController : CreatureController
 {
-    float EnvCollectDist { get; set; } = 1.0f;
-
     public PlayerSkillBook PlayerSkills { get; private set; }
     public override BaseSkillBook Skills
     {
@@ -88,6 +86,7 @@ public class PlayerController : CreatureController
     #region Only Player Stat
     public int Mp { get; set; }
     public CreatureStat MaxMp;
+    public float CurrentMpGaugeAmount = 0;
     #endregion
 
     #region Player Animation
@@ -240,7 +239,7 @@ public class PlayerController : CreatureController
         // Only Player Stat - Mp
         Mp = 0/*CreatureData.MaxMp*/;
         MaxMp = new CreatureStat(CreatureData.MaxMp);
-        StartMpUp(10); // 10이면 1.1초에 1 Up
+        StartMpUp(1);
 
         #region Child Init
         _stemp = Utils.FindChild<SpriteRenderer>(gameObject, "Stemp", true);
@@ -307,8 +306,8 @@ public class PlayerController : CreatureController
     {
         base.UpdateController();
 
-        timeTemp += Time.deltaTime;
-        Debug.Log($"Mp = {Mp}, Time = {timeTemp}");
+        /*timeTemp += Time.deltaTime;
+        Debug.Log($"Mp = {Mp}, Time = {timeTemp}");*/
         //CollectEnv();
     }
 
@@ -376,6 +375,7 @@ public class PlayerController : CreatureController
 
     #endregion
 
+    // float EnvCollectDist { get; set; } = 1.0f;
     /* Temp Collect Env
     void CollectEnv()
     {
@@ -417,34 +417,47 @@ public class PlayerController : CreatureController
 
     #region Mp
 
-    public Action<float, float> OnMpGageChange;
+    public Action OnMpGaugeUpStart;
+    public Action OnMpGaugeFill;
+    public Action OnDecreaseMpGauge;
     Coroutine _coStartMpUp;
     public void StartMpUp(int oneGaugeAmount)
     {
+        if (_coStartMpUp != null)
+            StopCoroutine(_coStartMpUp);
+
         _coStartMpUp = StartCoroutine(CoStartMpUp(oneGaugeAmount));
     }
 
     public IEnumerator CoStartMpUp(int oneGaugeAmount)
     {
-        float sumTime = 0;
+        // 재시작
+        while (OnMpGaugeUpStart == null)
+            yield return null;
+
+        // Gauge Start
+        OnMpGaugeUpStart.Invoke();
 
         while (this.IsValid() && MaxMp.Value > Mp)
         {
-            if (OnMpGageChange == null)
-                yield return null;
+            CurrentMpGaugeAmount += Time.deltaTime;
 
-            sumTime += Time.deltaTime;
-            OnMpGageChange.Invoke(sumTime, oneGaugeAmount);
+            // Gauge 갱신
+            OnMpGaugeFill.Invoke();
 
-            if (sumTime > oneGaugeAmount)
+            if (CurrentMpGaugeAmount > oneGaugeAmount)
             {
                 // Mp Up
                 Mp += 1;
-                sumTime = 0;
+
+                CurrentMpGaugeAmount = 0;
+                StartMpUp(1); // 재시작
             }
 
             yield return null;
         }
+
+        CancleMpUp();
     }
 
     public void CancleMpUp()
@@ -452,6 +465,20 @@ public class PlayerController : CreatureController
         if (_coStartMpUp != null)
             StopCoroutine(_coStartMpUp);
         _coStartMpUp = null;
+    }
+
+    public bool DecreaseMp(int decreaseAmount)
+    {
+        if (Mp < decreaseAmount)
+            return false;
+
+        Mp -= decreaseAmount;
+        OnDecreaseMpGauge.Invoke();
+
+        if (_coStartMpUp == null)
+            StartMpUp(1);
+
+        return true;
     }
 
     #endregion
