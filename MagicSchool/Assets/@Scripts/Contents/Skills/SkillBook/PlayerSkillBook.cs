@@ -123,7 +123,7 @@ public class PlayerSkillBook : BaseSkillBook
         get { return _currentCommand; }
         set
         {
-            if (Managers.Game.Player.DecreaseMp(1) == false)
+            if (Managers.Game.Player.CheckChangeMp(DefaultSkill.SkillData.UsedMp) == false)
                 return;
 
             if (_owner.CreatureState == CreatureState.DoSkill || _owner.CreatureState == CreatureState.FrontDelay || _owner.CreatureState == CreatureState.BackDelay)

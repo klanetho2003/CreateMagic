@@ -167,6 +167,7 @@ namespace Data
         public float UpMaxHp;
 
         public int MaxMp;
+        public float MpGaugeAmount;
 
         public float Atk;
         public float AtkRange;
@@ -246,6 +247,7 @@ namespace Data
         public string PrefabLabel;
         public string IconLabel;
         public string AnimName;
+        public int UsedMp;
         public float CoolTime;
         public float DamageMultiplier;
         public float SkillDuration;

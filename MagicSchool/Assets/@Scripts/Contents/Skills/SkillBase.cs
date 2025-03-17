@@ -68,6 +68,9 @@ public abstract class SkillBase : MonoBehaviour // 스킬을 스폰 > ActiveSkill 발�
     
     public void ActivateSkillOrDelay()
     {
+        if (Owner.CheckChangeMp(SkillData.UsedMp) == false)
+            return;
+
         float delaySeconds = SkillData.ActivateSkillDelay;
         CurrentSkill = this;
 
@@ -82,6 +85,7 @@ public abstract class SkillBase : MonoBehaviour // 스킬을 스폰 > ActiveSkill 발�
     public virtual void ActivateSkill()
     {
         Owner.CreatureState = CreatureState.DoSkill;
+        
 
         if (Owner.ObjectType == EObjectType.Monster && SkillData.AnimName != null)
         {

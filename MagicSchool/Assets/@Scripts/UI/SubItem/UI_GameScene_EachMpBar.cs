@@ -10,40 +10,8 @@ using Slider = UnityEngine.UI.Slider;
 
 public class UI_GameScene_EachMpBar : UI_Base
 {
-    UI_GameScene _uiGameSceneCache { get; set; }
-
-    EMpStateType _mpStateType;
-    public EMpStateType MpStateType
-    {
-        get { return _mpStateType; }
-        set
-        {
-            _mpStateType = value;
-
-            /*switch (value)
-            {
-                case EMpStateType.Fill:
-                    _uiGameSceneCache.FillMpBar = this;
-                    _uiGameSceneCache.FullMpBars.Remove(this);
-                    _uiGameSceneCache.NoneMpBars.Remove(this);
-                    break;
-                case EMpStateType.Full:
-                    _uiGameSceneCache.FullMpBars.Push(this);
-                    break;
-                case EMpStateType.None:
-                    _uiGameSceneCache.NoneMpBars.Add(this);
-                    _uiGameSceneCache.FullMpBars.Remove(this);
-                    break;
-            }*/
-        }
-    }
-
     public Slider Slider { get; private set; }
-
-    enum Sliders
-    {
-        UI_GameScene_EachMpBar,
-    }
+    PlayerController _playerCache;
 
     public override bool Init()
     {
@@ -51,37 +19,23 @@ public class UI_GameScene_EachMpBar : UI_Base
             return false;
 
         Slider = GetComponent<Slider>();
-        //BindSliders(typeof(Sliders));
-
-        Refresh();
+        _playerCache = Managers.Game.Player;
 
         return true;
     }
 
-    public void SetInfo(UI_GameScene parent)
+    public void SetInfo(UI_GameScene parent, float gaugeAmount)
     {
-        _uiGameSceneCache = parent;
+        transform.localScale = Vector3.one;
 
-        MpStateType = EMpStateType.None;
-
-        Refresh();
+        Refresh(gaugeAmount);
     }
 
-    void Refresh()
+    public void Refresh(float gaugeAmount)
     {
         if (_init == false)
             return;
 
-        transform.localScale = Vector3.one;
-    }
-
-    public void RefreshSlider()
-    {
-        Slider.value = Managers.Game.Player.CurrentMpGaugeAmount / 1;
-    }
-
-    public void ResetValue()
-    {
-        Slider.value = 0;
+        Slider.value = gaugeAmount / _playerCache.CreatureData.MpGaugeAmount;
     }
 }

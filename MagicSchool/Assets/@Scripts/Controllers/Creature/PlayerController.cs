@@ -83,9 +83,7 @@ public class PlayerController : CreatureController
         }
     }
 
-    #region Only Player Stat
-    public int Mp { get; set; }
-    public CreatureStat MaxMp;
+    #region Only Player Value
     public float CurrentMpGaugeAmount = 0;
     #endregion
 
@@ -236,10 +234,7 @@ public class PlayerController : CreatureController
     {
         base.SetInfo(templateID);
 
-        // Only Player Stat - Mp
-        Mp = 0/*CreatureData.MaxMp*/;
-        MaxMp = new CreatureStat(CreatureData.MaxMp);
-        StartMpUp(1);
+        StartMpUp(CreatureData.MpGaugeAmount);
 
         #region Child Init
         _stemp = Utils.FindChild<SpriteRenderer>(gameObject, "Stemp", true);
@@ -419,9 +414,9 @@ public class PlayerController : CreatureController
 
     public Action OnMpGaugeUpStart;
     public Action OnMpGaugeFill;
-    public Action OnDecreaseMpGauge;
+    public Action OnChangeTotalMpGauge;
     Coroutine _coStartMpUp;
-    public void StartMpUp(int oneGaugeAmount)
+    public void StartMpUp(float oneGaugeAmount)
     {
         if (_coStartMpUp != null)
             StopCoroutine(_coStartMpUp);
@@ -429,7 +424,7 @@ public class PlayerController : CreatureController
         _coStartMpUp = StartCoroutine(CoStartMpUp(oneGaugeAmount));
     }
 
-    public IEnumerator CoStartMpUp(int oneGaugeAmount)
+    public IEnumerator CoStartMpUp(float oneGaugeAmount)
     {
         // 재시작
         while (OnMpGaugeUpStart == null)
@@ -451,12 +446,13 @@ public class PlayerController : CreatureController
                 Mp += 1;
 
                 CurrentMpGaugeAmount = 0;
-                StartMpUp(1); // 재시작
+                StartMpUp(CreatureData.MpGaugeAmount); // 재시작
             }
 
             yield return null;
         }
 
+        // 모두 차면 정지
         CancleMpUp();
     }
 
@@ -467,16 +463,20 @@ public class PlayerController : CreatureController
         _coStartMpUp = null;
     }
 
-    public bool DecreaseMp(int decreaseAmount)
+    public override bool CheckChangeMp(int amount)
     {
-        if (Mp < decreaseAmount)
+        int sumMp = Mp + amount;
+
+        if (sumMp < 0)
             return false;
 
-        Mp -= decreaseAmount;
-        OnDecreaseMpGauge.Invoke();
+        Mathf.Clamp(sumMp, 0, MaxMp.Value);
+
+        Mp = sumMp;
+        OnChangeTotalMpGauge.Invoke();
 
         if (_coStartMpUp == null)
-            StartMpUp(1);
+            StartMpUp(CreatureData.MpGaugeAmount);
 
         return true;
     }

@@ -83,6 +83,8 @@ public class CreatureController : BaseController
     #region Stats
     public float Hp { get; set; }
     public CreatureStat MaxHp;
+    public int Mp { get; set; }
+    public CreatureStat MaxMp;
     public CreatureStat Atk;
     public CreatureStat CriRate;
     public CreatureStat CriDamage;
@@ -165,6 +167,8 @@ public class CreatureController : BaseController
         // Stat
         Hp = CreatureData.MaxHp;
         MaxHp = new CreatureStat(CreatureData.MaxHp);
+        Mp = 0;
+        MaxMp = new CreatureStat(CreatureData.MaxMp);
         Atk = new CreatureStat(CreatureData.Atk);
         CriRate = new CreatureStat(CreatureData.CriRate);
         CriDamage = new CreatureStat(CreatureData.Cridamage);
@@ -303,6 +307,11 @@ public class CreatureController : BaseController
         // AOE
         if (skill != null && skill.SkillData.AoEId != 0)
             skill.GenerateAoE(transform.position);
+    }
+
+    public virtual bool CheckChangeMp(int amount)
+    {
+        return ObjectType == EObjectType.Student;
     }
 
     #endregion

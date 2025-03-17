@@ -1,3 +1,6 @@
-TemplateID,DescriptionTextID,Label,ColliderOffSetX,ColliderOffsetY,ColliderRadius,MaxHp,UpMaxHp,MaxMp,Atk,AtkRange,AtkBonus,MoveSpeed,CriRate,Cridamage,SpawnDelaySeconds,IconImage,MaterialID,AnimatorDataID,SortingLayerName,DefaultSkill,EnvSkill,SkillA,SkillB
-201000,Magicion_01,HeroPrefab,0,0.5,0.6,1000,2,10,25,4,2,5,0.15,1.5,3,002.sprite,Magicion_01,Magicion01_Animator,Player,90001,0,1711,18912
-201001,워리어,HeroPrefab,0,0.5,0.6,1000,2,10,25,1.8,2,5,0.15,1.5,3,001.sprite,Magicion_01,Magicion01_Animator,Player,10001,0,0,0
+TemplateID,DescriptionTextID,Label,ColliderOffSetX,ColliderOffsetY,ColliderRadius,MaxHp,UpMaxHp,MaxMp,MpGaugeAmount,Atk,AtkRange,AtkBonus,MoveSpeed,CriRate,Cridamage,SpawnDelaySeconds,IconImage,MaterialID,AnimatorDataID,SortingLayerName,DefaultSkill,EnvSkill,SkillA,SkillB
+201000,Magicion_01,HeroPrefab,0,0.5,0.6,1000,0,10,1,25,4,0,5,0.15,1.5,0,002.sprite,Magicion_01,Magicion01_Animator,Player,90001,0,1711,18912
+201001,워리어,HeroPrefab,0,0.5,0.6,1000,0,10,1,25,1.8,0,5,0.15,1.5,0,001.sprite,Magicion_01,Magicion01_Animator,Player,10001,0,0,0
+,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,
+,To Do 규칙 작성,,,,,,,int,float,,,,,,,,,,,,,List로 변경 예정,,
