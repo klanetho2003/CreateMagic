@@ -418,6 +418,13 @@ public class PlayerController : CreatureController
     Coroutine _coStartMpUp;
     public void StartMpUp(float oneGaugeAmount)
     {
+        // ¹æ¾î
+        if (MaxMp.Value <= Mp)
+        {
+            CancleMpUp();
+            return;
+        }
+
         if (_coStartMpUp != null)
             StopCoroutine(_coStartMpUp);
 
@@ -475,7 +482,7 @@ public class PlayerController : CreatureController
         Mp = sumMp;
         OnChangeTotalMpGauge.Invoke();
 
-        if (_coStartMpUp == null)
+        if (_coStartMpUp == null && MaxMp.Value > Mp)
             StartMpUp(CreatureData.MpGaugeAmount);
 
         return true;

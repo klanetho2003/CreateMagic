@@ -184,17 +184,10 @@ public class UI_GameScene : UI_Scene
     void HandleOnMpGaugeUpStart()
     {
         if (FillMpBar != null)
-        {
-            if (NoneMpBars.Count < 1)
-            {
-                FullMpBars.Push(FillMpBar);
-                FillMpBar = null;
-                return;
-            }
-
             FullMpBars.Push(FillMpBar);
-        }
 
+        if (NoneMpBars.Count < 1)
+            return;
         UI_GameScene_EachMpBar mpBar = NoneMpBars.Pop();
         FillMpBar = mpBar;
     }
@@ -207,19 +200,16 @@ public class UI_GameScene : UI_Scene
 
     void HandleOnDecreaseMpGauge()
     {
+        Debug.Log($"FullMpBars Count = {FullMpBars.Count}");
+
         int sumLoopCount = FullMpBars.Count - _playerCache.Mp;
 
-        // 변화 X
-        if (sumLoopCount == 0)
-            return;
-
         // Mp가 감소한 경우
-        else if (sumLoopCount > 0)
+        if (sumLoopCount > 0)
         {
             for (int i = 0; i < sumLoopCount; i++)
             {
                 UI_GameScene_EachMpBar mpBar = FullMpBars.Pop();
-
                 if (FillMpBar != null)
                 {
                     mpBar.Slider.value = FillMpBar.Slider.value;
@@ -243,10 +233,17 @@ public class UI_GameScene : UI_Scene
             for (int i = 0; i < sumLoopCount; i++)
             {
                 if (NoneMpBars.Count < 1)
+                {
+                    if (FillMpBar != null)
+                    {
+                        FillMpBar.Refresh(1);
+                        FullMpBars.Push(FillMpBar);
+                    }
+                        
                     return;
+                }
 
                 UI_GameScene_EachMpBar mpBar = NoneMpBars.Pop();
-
                 if (FillMpBar != null)
                 {
                     mpBar.Slider.value = FillMpBar.Slider.value;
@@ -265,7 +262,7 @@ public class UI_GameScene : UI_Scene
             }
         }
 
-        
+        Debug.Log($"FullMpBars Count = {FullMpBars.Count}");
     }
 
     #endregion
