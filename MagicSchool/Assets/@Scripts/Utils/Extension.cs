@@ -38,7 +38,12 @@ public static class Extension
 
         CreatureController creature = bc as CreatureController;
         if (creature != null)
-            return creature.CreatureState != Define.CreatureState.Dead; // 사망 상태면
+        {
+            if (creature.CreatureState == Define.CreatureState.Dead) // 사망 상태면
+                return false;
+            //if (creature.CreatureState == Define.CreatureState.Spawning) // 스폰 중인 상태면
+            //    return false;
+        }
 
         return true;
     }

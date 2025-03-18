@@ -116,6 +116,7 @@ public class CreatureController : BaseController
         {
             if (_creatureState == value)
                 return;
+            // To Do
             if (_creatureState == CreatureState.Dead)
                 return;
 

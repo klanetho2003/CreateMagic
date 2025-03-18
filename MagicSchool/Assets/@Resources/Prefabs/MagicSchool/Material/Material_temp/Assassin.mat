@@ -164,7 +164,7 @@ Material:
     - _InnerOutlineGlow: 4
     - _InnerOutlineThickness: 1
     - _LitAmount: 1
-    - _MaxXUV: 1
+    - _MaxXUV: 0.1
     - _MaxYUV: 1
     - _MinXUV: 0
     - _MinYUV: 0

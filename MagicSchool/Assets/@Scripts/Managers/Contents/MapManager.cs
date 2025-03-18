@@ -52,12 +52,12 @@ public class Cell
         switch (objecyType)
         {
             case EObjectType.Student:
-                pc = null;
                 _objects.Remove(pc);
+                pc = null;
                 break;
             default:
-                bc = null;
                 _objects.Remove(bc);
+                bc = null;
                 break;
         }
     }

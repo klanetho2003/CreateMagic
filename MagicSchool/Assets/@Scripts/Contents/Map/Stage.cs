@@ -43,7 +43,9 @@ public class Stage : MonoBehaviour
             // Check Stage Clear
             if (CheckStageClear(value))
             {
+                // Clear
                 Debug.Log($"{gameObject.name} Clear !!!");
+                DespawnObjects();
 
                 // To Do NPC Spawn
 

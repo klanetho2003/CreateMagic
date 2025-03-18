@@ -162,6 +162,8 @@ public class MonsterController : CreatureController
         CreatureState = CreatureState.Spawning;
         StartWait(CreatureData.SpawnDelaySeconds);
 
+        if (Skills != null)
+            Destroy(Skills); // Remove Component when Pooling revive
         Skills = gameObject.GetOrAddComponent<BaseSkillBook>();
         Skills.SetInfo(this, CreatureData);
 
