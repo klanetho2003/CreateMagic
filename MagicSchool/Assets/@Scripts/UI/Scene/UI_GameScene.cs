@@ -200,8 +200,6 @@ public class UI_GameScene : UI_Scene
 
     void HandleOnDecreaseMpGauge()
     {
-        Debug.Log($"FullMpBars Count = {FullMpBars.Count}");
-
         int sumLoopCount = FullMpBars.Count - _playerCache.Mp;
 
         // Mp가 감소한 경우
@@ -254,15 +252,11 @@ public class UI_GameScene : UI_Scene
                 }
                 else
                 {
-                    Debug.LogWarning("Fill Bar None in UI_GameScene");
-
                     mpBar.Refresh(1); // reset
                     FullMpBars.Push(mpBar);
                 }
             }
         }
-
-        Debug.Log($"FullMpBars Count = {FullMpBars.Count}");
     }
 
     #endregion

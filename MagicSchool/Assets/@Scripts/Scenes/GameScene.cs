@@ -57,7 +57,7 @@ public class GameScene : BaseScene
             Vector2 spawnPos = Utils.GenerateMonsterSpawnPosition(Managers.Game.Player.transform.position, 4, 8);*/
             // Boss Spawn
 
-            currentStage.CurrentWave++; // Start Next Stage
+            currentStage.CurrentWave++; // Start Next Wave
         }
     }
 

@@ -47,7 +47,6 @@ public class UI_GameScene_WaveItem : UI_Base
         Debug.Log("OnClickWaveItem");
 
         Managers.Map.StageTransition.CurrentStage.StopAllCoroutines();
-        Managers.Object.DespawnAllMonsters();
         Managers.Map.StageTransition.CurrentStage.StartWave(_waveType, true);
     }
 }

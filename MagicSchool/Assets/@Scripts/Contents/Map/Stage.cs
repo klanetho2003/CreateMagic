@@ -169,6 +169,7 @@ public class Stage : MonoBehaviour
             return;
         }
 
+        DespawnObjects();
         SpawnObjects(waveData);
     }
 
@@ -214,9 +215,11 @@ public class Stage : MonoBehaviour
             switch (obj.ObjectType)
             {
                 case EObjectType.Monster:
+                    Managers.Map.RemoveObject(obj);
                     Managers.Object.Despawn(obj as MonsterController);
                     break;
                 case EObjectType.Npc:
+                    Managers.Map.RemoveObject(obj);
                     Managers.Object.Despawn(obj as NpcController);
                     break;
                 /*case EObjectType.Env:
@@ -313,7 +316,7 @@ public class Stage : MonoBehaviour
 
         _waveTypes.Clear();
         #endregion
-
+        DespawnObjects();
         StopAllCoroutines();
     }
 }

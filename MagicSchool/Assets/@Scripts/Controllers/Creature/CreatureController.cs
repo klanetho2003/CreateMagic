@@ -311,7 +311,7 @@ public class CreatureController : BaseController
 
     public virtual bool CheckChangeMp(int amount)
     {
-        return ObjectType == EObjectType.Student;
+        return ObjectType == EObjectType.Monster;
     }
 
     #endregion
