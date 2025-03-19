@@ -135,7 +135,7 @@ GameObject:
   - component: {fileID: 5051633245730646919}
   - component: {fileID: 3559485212412239646}
   m_Layer: 5
-  m_Name: UI_NpcInteraction
+  m_Name: UI_World_NpcInteraction
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -206,7 +206,7 @@ MonoBehaviour:
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 1
-  m_PresetInfoIsWorld: 1
+  m_PresetInfoIsWorld: 0
 --- !u!114 &5051633245730646919
 MonoBehaviour:
   m_ObjectHideFlags: 0

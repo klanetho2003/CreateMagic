@@ -40,7 +40,7 @@ MonoBehaviour:
     - PreLoad
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 7f2b74ba02d5e81418accf0883976a76
-    m_Address: UI_NpcInteraction
+    m_Address: UI_World_NpcInteraction
     m_ReadOnly: 0
     m_SerializedLabels:
     - PreLoad
@@ -83,6 +83,12 @@ MonoBehaviour:
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 3eeecbcaf1afb5d41aee9bef701a9116
     m_Address: UI_GameScene_EachMpBar
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - PreLoad
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: e726f0b2ca1b9b24db02b171eaaeab9b
+    m_Address: UI_World_HpBar
     m_ReadOnly: 0
     m_SerializedLabels:
     - PreLoad

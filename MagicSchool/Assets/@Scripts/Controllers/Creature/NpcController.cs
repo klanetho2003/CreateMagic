@@ -8,9 +8,6 @@ public class NpcController : BaseController
 {
     public NpcData Data { get; set; }
 
-    private Animator _anim;
-    private UI_NpcInteraction _ui;
-
     public override bool Init()
     {
         if (base.Init() == false)
@@ -31,9 +28,8 @@ public class NpcController : BaseController
         #endregion
 
         // Npc 상호작용을 위한 버튼
-        GameObject button = Managers.Resource.Instantiate("UI_NpcInteraction", gameObject.transform);
+        UI_World_NpcInteraction button = Managers.UI.MakeWorldSpaceUI<UI_World_NpcInteraction>(gameObject.transform);
         button.transform.localPosition = new Vector3(0f, 3f);
-        _ui = button.GetComponent<UI_NpcInteraction>();
-        _ui.SetInfo(DataTemplateID, this);
+        button.SetInfo(DataTemplateID, this);
     }
 }

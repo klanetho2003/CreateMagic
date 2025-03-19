@@ -5,7 +5,7 @@ using System.Runtime.CompilerServices;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class UI_NpcInteraction : UI_Base
+public class UI_World_NpcInteraction : UI_Base
 {
     private NpcController _owner;
 
@@ -20,8 +20,6 @@ public class UI_NpcInteraction : UI_Base
             return false;
 
         BindButtons(typeof(Buttons));
-
-        GetComponent<Canvas>().worldCamera = Camera.main;
 
         return true;
     }
@@ -55,6 +53,6 @@ public class UI_NpcInteraction : UI_Base
 				break;
 		}
 
-        Debug.Log("OnClickInteractionButton");
+        // Debug.Log("OnClickInteractionButton");
     }
 }

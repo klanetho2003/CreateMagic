@@ -186,6 +186,9 @@ public class CreatureController : BaseController
         Effects = gameObject.GetOrAddComponent<EffectComponent>();
         Effects.SetInfo(this);
 
+        if (gameObject.FindChild<UI_World_HpBar>(recursive: false) == null)
+            Managers.UI.MakeWorldSpaceUI<UI_World_HpBar>(this.transform);
+
         // Map Move
         //StartCoroutine(CoLerpToCellPos()); // MonsterController 내부 Update에서 하는 중
     }
