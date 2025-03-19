@@ -43,8 +43,8 @@ public class KnockBack : CCBase
         }
 
         // 넉백 상태가 끝난 후 상태 복귀
-        if (Owner.CreatureState == CreatureState.Dameged)
-            Owner.CreatureState = CreatureState.Idle;
+        /*if (Owner.CreatureState == CreatureState.Dameged)
+            Owner.CreatureState = CreatureState.Idle;*/
 
         moveDistance = 0.0f;
 

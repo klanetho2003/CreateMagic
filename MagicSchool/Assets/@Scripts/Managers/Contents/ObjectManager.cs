@@ -91,7 +91,8 @@ public class ObjectManager // ID 부여하는 함수, Object들 들고 있는 등
 
     public void Despawn<T>(T obj) where T : BaseController
     {
-        if (obj/*.gameObject*/.IsValid() == false)
+        GameObject objGameObject = obj.gameObject;
+        if (objGameObject.IsValid() == false)
             return;
 
         EObjectType objectType = obj.ObjectType;

@@ -131,21 +131,11 @@ public class PlayerSkillBook : BaseSkillBook
 
             _owner.CreatureState = CreatureState.Casting;
 
-            #region Skill Navigation
-            
             // Add InputValue
             InputTransformer.AddInput(value);
 
             // Skill 추천 List 갱신
-            foreach (SkillBase skill in SkillDict.Values)
-            {
-                if (Utils.IsIncludedList(skill.SkillData.InputValues, InputTransformer.InputList))
-                    ActivateSkills.Add(skill);
-            }
-            OnSkillValueChanged.Invoke(ActivateSkills);
-            ActivateSkills.Clear();
-
-            #endregion
+            RefreshSkillNavi();
 
             switch (value)
             {
@@ -190,19 +180,13 @@ public class PlayerSkillBook : BaseSkillBook
                 #region A, S, D
 
                 case KeyDownEvent.A:
-                    //castingImpact.InitSize();
                     _owner.CreatureState = TryDoSkill();
-                    DefaultSkill_CastingStack = 0;
                     break;
                 case KeyDownEvent.S:
-                    //castingImpact.InitSize();
                     _owner.CreatureState = TryDoSkill();
-                    DefaultSkill_CastingStack = 0;
                     break;
                 case KeyDownEvent.D:
-                    //castingImpact.InitSize();
                     _owner.CreatureState = TryDoSkill();
-                    DefaultSkill_CastingStack = 0;
                     break;
 
                 #endregion
@@ -211,6 +195,26 @@ public class PlayerSkillBook : BaseSkillBook
                     break;
             }
         }
+    }
+
+    void RefreshSkillNavi()
+    {
+        ActivateSkills.Clear();
+
+        // 빠른 탈출 - 입력 값이 없으면 빈 ActivateSkills를 Invoke
+        if (InputTransformer.InputList.Count < 1)
+        {
+            OnSkillValueChanged?.Invoke(ActivateSkills);
+            return;
+        }
+
+        foreach (SkillBase skill in SkillDict.Values)
+        {
+            if (Utils.IsIncludedList(skill.SkillData.InputValues, InputTransformer.InputList))
+                ActivateSkills.Add(skill);
+        }
+
+        OnSkillValueChanged?.Invoke(ActivateSkills);
     }
 
     #region Do Skill
@@ -231,7 +235,7 @@ public class PlayerSkillBook : BaseSkillBook
             Debug.Log($"Player Do not have --{skillKey}--");
 
             //Clear
-            ClearSkillValue();
+            ClearCastingValue();
 
             return CreatureState.Idle;
         }
@@ -244,15 +248,17 @@ public class PlayerSkillBook : BaseSkillBook
         }
 
         //Clear
-        ClearSkillValue();
+        ClearCastingValue();
 
         return _owner.CreatureState;
     }
 
-    void ClearSkillValue()
+    public void ClearCastingValue()
     {
         InputTransformer.Clear();
-        ActivateSkills.Clear();
+        RefreshSkillNavi();
+
+        DefaultSkill_CastingStack = 0;
     }
 
     #endregion

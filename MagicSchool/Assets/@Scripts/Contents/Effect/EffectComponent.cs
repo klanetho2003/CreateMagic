@@ -8,7 +8,7 @@ public class EffectComponent : MonoBehaviour
 {
 	public List<EffectBase> ActiveEffects = new List<EffectBase>();
 	public Queue<EffectBase> BurnQueue = new Queue<EffectBase>();
-	private CreatureController _owner;
+    private CreatureController _owner;
 
 	public void SetInfo(CreatureController Owner)
 	{
@@ -73,4 +73,14 @@ public class EffectComponent : MonoBehaviour
 			}
 		}
 	}
+
+    public void Clear()
+    {
+        foreach (var buff in ActiveEffects.ToArray())
+        {
+            buff.ClearEffect(EEffectClearType.Despawn);
+        }
+
+        ActiveEffects.Clear();
+    }
 }

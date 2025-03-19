@@ -76,6 +76,9 @@ public class PlayerController : CreatureController
                 case CreatureState.Casting:
                     OnPlayCastingAnimation(5f, 0.0005f); // To Do : Data 시트 length는 홀수 여야한다(Cos주기 이슈)
                     break;
+                case CreatureState.Dameged:
+                    PlayerSkills.ClearCastingValue();
+                    break;
                 default:
                     break;
 
@@ -438,7 +441,7 @@ public class PlayerController : CreatureController
             yield return null;
 
         // Gauge Start
-        OnMpGaugeUpStart.Invoke();
+        OnMpGaugeUpStart.Invoke(); // 널러블로 바꿔볼까
 
         while (this.IsValid() && MaxMp.Value > Mp)
         {

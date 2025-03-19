@@ -214,14 +214,17 @@ public class Stage : MonoBehaviour
     {
         foreach (BaseController obj in _spawnObjects)
         {
+            Managers.Map.RemoveObject(obj);
+
+            if (obj.IsValid() == false)
+                continue;
+
             switch (obj.ObjectType)
             {
                 case EObjectType.Monster:
-                    Managers.Map.RemoveObject(obj);
                     Managers.Object.Despawn(obj as MonsterController);
                     break;
                 case EObjectType.Npc:
-                    Managers.Map.RemoveObject(obj);
                     Managers.Object.Despawn(obj as NpcController);
                     break;
                 /*case EObjectType.Env:

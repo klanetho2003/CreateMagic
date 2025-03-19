@@ -162,8 +162,12 @@ public class MonsterController : CreatureController
         CreatureState = CreatureState.Spawning;
         StartWait(CreatureData.SpawnDelaySeconds);
 
-        if (Skills != null)
-            Destroy(Skills); // Remove Component when Pooling revive
+        if (Skills != null) // Remove Component when Pooling revive
+        {
+            foreach (SkillBase skill in Skills.SkillList)
+                Destroy(skill);
+        }
+
         Skills = gameObject.GetOrAddComponent<BaseSkillBook>();
         Skills.SetInfo(this, CreatureData);
 
@@ -240,6 +244,7 @@ public class MonsterController : CreatureController
     {
         StopAllCoroutines();
 
+        Effects.Clear();
         #region 특정 Coroutine만 멈춰야할 경우 주석 처리한 방법으로 바꿀 것
         /*if (_coDotDamage != null)
             StopCoroutine(_coDotDamage);

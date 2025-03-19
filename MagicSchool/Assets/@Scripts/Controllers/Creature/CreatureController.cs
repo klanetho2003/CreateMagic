@@ -116,9 +116,8 @@ public class CreatureController : BaseController
         {
             if (_creatureState == value)
                 return;
-            // To Do
-            if (_creatureState == CreatureState.Dead)
-                return;
+            /*if (_creatureState == CreatureState.Dead)
+                return;*/
 
             _creatureState = value;
             UpdateAnimation();
@@ -251,7 +250,7 @@ public class CreatureController : BaseController
             return;
         if (this.IsValid() == false)
             return;
-        /*if (effect.Owner.IsValid() == false) // DeBuff를 건 객체가 지속시간 이전에 Despanw되면 Debuff도 사라지게 할 것인가?
+        /*if (effect.Owner.IsValid() == false) // DeBuff를 건(?) 객체가 지속시간 이전에 Despanw되면 Debuff도 사라지게 할 것인가?
             return;*/
 
         // TEMP

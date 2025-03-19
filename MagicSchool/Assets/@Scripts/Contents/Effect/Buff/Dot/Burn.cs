@@ -20,13 +20,20 @@ public class Burn : DotBase
 
     public override bool ClearEffect(Define.EEffectClearType clearType)
     {
-        if (EffectComponent.BurnQueue.Count < 1)
-            return base.ClearEffect(clearType);
+        // 적용되고 있는 '나' Queue에서 제거
+        if (EffectComponent.BurnQueue.TryDequeue(out EffectBase self) == false)
+            return false;
 
-        // New Burn Start
-        Burn burn = EffectComponent.BurnQueue.Dequeue() as Burn;
-        EffectComponent.ActiveEffects.Add(burn);
-        burn.ApplyEffect();
+        // Despawn 시 재귀하면서 완전 제거 // CleatSkill일 시도 같은 방법으로 진핼할지 생각
+        if (clearType == Define.EEffectClearType.Despawn)
+            return self.ClearEffect(clearType);
+
+        // 나 말고도 Burn이 더 존재한다면
+        if (EffectComponent.BurnQueue.TryPeek(out EffectBase burn))
+        {
+            EffectComponent.ActiveEffects.Add(burn);
+            burn.ApplyEffect();
+        }
 
         return base.ClearEffect(clearType);
     }

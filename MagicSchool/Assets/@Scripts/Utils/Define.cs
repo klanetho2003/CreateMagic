@@ -198,6 +198,7 @@ public static class Define
         ClearSkill, // 정화 스킬로 인한 Effect 종료
         TriggerOutAoE, // AoE스킬을 벗어난 종료
         EndOfAirborne, // 에어본이 끝난 경우 호출되는 종료
+        Despawn, // Clear 시 종료
     }
 
     public enum EEffectClassName

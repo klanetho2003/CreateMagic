@@ -105,6 +105,8 @@ public class EffectBase : BaseController
 	{
 		Debug.Log($"ClearEffect - {gameObject.name} {EffectData.ClassName} -> {clearType}");
 
+        SetMaterial(); // Owner에게 적용한 이상상태 시각 효과 초기화
+
         switch (clearType)
 		{
 			case EEffectClearType.TimeOut:
@@ -121,7 +123,11 @@ public class EffectBase : BaseController
 					return true;
 				}
 				break;
-		}
+
+            case EEffectClearType.Despawn:
+                Managers.Object.Despawn(this);
+                return true;
+        }
 
 		return false;
 	}
@@ -154,7 +160,6 @@ public class EffectBase : BaseController
 		}
 
 		Remains = 0;
-        SetMaterial(); // Owner에게 적용한 이상상태 시각 효과 초기화
         ClearEffect(EEffectClearType.TimeOut);
     }
 

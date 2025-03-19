@@ -30,7 +30,7 @@ public class CCBase : EffectBase
 
 	public override bool ClearEffect(EEffectClearType clearType)
 	{
-		if (base.ClearEffect(clearType) == true)
+		if (Owner.IsValid() == true && base.ClearEffect(clearType) == true)
 			Owner.CreatureState = CreatureState.Idle; // lastState ?
 
         return true;
