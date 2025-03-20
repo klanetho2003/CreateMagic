@@ -480,9 +480,7 @@ public class PlayerController : CreatureController
         if (sumMp < 0)
             return false;
 
-        Mathf.Clamp(sumMp, 0, MaxMp.Value);
-
-        Mp = sumMp;
+        Mp = (int)Mathf.Clamp(sumMp, 0, MaxMp.Value);
         OnChangeTotalMpGauge.Invoke();
 
         if (_coStartMpUp == null && MaxMp.Value > Mp)

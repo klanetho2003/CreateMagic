@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -24,7 +25,7 @@ public class UI_GameScene : UI_Scene
     List<SkillBase> _cachePlayerActivateSkills { get; set; }
 
     List<UI_GameScene_EachMpBar> _mpBarItems = new List<UI_GameScene_EachMpBar>();
-    public UI_GameScene_EachMpBar FillMpBar = null;
+    public UI_GameScene_EachMpBar FillMpBar { get; private set; }
 
     public Stack<UI_GameScene_EachMpBar> FullMpBars { get; } = new Stack<UI_GameScene_EachMpBar>();
     public Stack<UI_GameScene_EachMpBar> NoneMpBars { get; } = new Stack<UI_GameScene_EachMpBar>();
@@ -200,15 +201,19 @@ public class UI_GameScene : UI_Scene
 
     void HandleOnDecreaseMpGauge()
     {
-        int sumLoopCount = FullMpBars.Count - _playerCache.Mp;
+        int sumLoopCount = NoneMpBars.Count - ((int)_playerCache.MaxMp.Value - _playerCache.Mp); // 0 - (10 - 9) vs 10 - (10 - 1)
+
+        Debug.Log($"sumLoopCount : {sumLoopCount}");
 
         // Mp가 감소한 경우
-        if (sumLoopCount > 0)
+        if (sumLoopCount < 0)
         {
+            sumLoopCount = Mathf.Abs(sumLoopCount);
+
             for (int i = 0; i < sumLoopCount; i++)
             {
                 UI_GameScene_EachMpBar mpBar = FullMpBars.Pop();
-                if (FillMpBar != null)
+                if (FillMpBar != null) // here
                 {
                     mpBar.Slider.value = FillMpBar.Slider.value;
                     FillMpBar.Refresh(0); // reset
@@ -216,45 +221,26 @@ public class UI_GameScene : UI_Scene
 
                     FillMpBar = mpBar;
                 }
-                else
-                {
-                    mpBar.Refresh(0); // reset
-                    NoneMpBars.Push(mpBar);
-                }
             }
         }
         // Mp가 증가한 경우
-        else if (sumLoopCount < 0)
+        else if (sumLoopCount >= 0)
         {
-            sumLoopCount = Mathf.Abs(sumLoopCount);
-
-            for (int i = 0; i < sumLoopCount; i++)
+            for (int i = 0; i <= sumLoopCount; i++)
             {
                 if (NoneMpBars.Count < 1)
                 {
-                    if (FillMpBar != null)
-                    {
-                        FillMpBar.Refresh(1);
-                        FullMpBars.Push(FillMpBar);
-                    }
+                    FillMpBar.Refresh(1);
                         
                     return;
                 }
 
                 UI_GameScene_EachMpBar mpBar = NoneMpBars.Pop();
-                if (FillMpBar != null)
-                {
-                    mpBar.Slider.value = FillMpBar.Slider.value;
-                    FillMpBar.Refresh(1); // full
-                    FullMpBars.Push(FillMpBar);
+                mpBar.Slider.value = FillMpBar.Slider.value;
+                FillMpBar.Refresh(1); // full
+                FullMpBars.Push(FillMpBar);
 
-                    FillMpBar = mpBar;
-                }
-                else
-                {
-                    mpBar.Refresh(1); // reset
-                    FullMpBars.Push(mpBar);
-                }
+                FillMpBar = mpBar;
             }
         }
     }
