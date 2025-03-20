@@ -81,7 +81,17 @@ public class CreatureController : BaseController
     public EffectComponent Effects { get; set; }
 
     #region Stats
-    public float Hp { get; set; }
+    // Temp
+    public Action<float> OnHpChange;
+    float _hpTemp;
+    public float Hp
+    {
+        get { return _hpTemp; }
+        set { _hpTemp = value; OnHpChange?.Invoke(_hpTemp); }
+    }
+    //
+
+    //public float Hp { get; set; }
     public CreatureStat MaxHp;
     public int Mp { get; set; }
     public CreatureStat MaxMp;
@@ -186,8 +196,14 @@ public class CreatureController : BaseController
         Effects = gameObject.GetOrAddComponent<EffectComponent>();
         Effects.SetInfo(this);
 
+        // HpBar - Temp
         if (gameObject.FindChild<UI_World_HpBar>(recursive: false) == null)
-            Managers.UI.MakeWorldSpaceUI<UI_World_HpBar>(this.transform);
+        {
+            UI_World_HpBar hpBar_temp = Managers.UI.MakeWorldSpaceUI<UI_World_HpBar>(this.transform);
+            hpBar_temp.SetInfo(this);
+        }
+            
+            
 
         // Map Move
         //StartCoroutine(CoLerpToCellPos()); // MonsterController 내부 Update에서 하는 중

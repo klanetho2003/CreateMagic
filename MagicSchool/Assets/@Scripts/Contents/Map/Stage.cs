@@ -216,7 +216,7 @@ public class Stage : MonoBehaviour
         {
             Managers.Map.RemoveObject(obj);
 
-            if (obj.IsValid() == false)
+            if (obj.IsValid(ignoreSpawning: true) == false)
                 continue;
 
             switch (obj.ObjectType)

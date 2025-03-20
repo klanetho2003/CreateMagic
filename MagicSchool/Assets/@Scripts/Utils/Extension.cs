@@ -31,7 +31,7 @@ public static class Extension
         return go != null && go.activeSelf;
     }
 
-    public static bool IsValid(this BaseController bc)
+    public static bool IsValid(this BaseController bc, bool ignoreDead = false, bool ignoreSpawning = false)
     {
         if (bc == null || bc.isActiveAndEnabled == false)
             return false;
@@ -39,10 +39,12 @@ public static class Extension
         CreatureController creature = bc as CreatureController;
         if (creature != null)
         {
-            if (creature.CreatureState == Define.CreatureState.Dead) // 사망 상태면
+            // 사망 상태면
+            if (creature.CreatureState == Define.CreatureState.Dead && ignoreDead == false)
                 return false;
-            //if (creature.CreatureState == Define.CreatureState.Spawning) // 스폰 중인 상태면
-            //    return false;
+            // 스폰 중인 상태면
+            if (creature.CreatureState == Define.CreatureState.Spawning && ignoreSpawning == false) 
+                return false;
         }
 
         return true;

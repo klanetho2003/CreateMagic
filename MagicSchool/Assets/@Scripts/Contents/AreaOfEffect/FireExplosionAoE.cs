@@ -88,4 +88,10 @@ public class FireExplosionAoE : AoEBase
             _activeEffects.Remove(effect);
         }
     }
+
+    protected override IEnumerator CoReserveDestroy()
+    {
+        yield return new WaitForSeconds(_aoEData.Duration);
+        Managers.Object.Despawn(this); // To Pooling
+    }
 }
