@@ -182,56 +182,65 @@ public class UI_GameScene : UI_Scene
         }
     }
 
+    // FullBars.Count + NoneBars.Count + FillBar 개수 == MaxMp
+    // Max 9 + 0 + 1    ,   6 + 3 + 1   ,  0 + 9 + 1  ,   First 0 + 10 + 0
     void HandleOnMpGaugeUpStart()
     {
-        if (FillMpBar != null)
+        if (FillMpBar != null && FullMpBars.Count + 1 < _playerCache.MaxMp.Value)
             FullMpBars.Push(FillMpBar);
 
-        if (NoneMpBars.Count < 1)
+        if (NoneMpBars.Count < 1) // null check
             return;
         UI_GameScene_EachMpBar mpBar = NoneMpBars.Pop();
         FillMpBar = mpBar;
     }
 
-    void HandleOnMpGaugeUp()
+    void HandleOnMpGaugeUp(float currentMpGaugeAmount)
     {
         if (FillMpBar != null)
-            FillMpBar.Refresh(_playerCache.CurrentMpGaugeAmount);
+            FillMpBar.Refresh(currentMpGaugeAmount);
     }
 
     void HandleOnDecreaseMpGauge()
     {
-        int sumLoopCount = NoneMpBars.Count - ((int)_playerCache.MaxMp.Value - _playerCache.Mp); // 0 - (10 - 9) vs 10 - (10 - 1)
+        if (FillMpBar == null)
+        {
+            Debug.LogWarning("FillBar None in UI_GameScene");
+            return;
+        }
 
-        Debug.Log($"sumLoopCount : {sumLoopCount}");
+        int sumLoopCount = FullMpBars.Count - _playerCache.Mp;
+
+        // "mp가 가득 차있는 상황일 때 casting을 한 경우
+        if (sumLoopCount == 0)
+        {
+            FillMpBar.Refresh(0); // full
+        }
 
         // Mp가 감소한 경우
-        if (sumLoopCount < 0)
+        else if (sumLoopCount > 0)
+        {
+            for (int i = 0; i < sumLoopCount; i++)
+            {
+                UI_GameScene_EachMpBar mpBar = FullMpBars.Pop();
+                mpBar.Slider.value = FillMpBar.Slider.value;
+                FillMpBar.Refresh(0); // reset
+                NoneMpBars.Push(FillMpBar);
+
+                FillMpBar = mpBar;
+            }
+        }
+
+        // Mp가 증가한 경우
+        else if (sumLoopCount < 0)
         {
             sumLoopCount = Mathf.Abs(sumLoopCount);
 
             for (int i = 0; i < sumLoopCount; i++)
             {
-                UI_GameScene_EachMpBar mpBar = FullMpBars.Pop();
-                if (FillMpBar != null) // here
+                if (FullMpBars.Count + 1 >= (int)_playerCache.MaxMp.Value)
                 {
-                    mpBar.Slider.value = FillMpBar.Slider.value;
-                    FillMpBar.Refresh(0); // reset
-                    NoneMpBars.Push(FillMpBar);
-
-                    FillMpBar = mpBar;
-                }
-            }
-        }
-        // Mp가 증가한 경우
-        else if (sumLoopCount >= 0)
-        {
-            for (int i = 0; i <= sumLoopCount; i++)
-            {
-                if (NoneMpBars.Count < 1)
-                {
-                    FillMpBar.Refresh(1);
-                        
+                    FillMpBar.Refresh(1); // full
                     return;
                 }
 

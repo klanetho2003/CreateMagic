@@ -86,10 +86,6 @@ public class PlayerController : CreatureController
         }
     }
 
-    #region Only Player Value
-    public float CurrentMpGaugeAmount = 0;
-    #endregion
-
     #region Player Animation
 
     protected override void UpdateAnimation()
@@ -373,29 +369,6 @@ public class PlayerController : CreatureController
 
     #endregion
 
-    // float EnvCollectDist { get; set; } = 1.0f;
-    /* Temp Collect Env
-    void CollectEnv()
-    {
-        float sqrCollectDist = EnvCollectDist * EnvCollectDist;
-
-        List<JamController> jams = Managers.Object.Jams.ToList();
-
-        var findJams = GameObject.Find("@Grid").GetComponent<GridController>().GatherObjects(transform.position, EnvCollectDist + 0.5f);
-
-        foreach (var go in findJams)
-        {
-            JamController jam = go.GetComponent<JamController>();
-
-            Vector3 dir = jam.transform.position - transform.position;
-            if (dir.sqrMagnitude <= sqrCollectDist)
-            {
-                Managers.Game.Jam += 1;
-                Managers.Object.Despawn(jam);
-            }
-        }
-    }*/
-
     #region Battle
 
     public override void OnDamaged(BaseController attacker, SkillBase skill)
@@ -416,7 +389,7 @@ public class PlayerController : CreatureController
     #region Mp
 
     public Action OnMpGaugeUpStart;
-    public Action OnMpGaugeFill;
+    public Action<float> OnMpGaugeFill;
     public Action OnChangeTotalMpGauge;
     Coroutine _coStartMpUp;
     public void StartMpUp(float oneGaugeAmount)
@@ -441,21 +414,21 @@ public class PlayerController : CreatureController
             yield return null;
 
         // Gauge Start
+        float currentMpGaugeAmount = 0;
         OnMpGaugeUpStart.Invoke(); // 널러블로 바꿔볼까
 
         while (this.IsValid() && MaxMp.Value > Mp)
         {
-            CurrentMpGaugeAmount += Time.deltaTime;
+            currentMpGaugeAmount += Time.deltaTime;
 
             // Gauge 갱신
-            OnMpGaugeFill.Invoke();
+            OnMpGaugeFill.Invoke(currentMpGaugeAmount);
 
-            if (CurrentMpGaugeAmount > oneGaugeAmount)
+            if (currentMpGaugeAmount > oneGaugeAmount)
             {
                 // Mp Up
                 Mp += 1;
 
-                CurrentMpGaugeAmount = 0;
                 StartMpUp(CreatureData.MpGaugeAmount); // 재시작
             }
 
@@ -489,5 +462,30 @@ public class PlayerController : CreatureController
         return true;
     }
 
+    #endregion
+
+    #region 주석화 - Collect Item
+    // float EnvCollectDist { get; set; } = 1.0f;
+    /* Temp Collect Env
+    void CollectEnv()
+    {
+        float sqrCollectDist = EnvCollectDist * EnvCollectDist;
+
+        List<JamController> jams = Managers.Object.Jams.ToList();
+
+        var findJams = GameObject.Find("@Grid").GetComponent<GridController>().GatherObjects(transform.position, EnvCollectDist + 0.5f);
+
+        foreach (var go in findJams)
+        {
+            JamController jam = go.GetComponent<JamController>();
+
+            Vector3 dir = jam.transform.position - transform.position;
+            if (dir.sqrMagnitude <= sqrCollectDist)
+            {
+                Managers.Game.Jam += 1;
+                Managers.Object.Despawn(jam);
+            }
+        }
+    }*/
     #endregion
 }
