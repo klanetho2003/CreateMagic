@@ -11,7 +11,9 @@ public abstract class ProjectileMotionBase : MonoBehaviour
     public Vector3 TargetPosition { get; private set; }
     public bool LookAtTarget { get; private set; }
     public Data.ProjectileData ProjectileData { get; private set; }
-    public Action EndCallBack { get; private set; }
+    public Action EndCallback { get; private set; }
+
+    protected float _speed;
 
     #region Init Method
     void Awake()
@@ -33,10 +35,17 @@ public abstract class ProjectileMotionBase : MonoBehaviour
 
     protected void SetInfo(int projectileTemplateID, Vector3 spawnPosition, Vector3 targetPosition, Action endCallBack = null)
     {
-        ProjectileData = Managers.Data.ProjectileDic[projectileTemplateID];
+        _speed = 5.0f;
+
+        if (projectileTemplateID != 0)
+        {
+            ProjectileData = Managers.Data.ProjectileDic[projectileTemplateID];
+            _speed = ProjectileData.ProjSpeed;
+        }
+        
         StartPosition = spawnPosition;
         TargetPosition = targetPosition;
-        EndCallBack = endCallBack;
+        EndCallback = endCallBack;
 
         LookAtTarget = true; // TEMP
 

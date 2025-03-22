@@ -23,21 +23,44 @@ public class DataManager
     public Dictionary<int, Data.EffectData> EffectDic { get; private set; } = new Dictionary<int, Data.EffectData>();
     public Dictionary<int, Data.AoEData> AoEDic { get; private set; } = new Dictionary<int, Data.AoEData>();
 
+    public Dictionary<int, Data.EquipmentData> EquipmentDic { get; private set; } = new Dictionary<int, Data.EquipmentData>();
+    public Dictionary<int, Data.ConsumableData> ConsumableDic { get; private set; } = new Dictionary<int, Data.ConsumableData>();
+    public Dictionary<int, Data.ItemData> ItemDic { get; private set; } = new Dictionary<int, Data.ItemData>();
+    public Dictionary<int, Data.DropTableData> DropTableDic { get; private set; } = new Dictionary<int, Data.DropTableData>();
+
     public Dictionary<string, Data.TextData> TextDic { get; private set; } = new Dictionary<string, Data.TextData>();
+
     //public Dictionary<string, Data.PlayerSkillData> PlayerSkillDic { get; private set; } = new Dictionary<string, Data.PlayerSkillData>();
 
     public void Init()
     {
+        // Creature
         MonsterDic = LoadJson<Data.MonsterDataLoader, int, Data.MonsterData>("MonsterData").MakeDict();
         StudentDic = LoadJson<Data.StudentDataLoader, int, Data.StudentData>("StudentData").MakeDict();
         NpcDic = LoadJson<Data.NpcDataLoader, int, Data.NpcData>("NpcData").MakeDict();
 
+        // Skill
         SkillDic = LoadJson<Data.SkillDataLoader, int, Data.SkillData>("SkillData").MakeDict();
         SkillInfoDic = LoadJson<Data.SkillInfoDataLoader, int, Data.SkillInfoData>("SkillInfoData").MakeDict();
         ProjectileDic = LoadJson<Data.ProjectileDataLoader, int, Data.ProjectileData>("ProjectileData").MakeDict();
         EffectDic = LoadJson<Data.EffectDataLoader, int, Data.EffectData>("EffectData").MakeDict();
         AoEDic = LoadJson<Data.AoEDataLoader, int, Data.AoEData>("AoEData").MakeDict();
 
+        //Item
+        EquipmentDic = LoadJson<Data.ItemDataLoader<Data.EquipmentData>, int, Data.EquipmentData>("Item_EquipmentData").MakeDict();
+        ConsumableDic = LoadJson<Data.ItemDataLoader<Data.ConsumableData>, int, Data.ConsumableData>("Item_ConsumableData").MakeDict();
+        DropTableDic = LoadJson<Data.DropTableDataLoader, int, Data.DropTableData>("DropTableData").MakeDict();
+
+        ItemDic.Clear();
+
+        foreach (var item in EquipmentDic)
+            ItemDic.Add(item.Key, item.Value);
+
+        foreach (var item in ConsumableDic)
+            ItemDic.Add(item.Key, item.Value);
+
+
+        // Languge
         TextDic = LoadJson<Data.TextDataLoader, string, Data.TextData>("TextData").MakeDict();
     }
 

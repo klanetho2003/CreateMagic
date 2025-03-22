@@ -9,6 +9,8 @@ using static Define;
 
 public class MonsterController : CreatureController
 {
+    public Data.MonsterData MonsterData { get { return (Data.MonsterData)CreatureData; } }
+
     #region Animation
 
     public override void FlipX(bool flag) // Monster는 태생이 오른쪽, 반대로 값 넣
@@ -227,6 +229,19 @@ public class MonsterController : CreatureController
     {
         base.OnDead(attacker, skill);
 
+        // Drop Item
+        int dropItemId = MonsterData.DropItemId;
+
+        RewardData rewardData = GetRandomReward();
+        if (rewardData != null)
+        {
+            var itemHolder = Managers.Object.Spawn<ItemHolder>(transform.position, dropItemId);
+            Vector2 ran = new Vector2(transform.position.x + UnityEngine.Random.Range(-10, -15) * 0.1f, transform.position.y);
+            Vector2 ran2 = new Vector2(transform.position.x + UnityEngine.Random.Range(10, 15) * 0.1f, transform.position.y);
+            Vector2 dropPos = UnityEngine.Random.value < 0.5 ? ran : ran2;
+            itemHolder.SetInfo(0, rewardData.ItemTemplateId, dropPos);
+        }
+
         Clear();
 
         Managers.Game.KillCount++;
@@ -239,6 +254,43 @@ public class MonsterController : CreatureController
     }
 
     #endregion
+
+    RewardData GetRandomReward()
+    {
+        if (MonsterData == null)
+            return null;
+
+        if (Managers.Data.DropTableDic.TryGetValue(MonsterData.DropItemId, out DropTableData dropTableData) == false)
+            return null;
+
+        if (dropTableData.Rewards.Count <= 0)
+            return null;
+
+        int sum = 0;
+        int randValue = UnityEngine.Random.Range(0, 100);
+
+        foreach (RewardData item in dropTableData.Rewards)
+        {
+            sum += item.Probability;
+
+            if (randValue <= sum)
+                return item;
+        }
+
+        //return dropTableData.Rewards.RandomElementByWeight(e => e.Probability);
+        return null;
+    }
+
+    int GetRewardExp()
+    {
+        if (MonsterData == null)
+            return 0;
+
+        if (Managers.Data.DropTableDic.TryGetValue(MonsterData.DropItemId, out DropTableData dropTableData) == false)
+            return 0;
+
+        return dropTableData.RewardExp;
+    }
 
     protected override void Clear() // To Do : 초기화 내용 필요
     {

@@ -12,8 +12,6 @@ public class LinearMotion : ProjectileMotionBase
         if (base.Init() == false)
             return false;
 
-
-
         return true;
     }
 
@@ -25,7 +23,7 @@ public class LinearMotion : ProjectileMotionBase
     protected override IEnumerator CoLaunchProjectile()
     {
         float journeyLength = Vector3.Distance(StartPosition, TargetPosition);
-        float totalTime = journeyLength / ProjectileData.ProjSpeed;
+        float totalTime = journeyLength / _speed;
         float elapsedTime = 0; // Count Time
 
         while (elapsedTime < totalTime)
@@ -42,6 +40,6 @@ public class LinearMotion : ProjectileMotionBase
         }
 
         transform.position = TargetPosition;
-        EndCallBack.Invoke();
+        EndCallback.Invoke();
     }
 }

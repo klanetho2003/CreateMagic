@@ -9,6 +9,7 @@ using System;
 using System.Reflection;
 using System.Collections;
 using System.ComponentModel;
+using Unity.VisualScripting;
 
 public class DataTransformer : EditorWindow
 {
@@ -40,6 +41,11 @@ public class DataTransformer : EditorWindow
         ParseExcelDataToJson<AoEDataLoader, AoEData>("AoE");
         ParseExcelDataToJson<NpcDataLoader, NpcData>("Npc");
         ParseExcelDataToJson<TextDataLoader, TextData>("Text");
+
+        ParseExcelDataToJson<ItemDataLoader<EquipmentData>, EquipmentData>("Item_Equipment");
+        ParseExcelDataToJson<ItemDataLoader<ConsumableData>, ConsumableData>("Item_Consumable");
+
+        ParseExcelDataToJson<DropTableDataLoader, DropTableData_Internal>("DropTable");
 
 
         //ParseExcelDataToJson<PlayerSkillDataLoader, PlayerSkillData>("PlayerSkill");
@@ -132,6 +138,9 @@ public class DataTransformer : EditorWindow
             {
                 FieldInfo field = loaderData.GetType().GetField(fields[f].Name);
                 Type type = field.FieldType;
+
+                if (field.HasAttribute(typeof(NonSerializedAttribute)))
+                    continue;
 
                 if (type.IsGenericType)
                 {

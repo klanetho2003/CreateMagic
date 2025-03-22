@@ -20,6 +20,7 @@ public static class Define
         ProjecTile,
         Env,
         Effect,
+        ItemHolder,
     }
 
     public enum ENpcType
@@ -233,6 +234,52 @@ public static class Define
         Korean,
         English,
         Japanese,
+    }
+
+    public enum EItemGrade
+    {
+        None,
+        Normal,
+        Rare,
+        Epic,
+        Legendary
+    }
+
+    public enum EItemGroupType
+    {
+        None,
+        Equipment,
+        Consumable,
+    }
+
+    public enum EItemType
+    {
+        None,
+        Weapon,
+        Armor,
+        Potion,
+        Scroll
+    }
+
+    public enum EItemSubType
+    {
+        None,
+
+        Sword,
+        Dagger,
+        Bow,
+
+        Helmet,
+        Armor,
+        Shield,
+        Gloves,
+        Shoes,
+
+        EnchantWeapon,
+        EnchantArmor,
+
+        HealthPotion,
+        ManaPotion,
     }
 
     //HARD CODING

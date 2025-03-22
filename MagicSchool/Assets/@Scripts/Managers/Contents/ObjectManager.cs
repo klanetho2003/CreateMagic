@@ -14,6 +14,8 @@ public class ObjectManager // ID 부여하는 함수, Object들 들고 있는 등
     public HashSet<NpcController> Npcs { get; } = new HashSet<NpcController>();
     public HashSet<ProjectileController> Projectiles { get; } = new HashSet<ProjectileController>();
     public HashSet<EffectBase> Effects { get; } = new HashSet<EffectBase>();
+    public HashSet<ItemHolder> ItemHolders { get; } = new HashSet<ItemHolder>();
+
     public HashSet<JamController> Jams { get; } = new HashSet<JamController>();
 
     public void ShowDamageFont(Vector2 position, float damage, Transform parent, bool isCritical = false)
@@ -72,6 +74,11 @@ public class ObjectManager // ID 부여하는 함수, Object들 들고 있는 등
             ProjectileController projectile = go.GetComponent<ProjectileController>();
             Projectiles.Add(projectile);
             projectile.SetInfo(templateID);
+        }
+        else if (obj.ObjectType == EObjectType.ItemHolder)
+        {
+            ItemHolder itemHolder = go.GetOrAddComponent<ItemHolder>();
+            ItemHolders.Add(itemHolder);
         }
         else if (obj.ObjectType == EObjectType.Env)
         {
