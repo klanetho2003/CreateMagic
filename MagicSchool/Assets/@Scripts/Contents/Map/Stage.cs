@@ -89,6 +89,10 @@ public class Stage : MonoBehaviour
         
         TilemapTerrain = Utils.FindChild<Tilemap>(gameObject, "Tilemap_floor", true);
         SaveSpawnInfos();
+
+        // Init - 2번 Load되는 문제 해결
+        IsActive = true;
+        UnLoadStage();
     }
 
     public bool IsPointInStage(Vector3 position)
