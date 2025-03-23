@@ -35,7 +35,6 @@ public class FireBall : SkillBase
         base.OnSkillDelay(delaySeconds);
     }
 
-
     protected override void OnAttackTargetHandler()
     {
         base.OnAttackTargetHandler();

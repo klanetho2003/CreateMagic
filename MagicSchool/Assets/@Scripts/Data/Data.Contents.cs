@@ -166,9 +166,6 @@ namespace Data
         public float MaxHp;
         public float UpMaxHp;
 
-        public int MaxMp;
-        public float MpGaugeAmount;
-
         public float Atk;
         public float AtkRange;
         public float AtkBonus;
@@ -216,6 +213,8 @@ namespace Data
     public class StudentData : CreatureData //public string prefab; // 이제 Prefab 경로는 불필요
     {
         // 추가되는 부분
+        public int MaxMp;
+        public float MpGaugeAmount;
     }
 
     [Serializable]

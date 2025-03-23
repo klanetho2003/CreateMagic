@@ -10,12 +10,13 @@ using static Define;
 
 public class PlayerController : CreatureController
 {
-    public PlayerSkillBook PlayerSkills { get; private set; }
-    public override BaseSkillBook Skills
-    {
-        get { return PlayerSkills as BaseSkillBook; }
-        protected set { base.Skills = value; }
-    }
+    public PlayerSkillBook PlayerSkills { get { return (PlayerSkillBook)Skills; } set { base.Skills = value; } }
+    public Data.StudentData PlayerData { get { return (Data.StudentData)CreatureData; } }
+
+    #region Only Player Data
+    public int Mp { get; set; }
+    public CreatureStat MaxMp;
+    #endregion
 
     #region Child Init
 
@@ -233,7 +234,12 @@ public class PlayerController : CreatureController
     {
         base.SetInfo(templateID);
 
-        StartMpUp(CreatureData.MpGaugeAmount);
+        #region Only Player Stat Set
+        Mp = 0;
+        MaxMp = new CreatureStat(PlayerData.MaxMp);
+        #endregion
+
+        StartMpUp(PlayerData.MpGaugeAmount);
 
         #region Child Init
         _stemp = Utils.FindChild<SpriteRenderer>(gameObject, "Stemp", true);
@@ -429,7 +435,7 @@ public class PlayerController : CreatureController
                 // Mp Up
                 Mp += 1;
 
-                StartMpUp(CreatureData.MpGaugeAmount); // 재시작
+                StartMpUp(PlayerData.MpGaugeAmount); // 재시작
             }
 
             yield return null;
@@ -457,7 +463,7 @@ public class PlayerController : CreatureController
         OnChangeTotalMpGauge.Invoke();
 
         if (_coStartMpUp == null && MaxMp.Value > Mp)
-            StartMpUp(CreatureData.MpGaugeAmount);
+            StartMpUp(PlayerData.MpGaugeAmount);
 
         return true;
     }

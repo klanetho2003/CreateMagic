@@ -36,6 +36,6 @@ public class UI_GameScene_EachMpBar : UI_Base
         if (_init == false)
             return;
 
-        Slider.value = gaugeAmount / _playerCache.CreatureData.MpGaugeAmount;
+        Slider.value = gaugeAmount / _playerCache.PlayerData.MpGaugeAmount;
     }
 }
