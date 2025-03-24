@@ -18,6 +18,7 @@ public class StatModifier
 		Source = source;    // 추가한 각체
 	}
 
+    // 생성자
 	public StatModifier(float value, EStatModType type) : this(value, type, (int)type, null) { }
 
 	public StatModifier(float value, EStatModType type, int order) : this(value, type, order, null) { }

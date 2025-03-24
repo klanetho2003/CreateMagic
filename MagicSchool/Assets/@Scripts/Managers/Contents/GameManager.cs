@@ -21,6 +21,9 @@ public class GameSaveData
     // ..
 
     public List<SkillSaveData> Skills = new List<SkillSaveData>(); // Dictionary ?
+
+    public int ItemDbIdGenerator = 1;
+    public List<ItemSaveData> Items = new List<ItemSaveData>();
 }
 
 [Serializable]
@@ -41,6 +44,18 @@ public enum SkillOwningState
     Unowned,    // 발견 O, 보유 X
     Owned,      // 보유
     Picked,     // 장비 중
+}
+
+[Serializable]
+public class ItemSaveData
+{
+    public int InstanceId;
+    public int DbId;
+    public int TemplateId;
+    public int Count;
+    public int EquipSlot; // 장착 + 인벤 + 창고
+    // public int OwnerId;
+    public int EnchantCount;
 }
 
 public class GameManager
@@ -126,6 +141,13 @@ public class GameManager
     public int OwnedSkillCount { get { return _saveData.Skills.Where(s => s.OwningState == SkillOwningState.Owned).Count(); } }
     public int PickedSkillCount { get { return _saveData.Skills.Where(s => s.OwningState == SkillOwningState.Picked).Count(); } }
 
+    public int GenerateItemDbId()
+    {
+        int itemDbId = _saveData.ItemDbIdGenerator;
+        _saveData.ItemDbIdGenerator++;
+        return itemDbId;
+    }
+
     #endregion
 
     #region Save & Load	
@@ -138,6 +160,7 @@ public class GameManager
         if (File.Exists(Path))
             return;
 
+        // Skill
         // To Do : 패치에 따라 늘어나는 skill을 대처할 수 있도록 수정 - Version 정보를 참조하는 방법?
         var skills = Managers.Data.SkillDic.Values.ToList();
         foreach (SkillData skill in skills)
@@ -150,6 +173,8 @@ public class GameManager
             SaveData.Skills.Add(saveData);
         }
 
+        // 기본으로 지급되는 Item이 있다면 추가
+
         // TEMP - For Debug
         SaveData.Skills[0].OwningState = SkillOwningState.Picked;
         SaveData.Skills[1].OwningState = SkillOwningState.Owned;
@@ -157,6 +182,20 @@ public class GameManager
 
     public void SaveGame()
     {
+        // Skill
+
+        // Item
+        {
+            SaveData.Items.Clear();
+            foreach (var item in Managers.Inventory.AllItems)
+                SaveData.Items.Add(item.SaveData);
+        }
+
+        // Quset
+        {
+
+        }
+
         string jsonStr = JsonUtility.ToJson(Managers.Game.SaveData);
         File.WriteAllText(Path, jsonStr);
         Debug.Log($"Save Game Completed : {Path}");
@@ -172,6 +211,18 @@ public class GameManager
 
         if (data != null)
             Managers.Game.SaveData = data;
+
+        // Skill
+
+        // Item
+        {
+            Managers.Inventory.Clear();
+
+            foreach (ItemSaveData itemSaveData in data.Items)
+                Managers.Inventory.AddItem(itemSaveData);
+        }
+
+        // Quset
 
         Debug.Log($"Save Game Loaded : {Path}");
         return true;
