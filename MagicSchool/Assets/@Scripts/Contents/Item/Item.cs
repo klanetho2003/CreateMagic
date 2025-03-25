@@ -6,7 +6,7 @@ using static Define;
 
 public class Item
 {
-    public ItemSaveData SaveData { get; set; }
+    public ItemSaveData SaveData { get; set; } = new ItemSaveData();
 
     public int InstanceId
     {
@@ -123,6 +123,14 @@ public class Item
         return EEquipSlotType.None;
     }
 
+    public virtual void ApplyItem(Item item, EStatModType statModType, CreatureController target)
+    {
+        if (item == null)
+            return;
+        if (target.IsValid() == false)
+            return;
+    }
+
     public bool IsEquippedItem()
     {
         return SaveData.EquipSlot > (int)EEquipSlotType.None && SaveData.EquipSlot < (int)EEquipSlotType.EquipMax;
@@ -138,6 +146,11 @@ public class Item
         return SaveData.EquipSlot == (int)EEquipSlotType.WareHouse;
     }
     #endregion
+
+    public void ClearStatModifier()
+    {
+        // To Do
+    }
 }
 
 public class Equipment : Item
@@ -161,7 +174,7 @@ public class Equipment : Item
         if (TemplateData == null)
             return false;
 
-        if (TemplateData.Type != EItemType.Armor || TemplateData.Type != EItemType.Weapon)
+        if (TemplateData.Type != EItemType.Armor && TemplateData.Type != EItemType.Weapon)
             return false;
 
         EquipmentData data = (EquipmentData)TemplateData;
@@ -173,6 +186,51 @@ public class Equipment : Item
 
         return true;
     }
+
+    //  Temp
+    public override void ApplyItem(Item item, EStatModType statModType, CreatureController target)
+    {
+        base.ApplyItem(item, statModType, target);
+
+        // 장착된 장비인가?Z
+        if (item.IsEquippedItem() == false)
+            return;
+
+        Equipment EItem = (Equipment)item;
+
+        if (EItem.IsHaveAtkWeight())
+        {
+            StatModifier Atk = new StatModifier(EItem.Damage, statModType);
+            target.Atk.AddModifier(Atk);
+        }
+
+        if (EItem.IsHaveDefWeight())
+        {
+            StatModifier Def = new StatModifier(EItem.Defence, statModType);
+            target.Atk.AddModifier(Def);
+        }
+
+        if (EItem.IsHaveSpeedWeight())
+        {
+            StatModifier speed = new StatModifier((float)EItem.Speed, statModType);
+            target.Atk.AddModifier(speed);
+        }
+    }
+
+    #region Helpers
+    public bool IsHaveAtkWeight()
+    {
+        return Damage != 0;
+    }
+    public bool IsHaveDefWeight()
+    {
+        return Defence != 0;
+    }
+    public bool IsHaveSpeedWeight()
+    {
+        return Speed != 0;
+    }
+    #endregion
 }
 
 public class Consumable : Item
@@ -192,7 +250,7 @@ public class Consumable : Item
         if (TemplateData == null)
             return false;
 
-        if (TemplateData.Type != EItemType.Potion || TemplateData.Type != EItemType.Scroll)
+        if (TemplateData.Type != EItemType.Potion && TemplateData.Type != EItemType.Scroll)
             return false;
 
         ConsumableData data = (ConsumableData)TemplateData;

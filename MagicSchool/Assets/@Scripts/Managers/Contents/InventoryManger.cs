@@ -11,6 +11,8 @@ public class InventoryManager
 
     public List<Item> AllItems { get; } = new List<Item>();
 
+    PlayerController _player { get { return Managers.Game.Player; } }
+
     // Cache
     Dictionary<int /*EquipSlot*/, Item> EquippedItems = new Dictionary<int, Item>(); // 장비 인벤
     List<Item> InventoryItems = new List<Item>(); // 가방 인벤
@@ -85,7 +87,7 @@ public class InventoryManager
         AllItems.Remove(item);
     }
 
-    public void EquipItem(int instanceId)
+    public void EquipItem(int instanceId, bool applyItem = true)
     {
         Item item = InventoryItems.Find(x => x.SaveData.InstanceId == instanceId);
         if (item == null)
@@ -107,6 +109,9 @@ public class InventoryManager
         item.EquipSlot = (int)equipSlotType;
         EquippedItems[(int)equipSlotType] = item;
 
+        if (applyItem == true)
+            item.ApplyItem(item, item.TemplateData.StatModType, _player);
+
         // CallBack - UI
     }
 
@@ -125,6 +130,10 @@ public class InventoryManager
 
         item.EquipSlot = (int)EEquipSlotType.Inventory;
         InventoryItems.Add(item);
+
+        //  To Do Item Stat Remove 적용
+
+        // CallBack - UI
     }
 
     public void Clear()

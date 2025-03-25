@@ -174,8 +174,11 @@ public class GameManager
         }
 
         // 기본으로 지급되는 Item이 있다면 추가
+        // TEMP - For Debug Item
+        Item tempItem = Managers.Inventory.MakeItem(1);     // Inven에 들어감. TemplateData -> Data Sheet , SaveData -> DataBase_LocalSaveFile
+        Managers.Inventory.EquipItem(tempItem.InstanceId, applyItem: false);  // Equiped in GameScene
 
-        // TEMP - For Debug
+        // TEMP - For Debug Skill
         SaveData.Skills[0].OwningState = SkillOwningState.Picked;
         SaveData.Skills[1].OwningState = SkillOwningState.Owned;
     }

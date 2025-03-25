@@ -175,6 +175,7 @@ public static class Define
 
     public enum EStatModType
     {
+        None,
         Add,
         PercentAdd,
         PercentMult,

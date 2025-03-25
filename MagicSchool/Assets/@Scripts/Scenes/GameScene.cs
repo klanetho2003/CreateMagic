@@ -25,12 +25,18 @@ public class GameScene : BaseScene
         // UI
         Managers.UI.ShowSceneUI<UI_GameScene>();
 
+        // 메모리에만 들고 있던 Item Player에게 적용
+        foreach (var item in Managers.Inventory.GetEquippedItems())
+            item.ApplyItem(item, item.TemplateData.StatModType, player);
+        Debug.Log($"Atk : {player.Atk.Value}");
+
+        // Event
         Managers.Game.OnKillCountChanged -= HandleOnKillCountChanged;
         Managers.Game.OnKillCountChanged += HandleOnKillCountChanged;
-
         /*Managers.Game.OnJamCountChanged -= HandleOnJamCountChanged;
         Managers.Game.OnJamCountChanged += HandleOnJamCountChanged;*/
 
+        // UI Cache
         Managers.UI.CacheAllPopups();
 
         return true;

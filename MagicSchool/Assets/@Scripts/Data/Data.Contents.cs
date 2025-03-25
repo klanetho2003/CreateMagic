@@ -477,6 +477,7 @@ namespace Data
         public EItemType Type;
         public EItemSubType SubType;
         public EItemGrade Grade;
+        public EStatModType StatModType;
         public int MaxStack;
     }
 

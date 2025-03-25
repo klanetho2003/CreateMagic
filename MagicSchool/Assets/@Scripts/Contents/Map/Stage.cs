@@ -34,23 +34,16 @@ public class Stage : MonoBehaviour
         set
         {
             // Check Wave Clear
-            if (CheckWaveClear(_currentWave) == false)
+            if (IsWaveClear(_currentWave) == false)
                 return;
 
             // KillCount 초기화
             Managers.Game.KillCount = 0;
 
             // Check Stage Clear
-            if (CheckStageClear(value))
+            if (IsCheckStageClear(value))
             {
-                // Clear
-                Debug.Log($"{gameObject.name} Clear !!!");
-                DespawnObjects();
-
-                // To Do NPC Spawn
-
-                Managers.UI.ShowPopupUI<UI_SkillSelectPopup>();
-
+                ClearStage();
                 return;
             }
 
@@ -135,7 +128,7 @@ public class Stage : MonoBehaviour
         return _waveTypes;
     }
 
-    public bool CheckWaveClear(EMonsterWaveType currentWave)
+    public bool IsWaveClear(EMonsterWaveType currentWave)
     {
         int goalKill = GetMonsterCountInWave(currentWave);
         int currentKill = Managers.Game.KillCount;
@@ -143,7 +136,7 @@ public class Stage : MonoBehaviour
         return (currentKill >= goalKill);
     }
 
-    public bool CheckStageClear(EMonsterWaveType NextWave)
+    public bool IsCheckStageClear(EMonsterWaveType NextWave)
     {
         return (MonsterWaveData.Count - 1 < (int)NextWave);
     }
@@ -177,6 +170,19 @@ public class Stage : MonoBehaviour
 
         DespawnObjects();
         SpawnObjects(waveData);
+    }
+
+    void ClearStage()
+    {
+        Debug.Log($"{gameObject.name} Clear !!!");
+
+        DespawnObjects();
+
+        // To Do NPC Spawn
+
+        // To Do GetRandomReward -> Item + Exp
+
+        Managers.UI.ShowPopupUI<UI_SkillSelectPopup>();
     }
 
     #endregion

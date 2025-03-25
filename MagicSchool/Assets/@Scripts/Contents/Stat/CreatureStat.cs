@@ -91,6 +91,8 @@ public class CreatureStat
 
 			switch (modifier.Type)
 			{
+                case EStatModType.None:
+                    break;
 				case EStatModType.Add:
 					finalValue += modifier.Value;
 					break;
@@ -108,6 +110,6 @@ public class CreatureStat
 			}
 		}
 
-		return (float)Math.Round(finalValue, 4);
+		return (float)Math.Round(finalValue, 4); // 4 -> 유지할 소숫점 자릿수
 	}
 }

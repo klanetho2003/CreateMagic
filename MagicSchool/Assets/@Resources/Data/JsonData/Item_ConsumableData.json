@@ -8,6 +8,7 @@
       "Type": 3,
       "SubType": 11,
       "Grade": 1,
+      "StatModType": 1,
       "MaxStack": 10,
       "DataId": 6
     }

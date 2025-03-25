@@ -40,10 +40,10 @@ public static class Extension
         if (creature != null)
         {
             // 사망 상태면
-            if (creature.CreatureState == Define.CreatureState.Dead && ignoreDead == false)
+            if (ignoreDead == false && creature.CreatureState == Define.CreatureState.Dead)
                 return false;
             // 스폰 중인 상태면
-            if (creature.CreatureState == Define.CreatureState.Spawning && ignoreSpawning == false) 
+            if (ignoreSpawning == false && creature.CreatureState == Define.CreatureState.Spawning) 
                 return false;
         }
 
