@@ -21,12 +21,15 @@ public class UI_SkillSelectPopup : UI_Popup
         BindObjects(typeof(GameObjects));
         _grid = GetObject((int)GameObjects.SkillCardSelectListObject).transform;
 
-        PopulateGrid();//그리드 채우기
-
         return true;
     }
 
-    void PopulateGrid()
+    public void SetInfo(int itemTemplateId)
+    {
+        PopulateGrid(itemTemplateId);//그리드 채우기
+    }
+
+    void PopulateGrid(int itemTemplateId)
     {
         foreach (Transform t in _grid.transform)
         {
@@ -36,6 +39,7 @@ public class UI_SkillSelectPopup : UI_Popup
         for (int i = 0; i < 1; i++)
         {
             UI_SkillCardItem item = Managers.UI.MakeSubItem<UI_SkillCardItem>(_grid.transform);
+            item.SetInfo(itemTemplateId);
 
             _items.Add(item);
         }

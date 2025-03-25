@@ -109,7 +109,7 @@ public class InventoryManager
         item.EquipSlot = (int)equipSlotType;
         EquippedItems[(int)equipSlotType] = item;
 
-        item.ApplyItem(item, item.TemplateData.StatModType, _player);
+        item.ApplyItem(item.TemplateData.StatModType, _player);
 
         // CallBack - UI
     }
@@ -130,7 +130,8 @@ public class InventoryManager
         item.EquipSlot = (int)EEquipSlotType.Inventory;
         InventoryItems.Add(item);
 
-        //  To Do Item Stat Remove Àû¿ë
+        //  Item Stat Remove
+        item.RemoveItem(_player);
 
         // CallBack - UI
     }

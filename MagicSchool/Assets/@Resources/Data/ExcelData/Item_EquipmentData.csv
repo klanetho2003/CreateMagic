@@ -1,6 +1,6 @@
-DataId,Name,GroupType,Type,SubType,Grade,StatModType,MaxStack,Damage,Defence,Speed
-1,TestDaggerID,Equipment,Weapon,Dagger,Normal,Add,1,100,0,0
-2,TestSwordID,Equipment,Weapon,Sword,Rare,Add,1,6,0,0
-3,TestBowID,Equipment,Weapon,Bow,Epic,Add,1,7,0,0
-4,TestHelmetID,Equipment,Armor,Helmet,Normal,Add,1,0,2,0
-5,TestArmorID,Equipment,Armor,Armor,Normal,Add,1,0,3,0
+DataId,Name,SpriteName,GroupType,Type,SubType,Grade,StatModType,MaxStack,Damage,Defence,Speed
+1,TestDaggerID,Box_01.sprite,Equipment,Weapon,Dagger,Normal,Add,1,100,0,0
+4,TestSwordID,Box_02.sprite,Equipment,Weapon,Sword,Rare,Add,1,0,2,0
+5,TestBowID,Box_03.sprite,Equipment,Weapon,Bow,Epic,Add,1,0,3,0
+2,TestHelmetID,EgoSwordIcon_01.sprite,Equipment,Armor,Helmet,Normal,PercentAdd,1,0.8,0,0
+3,TestArmorID,EgoSwordIcon_01.sprite,Equipment,Armor,Armor,Normal,PercentAdd,1,0.3,0,0

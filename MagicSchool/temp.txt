@@ -9,9 +9,10 @@ To Do. - 금일 목표
 
 3. 	Atk up, 방깍 구현
 
-진행 상황 Memo
+---진행 상황 Memo---
 Inventory.MakeItem() > Inventory.EquipItem() > Item.ApplyItem()
-여기서 Make와 Equip은 by Roo이기에 ApplyItem을 수정해줄 필요가 있으며, EStatModType을 데이터 시트에 넣어줘할 것으로 보임
+
+Equipment를 통해 Player Stat에 적용하는 값 중, 새로운 값이 등장하면 코드에서 적용할 수 있돌고 만들어야 한다.
 
 
 

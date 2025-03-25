@@ -124,10 +124,14 @@ public class Item
         return EEquipSlotType.None;
     }
 
-    public virtual void ApplyItem(Item item, EStatModType statModType, CreatureController target)
+    public virtual void ApplyItem(EStatModType statModType, CreatureController target)
     {
-        if (item == null)
+        if (target.IsValid() == false)
             return;
+    }
+
+    public virtual void RemoveItem(CreatureController target)
+    {
         if (target.IsValid() == false)
             return;
     }
@@ -156,8 +160,8 @@ public class Item
 
 public class Equipment : Item
 {
-    public int Damage { get; private set; }
-    public int Defence { get; private set; }
+    public float Damage { get; private set; }
+    public float Defence { get; private set; }
     public double Speed { get; private set; }
 
     protected Data.EquipmentData EquipmentData { get { return (Data.EquipmentData)TemplateData; } }
@@ -189,32 +193,43 @@ public class Equipment : Item
     }
 
     //  Temp
-    public override void ApplyItem(Item item, EStatModType statModType, CreatureController target)
+    public override void ApplyItem(EStatModType statModType, CreatureController target)
     {
-        base.ApplyItem(item, statModType, target);
+        base.ApplyItem(statModType, target);
 
         // 장착된 장비인가?Z
-        if (item.IsEquippedItem() == false)
+        if (this.IsEquippedItem() == false)
             return;
 
-        Equipment EItem = (Equipment)item;
-
-        if (EItem.IsHaveAtkWeight())
+        if (this.IsHaveAtkWeight())
         {
-            StatModifier Atk = new StatModifier(EItem.Damage, statModType);
+            StatModifier Atk = new StatModifier(this.Damage, statModType);
             target.Atk.AddModifier(Atk);
+            statModifiers.Add(Atk);
         }
 
-        if (EItem.IsHaveDefWeight())
+        if (this.IsHaveDefWeight())
         {
-            StatModifier Def = new StatModifier(EItem.Defence, statModType);
-            target.Atk.AddModifier(Def);
+            /*StatModifier Def = new StatModifier(EItem.Defence, statModType);
+            target.Atk.AddModifier(Def);*/
         }
 
-        if (EItem.IsHaveSpeedWeight())
+        if (this.IsHaveSpeedWeight())
         {
-            StatModifier speed = new StatModifier((float)EItem.Speed, statModType);
-            target.Atk.AddModifier(speed);
+            StatModifier speed = new StatModifier((float)this.Speed, statModType);
+            target.MoveSpeed.AddModifier(speed);
+            statModifiers.Add(speed);
+        }
+    }
+
+    public override void RemoveItem(CreatureController target)
+    {
+        base.RemoveItem(target);
+
+        foreach (var modifier in statModifiers)
+        {
+            bool tempDebug1 = target.Atk.RemoveModifier(modifier);
+            bool tempDebug2 = target.MoveSpeed.RemoveModifier(modifier);
         }
     }
 

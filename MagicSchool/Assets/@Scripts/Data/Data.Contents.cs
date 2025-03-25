@@ -473,6 +473,7 @@ namespace Data
     public class ItemData : BaseData
     {
         public string Name;
+        public string SpriteName;
         public EItemGroupType ItemGroupType;
         public EItemType Type;
         public EItemSubType SubType;
@@ -484,9 +485,9 @@ namespace Data
     [Serializable]
     public class EquipmentData : ItemData
     {
-        public int Damage;
-        public int Defence;
-        public int Speed;
+        public float Damage;
+        public float Defence;
+        public float Speed;
     }
 
     [Serializable]

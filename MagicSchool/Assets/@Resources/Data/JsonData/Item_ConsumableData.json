@@ -4,6 +4,7 @@
       "Value": 3.5,
       "CoolTime": 2,
       "Name": "TestPotionID",
+      "SpriteName": "EgoSwordIcon_01.sprite",
       "ItemGroupType": 2,
       "Type": 3,
       "SubType": 11,

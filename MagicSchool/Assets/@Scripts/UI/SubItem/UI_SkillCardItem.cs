@@ -1,3 +1,4 @@
+using Data;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -7,6 +8,8 @@ using UnityEngine.UI;
 
 public class UI_SkillCardItem : UI_Base
 {
+    private ItemData _data;
+
     #region Binding
 
     enum Texts
@@ -37,13 +40,6 @@ public class UI_SkillCardItem : UI_Base
 
     #endregion
 
-    public void SetInfo(int templateID)
-    {
-        _templateID = templateID;
-
-        Managers.Data.SkillDic.TryGetValue(templateID, out _skillData);
-    }
-
     public override bool Init()
     {
         if (base.Init() == false)
@@ -58,26 +54,45 @@ public class UI_SkillCardItem : UI_Base
         skillImage = GetImage((int)Images.SkillImage);
         skillCardBackgroundImage = GetObject((int)GameObjects.SkillCardBackgroundImage);
 
-        RefreshTexts();
-        skillImage.sprite = Managers.Resource.Load<Sprite>("EgoSwordIcon_01.sprite");
-
         BindEvent(skillCardBackgroundImage.gameObject, (Event) =>
         {
             //Managers.Game.Player.Skills.AddSkill<EgoSword>(/*transform.position*/);
-            Managers.UI.ClosePopupUI();
+
+            OnClick();
         });
 
         return true;
     }
 
-    void RefreshTexts()
+    public void SetInfo(int itemTemplateId)
     {
-        cardNameText.text = "멍멍멍";
-        skillDescriptionText.text = "몬헌 저는 태도할 예정입니다.";
+        _data = Managers.Data.ItemDic[itemTemplateId];
+
+        Refresh();
+        
     }
 
-    public void OnClick() // ToDo
+    void Refresh()
     {
-        
+        // Temp Casting
+        EquipmentData data = (EquipmentData)_data;
+
+        // Text
+        cardNameText.text = $"{data.Name}";
+        skillDescriptionText.text = $"Player의 공격력을 {data.Damage} 상승 시킨다.";
+
+        // Sprite
+        skillImage.sprite = Managers.Resource.Load<Sprite>(_data.SpriteName);
+    }
+
+    public void OnClick()
+    {
+        // TEMP - For Debug Item > 카드 선택하는 화면으로 이동 필요
+        Item tempItem = Managers.Inventory.MakeItem(_data.DataId);  // Inven에 들어감. TemplateData -> Data Sheet , SaveData -> DataBase_LocalSaveFile
+        Managers.Inventory.EquipItem(tempItem.InstanceId);          // Equiped in GameScene
+
+        Debug.Log($"Atk : {Managers.Game.Player.Atk.Value}");
+
+        Managers.UI.ClosePopupUI();
     }
 }

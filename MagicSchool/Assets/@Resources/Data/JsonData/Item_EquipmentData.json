@@ -1,10 +1,11 @@
 {
   "items": [
     {
-      "Damage": 100,
-      "Defence": 0,
-      "Speed": 0,
+      "Damage": 100.0,
+      "Defence": 0.0,
+      "Speed": 0.0,
       "Name": "TestDaggerID",
+      "SpriteName": "Box_01.sprite",
       "ItemGroupType": 1,
       "Type": 1,
       "SubType": 2,
@@ -14,56 +15,60 @@
       "DataId": 1
     },
     {
-      "Damage": 6,
-      "Defence": 0,
-      "Speed": 0,
+      "Damage": 0.0,
+      "Defence": 2.0,
+      "Speed": 0.0,
       "Name": "TestSwordID",
+      "SpriteName": "Box_02.sprite",
       "ItemGroupType": 1,
       "Type": 1,
       "SubType": 1,
       "Grade": 2,
       "StatModType": 1,
       "MaxStack": 1,
-      "DataId": 2
+      "DataId": 4
     },
     {
-      "Damage": 7,
-      "Defence": 0,
-      "Speed": 0,
+      "Damage": 0.0,
+      "Defence": 3.0,
+      "Speed": 0.0,
       "Name": "TestBowID",
+      "SpriteName": "Box_03.sprite",
       "ItemGroupType": 1,
       "Type": 1,
       "SubType": 3,
       "Grade": 3,
       "StatModType": 1,
       "MaxStack": 1,
-      "DataId": 3
+      "DataId": 5
     },
     {
-      "Damage": 0,
-      "Defence": 2,
-      "Speed": 0,
+      "Damage": 0.8,
+      "Defence": 0.0,
+      "Speed": 0.0,
       "Name": "TestHelmetID",
+      "SpriteName": "EgoSwordIcon_01.sprite",
       "ItemGroupType": 1,
       "Type": 2,
       "SubType": 4,
       "Grade": 1,
-      "StatModType": 1,
+      "StatModType": 2,
       "MaxStack": 1,
-      "DataId": 4
+      "DataId": 2
     },
     {
-      "Damage": 0,
-      "Defence": 3,
-      "Speed": 0,
+      "Damage": 0.3,
+      "Defence": 0.0,
+      "Speed": 0.0,
       "Name": "TestArmorID",
+      "SpriteName": "EgoSwordIcon_01.sprite",
       "ItemGroupType": 1,
       "Type": 2,
       "SubType": 5,
       "Grade": 1,
-      "StatModType": 1,
+      "StatModType": 2,
       "MaxStack": 1,
-      "DataId": 5
+      "DataId": 3
     }
   ]
 }

@@ -1,3 +1,4 @@
+using Data;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEditor;
@@ -182,7 +183,32 @@ public class Stage : MonoBehaviour
 
         // To Do GetRandomReward -> Item + Exp
 
-        Managers.UI.ShowPopupUI<UI_SkillSelectPopup>();
+        RewardData reward = GetRandomReward();
+        UI_SkillSelectPopup ui = Managers.UI.ShowPopupUI<UI_SkillSelectPopup>();
+        ui.SetInfo(reward.ItemTemplateId);
+    }
+
+    RewardData GetRandomReward()
+    {
+        if (Managers.Data.DropTableDic.TryGetValue(400000, out DropTableData dropTableData) == false)
+            return null;
+
+        if (dropTableData.Rewards.Count <= 0)
+            return null;
+
+        int sum = 0;
+        int randValue = UnityEngine.Random.Range(0, 100);
+
+        foreach (RewardData item in dropTableData.Rewards)
+        {
+            sum += item.Probability;
+
+            if (randValue <= sum)
+                return item;
+        }
+
+        //return dropTableData.Rewards.RandomElementByWeight(e => e.Probability);
+        return null;
     }
 
     #endregion
