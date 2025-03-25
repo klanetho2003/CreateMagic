@@ -7,6 +7,7 @@ using static Define;
 public class Item
 {
     public ItemSaveData SaveData { get; set; } = new ItemSaveData();
+    public List<StatModifier> statModifiers { get; } = new List<StatModifier>();
 
     public int InstanceId
     {

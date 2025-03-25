@@ -87,7 +87,7 @@ public class InventoryManager
         AllItems.Remove(item);
     }
 
-    public void EquipItem(int instanceId, bool applyItem = true)
+    public void EquipItem(int instanceId)
     {
         Item item = InventoryItems.Find(x => x.SaveData.InstanceId == instanceId);
         if (item == null)
@@ -109,8 +109,7 @@ public class InventoryManager
         item.EquipSlot = (int)equipSlotType;
         EquippedItems[(int)equipSlotType] = item;
 
-        if (applyItem == true)
-            item.ApplyItem(item, item.TemplateData.StatModType, _player);
+        item.ApplyItem(item, item.TemplateData.StatModType, _player);
 
         // CallBack - UI
     }
