@@ -183,9 +183,11 @@ public class Stage : MonoBehaviour
 
         // To Do GetRandomReward -> Item + Exp
 
-        RewardData reward = GetRandomReward();
+        List<RewardData> rewards = new List<RewardData>();
+        rewards.Add(GetRandomReward());
+        rewards.Add(GetRandomReward());
         UI_SkillSelectPopup ui = Managers.UI.ShowPopupUI<UI_SkillSelectPopup>();
-        ui.SetInfo(reward.ItemTemplateId);
+        ui.SetInfo(rewards);
     }
 
     RewardData GetRandomReward()

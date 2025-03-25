@@ -69,11 +69,12 @@ public class UI_SkillCardItem : UI_Base
         _data = Managers.Data.ItemDic[itemTemplateId];
 
         Refresh();
-        
     }
 
     void Refresh()
     {
+        transform.localScale = new Vector3(1.2f, 1.2f, 0);
+
         // Temp Casting
         EquipmentData data = (EquipmentData)_data;
 

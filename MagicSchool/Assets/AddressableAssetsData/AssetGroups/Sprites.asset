@@ -53,20 +53,14 @@ MonoBehaviour:
     m_SerializedLabels:
     - PreLoad
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: d95307edb5fe16742b91b52994b08134
-    m_Address: Box_01.sprite
+  - m_GUID: a4bcc69227e7c734f83057b517407f2e
+    m_Address: Gloves_03.sprite
     m_ReadOnly: 0
     m_SerializedLabels:
     - PreLoad
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 306f69e51f578654cbc6f9ea7f99c207
-    m_Address: Box_02.sprite
-    m_ReadOnly: 0
-    m_SerializedLabels:
-    - PreLoad
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: c92fcb33b3b8f4f469671e02476ca25a
-    m_Address: Box_03.sprite
+  - m_GUID: d3970ed612c6fdd46b039bd936701450
+    m_Address: Armor_01_2.sprite
     m_ReadOnly: 0
     m_SerializedLabels:
     - PreLoad

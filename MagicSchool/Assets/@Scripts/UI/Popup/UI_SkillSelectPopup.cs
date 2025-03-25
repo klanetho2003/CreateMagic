@@ -24,22 +24,22 @@ public class UI_SkillSelectPopup : UI_Popup
         return true;
     }
 
-    public void SetInfo(int itemTemplateId)
+    public void SetInfo(List<Data.RewardData> rewards)
     {
-        PopulateGrid(itemTemplateId);//그리드 채우기
+        PopulateGrid(rewards);//그리드 채우기
     }
 
-    void PopulateGrid(int itemTemplateId)
+    void PopulateGrid(List<Data.RewardData> rewards)
     {
         foreach (Transform t in _grid.transform)
         {
             Managers.Resource.Destroy(t.gameObject);
         }
 
-        for (int i = 0; i < 1; i++)
+        for (int i = 0; i < rewards.Count; i++)
         {
             UI_SkillCardItem item = Managers.UI.MakeSubItem<UI_SkillCardItem>(_grid.transform);
-            item.SetInfo(itemTemplateId);
+            item.SetInfo(rewards[i].ItemTemplateId);
 
             _items.Add(item);
         }
