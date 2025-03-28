@@ -8,7 +8,7 @@
       "AnimatorDataID": null,
       "SoundLabel": null,
       "Duration": 5.0,
-      "AllyEffects": null,
+      "AllyEffects": [],
       "EnemyEffects": [
         60006
       ],
@@ -23,7 +23,7 @@
       "AnimatorDataID": null,
       "SoundLabel": null,
       "Duration": 5.0,
-      "AllyEffects": null,
+      "AllyEffects": [],
       "EnemyEffects": [
         60007
       ],
@@ -38,7 +38,7 @@
       "AnimatorDataID": null,
       "SoundLabel": null,
       "Duration": 5.0,
-      "AllyEffects": null,
+      "AllyEffects": [],
       "EnemyEffects": [
         60008
       ],
@@ -53,7 +53,7 @@
       "AnimatorDataID": null,
       "SoundLabel": null,
       "Duration": 0.5,
-      "AllyEffects": null,
+      "AllyEffects": [],
       "EnemyEffects": [
         60009
       ],
@@ -68,7 +68,7 @@
       "AnimatorDataID": null,
       "SoundLabel": null,
       "Duration": 0.5,
-      "AllyEffects": null,
+      "AllyEffects": [],
       "EnemyEffects": [
         60010
       ],
@@ -83,7 +83,7 @@
       "AnimatorDataID": null,
       "SoundLabel": null,
       "Duration": 0.5,
-      "AllyEffects": null,
+      "AllyEffects": [],
       "EnemyEffects": [
         60011
       ],
@@ -98,7 +98,7 @@
       "AnimatorDataID": null,
       "SoundLabel": null,
       "Duration": 1.0,
-      "AllyEffects": null,
+      "AllyEffects": [],
       "EnemyEffects": [
         60012
       ],
@@ -113,7 +113,7 @@
       "AnimatorDataID": null,
       "SoundLabel": null,
       "Duration": 1.0,
-      "AllyEffects": null,
+      "AllyEffects": [],
       "EnemyEffects": [
         60013
       ],
@@ -128,7 +128,7 @@
       "AnimatorDataID": null,
       "SoundLabel": null,
       "Duration": 1.0,
-      "AllyEffects": null,
+      "AllyEffects": [],
       "EnemyEffects": [
         60014
       ],
@@ -143,8 +143,8 @@
       "AnimatorDataID": null,
       "SoundLabel": null,
       "Duration": 1.0,
-      "AllyEffects": null,
-      "EnemyEffects": null,
+      "AllyEffects": [],
+      "EnemyEffects": [],
       "AnimName": "skill_b_small",
       "SortingLayerName": "Skill"
     },
@@ -156,8 +156,8 @@
       "AnimatorDataID": null,
       "SoundLabel": null,
       "Duration": 1.0,
-      "AllyEffects": null,
-      "EnemyEffects": null,
+      "AllyEffects": [],
+      "EnemyEffects": [],
       "AnimName": "skill_b_normal",
       "SortingLayerName": "Skill"
     },
@@ -169,8 +169,8 @@
       "AnimatorDataID": null,
       "SoundLabel": null,
       "Duration": 1.0,
-      "AllyEffects": null,
-      "EnemyEffects": null,
+      "AllyEffects": [],
+      "EnemyEffects": [],
       "AnimName": "skill_b_big",
       "SortingLayerName": "Skill"
     },
@@ -182,8 +182,8 @@
       "AnimatorDataID": null,
       "SoundLabel": null,
       "Duration": 0.0,
-      "AllyEffects": null,
-      "EnemyEffects": null,
+      "AllyEffects": [],
+      "EnemyEffects": [],
       "AnimName": "skill_a_small",
       "SortingLayerName": "Skill"
     },
@@ -195,8 +195,8 @@
       "AnimatorDataID": null,
       "SoundLabel": null,
       "Duration": 0.0,
-      "AllyEffects": null,
-      "EnemyEffects": null,
+      "AllyEffects": [],
+      "EnemyEffects": [],
       "AnimName": "skill_a_normal",
       "SortingLayerName": "Skill"
     },
@@ -208,8 +208,8 @@
       "AnimatorDataID": null,
       "SoundLabel": null,
       "Duration": 0.0,
-      "AllyEffects": null,
-      "EnemyEffects": null,
+      "AllyEffects": [],
+      "EnemyEffects": [],
       "AnimName": "skill_a_big",
       "SortingLayerName": "Skill"
     },
@@ -221,7 +221,7 @@
       "AnimatorDataID": null,
       "SoundLabel": null,
       "Duration": 0.0,
-      "AllyEffects": null,
+      "AllyEffects": [],
       "EnemyEffects": [
         60012
       ],
@@ -236,7 +236,7 @@
       "AnimatorDataID": null,
       "SoundLabel": null,
       "Duration": 0.0,
-      "AllyEffects": null,
+      "AllyEffects": [],
       "EnemyEffects": [
         60013
       ],
@@ -251,7 +251,7 @@
       "AnimatorDataID": null,
       "SoundLabel": null,
       "Duration": 0.0,
-      "AllyEffects": null,
+      "AllyEffects": [],
       "EnemyEffects": [
         60014
       ],
@@ -266,11 +266,8 @@
       "AnimatorDataID": null,
       "SoundLabel": null,
       "Duration": 0.0,
-      "AllyEffects": [
-        61001,
-        61005
-      ],
-      "EnemyEffects": null,
+      "AllyEffects": [],
+      "EnemyEffects": [],
       "AnimName": "skill_a_small",
       "SortingLayerName": "Skill"
     },
@@ -282,11 +279,8 @@
       "AnimatorDataID": null,
       "SoundLabel": null,
       "Duration": 0.0,
-      "AllyEffects": [
-        61001,
-        61005
-      ],
-      "EnemyEffects": null,
+      "AllyEffects": [],
+      "EnemyEffects": [],
       "AnimName": "skill_a_normal",
       "SortingLayerName": "Skill"
     },
@@ -298,11 +292,8 @@
       "AnimatorDataID": null,
       "SoundLabel": null,
       "Duration": 0.0,
-      "AllyEffects": [
-        61001,
-        61005
-      ],
-      "EnemyEffects": null,
+      "AllyEffects": [],
+      "EnemyEffects": [],
       "AnimName": "skill_a_big",
       "SortingLayerName": "Skill"
     },
@@ -314,7 +305,7 @@
       "AnimatorDataID": null,
       "SoundLabel": null,
       "Duration": 1.0,
-      "AllyEffects": null,
+      "AllyEffects": [],
       "EnemyEffects": [
         60012
       ],

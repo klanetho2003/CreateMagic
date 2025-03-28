@@ -10,8 +10,6 @@ public class QuestManager
 {
     public Dictionary<int, Quest> AllQuests = new Dictionary<int, Quest>();
 
-    // To Do 상태에 따라 분리해서 이중으로 List 관리
-
     public void Init()
     {
         Managers.Game.OnBroadcastEvent -= OnHandleBroadcastEvent;
@@ -58,16 +56,12 @@ public class QuestManager
 
         AllQuests.Add(quest.TemplateId, quest);
 
-        // To Do switch case 이용해서, 이중으로 관리하는 List에 넣어주기
-
         return quest;
     }
 
     public void Clear()
     {
         AllQuests.Clear();
-
-        // To Do 이중으로 관리하는 List들 Clear
     }
 
     void OnHandleBroadcastEvent(EBroadcastEventType eventType, int value)

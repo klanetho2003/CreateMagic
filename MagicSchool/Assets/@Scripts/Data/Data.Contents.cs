@@ -636,7 +636,7 @@ namespace Data
     public class QuestTaskData
     {
         public EQuestObjectiveType ObjectiveType;   // 목적
-        public string DescriptionTexxtId;           // "{0}"를 처치하세요 -> Use String Format
+        // public string DescriptionTextId;           // "{0}"를 처치하세요 -> Use String Format
         public int ObjectiveDataId;
         public int ObjectiveCount;
     }

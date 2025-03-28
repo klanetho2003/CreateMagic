@@ -218,14 +218,7 @@ public class GameManager
             SaveData.CompletedQuests.Clear();
             SaveData.RewardedQuests.Clear();
 
-            /*foreach (Quest item in Managers.Quest.ProcessingQuests)
-                SaveData.ProcessingQuests.Add(item.SaveData);
-
-            foreach (Quest item in Managers.Quest.CompletedQuests)
-                SaveData.CompletedQuests.Add(item.SaveData);
-
-            foreach (Quest item in Managers.Quest.RewardedQuests)
-                SaveData.RewardedQuests.Add(item.SaveData);*/
+            // To Do
         }
 
         string jsonStr = JsonUtility.ToJson(Managers.Game.SaveData);
@@ -255,26 +248,9 @@ public class GameManager
         }
 
         // Quset
-        /*{
-            Managers.Quest.Clear();
-
-            foreach (QuestSaveData questSaveData in data.ProcessingQuests)
-            {
-                Managers.Quest.AddQuest(questSaveData);
-            }
-
-            foreach (QuestSaveData questSaveData in data.CompletedQuests)
-            {
-                Managers.Quest.AddQuest(questSaveData);
-            }
-
-            foreach (QuestSaveData questSaveData in data.RewardedQuests)
-            {
-                Managers.Quest.AddQuest(questSaveData);
-            }
-
-            Managers.Quest.AddUnknownQuests();
-        }*/
+        {
+            // To Do
+        }
 
         Debug.Log($"Save Game Loaded : {Path}");
         return true;

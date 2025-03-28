@@ -281,7 +281,7 @@ public static class Define
     public enum EQuestObjectiveType
     {
         KillMonster,
-        // Item으로 통일화 가능
+        // Item 통합 고려
         EarnMeat,
         SpendMeat,
         EarnWood,
