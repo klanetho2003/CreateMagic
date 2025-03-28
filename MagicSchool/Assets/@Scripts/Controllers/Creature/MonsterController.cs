@@ -244,13 +244,9 @@ public class MonsterController : CreatureController
 
         Clear();
 
+        // Broadcast
         Managers.Game.KillCount++;
-
-        // To Do : Animation Event 받아서 Despawn or Coroutine 돌려서 Despawn
-        // Managers.Object.Despawn(this);
-
-        //죽을 떄 보석 스폰
-        // JamController jc = Managers.Object.Spawn<JamController>(transform.position);
+        Managers.Game.BroadcastEvent(EBroadcastEventType.KillMonster, MonsterData.DataId);
     }
 
     #endregion

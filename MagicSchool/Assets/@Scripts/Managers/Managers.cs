@@ -17,12 +17,14 @@ public class Managers : MonoBehaviour
     MapManager _map = new MapManager();
     ObjectManager _object = new ObjectManager();
     PoolManager _pool = new PoolManager();
+    QuestManager _quest = new QuestManager();
     public static GameManager Game { get { return Instance?._game; } }
     public static InputManager Input { get { return Instance?._input; } }
     public static InventoryManager Inventory { get { return Instance?._inventory; } }
     public static MapManager Map { get { return Instance?._map; } }
     public static ObjectManager Object { get { return Instance?._object; } }
     public static PoolManager Pool { get { return Instance?._pool; } }
+    public static QuestManager Quest { get { return Instance?._quest; } }
     #endregion
 
     #region Core
@@ -88,7 +90,11 @@ public class Managers : MonoBehaviour
             }
 
             DontDestroyOnLoad(go);
+
+            // √ ±‚»≠
             s_instance = go.GetComponent<Managers>();
+
+            s_instance._quest.Init();
         }
     }
 

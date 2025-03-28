@@ -4,37 +4,6 @@ using UnityEngine;
 
 public static class Define
 {
-    public enum EScene
-    {
-        Unknown,
-        TitleScene,
-        GameScene,
-    }
-
-    public enum EObjectType
-    {
-        None,
-        Student,
-        Monster,
-        Npc,
-        ProjecTile,
-        Env,
-        Effect,
-        ItemHolder,
-    }
-
-    public enum ENpcType
-    {
-        Camp,
-        Portal,
-        Waypoint,
-        BlackSmith,
-        Guild,
-        TreasureBox,
-        Dungeon,
-        WaveCheat,
-    }
-
     public enum ESkillType
     {
         None,
@@ -43,18 +12,14 @@ public static class Define
         Sequence,
     }
 
-    public enum CreatureState
+    public const string EXP_JAM_PREFAB = "EXPJam.prefab";
+
+    #region Manager
+    public enum EScene
     {
-        Spawning,
-        Idle,
-        Moving,
-        Casting,
-        FrontDelay,
-        DoSkill,
-        BackDelay,
-        Dameged,
-        Stun,
-        Dead,
+        Unknown,
+        TitleScene,
+        GameScene,
     }
 
     public enum KeyDownEvent
@@ -89,6 +54,57 @@ public static class Define
         BeginDrag,
         Drag,
         EndDrag,
+    }
+    #endregion
+
+    #region Object
+
+    // Creatrue ID
+    public const int MAGICION01_ID = 201000;
+    public const int KNIGHT01_ID = 201001;
+
+    public const int MONSTER_ASSASIN_ID = 202001;
+    public const int MONSTER_SKELETON_ID = 202002;
+    public const int MONSTER_SKELETO_SHIELD_ID = 202003;
+    public const int MONSTER_MAGESKELETON_ID = 202004;
+    public const int MONSTER_MAGESKELETON_SHIELD_ID = 202005;
+
+    public enum EObjectType
+    {
+        None,
+        Student,
+        Monster,
+        Npc,
+        ProjecTile,
+        Env,
+        Effect,
+        ItemHolder,
+    }
+
+    public enum ENpcType
+    {
+        Camp,
+        Portal,
+        Waypoint,
+        BlackSmith,
+        Guild,
+        TreasureBox,
+        Dungeon,
+        WaveCheat,
+    }
+
+    public enum CreatureState
+    {
+        Spawning,
+        Idle,
+        Moving,
+        Casting,
+        FrontDelay,
+        DoSkill,
+        BackDelay,
+        Dameged,
+        Stun,
+        Dead,
     }
 
     public enum EMonsterWaveType
@@ -126,35 +142,9 @@ public static class Define
         SemiWall,
         Wall,
     }
-
-    public const string EXP_JAM_PREFAB = "EXPJam.prefab";
-
-    #region Creatrue ID
-    public const int MAGICION01_ID = 201000;
-    public const int KNIGHT01_ID = 201001;
-
-    public const int MONSTER_ASSASIN_ID = 202001;
-    public const int MONSTER_SKELETON_ID = 202002;
-    public const int MONSTER_SKELETO_SHIELD_ID = 202003;
-    public const int MONSTER_MAGESKELETON_ID = 202004;
-    public const int MONSTER_MAGESKELETON_SHIELD_ID = 202005;
     #endregion
 
-    public enum ESkillSlot
-    {
-        Default,
-        Env,
-        A,
-        B,
-    }
-
-    public enum EIndicatorType
-    {
-        None,
-        Cone,
-        Rectangle,
-    }
-
+    #region Effect
     public enum EEffectSize
     {
         CircleSmall,
@@ -163,22 +153,6 @@ public static class Define
         ConeSmall,
         ConeNormal,
         ConeBig,
-    }
-
-    public enum EFindPathResult
-    {
-        Fail_LerpCell,
-        Fail_NoPath,
-        Fail_MoveTo,
-        Success,
-    }
-
-    public enum EStatModType
-    {
-        None,
-        Add,
-        PercentAdd,
-        PercentMult,
     }
 
     public enum EEffectType
@@ -222,21 +196,9 @@ public static class Define
         Freeze,
         CleanDebuff,
     }
+    #endregion
 
-    public enum EMpStateType
-    {
-        Fill,
-        Full,
-        None,
-    }
-
-    public enum ELanguage
-    {
-        Korean,
-        English,
-        Japanese,
-    }
-
+    #region Item
     public enum EItemGrade
     {
         None,
@@ -296,6 +258,141 @@ public static class Define
 
         Inventory = 100,
         WareHouse = 200,
+    }
+    #endregion
+
+    #region Quest
+    public enum EQuestPeriodType
+    {
+        Once, // 단발성
+        Daily,
+        Weekly,
+        Infinite, // 무한으로
+    }
+
+    public enum EQuestCondition
+    {
+        None,
+        Level,
+        ItemLevel,
+
+    }
+
+    public enum EQuestObjectiveType
+    {
+        KillMonster,
+        // Item으로 통일화 가능
+        EarnMeat,
+        SpendMeat,
+        EarnWood,
+        SpendWood,
+        EarnMineral,
+        SpendMineral,
+        EarnGold,
+        SpendGold,
+        //
+        UseItem,
+        Survival,
+        ClearDungeon
+    }
+
+    public enum EQuestRewardType
+    {
+        Hero,
+        Gold,
+        Mineral,
+        Meat,
+        Wood,
+        Item,
+    }
+
+    public enum EQuestState
+    {
+        None, // UnKnown - 받지도 않음
+        Processing,
+        Completed,
+        Rewarded,
+    }
+
+    public enum EResourceType
+    {
+        Wood,
+        Mineral,
+        Meat,
+        Gold,
+        Materials,
+        Dia
+    }
+
+    public enum EProviderType
+    {
+        None = 0,
+        Guest = 1,
+        Google = 2,
+        Facebook = 3,
+    }
+    #endregion
+
+    public enum EBroadcastEventType
+    {
+        None,
+        ChangeMeat,
+        ChangeWood,
+        ChangeMineral,
+        ChangeGold,
+        ChangeDia,
+        ChangeMaterials,
+        KillMonster,
+        LevelUp,
+        DungeonClear,
+        ChangeInventory,
+        ChangeCrew,
+        QuestClear,
+    }
+
+    public enum ESkillSlot
+    {
+        Default,
+        Env,
+        A,
+        B,
+    }
+
+    public enum EIndicatorType
+    {
+        None,
+        Cone,
+        Rectangle,
+    }
+
+    public enum EFindPathResult
+    {
+        Fail_LerpCell,
+        Fail_NoPath,
+        Fail_MoveTo,
+        Success,
+    }
+
+    public enum EStatModType
+    {
+        None,
+        Add,
+        PercentAdd,
+        PercentMult,
+    }
+
+    public enum EMpStateType
+    {
+        Fill,
+        Full,
+        None,
+    }
+
+    public enum ELanguage
+    {
+        Korean,
+        English,
+        Japanese,
     }
 
     //HARD CODING

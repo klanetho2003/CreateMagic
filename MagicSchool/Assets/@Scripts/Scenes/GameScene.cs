@@ -30,8 +30,8 @@ public class GameScene : BaseScene
             item.ApplyItem(item.TemplateData.StatModType, player);
 
         // Event
-        Managers.Game.OnKillCountChanged -= HandleOnKillCountChanged;
-        Managers.Game.OnKillCountChanged += HandleOnKillCountChanged;
+        Managers.Game.OnBroadcastEvent -= OnHandleBroadcastEvent;
+        Managers.Game.OnBroadcastEvent += OnHandleBroadcastEvent;
         /*Managers.Game.OnJamCountChanged -= HandleOnJamCountChanged;
         Managers.Game.OnJamCountChanged += HandleOnJamCountChanged;*/
 
@@ -46,14 +46,13 @@ public class GameScene : BaseScene
 
     }
 
-    void HandleOnKillCountChanged(int killCount)
+    void OnHandleBroadcastEvent(EBroadcastEventType broadcastType, int monsterId)
     {
         /*UI_GameScene uiGameScene = Managers.UI.SceneUI.GetComponent<UI_GameScene>();
         uiGameScene.SetKillCount(killCount);*/
 
         Stage currentStage = Managers.Map.StageTransition.CurrentStage;
-
-        if (killCount >= currentStage.GetMonsterCountInWave(currentStage.CurrentWave))
+        if (Managers.Game.KillCount >= currentStage.GetMonsterCountInWave(currentStage.CurrentWave))
         {
             /*StageType = Define.StageType.Boss;
 
@@ -71,7 +70,7 @@ public class GameScene : BaseScene
         if (Managers.Game != null)
         {
             // Managers.Game.OnJamCountChanged -= HandleOnJamCountChanged;
-            Managers.Game.OnKillCountChanged -= HandleOnKillCountChanged;
+            Managers.Game.OnBroadcastEvent -= OnHandleBroadcastEvent;
         }
     }
 

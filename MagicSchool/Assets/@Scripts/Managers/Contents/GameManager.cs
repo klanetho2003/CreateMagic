@@ -20,10 +20,17 @@ public class GameSaveData
     // Clear Stages_List or Last Clear Stage
     // ..
 
+    // Skill
     public List<SkillSaveData> Skills = new List<SkillSaveData>(); // Dictionary ?
 
+    // Item
     public int ItemDbIdGenerator = 1;
     public List<ItemSaveData> Items = new List<ItemSaveData>();
+
+    // Quest
+    public List<QuestSaveData> ProcessingQuests = new List<QuestSaveData>(); // 진행중
+    public List<QuestSaveData> CompletedQuests = new List<QuestSaveData>(); // 완료
+    public List<QuestSaveData> RewardedQuests = new List<QuestSaveData>(); // 보상 받음
 }
 
 [Serializable]
@@ -56,6 +63,15 @@ public class ItemSaveData
     public int EquipSlot; // 장착 + 인벤 + 창고
     // public int OwnerId;
     public int EnchantCount;
+}
+
+[Serializable]
+public class QuestSaveData
+{
+    public int TemplateId;
+    public EQuestState State = EQuestState.None;
+    public List<int> ProgressCount = new List<int>(); // 진행 상황 수치 ex. Monster N Slay
+    public DateTime NextResetTime;
 }
 
 public class GameManager
@@ -96,8 +112,7 @@ public class GameManager
         private set
         {
             _saveData.Wood = value;
-            // (Managers.UI.SceneUI as UI_GameScene)?.RefreshWoodText();
-            // or CallBack 함수
+            BroadcastEvent(EBroadcastEventType.ChangeWood, value);
         }
     }
 
@@ -107,8 +122,7 @@ public class GameManager
         private set
         {
             _saveData.Mineral = value;
-            // (Managers.UI.SceneUI as UI_GameScene)?.RefreshMineralText();
-            // or CallBack 함수
+            BroadcastEvent(EBroadcastEventType.ChangeMineral, value);
         }
     }
 
@@ -118,8 +132,7 @@ public class GameManager
         private set
         {
             _saveData.Meat = value;
-            // (Managers.UI.SceneUI as UI_GameScene)?.RefreshMeatText();
-            // or CallBack 함수
+            BroadcastEvent(EBroadcastEventType.ChangeMeat, value);
         }
     }
 
@@ -129,9 +142,13 @@ public class GameManager
         private set
         {
             _saveData.Gold = value;
-            // (Managers.UI.SceneUI as UI_GameScene)?.RefreshGoldText();
-            // or CallBack 함수
+            BroadcastEvent(EBroadcastEventType.ChangeGold, value);
         }
+    }
+
+    public void BroadcastEvent(EBroadcastEventType eventType, int value)
+    {
+        OnBroadcastEvent?.Invoke(eventType, value);
     }
 
     public List<SkillSaveData> AllSkills { get { return _saveData.Skills; } }
@@ -173,7 +190,10 @@ public class GameManager
             SaveData.Skills.Add(saveData);
         }
 
-        // 기본으로 지급되는 Item이 있다면 추가
+        // Item
+        {
+
+        }
 
 
         // TEMP - For Debug Skill
@@ -192,9 +212,20 @@ public class GameManager
                 SaveData.Items.Add(item.SaveData);
         }
 
-        // Quset
+        // Quest
         {
+            SaveData.ProcessingQuests.Clear();
+            SaveData.CompletedQuests.Clear();
+            SaveData.RewardedQuests.Clear();
 
+            /*foreach (Quest item in Managers.Quest.ProcessingQuests)
+                SaveData.ProcessingQuests.Add(item.SaveData);
+
+            foreach (Quest item in Managers.Quest.CompletedQuests)
+                SaveData.CompletedQuests.Add(item.SaveData);
+
+            foreach (Quest item in Managers.Quest.RewardedQuests)
+                SaveData.RewardedQuests.Add(item.SaveData);*/
         }
 
         string jsonStr = JsonUtility.ToJson(Managers.Game.SaveData);
@@ -224,6 +255,26 @@ public class GameManager
         }
 
         // Quset
+        /*{
+            Managers.Quest.Clear();
+
+            foreach (QuestSaveData questSaveData in data.ProcessingQuests)
+            {
+                Managers.Quest.AddQuest(questSaveData);
+            }
+
+            foreach (QuestSaveData questSaveData in data.CompletedQuests)
+            {
+                Managers.Quest.AddQuest(questSaveData);
+            }
+
+            foreach (QuestSaveData questSaveData in data.RewardedQuests)
+            {
+                Managers.Quest.AddQuest(questSaveData);
+            }
+
+            Managers.Quest.AddUnknownQuests();
+        }*/
 
         Debug.Log($"Save Game Loaded : {Path}");
         return true;
@@ -234,7 +285,6 @@ public class GameManager
     #region 이동 & Teleport
 
     Vector2 _moveDir;
-    public event Action<Vector2> OnMoveDirChanged; //delegate void ExFunc(int a, int b);
     public Vector2 MoveDir
     {
         get { return _moveDir; }
@@ -275,18 +325,10 @@ public class GameManager
 
     #region 전투
     int _killCount;
-    public event Action<int> OnKillCountChanged;
-
     public int KillCount
     {
         get { return _killCount; }
-        set
-        {
-            _killCount = value;
-
-            if (value > 0) // 0일 때는 Wave가 전환될 때
-                OnKillCountChanged?.Invoke(value);
-        }
+        set { _killCount = value;}
     }
     #endregion
 
@@ -307,5 +349,12 @@ public class GameManager
 
         return Vector3Int.zero;
     }
+    #endregion
+
+    #region Event
+    //public event Action<int> OnKillCountChanged;
+    public event Action<Vector2> OnMoveDirChanged; //delegate void ExFunc(int a, int b);
+
+    public event Action<EBroadcastEventType, int> OnBroadcastEvent;
     #endregion
 }
