@@ -89,6 +89,11 @@ public class InputManager : IPointerClickHandler, IPointerDownHandler, IPointerU
         }
 
         #endregion
+
+        else if (Input.GetKeyDown(KeyCode.Space))
+        {
+            OnKeyDownHandler.Invoke(Define.KeyDownEvent.space);
+        }
     }
 
     void OnDirInput()

@@ -37,6 +37,7 @@ public static class Define
         A = 11,
         S = 12,
         D = 13,
+        space = 20,
     }
 
     public enum Sound

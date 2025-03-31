@@ -7,30 +7,133 @@ using Unity.VisualScripting;
 using UnityEngine;
 using static Define;
 
-public class InputTransformer
+public class InputMemorizer
 {
-    private Queue<KeyDownEvent> _inputQueue = new Queue<KeyDownEvent>();
-    public List<int> InputList { get; private set; } = new List<int>();
+    public LinkedList<KeyDownEvent> InputLinkedList { get; private set; } = new LinkedList<KeyDownEvent>(); // 입력 기억 시스템
+    private int _maxSize; // 기억 가능한 최대 크기
+    private List<int> _usableSkill = new List<int>(); // 매칭된 리스트 저장
 
-    private const int MAX_INPUTS = 8; //  ASD가 두 자릿수이니, 최총 9자리수가 될 것
+    public InputMemorizer(int size)
+    {
+        _maxSize = size;
+    }
 
     public void AddInput(KeyDownEvent input)
     {
-        _inputQueue.Enqueue(input);
-        InputList.Add((int)input);
+        // 오래된 값 remove
+        if (InputLinkedList.Count == _maxSize)
+            InputLinkedList.RemoveFirst();
+
+        // Add
+        InputLinkedList.AddLast(input);
     }
 
-    #region Get Value
+    // List<int>와 비교 (순서 포함, 연속된 값 확인)
+    public bool TrySetUsableSkill(List<int> skillInputValues)
+    {
+        if (skillInputValues.Count == 0 || InputLinkedList.Count < skillInputValues.Count)
+            return false;
 
-    // Dirty Flag 추가를 고민해볼 것
+        int matchIndex = KMPMatch(InputLinkedList, skillInputValues);
+        if (matchIndex != -1)
+        {
+            _usableSkill = new List<int>(skillInputValues); // 조건 만족 시 저장
+            return true;
+        }
+        return false;
+    }
+
+    public void RemoveMatchingPattern()
+    {
+        if (_usableSkill == null || _usableSkill.Count == 0 || InputLinkedList.Count < _usableSkill.Count)
+            return;
+
+        int matchIndex = KMPMatch(InputLinkedList, _usableSkill);
+        if (matchIndex == -1) return; // 매칭된 패턴이 없으면 종료
+
+        LinkedListNode<KeyDownEvent> current = InputLinkedList.First;
+        for (int i = 0; i < matchIndex; i++)
+        {
+            current = current.Next; // 삭제 시작 위치 찾기
+        }
+
+        // _result의 크기만큼 연속된 값 삭제
+        for (int i = 0; i < _usableSkill.Count && current != null; i++)
+        {
+            var next = current.Next;
+            InputLinkedList.Remove(current);
+            current = next;
+        }
+    }
+
+    // KMP 알고리즘 적용 (연속된 값 매칭 최적화)
+    private int KMPMatch(LinkedList<KeyDownEvent> inputLinkedList, List<int> pattern)
+    {
+        int[] patArray = pattern.ToArray();
+        int[] lps = ComputeLPSArray(patArray);
+
+        int i = 0, j = 0;
+        KeyDownEvent[] inputArr = new KeyDownEvent[inputLinkedList.Count];
+        inputLinkedList.CopyTo(inputArr, 0); // LinkedList → 배열 변환 (O(N))
+
+        while (i < inputArr.Length)
+        {
+            if ((int)inputArr[i] == patArray[j])
+            {
+                i++; j++;
+            }
+
+            if (j == patArray.Length)
+            {
+                return i - j; // 매칭된 시작 인덱스 반환
+            }
+            else if (i < inputArr.Length && (int)inputArr[i] != patArray[j])
+            {
+                j = (j != 0) ? lps[j - 1] : 0;
+                if (j == 0) i++;
+            }
+        }
+
+        return -1;
+    }
+
+    // KMP LPS 배열 생성
+    private int[] ComputeLPSArray(int[] pattern)
+    {
+        int len = 0;
+        int[] lps = new int[pattern.Length];
+        int i = 1;
+
+        while (i < pattern.Length)
+        {
+            if (pattern[i] == pattern[len])
+            {
+                len++;
+                lps[i] = len;
+                i++;
+            }
+            else
+            {
+                if (len != 0) len = lps[len - 1];
+                else { lps[i] = 0; i++; }
+            }
+        }
+        return lps;
+    }
+
+    // 저장된 result 반환
+    public List<int> GetResult()
+    {
+        return _usableSkill;
+    }
+
     public int GetCombinedInputToInt()
     {
-        if (_inputQueue.Count == 0) return 0;
-        if (_inputQueue.Count >= MAX_INPUTS) return 0;
+        if (_usableSkill.Count == 0) return 0;
 
-        StringBuilder sb = new StringBuilder(_inputQueue.Count * 2); // 성능 최적화
+        StringBuilder sb = new StringBuilder(InputLinkedList.Count * 3); // 성능 최적화
 
-        foreach (var input in _inputQueue)
+        foreach (var input in _usableSkill)
         {
             sb.Append((int)input); // Enum -> Int 변환 후 문자열로 추가
         }
@@ -40,12 +143,12 @@ public class InputTransformer
 
     public string GetCombinedInputToString()
     {
-        if (_inputQueue.Count == 0) return string.Empty;
+        if (InputLinkedList.Count == 0) return string.Empty;
 
-        StringBuilder sb = new StringBuilder(_inputQueue.Count * 3); // 성능 최적화
+        StringBuilder sb = new StringBuilder(InputLinkedList.Count * 3); // 성능 최적화
 
         bool first = true; // 첫 번째 값이면 " - " 제거
-        foreach (var input in _inputQueue)
+        foreach (var input in InputLinkedList)
         {
             if (!first) sb.Append(" - "); // 첫 번째 값이 아니면 " - " 추가
             sb.Append(input);
@@ -55,20 +158,19 @@ public class InputTransformer
         return sb.ToString();
     }
 
-    #endregion
-
     public void Clear()
     {
-        _inputQueue.Clear();
-        InputList.Clear();
+        InputLinkedList.Clear();
+        _usableSkill.Clear();
     }
 }
 
 public class PlayerSkillBook : BaseSkillBook
 {
-    public Action<List<SkillBase>> OnSkillValueChanged;
+    public Action OnSkillValueChanged;
 
-    public InputTransformer InputTransformer { get; private set; }
+    // public InputTransformer InputTransformer { get; private set; }
+    public InputMemorizer InputMemorizer { get; private set; }
 
     public Dictionary<int, SkillBase> SkillDict { get; } = new Dictionary<int, SkillBase>();
 
@@ -78,7 +180,8 @@ public class PlayerSkillBook : BaseSkillBook
         if (base.Init() == false)
             return false;
 
-        InputTransformer = new InputTransformer();
+        // InputTransformer = new InputTransformer();
+        InputMemorizer = new InputMemorizer(5);
 
         return true;
     }
@@ -116,7 +219,6 @@ public class PlayerSkillBook : BaseSkillBook
         }
     }
 
-    public int DefaultSkill_CastingStack { get; private set; } = 0;
     KeyDownEvent _currentCommand;
     public KeyDownEvent Command
     {
@@ -132,29 +234,34 @@ public class PlayerSkillBook : BaseSkillBook
             _owner.CreatureState = CreatureState.Casting;
 
             // Add InputValue
-            InputTransformer.AddInput(value);
+            if (value != KeyDownEvent.space)
+                InputMemorizer.AddInput(value);
 
-            // Skill 추천 List 갱신
-            RefreshSkillNavi();
+            // CompareWithList -> usableSkill 갱신
+            foreach (SkillBase skillTemp in SkillDict.Values)
+            {
+                if (InputMemorizer.TrySetUsableSkill(skillTemp.SkillData.InputValues))
+                    Debug.Log($"사용 가능한 Skill : {skillTemp.SkillData.Name}"); // event 쏴서 UsableSkill 갱신
+            }
 
             switch (value)
             {
                 #region N1, N2, N3, N4
                 
                 case KeyDownEvent.N1:
-                    DoDefaultSkillAndSetCount();
+                    DefaultSkill.ActivateSkill();
                     _currentCommand = value;
                     break;
                 case KeyDownEvent.N2:
-                    DoDefaultSkillAndSetCount();
+                    DefaultSkill.ActivateSkill();
                     _currentCommand = value;
                     break;
                 case KeyDownEvent.N3:
-                    DoDefaultSkillAndSetCount();
+                    DefaultSkill.ActivateSkill();
                     _currentCommand = value;
                     break;
                 case KeyDownEvent.N4:
-                    DoDefaultSkillAndSetCount();
+                    DefaultSkill.ActivateSkill();
                     _currentCommand = value;
                     break;
 
@@ -163,16 +270,16 @@ public class PlayerSkillBook : BaseSkillBook
                 #region Q, W, E, R
 
                 case KeyDownEvent.Q:
-                    DoDefaultSkillAndSetCount();
+                    DefaultSkill.ActivateSkill();
                     break;
                 case KeyDownEvent.W:
-                    DoDefaultSkillAndSetCount();
+                    DefaultSkill.ActivateSkill();
                     break;
                 case KeyDownEvent.E:
-                    DoDefaultSkillAndSetCount();
+                    DefaultSkill.ActivateSkill();
                     break;
                 case KeyDownEvent.R:
-                    DoDefaultSkillAndSetCount();
+                    DefaultSkill.ActivateSkill();
                     break;
 
                 #endregion
@@ -180,74 +287,60 @@ public class PlayerSkillBook : BaseSkillBook
                 #region A, S, D
 
                 case KeyDownEvent.A:
-                    _owner.CreatureState = TryDoSkill();
+                    DefaultSkill.ActivateSkill();
                     break;
                 case KeyDownEvent.S:
-                    _owner.CreatureState = TryDoSkill();
+                    DefaultSkill.ActivateSkill();
                     break;
                 case KeyDownEvent.D:
-                    _owner.CreatureState = TryDoSkill();
+                    DefaultSkill.ActivateSkill();
                     break;
 
                 #endregion
 
+                case KeyDownEvent.space:
+                    _owner.CreatureState = TryDoSkill();
+                    break;
+
                 default:
                     break;
             }
+
+            // Skill 추천 List 갱신
+            RefreshSkillNavi();
         }
     }
 
     void RefreshSkillNavi()
     {
-        ActivateSkills.Clear();
-
-        // 빠른 탈출 - 입력 값이 없으면 빈 ActivateSkills를 Invoke
-        if (InputTransformer.InputList.Count < 1)
-        {
-            OnSkillValueChanged?.Invoke(ActivateSkills);
-            return;
-        }
-
-        foreach (SkillBase skill in SkillDict.Values)
-        {
-            if (Utils.IsIncludedList(skill.SkillData.InputValues, InputTransformer.InputList))
-                ActivateSkills.Add(skill);
-        }
-
-        OnSkillValueChanged?.Invoke(ActivateSkills);
+        OnSkillValueChanged?.Invoke();
     }
 
     #region Do Skill
 
-    void DoDefaultSkillAndSetCount()
-    {
-        DefaultSkill.ActivateSkill();
-
-        DefaultSkill_CastingStack++;
-    }
-
     CreatureState TryDoSkill()
     {
-        int skillKey = InputTransformer.GetCombinedInputToInt();
+        int inputValue = InputMemorizer.GetCombinedInputToInt();
 
-        if (SkillDict.TryGetValue(skillKey, out SkillBase skill) == false)
+        if (SkillDict.TryGetValue(inputValue, out SkillBase skill) == false)
         {
-            Debug.Log($"Player Do not have --{skillKey}--");
+            Debug.Log($"Player Do not have --{inputValue}--");
 
-            //Clear
             ClearCastingValue();
 
             return CreatureState.Idle;
         }
-        else // _isStartSkill == true
+        else
         {
             skill.ActivateSkillOrDelay();
 
             _owner.StartWait(skill.SkillData.ActivateSkillDelay + skill.SkillData.SkillDuration);
-            Debug.Log($"Do Skill Key : {skillKey} in ActivateSkillOrDelay");
+            Debug.Log($"Do Skill Key : {skill.SkillData.InputValues} in ActivateSkillOrDelay");
+
+            // Refrash Input Value
+            InputMemorizer.RemoveMatchingPattern();
         }
 
-        //Clear
         ClearCastingValue();
 
         return _owner.CreatureState;
@@ -255,10 +348,7 @@ public class PlayerSkillBook : BaseSkillBook
 
     public void ClearCastingValue()
     {
-        InputTransformer.Clear();
         RefreshSkillNavi();
-
-        DefaultSkill_CastingStack = 0;
     }
 
     #endregion

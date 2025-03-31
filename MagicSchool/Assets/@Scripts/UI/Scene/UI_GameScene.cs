@@ -159,11 +159,11 @@ public class UI_GameScene : UI_Scene
         }
     }
 
-    void HandleOnSkillValueChanged(List<SkillBase> skillList)
+    void HandleOnSkillValueChanged()
     {
-        RefreshNavi();
+        // RefreshNavi();
 
-        GetText((int)Texts.SkillValueText).text = _playerCache.PlayerSkills.InputTransformer.GetCombinedInputToString();
+        GetText((int)Texts.SkillValueText).text = _playerCache.PlayerSkills.InputMemorizer.GetCombinedInputToString();
     }
 
     #endregion

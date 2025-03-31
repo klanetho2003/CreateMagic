@@ -41,7 +41,7 @@ public class CastingImpact : AreaSkillBase // Only Player
     protected override void OnAttackEvent()
     {
         // Damage 범위
-        float radius = Utils.GetEffectRadius(SkillData.EffectSize) + _pc.PlayerSkills.DefaultSkill_CastingStack * SkillData.ScaleMultiplier;
+        float radius = Utils.GetEffectRadius(SkillData.EffectSize) * SkillData.ScaleMultiplier;
 
         // 보여주기용
         _projectile = GenerateProjectile(_pc, _pc.transform.position);
