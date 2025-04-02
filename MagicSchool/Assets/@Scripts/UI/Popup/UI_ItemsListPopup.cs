@@ -2,7 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.Animations;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 public class UI_ItemsListPopup : UI_Popup
 {
@@ -88,7 +90,7 @@ public class UI_ItemsListPopup : UI_Popup
 
         // To Do Item List Cache
 
-		GetText((int)Texts.EquippedItemsCountText).text = $"{Managers.Inventory.GetEquippedItems().Count} / ??";
+        GetText((int)Texts.EquippedItemsCountText).text = $"{Managers.Inventory.GetEquippedItems().Count} / ??";
 		GetText((int)Texts.InventoryItemsCountText).text = $"{Managers.Inventory.GetInventoryItems().Count} / ??";
 		GetText((int)Texts.UnknownItemsCountText).text = $"{Managers.Inventory.GetUnknownItems().Count} / ??";
 

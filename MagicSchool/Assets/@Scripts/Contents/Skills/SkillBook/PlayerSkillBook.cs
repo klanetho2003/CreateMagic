@@ -88,7 +88,6 @@ public class InputMemorizer
 
                 if (j == patArray.Length)
                 {
-                    Debug.Log($"{i - j} 자릿수부터 동일함.");
                     return i - j; // 매칭된 시작 인덱스 반환
                 }
             }

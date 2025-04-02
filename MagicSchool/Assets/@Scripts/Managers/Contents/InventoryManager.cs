@@ -39,6 +39,7 @@ public class InventoryManager
         return AddItem(saveData);
     }
 
+    // Memory에만 있는 Item을 실질적으로 적용
     public Item AddItem(ItemSaveData itemInfo)
     {
         Item item = Item.MakeItem(itemInfo);
@@ -59,6 +60,9 @@ public class InventoryManager
         }
 
         AllItems.Add(item);
+
+        item.ApplyItemAbility(item.TemplateData.StatModType, _player);
+        // Item.RemoveItemInDic(itemInfo); // 다시 얻을 수 없도록 Dictionay에서 삭제 -> RewardItem과 연계 필요
 
         return item;
     }
@@ -109,8 +113,6 @@ public class InventoryManager
         item.EquipSlot = (int)equipSlotType;
         EquippedItems[(int)equipSlotType] = item;
 
-        item.ApplyItemAbility(item.TemplateData.StatModType, _player);
-
         // CallBack - UI
     }
 
@@ -131,8 +133,8 @@ public class InventoryManager
         item.EquipSlot = (int)EEquipSlotType.Inventory;
         InventoryItems.Add(item);
 
-        //  Item Stat Remove
-        item.RemoveItemAbility(_player);
+        // Item Stat Remove
+        // item.RemoveItemAbility(_player);
 
         // CallBack - UI
     }

@@ -229,7 +229,7 @@ public class MonsterController : CreatureController
     {
         base.OnDead(attacker, skill);
 
-        // Drop Item
+        // To Do : Remove Drop Item
         int dropItemId = MonsterData.DropItemId;
 
         RewardData rewardData = GetRandomReward();

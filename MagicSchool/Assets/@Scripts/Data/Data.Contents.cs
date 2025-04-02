@@ -483,12 +483,14 @@ namespace Data
     }
 
     [Serializable]
-    public class EquipmentData : ItemData
+    public class ArtifactData : ItemData
     {
         public float Damage;
         public float Defence;
         public float Speed;
     }
+
+    // To Do EquipmentData
 
     [Serializable]
     public class ConsumableData : ItemData

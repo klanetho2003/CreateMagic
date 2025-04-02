@@ -77,8 +77,8 @@ MonoBehaviour:
     m_SerializedLabels:
     - PreLoad
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: ab4cb74a174f20349a1348560884f8ec
-    m_Address: Item_EquipmentData
+  - m_GUID: be6edbc7388b9f64eba2c559c65f80b1
+    m_Address: Item_ArtifactData
     m_ReadOnly: 0
     m_SerializedLabels:
     - PreLoad

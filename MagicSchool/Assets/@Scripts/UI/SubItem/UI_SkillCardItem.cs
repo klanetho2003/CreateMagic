@@ -3,6 +3,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using UnityEditor.Experimental;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -76,7 +77,7 @@ public class UI_SkillCardItem : UI_Base
         transform.localScale = new Vector3(1.2f, 1.2f, 0);
 
         // Temp Casting
-        EquipmentData data = (EquipmentData)_data;
+        ArtifactData data = (ArtifactData)_data;
 
         // Text
         cardNameText.text = $"{data.Name}";
@@ -88,9 +89,8 @@ public class UI_SkillCardItem : UI_Base
 
     public void OnClick()
     {
-        // TEMP - For Debug Item > 카드 선택하는 화면으로 이동 필요
-        Item tempItem = Managers.Inventory.MakeItem(_data.DataId);  // Inven에 들어감. TemplateData -> Data Sheet , SaveData -> DataBase_LocalSaveFile
-        Managers.Inventory.EquipItem(tempItem.InstanceId);          // Equiped in GameScene
+        Item tempItem = Managers.Inventory.MakeItem(_data.DataId);
+        // Managers.Inventory.EquipItem(tempItem.InstanceId);          // Equiped in GameScene
 
         Debug.Log($"Atk : {Managers.Game.Player.Atk.Value}");
 

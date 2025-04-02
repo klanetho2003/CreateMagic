@@ -209,16 +209,18 @@ public static class Define
         Legendary
     }
 
-    public enum EItemGroupType
+    public enum EItemGroupType // Remmove 해도 될 듯
     {
         None,
         Equipment,
+        StatBoost,
         Consumable,
     }
 
     public enum EItemType
     {
         None,
+        Artifact,
         Weapon,
         Armor,
         Potion,

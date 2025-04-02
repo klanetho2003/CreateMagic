@@ -69,12 +69,15 @@ public class Item
 
         switch (itemData.Type)
         {
-            case EItemType.Weapon:
+            case EItemType.Artifact:
+                item = new Artifact(itemInfo.TemplateId);
+                break;
+            /*case EItemType.Weapon:
                 item = new Equipment(itemInfo.TemplateId);
                 break;
             case EItemType.Armor:
                 item = new Equipment(itemInfo.TemplateId);
-                break;
+                break;*/
             case EItemType.Potion:
                 item = new Consumable(itemInfo.TemplateId);
                 break;
@@ -91,6 +94,13 @@ public class Item
         }
 
         return item;
+    }
+
+    public static bool RemoveItemInDic_Temp(ItemSaveData itemInfo)
+    {
+        // Inventory에서 보여져야 하기에 Item Data를 닮고 있는 Dictionary에서는 지우면 안됨!!!
+        // return Managers.Data.ItemDic.Remove(itemInfo.TemplateId);
+        return false;
     }
 
     #region Helpers
@@ -162,15 +172,15 @@ public class Item
     }
 }
 
-public class Equipment : Item
+public class Artifact : Item
 {
     public float Damage { get; private set; }
     public float Defence { get; private set; }
     public double Speed { get; private set; }
 
-    protected Data.EquipmentData EquipmentData { get { return (Data.EquipmentData)TemplateData; } }
+    protected Data.ArtifactData ArtifactData { get { return (Data.ArtifactData)TemplateData; } }
 
-    public Equipment(int templateId) : base(templateId)
+    public Artifact(int templateId) : base(templateId)
     {
         Init();
     }
@@ -183,10 +193,10 @@ public class Equipment : Item
         if (TemplateData == null)
             return false;
 
-        if (TemplateData.Type != EItemType.Armor && TemplateData.Type != EItemType.Weapon)
+        if (TemplateData.Type != EItemType.Artifact)
             return false;
 
-        EquipmentData data = (EquipmentData)TemplateData;
+        ArtifactData data = (ArtifactData)TemplateData;
         {
             Damage = data.Damage;
             Defence = data.Defence;
@@ -201,8 +211,8 @@ public class Equipment : Item
     {
         base.ApplyItemAbility(statModType, target);
 
-        // 장착된 장비인가?
-        if (this.IsEquippedItem() == false)
+        // Inventory에 지닌 장비인가? (즉, 획득한 장비인가?)
+        if (this.IsInInventory() == false)
             return;
 
         if (this.IsHaveAtkWeight())
@@ -232,6 +242,7 @@ public class Equipment : Item
 
         foreach (var modifier in statModifiers)
         {
+            // 제거됐으면 true 불가하면 false
             bool tempDebug1 = target.Atk.RemoveModifier(modifier);
             bool tempDebug2 = target.MoveSpeed.RemoveModifier(modifier);
         }
@@ -251,6 +262,46 @@ public class Equipment : Item
         return Speed != 0;
     }
     #endregion
+}
+
+public class Equipment : Item
+{
+    public Equipment(int templateId) : base(templateId)
+    {
+        Init();
+    }
+
+    public override bool Init()
+    {
+        if (base.Init() == false)
+            return false;
+
+        if (TemplateData == null)
+            return false;
+
+        if (TemplateData.Type != EItemType.Weapon && TemplateData.Type != EItemType.Armor)
+            return false;
+
+        // Equipment Data Parsing
+        /*ArtifactData data = (ArtifactData)TemplateData;
+        {
+            Damage = data.Damage;
+            Defence = data.Defence;
+            Speed = data.Speed;
+        }*/
+
+        return true;
+    }
+    public override void ApplyItemAbility(EStatModType statModType, CreatureController target)
+    {
+        base.ApplyItemAbility(statModType, target);
+
+        // 장착된 장비인가?
+        if (this.IsEquippedItem() == false)
+            return;
+
+        // To Do ..
+    }
 }
 
 public class Consumable : Item

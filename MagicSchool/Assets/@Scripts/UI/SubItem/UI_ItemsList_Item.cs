@@ -64,7 +64,7 @@ public class UI_ItemsList_Item : UI_Base
 		if (_itemDataId < 0)
 			return;
 
-		// GetImage((int)Images.HeroImage).sprite = Managers.Resource.Load<Sprite>(Managers.Data.SkillDic[_heroDataId].IconImage);
+		GetImage((int)Images.ItemImage).sprite = Managers.Resource.Load<Sprite>(Managers.Data.ItemDic[_itemTemplateId].SpriteName);
 	}
 
 	void OnClickItemButton(PointerEventData evt)
