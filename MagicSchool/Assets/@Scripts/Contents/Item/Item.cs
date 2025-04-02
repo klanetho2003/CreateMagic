@@ -124,16 +124,20 @@ public class Item
         return EEquipSlotType.None;
     }
 
-    public virtual void ApplyItem(EStatModType statModType, CreatureController target)
+    public virtual void ApplyItemAbility(EStatModType statModType, CreatureController target)
     {
         if (target.IsValid() == false)
             return;
+
+        // override
     }
 
-    public virtual void RemoveItem(CreatureController target)
+    public virtual void RemoveItemAbility(CreatureController target)
     {
         if (target.IsValid() == false)
             return;
+
+        // override
     }
 
     public bool IsEquippedItem()
@@ -146,9 +150,9 @@ public class Item
         return SaveData.EquipSlot == (int)EEquipSlotType.Inventory;
     }
 
-    public bool IsInWarehouse()
+    public bool IsInUnknownItems()
     {
-        return SaveData.EquipSlot == (int)EEquipSlotType.WareHouse;
+        return SaveData.EquipSlot == (int)EEquipSlotType.UnknownItems;
     }
     #endregion
 
@@ -193,11 +197,11 @@ public class Equipment : Item
     }
 
     //  Temp
-    public override void ApplyItem(EStatModType statModType, CreatureController target)
+    public override void ApplyItemAbility(EStatModType statModType, CreatureController target)
     {
-        base.ApplyItem(statModType, target);
+        base.ApplyItemAbility(statModType, target);
 
-        // 장착된 장비인가?Z
+        // 장착된 장비인가?
         if (this.IsEquippedItem() == false)
             return;
 
@@ -222,9 +226,9 @@ public class Equipment : Item
         }
     }
 
-    public override void RemoveItem(CreatureController target)
+    public override void RemoveItemAbility(CreatureController target)
     {
-        base.RemoveItem(target);
+        base.RemoveItemAbility(target);
 
         foreach (var modifier in statModifiers)
         {

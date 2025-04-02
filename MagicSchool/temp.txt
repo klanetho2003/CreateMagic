@@ -1,8 +1,19 @@
 UI로 Stage 이동 시, Error 발생 - GetNearbyPosition 후에 Stage를 Load해서 발생하는 문제로 보임
 
+---Today To Do - Inventory를 UI화하자
+[process]
+1. Item 저장 공간 기획과 같게 통일 - Usable, Inventory 중 하나에 들어가도록 개발 in InventoryManager, Item, ItemHolder(?)
+2. UI로 시각화
+3. UI Event Binding
+
+KMP 알고리즘에서 문제 발생
+N1 - N1 - Q - A 에서 "N1 - Q - A"를 못 찾고 -1을 return
 
 
----진행 상황 Memo---
+
+
+
+---Item 적용 Process---
 Inventory.MakeItem() > Inventory.EquipItem() > Item.ApplyItem()
 
 Equipment를 통해 Player Stat에 적용하는 값 중, 새로운 값(ex. 마법저항력)이 등장하면 코드에서 적용할 수 있돌고 만들어야 한다.
@@ -11,6 +22,8 @@ Equipment를 통해 Player Stat에 적용하는 값 중, 새로운 값(ex. 마�
 ★★★★★★★★★★★
 Item 코드에서 어떤 Stat을 상승시킬 수 있는 Item인지 판별하는 함수가 Stat 종류마다 존재한다. (Is어쩌구 함수)
 하나의 함수로 통합할 수 있을 것으로 보임. Swich Case로 Type을 기준으로 분기해서 만들면 될 듯
+
+KillCount BroadCasting Type을 하나만들자. 예시로, Manager에서 강제로 KillCount를 수정하는 일이 발생하면, UI에 적용되지 않는 일이 발생할 수 있기 때문에 서로 분리해서 관리하는 게 좋아 보인다
 
 
 

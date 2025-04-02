@@ -161,7 +161,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7648455321106600084}
   m_Layer: 5
-  m_Name: HeroLevelArea
+  m_Name: ItemLevelArea
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -201,7 +201,7 @@ GameObject:
   - component: {fileID: 5676251780947921545}
   - component: {fileID: 1207367228426905784}
   m_Layer: 5
-  m_Name: HeroButton
+  m_Name: ItemButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -320,7 +320,7 @@ GameObject:
   - component: {fileID: 2690630873110469407}
   - component: {fileID: 4473165989621407054}
   m_Layer: 5
-  m_Name: HeroExpSlider
+  m_Name: ItemExpSlider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -714,7 +714,7 @@ GameObject:
   - component: {fileID: 4625858284256542712}
   - component: {fileID: 1445656680836435568}
   m_Layer: 5
-  m_Name: UI_SkillsList_SkillItem
+  m_Name: UI_ItemsList_Item
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -765,7 +765,7 @@ GameObject:
   - component: {fileID: 1701677792451118870}
   - component: {fileID: 5312742790078781512}
   m_Layer: 5
-  m_Name: HeroImage
+  m_Name: ItemImage
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

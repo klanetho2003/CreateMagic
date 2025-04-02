@@ -15,8 +15,8 @@ public class InventoryManager
 
     // Cache
     Dictionary<int /*EquipSlot*/, Item> EquippedItems = new Dictionary<int, Item>(); // 장비 인벤
-    List<Item> InventoryItems = new List<Item>(); // 가방 인벤
-    List<Item> WarehouseItems = new List<Item>(); // 창고
+    List<Item> InventoryItems = new List<Item>(); // 인벤
+    List<Item> UnknownItems = new List<Item>(); // 등장X
 
     // 보유하지 않은 Item Make
     public Item MakeItem(int itemTemplateId, int count = 1)
@@ -53,9 +53,9 @@ public class InventoryManager
         {
             InventoryItems.Add(item);
         }
-        else if (item.IsInWarehouse())
+        else if (item.IsInUnknownItems())
         {
-            WarehouseItems.Add(item);
+            UnknownItems.Add(item);
         }
 
         AllItems.Add(item);
@@ -63,8 +63,7 @@ public class InventoryManager
         return item;
     }
 
-    // To Do : Modify - 바뀐 부분만 수정되고 불러올 수 있게 만들자
-
+    // Item 완전 삭제 Method - ex 버리기
     public void RemoveItem(int instanceId)
     {
         Item item = AllItems.Find(x => x.SaveData.InstanceId == instanceId);
@@ -79,14 +78,15 @@ public class InventoryManager
         {
             InventoryItems.Remove(item);
         }
-        else if (item.IsInWarehouse())
+        else if (item.IsInUnknownItems())
         {
-            WarehouseItems.Remove(item);
+            UnknownItems.Remove(item);
         }
 
         AllItems.Remove(item);
     }
 
+    // Item 장착
     public void EquipItem(int instanceId)
     {
         Item item = InventoryItems.Find(x => x.SaveData.InstanceId == instanceId);
@@ -109,11 +109,12 @@ public class InventoryManager
         item.EquipSlot = (int)equipSlotType;
         EquippedItems[(int)equipSlotType] = item;
 
-        item.ApplyItem(item.TemplateData.StatModType, _player);
+        item.ApplyItemAbility(item.TemplateData.StatModType, _player);
 
         // CallBack - UI
     }
 
+    // Item 장착 해제
     public void UnEquipItem(int instanceId, bool checkFull = true)
     {
         var item = EquippedItems.Values.Where(x => x.InstanceId == instanceId).FirstOrDefault();
@@ -131,7 +132,7 @@ public class InventoryManager
         InventoryItems.Add(item);
 
         //  Item Stat Remove
-        item.RemoveItem(_player);
+        item.RemoveItemAbility(_player);
 
         // CallBack - UI
     }
@@ -142,7 +143,7 @@ public class InventoryManager
 
         EquippedItems.Clear();
         InventoryItems.Clear();
-        WarehouseItems.Clear();
+        UnknownItems.Clear();
     }
 
     // UI 작업 진행할 때 많이 사용할 Helper
@@ -152,6 +153,7 @@ public class InventoryManager
         return AllItems.Find(item => item.InstanceId == instanceId);
     }
 
+    // Equip
     public Item GetEquippedItem(EEquipSlotType equipSlotType)
     {
         EquippedItems.TryGetValue((int)equipSlotType, out Item item);
@@ -169,6 +171,17 @@ public class InventoryManager
         return EquippedItems.Values.Where(x => x.SubType == subType).FirstOrDefault();
     }
 
+    public List<Item> GetEquippedItems()
+    {
+        return EquippedItems.Values.ToList();
+    }
+
+    public List<ItemSaveData> GetEquippedItemInfos()
+    {
+        return EquippedItems.Values.Select(x => x.SaveData).ToList();
+    }
+
+    // Inventory
     public Item GetItemInInventory(int instanceId)
     {
         return InventoryItems.Find(x => x.SaveData.InstanceId == instanceId);
@@ -182,16 +195,6 @@ public class InventoryManager
     public int InventorySlotCount()
     {
         return DEFAULT_INVENTORY_SLOT_COUNT;
-    }
-
-    public List<Item> GetEquippedItems()
-    {
-        return EquippedItems.Values.ToList();
-    }
-
-    public List<ItemSaveData> GetEquippedItemInfos()
-    {
-        return EquippedItems.Values.Select(x => x.SaveData).ToList();
     }
 
     public List<Item> GetInventoryItems()
@@ -212,14 +215,20 @@ public class InventoryManager
                         .ToList();
     }
 
-    public List<ItemSaveData> GetWarehouseItemInfos()
+    // Unknown
+    public List<Item> GetUnknownItems()
     {
-        return WarehouseItems.Select(x => x.SaveData).ToList();
+        return UnknownItems.ToList();
     }
 
-    public List<ItemSaveData> GetWarehouseItemInfosOrderbyGrade()
+    public List<ItemSaveData> GetUnknownItemInfos()
     {
-        return WarehouseItems.OrderByDescending(y => (int)y.TemplateData.Grade)
+        return UnknownItems.Select(x => x.SaveData).ToList();
+    }
+
+    public List<ItemSaveData> GetUnknownItemInfosOrderbyGrade()
+    {
+        return UnknownItems.OrderByDescending(y => (int)y.TemplateData.Grade)
                                     .ThenBy(y => (int)y.TemplateId)
                                     .Select(x => x.SaveData)
                                     .ToList();

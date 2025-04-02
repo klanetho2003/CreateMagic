@@ -146,11 +146,6 @@ public class GameManager
         }
     }
 
-    public void BroadcastEvent(EBroadcastEventType eventType, int value)
-    {
-        OnBroadcastEvent?.Invoke(eventType, value);
-    }
-
     public List<SkillSaveData> AllSkills { get { return _saveData.Skills; } }
     public int TotalSkillCount { get { return _saveData.Skills.Count; } }
     public int LockSkillCount { get { return _saveData.Skills.Where(s => s.OwningState == SkillOwningState.Lock).Count(); } }
@@ -163,6 +158,11 @@ public class GameManager
         int itemDbId = _saveData.ItemDbIdGenerator;
         _saveData.ItemDbIdGenerator++;
         return itemDbId;
+    }
+
+    public void BroadcastEvent(EBroadcastEventType eventType, int value)
+    {
+        OnBroadcastEvent?.Invoke(eventType, value);
     }
 
     #endregion
@@ -192,7 +192,7 @@ public class GameManager
 
         // Item
         {
-
+            // Init 지급 Item이 있을 시 MakeItem
         }
 
 

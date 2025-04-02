@@ -66,9 +66,12 @@ public class InputMemorizer
         }
     }
 
-    // KMP 알고리즘 적용 (연속된 값 매칭 최적화)
+    // KMP 알고리즘 적용
     private int KMPMatch(LinkedList<KeyDownEvent> inputLinkedList, List<int> pattern)
     {
+        if (pattern.Count == 0 || inputLinkedList.Count < pattern.Count)
+            return -1;
+
         int[] patArray = pattern.ToArray();
         int[] lps = ComputeLPSArray(patArray);
 
@@ -80,20 +83,27 @@ public class InputMemorizer
         {
             if ((int)inputArr[i] == patArray[j])
             {
-                i++; j++;
-            }
+                i++;
+                j++;
 
-            if (j == patArray.Length)
-            {
-                return i - j; // 매칭된 시작 인덱스 반환
+                if (j == patArray.Length)
+                {
+                    Debug.Log($"{i - j} 자릿수부터 동일함.");
+                    return i - j; // 매칭된 시작 인덱스 반환
+                }
             }
-            else if (i < inputArr.Length && (int)inputArr[i] != patArray[j])
+            else
             {
-                j = (j != 0) ? lps[j - 1] : 0;
-                if (j == 0) i++;
+                if (j != 0)
+                {
+                    j = lps[j - 1]; // LPS 배열을 기반으로 점프
+                }
+                else
+                {
+                    i++; // 매칭이 실패하면 한 칸 이동
+                }
             }
         }
-
         return -1;
     }
 
@@ -122,9 +132,14 @@ public class InputMemorizer
     }
 
     // 저장된 result 반환
-    public List<int> GetResult()
+    public List<int> GetUsableSkill()
     {
         return _usableSkill;
+    }
+
+    public void ResetUsableSkill()
+    {
+        _usableSkill.Clear();
     }
 
     public int GetCombinedInputToInt()
@@ -225,6 +240,7 @@ public class PlayerSkillBook : BaseSkillBook
         get { return _currentCommand; }
         set
         {
+            // Mp 보유량에 따라, Skill 사용 여부 Check
             if (Managers.Game.Player.CheckChangeMp(DefaultSkill.SkillData.UsedMp) == false)
                 return;
 
@@ -235,13 +251,15 @@ public class PlayerSkillBook : BaseSkillBook
 
             // Add InputValue
             if (value != KeyDownEvent.space)
+            {
                 InputMemorizer.AddInput(value);
 
-            // CompareWithList -> usableSkill 갱신
-            foreach (SkillBase skillTemp in SkillDict.Values)
-            {
-                if (InputMemorizer.TrySetUsableSkill(skillTemp.SkillData.InputValues))
-                    Debug.Log($"사용 가능한 Skill : {skillTemp.SkillData.Name}"); // event 쏴서 UsableSkill 갱신
+                // CompareWithList -> usableSkill 갱신
+                foreach (SkillBase skillTemp in SkillDict.Values)
+                {
+                    if (InputMemorizer.TrySetUsableSkill(skillTemp.SkillData.InputValues))
+                        Debug.Log($"사용 가능한 Skill : {skillTemp.SkillData.Name}"); // event 쏴서 UsableSkill 갱신
+                }
             }
 
             switch (value)
@@ -306,7 +324,7 @@ public class PlayerSkillBook : BaseSkillBook
                     break;
             }
 
-            // Skill 추천 List 갱신
+            // Input Value 갱신 in Skill Navi
             RefreshSkillNavi();
         }
     }
@@ -326,8 +344,6 @@ public class PlayerSkillBook : BaseSkillBook
         {
             Debug.Log($"Player Do not have --{inputValue}--");
 
-            ClearCastingValue();
-
             return CreatureState.Idle;
         }
         else
@@ -339,16 +355,16 @@ public class PlayerSkillBook : BaseSkillBook
 
             // Refrash Input Value
             InputMemorizer.RemoveMatchingPattern();
+            InputMemorizer.ResetUsableSkill();
+            RefreshSkillNavi();
         }
-
-        ClearCastingValue();
 
         return _owner.CreatureState;
     }
 
     public void ClearCastingValue()
     {
-        RefreshSkillNavi();
+        
     }
 
     #endregion

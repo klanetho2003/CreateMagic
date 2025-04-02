@@ -258,7 +258,7 @@ public static class Define
         EquipMax,
 
         Inventory = 100,
-        WareHouse = 200,
+        UnknownItems = 200,
     }
     #endregion
 

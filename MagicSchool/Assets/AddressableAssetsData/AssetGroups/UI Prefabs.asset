@@ -70,7 +70,7 @@ MonoBehaviour:
     - PreLoad
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: af03d45ab4040df468ef70c365b7a0ad
-    m_Address: UI_SkillsListPopup
+    m_Address: UI_ItemsListPopup
     m_ReadOnly: 0
     m_SerializedLabels:
     - PreLoad
@@ -89,6 +89,12 @@ MonoBehaviour:
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: e726f0b2ca1b9b24db02b171eaaeab9b
     m_Address: UI_World_HpBar
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - PreLoad
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: b0f23f9d12e94f74f8096f7438d5f298
+    m_Address: UI_ItemsList_Item
     m_ReadOnly: 0
     m_SerializedLabels:
     - PreLoad

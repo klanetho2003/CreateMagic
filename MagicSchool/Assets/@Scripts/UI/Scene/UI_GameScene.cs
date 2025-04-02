@@ -1,7 +1,9 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using static Define;
 
 public class UI_GameScene : UI_Scene
@@ -12,9 +14,15 @@ public class UI_GameScene : UI_Scene
         NavSkillItemList,
         MpBar,
     }
+
+    enum Buttons
+    {
+        ItemsListButton,
+    }
     enum Texts
     {
         SkillValueText,
+        FPSViewerText,
     }
 
     List<UI_GameScene_WaveItem> _waveItems = new List<UI_GameScene_WaveItem>();
@@ -23,6 +31,8 @@ public class UI_GameScene : UI_Scene
 
     PlayerController _playerCache;
     List<SkillBase> _cachePlayerActivateSkills { get; set; }
+
+    TMP_Text _cacheFPSViewerText;
 
     List<UI_GameScene_EachMpBar> _mpBarItems = new List<UI_GameScene_EachMpBar>();
     public UI_GameScene_EachMpBar FillMpBar { get; private set; }
@@ -35,15 +45,23 @@ public class UI_GameScene : UI_Scene
         if (base.Init() == false)
             return false;
 
-        _playerCache = Managers.Game.Player;
-        _cachePlayerActivateSkills = Managers.Game.Player.PlayerSkills.ActivateSkills;
-
         #region Bind
         BindObjects(typeof(GameObjects));
         BindTexts(typeof(Texts));
+        BindButtons(typeof(Buttons));
         #endregion
 
-        #region Instantiate Pre
+        #region Event Binding
+        GetButton((int)Buttons.ItemsListButton).gameObject.BindEvent(OnClickItemsListButton);
+        #endregion
+
+        #region Cache
+        _playerCache = Managers.Game.Player;
+        _cachePlayerActivateSkills = Managers.Game.Player.PlayerSkills.ActivateSkills;
+        _cacheFPSViewerText = GetText((int)Texts.FPSViewerText);
+        #endregion
+
+        #region Instantiate Pre & Cache
 
         // Wave Cheat Button
         _waveItems.Clear();
@@ -102,8 +120,35 @@ public class UI_GameScene : UI_Scene
         RefreshMp();
     }
 
+    private float _elapsedTime = 0.0f;
+    private float _updateInterval = 1.0f;
+
+    private void Update()
+    {
+        #region FPS Viewer
+        _elapsedTime += Time.deltaTime;
+
+        if (_elapsedTime >= _updateInterval)
+        {
+            float fps = 1.0f / Time.deltaTime;
+            float ms = Time.deltaTime * 1000.0f;
+            string text = string.Format("{0:N1} FPS ({1:N1}ms)", fps, ms);
+            _cacheFPSViewerText.text = text;
+
+            _elapsedTime = 0;
+        }
+        #endregion
+    }
+
+    void OnClickItemsListButton(PointerEventData evt)
+    {
+        Debug.Log("OnClickItemsListButton");
+        UI_ItemsListPopup popup = Managers.UI.ShowPopupUI<UI_ItemsListPopup>();
+        popup.SetInfo();
+    }
+
     #region Wave
-    
+
     void RefreshWave()
     {
         if (_init == false)
@@ -129,8 +174,7 @@ public class UI_GameScene : UI_Scene
 
     #endregion 
 
-    #region Navi
-
+    #region Navi_삭제 예정
     void RefreshNavi()
     {
         if (_init == false)
@@ -158,14 +202,15 @@ public class UI_GameScene : UI_Scene
             }
         }
     }
+    #endregion
 
+    #region Navi
     void HandleOnSkillValueChanged()
     {
         // RefreshNavi();
 
         GetText((int)Texts.SkillValueText).text = _playerCache.PlayerSkills.InputMemorizer.GetCombinedInputToString();
     }
-
     #endregion
 
     #region Mp
@@ -255,6 +300,4 @@ public class UI_GameScene : UI_Scene
     }
 
     #endregion
-
-
 }
