@@ -57,8 +57,6 @@ public class UI_SkillCardItem : UI_Base
 
         BindEvent(skillCardBackgroundImage.gameObject, (Event) =>
         {
-            //Managers.Game.Player.Skills.AddSkill<EgoSword>(/*transform.position*/);
-
             OnClick();
         });
 
@@ -76,15 +74,29 @@ public class UI_SkillCardItem : UI_Base
     {
         transform.localScale = new Vector3(1.2f, 1.2f, 0);
 
+        #region Temp Code - Casting And View Item
         // Temp Casting
-        ArtifactData data = (ArtifactData)_data;
+        if (_data.ItemGroupType == Define.EItemGroupType.StatBoost)
+        {
+            ArtifactData data = (ArtifactData)_data;
 
-        // Text
-        cardNameText.text = $"{data.Name}";
-        skillDescriptionText.text = $"Player의 공격력을 {data.Damage} 상승 시킨다.";
+            // Text
+            cardNameText.text = $"{data.Name}";
+            skillDescriptionText.text = $"Player의 공격력을 {data.Damage} 상승 시킨다.";
+        }
+        else if (_data.ItemGroupType == Define.EItemGroupType.Equipment)
+        {
+            EquipmentData data = (EquipmentData)_data;
+
+            // Text
+            cardNameText.text = $"{data.Name}";
+            skillDescriptionText.text = $"장착 시험용 Temp Item 입니다.";
+        }
 
         // Sprite
         skillImage.sprite = Managers.Resource.Load<Sprite>(_data.SpriteName);
+        #endregion
+
     }
 
     public void OnClick()

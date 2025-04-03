@@ -1,13 +1,11 @@
 UI로 Stage 이동 시, Error 발생 - GetNearbyPosition 후에 Stage를 Load해서 발생하는 문제로 보임
 
----Today To Do - Inventory를 UI화하자
+---Today To Do - Inventory Event Binding
 [process]
 1. Item 저장 공간 기획과 같게 통일 - Usable, Inventory 중 하나에 들어가도록 개발 in InventoryManager, Item, ItemHolder(?)
 2. UI로 시각화
-3. UI Event Binding
-
-KMP 알고리즘에서 문제 발생
-N1 - N1 - Q - A 에서 "N1 - Q - A"를 못 찾고 -1을 return
+-완-
+3. UI Event Binding - 탈부착 구현
 
 
 

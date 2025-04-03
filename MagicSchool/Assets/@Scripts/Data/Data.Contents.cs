@@ -490,7 +490,13 @@ namespace Data
         public float Speed;
     }
 
-    // To Do EquipmentData
+    [Serializable]
+    public class EquipmentData : ItemData
+    {
+        public float Damage;
+        public float Defence;
+        public float Speed;
+    }
 
     [Serializable]
     public class ConsumableData : ItemData

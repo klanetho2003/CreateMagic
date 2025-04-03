@@ -110,8 +110,11 @@ public class InventoryManager
             UnEquipItem(prev.InstanceId);
 
         // 아이템 장착
-        item.EquipSlot = (int)equipSlotType;
-        EquippedItems[(int)equipSlotType] = item;
+        item.EquipSlot = (int)equipSlotType;        // Save Data 적용
+        EquippedItems[(int)equipSlotType] = item;   // In Game Dictionary에 적용
+
+        // 아이템 Remove in Inventory
+        InventoryItems.Remove(item);
 
         // CallBack - UI
     }

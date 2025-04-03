@@ -72,12 +72,12 @@ public class Item
             case EItemType.Artifact:
                 item = new Artifact(itemInfo.TemplateId);
                 break;
-            /*case EItemType.Weapon:
+            case EItemType.Weapon:
                 item = new Equipment(itemInfo.TemplateId);
                 break;
             case EItemType.Armor:
                 item = new Equipment(itemInfo.TemplateId);
-                break;*/
+                break;
             case EItemType.Potion:
                 item = new Consumable(itemInfo.TemplateId);
                 break;

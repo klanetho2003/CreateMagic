@@ -1,0 +1,18 @@
+{
+  "items": [
+    {
+      "Damage": 0.0,
+      "Defence": 0.0,
+      "Speed": 0.0,
+      "Name": "TestEquipmentSomthing",
+      "SpriteName": "Ring_05.sprite",
+      "ItemGroupType": 1,
+      "Type": 2,
+      "SubType": 2,
+      "Grade": 1,
+      "StatModType": 0,
+      "MaxStack": 1,
+      "DataId": 6
+    }
+  ]
+}

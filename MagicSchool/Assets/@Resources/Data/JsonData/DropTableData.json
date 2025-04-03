@@ -3,14 +3,14 @@
     {
       "DataId": 400000,
       "RewardExp": 0,
-      "Prob1": 40,
+      "Prob1": 30,
       "Item1": 1,
       "Prob2": 20,
       "Item2": 2,
-      "Prob3": 40,
+      "Prob3": 30,
       "Item3": 3,
-      "Prob4": 0,
-      "Item4": 0,
+      "Prob4": 20,
+      "Item4": 6,
       "Prob5": 0,
       "Item5": 0
     }

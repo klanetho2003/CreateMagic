@@ -83,7 +83,7 @@ public class UI_ItemsListPopup : UI_Popup
 		Refresh();
 	}
 
-	void Refresh()
+	public void Refresh()
 	{
 		if (_init == false)
 			return;
@@ -106,7 +106,7 @@ public class UI_ItemsListPopup : UI_Popup
             if (i < inventoryItemList.Count)
             {
                 ItemSaveData item = inventoryItemList[i].SaveData;
-                uiItemList[i].SetInfo(item.TemplateId, item.InstanceId);
+                uiItemList[i].SetInfo(item.TemplateId, item.InstanceId, this);
                 uiItemList[i].gameObject.SetActive(true);
             }
             else

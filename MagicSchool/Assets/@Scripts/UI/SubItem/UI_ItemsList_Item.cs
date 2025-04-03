@@ -26,7 +26,8 @@ public class UI_ItemsList_Item : UI_Base
         ItemExpSlider,
 	}
 
-	int _itemTemplateId = -1;
+    UI_ItemsListPopup _parentUI;
+    int _itemTemplateId = -1;
 	int _itemDataId = -1;
 
 	public override bool Init()
@@ -46,10 +47,11 @@ public class UI_ItemsList_Item : UI_Base
         return true;
 	}
 
-	public void SetInfo(int itemTemplateId, int itemInstanceId)
+	public void SetInfo(int itemTemplateId, int itemInstanceId, UI_ItemsListPopup parentUI)
 	{
         transform.localScale = Vector3.one;
 
+        _parentUI = parentUI;
         _itemTemplateId = itemTemplateId;
         _itemDataId = itemInstanceId;
 
@@ -69,7 +71,21 @@ public class UI_ItemsList_Item : UI_Base
 
 	void OnClickItemButton(PointerEventData evt)
 	{
-		//UI_HeroInfoPopup popup = Managers.UI.ShowPopupUI<UI_HeroInfoPopup>();
-		//popup.SetInfo(_heroDataId);
-	}
+        //UI_HeroInfoPopup popup = Managers.UI.ShowPopupUI<UI_HeroInfoPopup>();
+        //popup.SetInfo(_heroDataId);
+
+        Item item = Managers.Inventory.GetItem(_itemDataId);
+        if (item == null)
+        {
+            Debug.Log("아이템 존재 안 함");
+            return;
+        }
+
+        if (item.IsEquippedItem())
+            Managers.Inventory.UnEquipItem(item.InstanceId);
+        else
+            Managers.Inventory.EquipItem(item.InstanceId);
+
+        _parentUI.Refresh();
+    }
 }
