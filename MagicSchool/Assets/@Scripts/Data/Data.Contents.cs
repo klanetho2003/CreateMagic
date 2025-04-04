@@ -421,6 +421,7 @@ namespace Data
         public string SpriteName;
         public string SortingLayerName;
         public string AnimatorDataID;
+        public int QuestDataId;
     }
 
     [Serializable]

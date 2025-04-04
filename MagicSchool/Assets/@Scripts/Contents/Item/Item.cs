@@ -206,7 +206,7 @@ public class Artifact : Item
         return true;
     }
 
-    //  Temp
+    //  Temp, To DO : 어떤 Stat이 어떤 StatModType 만큼 상승하는지 Class로 묶은 뒤, List로 관리해야할 듯
     public override void ApplyItemAbility(EStatModType statModType, CreatureController target)
     {
         base.ApplyItemAbility(statModType, target);

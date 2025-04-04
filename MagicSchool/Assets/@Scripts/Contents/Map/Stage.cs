@@ -41,12 +41,9 @@ public class Stage : MonoBehaviour
             // KillCount 초기화
             Managers.Game.KillCount = 0;
 
-            // Check Stage Clear
-            if (IsCheckStageClear(value))
-            {
-                ClearStage();
+            // Try Stage Clear
+            if (TryClearStage(value))
                 return;
-            }
 
             _currentWave = value;
             StartWave(value);
@@ -142,6 +139,28 @@ public class Stage : MonoBehaviour
         return (MonsterWaveData.Count - 1 < (int)NextWave);
     }
 
+    bool TryClearStage(EMonsterWaveType NextWave)
+    {
+        if (IsCheckStageClear(NextWave) == false)
+            return false;
+
+        Debug.Log($"{gameObject.name} Clear !!!");
+
+        DespawnObjects();
+
+        // To Do NPC Spawn
+
+        // To Do GetRandomReward -> Item + Exp
+
+        List<RewardData> rewards = new List<RewardData>();
+        rewards.Add(GetRandomReward());
+        rewards.Add(GetRandomReward());
+        UI_SkillSelectPopup ui = Managers.UI.ShowPopupUI<UI_SkillSelectPopup>();
+        ui.SetInfo(rewards);
+
+        return true;
+    }
+
     public int GetMonsterCountInWave(EMonsterWaveType waveType)
     {
         if (_waveDataInfos.TryGetValue(waveType, out List<ObjectSpawnInfo> waveData) == false)
@@ -171,23 +190,6 @@ public class Stage : MonoBehaviour
 
         DespawnObjects();
         SpawnObjects(waveData);
-    }
-
-    void ClearStage()
-    {
-        Debug.Log($"{gameObject.name} Clear !!!");
-
-        DespawnObjects();
-
-        // To Do NPC Spawn
-
-        // To Do GetRandomReward -> Item + Exp
-
-        List<RewardData> rewards = new List<RewardData>();
-        rewards.Add(GetRandomReward());
-        rewards.Add(GetRandomReward());
-        UI_SkillSelectPopup ui = Managers.UI.ShowPopupUI<UI_SkillSelectPopup>();
-        ui.SetInfo(rewards);
     }
 
     RewardData GetRandomReward()
@@ -263,7 +265,7 @@ public class Stage : MonoBehaviour
                     Managers.Object.Despawn(obj as MonsterController);
                     break;
                 case EObjectType.Npc:
-                    Managers.Object.Despawn(obj as NpcController);
+                    // Managers.Object.Despawn(obj as NpcController); // Temp
                     break;
                 /*case EObjectType.Env:
                     Managers.Object.Despawn(obj as Env);

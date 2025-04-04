@@ -8,7 +8,8 @@
       "PrefabLabel": "NpcPrefab",
       "SpriteName": null,
       "SortingLayerName": "Npc",
-      "AnimatorDataID": "Npc_Door_AnimController"
+      "AnimatorDataID": "Npc_Door_AnimController",
+      "QuestDataId": 0
     }
   ]
 }

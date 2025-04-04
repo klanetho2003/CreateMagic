@@ -160,11 +160,6 @@ public class GameManager
         return itemDbId;
     }
 
-    public void BroadcastEvent(EBroadcastEventType eventType, int value)
-    {
-        OnBroadcastEvent?.Invoke(eventType, value);
-    }
-
     #endregion
 
     #region Save & Load	
@@ -332,5 +327,9 @@ public class GameManager
     public event Action<Vector2> OnMoveDirChanged; //delegate void ExFunc(int a, int b);
 
     public event Action<EBroadcastEventType, int> OnBroadcastEvent;
+    public void BroadcastEvent(EBroadcastEventType eventType, int value)
+    {
+        OnBroadcastEvent?.Invoke(eventType, value);
+    }
     #endregion
 }

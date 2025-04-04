@@ -92,6 +92,7 @@ public static class Define
         TreasureBox,
         Dungeon,
         WaveCheat,
+        Quest,
     }
 
     public enum CreatureState

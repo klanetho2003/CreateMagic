@@ -1,2 +1,2 @@
-DataId,Name,DescriptionTextID,NpcType,PrefabLabel,SpriteName,SortingLayerName,AnimatorDataID
-500001,WayPoint,,Waypoint,NpcPrefab,,Npc,Npc_Door_AnimController
+DataId,Name,DescriptionTextID,NpcType,PrefabLabel,SpriteName,SortingLayerName,AnimatorDataID,QuestDataId
+500001,WayPoint,,Waypoint,NpcPrefab,,Npc,Npc_Door_AnimController,
