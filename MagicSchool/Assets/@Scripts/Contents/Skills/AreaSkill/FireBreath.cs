@@ -31,7 +31,8 @@ public class FireBreath : AreaSkillBase
         _projectile.transform.rotation = Quaternion.Euler(0, 0, Mathf.Atan2(lookDir.y, lookDir.x) * Mathf.Rad2Deg);
 
 
-        float radius = Utils.GetEffectRadius(SkillData.EffectSize);
-        _projectile.Collider.radius = radius;
+        // For Debug
+        // float radius = Utils.GetEffectRadius(SkillData.EffectSize);
+        // _projectile.Collider.radius = radius;
     }
 }

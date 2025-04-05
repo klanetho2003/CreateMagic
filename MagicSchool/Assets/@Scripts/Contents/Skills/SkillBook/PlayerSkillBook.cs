@@ -343,6 +343,7 @@ public class PlayerSkillBook : BaseSkillBook
         _owner.CreatureState = CreatureState.Casting;
 
         defaultSkill.ActivateSkill();
+        Debug.Log(defaultSkill.SkillData.Name);
 
 
         // Add InputValue

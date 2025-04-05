@@ -1,9 +1,9 @@
 {
   "Students": [
     {
-      "N1_DefaultSkillId": 90001,
+      "N1_DefaultSkillId": 90002,
       "N2_DefaultSkillId": 0,
-      "N3_DefaultSkillId": 0,
+      "N3_DefaultSkillId": 90001,
       "N4_DefaultSkillId": 0,
       "Q_DefaultSkillId": 90001,
       "W_DefaultSkillId": 0,

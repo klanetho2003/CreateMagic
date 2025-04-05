@@ -17,8 +17,8 @@ public class CastingImpact : AreaSkillBase // Only Player
     }
     #endregion
 
-    PlayerController _pc;
-    ProjectileController _projectile;
+    protected PlayerController _pc;
+    protected ProjectileController _projectile;
 
     public override void SetInfo(CreatureController owner, int monsterSkillTemplateID)
     {

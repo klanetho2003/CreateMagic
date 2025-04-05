@@ -127,7 +127,7 @@
       "ReserveDestroyTime": 1.0
     },
     {
-      "DataId": 80001,
+      "DataId": 80020,
       "Name": "FireBreath_01",
       "ClassName": "Projectile",
       "ComponentName": null,

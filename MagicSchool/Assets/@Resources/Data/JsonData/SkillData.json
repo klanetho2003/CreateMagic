@@ -196,14 +196,45 @@
       "AnimImpactDuration": 0.0,
       "CastingSound": null,
       "SkillRange": 0.0,
-      "ScaleMultiplier": 0.5,
+      "ScaleMultiplier": 1.0,
+      "TargetCount": 0,
+      "EffectIds": [
+        62000
+      ],
+      "NextLevelId": 0,
+      "AoEId": 0,
+      "EffectSize": 1,
+      "ActivateSkillDelay": 0.0,
+      "CompleteSkillDelay": 0.0
+    },
+    {
+      "DataId": 90002,
+      "Name": "SkillKnockBack",
+      "ClassName": "SkillKnockBack",
+      "Description": "������ ���� ���ϰ� ���ĳ���.",
+      "InputValues": [
+        0
+      ],
+      "InputDescription": null,
+      "ProjectileId": 80000,
+      "PrefabLabel": "ProjectilePrefab",
+      "IconLabel": null,
+      "AnimName": "Casting",
+      "UsedMp": -1,
+      "CoolTime": 0.0,
+      "DamageMultiplier": 1.0,
+      "SkillDuration": 0.0,
+      "AnimImpactDuration": 0.0,
+      "CastingSound": null,
+      "SkillRange": 0.0,
+      "ScaleMultiplier": 1.0,
       "TargetCount": 0,
       "EffectIds": [
         62001
       ],
       "NextLevelId": 0,
       "AoEId": 0,
-      "EffectSize": 0,
+      "EffectSize": 1,
       "ActivateSkillDelay": 0.0,
       "CompleteSkillDelay": 0.0
     },
@@ -250,7 +281,7 @@
         12
       ],
       "InputDescription": "N1 - W - E - S",
-      "ProjectileId": 80001,
+      "ProjectileId": 80020,
       "PrefabLabel": "ProjectilePrefab",
       "IconLabel": "FireBreathIcon_01.sprite",
       "AnimName": "NormalAttack",

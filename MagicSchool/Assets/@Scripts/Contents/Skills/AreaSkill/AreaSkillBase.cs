@@ -22,14 +22,9 @@ public class AreaSkillBase : SkillBase
             return;
 
         if (Owner.Target != null)
-        {
             _skillDir = (Owner.Target.transform.position - Owner.transform.position).normalized;
-        }
         else
-        {
             _skillDir = (Owner.GenerateSkillPosition - Owner.CenterPosition).normalized;
-        }
-        
     }
 
     public override void CancelSkill()
