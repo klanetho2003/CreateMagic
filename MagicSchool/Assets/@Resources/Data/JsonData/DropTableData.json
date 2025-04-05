@@ -3,16 +3,28 @@
     {
       "DataId": 400000,
       "RewardExp": 0,
-      "Prob1": 30,
-      "Item1": 1,
-      "Prob2": 20,
-      "Item2": 2,
-      "Prob3": 30,
-      "Item3": 3,
-      "Prob4": 20,
-      "Item4": 6,
-      "Prob5": 0,
-      "Item5": 0
+      "Rewards": [
+        {
+          "Probability": 30,
+          "ItemTemplateId": 1
+        },
+        {
+          "Probability": 20,
+          "ItemTemplateId": 2
+        },
+        {
+          "Probability": 30,
+          "ItemTemplateId": 3
+        },
+        {
+          "Probability": 20,
+          "ItemTemplateId": 6
+        },
+        {
+          "Probability": 0,
+          "ItemTemplateId": 0
+        }
+      ]
     }
   ]
 }

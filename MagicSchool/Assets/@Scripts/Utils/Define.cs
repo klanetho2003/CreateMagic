@@ -302,7 +302,7 @@ public static class Define
 
     public enum EQuestRewardType
     {
-        Hero,
+        Skill,
         Gold,
         Mineral,
         Meat,
@@ -354,12 +354,35 @@ public static class Define
         QuestClear,
     }
 
-    public enum ESkillSlot
+    public enum EMonsterSkillSlot
     {
         Default,
         Env,
         A,
         B,
+    }
+
+    public enum ESkillSlot
+    {
+        Default_Monster,
+        A_Monster,
+        B_Monster,
+
+        N1_Default,
+        N2_Default,
+        N3_Default,
+        N4_Default,
+
+        Q_Default,
+        W_Default,
+        E_Default,
+        R_Default,
+
+        A_Default,
+        S_Default,
+        D_Default,
+
+        CastingSkill = 101,
     }
 
     public enum EIndicatorType

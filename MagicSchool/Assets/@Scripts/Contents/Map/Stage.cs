@@ -150,13 +150,15 @@ public class Stage : MonoBehaviour
 
         // To Do NPC Spawn
 
-        // To Do GetRandomReward -> Item + Exp
-
+        // To Do GameManager로 이전 ~~ (ClearStage 함수 하나 파고 거기에 처리해야할 거 몰빵하자)
         List<RewardData> rewards = new List<RewardData>();
         rewards.Add(GetRandomReward());
         rewards.Add(GetRandomReward());
         UI_SkillSelectPopup ui = Managers.UI.ShowPopupUI<UI_SkillSelectPopup>();
         ui.SetInfo(rewards);
+
+        Managers.Game.Player.PlayerSkills.ClearCastingValue();
+        // ~~
 
         return true;
     }

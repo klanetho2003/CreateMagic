@@ -282,7 +282,7 @@ public class PlayerController : CreatureController
 
         // Skill
         PlayerSkills = gameObject.GetOrAddComponent<PlayerSkillBook>();
-        Skills.SetInfo(this, CreatureData);
+        Skills.SetInfo(this, PlayerData);
     }
 
 

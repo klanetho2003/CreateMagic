@@ -6,7 +6,7 @@
       "DescriptionTextID": null,
       "NpcType": 2,
       "PrefabLabel": "NpcPrefab",
-      "SpriteName": null,
+      "IconImage": "WayPoint",
       "SortingLayerName": "Npc",
       "AnimatorDataID": "Npc_Door_AnimController",
       "QuestDataId": 0

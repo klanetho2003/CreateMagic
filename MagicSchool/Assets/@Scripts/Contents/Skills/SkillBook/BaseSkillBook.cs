@@ -12,10 +12,10 @@ public class BaseSkillBook : MonoBehaviour // 일종의 스킬 매니저
     public List<SkillBase> SkillList { get; } = new List<SkillBase>();
     public List<SkillBase> ActivateSkills { get; set; } = new List<SkillBase>();
 
-    public SkillBase DefaultSkill { get; protected set; }
-    public SkillBase EnvSkill { get; protected set; }
-    public SkillBase ASkill { get; protected set; }
-    public SkillBase BSkill { get; protected set; }
+    public SkillBase DefaultSkill { get; private set; }
+    public SkillBase EnvSkill { get; private set; }
+    public SkillBase ASkill { get; private set; }
+    public SkillBase BSkill { get; private set; }
 
     protected CreatureController _owner;
 
@@ -50,14 +50,15 @@ public class BaseSkillBook : MonoBehaviour // 일종의 스킬 매니저
 
     #endregion
 
-    public void SetInfo(CreatureController owner, CreatureData creatureData)
+    public virtual void SetInfo(CreatureController owner, CreatureData creatureData)
     {
         _owner = owner;
 
-        AddSkill(creatureData.DefaultSkillId, ESkillSlot.Default);
-        AddSkill(creatureData.EnvSkillId, ESkillSlot.Env);
-        AddSkill(creatureData.SkillAId, ESkillSlot.A);
-        AddSkill(creatureData.SkillBId, ESkillSlot.B);
+        MonsterData monsterData = (MonsterData)creatureData;
+
+        AddSkill(monsterData.DefaultSkillId, ESkillSlot.Default_Monster);
+        AddSkill(monsterData.SkillAId, ESkillSlot.A_Monster);
+        AddSkill(monsterData.SkillBId, ESkillSlot.B_Monster);
     }
 
     public virtual void AddSkill(int skillTemplateID, ESkillSlot skillSlot)
@@ -81,17 +82,14 @@ public class BaseSkillBook : MonoBehaviour // 일종의 스킬 매니저
 
         switch (skillSlot)
         {
-            case ESkillSlot.Default:
+            case ESkillSlot.Default_Monster:
                 DefaultSkill = skill;
                 break;
-            case ESkillSlot.Env:
-                EnvSkill = skill;
-                break;
-            case ESkillSlot.A:
+            case ESkillSlot.A_Monster:
                 ASkill = skill;
                 ActivateSkills.Add(skill);
                 break;
-            case ESkillSlot.B:
+            case ESkillSlot.B_Monster:
                 BSkill = skill;
                 ActivateSkills.Add(skill);
                 break;

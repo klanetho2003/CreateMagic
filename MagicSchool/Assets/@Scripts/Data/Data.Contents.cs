@@ -180,10 +180,6 @@ namespace Data
         public string MaterialID;
         public string AnimatorDataID;
         public string SortingLayerName;
-        public int DefaultSkillId;
-        public int EnvSkillId;
-        public int SkillAId;
-        public int SkillBId;
     }
     #endregion
 
@@ -191,6 +187,9 @@ namespace Data
     [Serializable]
     public class MonsterData : CreatureData //public string prefab; // 이제 Prefab 경로는 불필요
     {
+        public int DefaultSkillId;
+        public int SkillAId;
+        public int SkillBId;
         public int DropItemId;
     }
 
@@ -213,6 +212,22 @@ namespace Data
     public class StudentData : CreatureData //public string prefab; // 이제 Prefab 경로는 불필요
     {
         // 추가되는 부분
+        public int N1_DefaultSkillId;
+        public int N2_DefaultSkillId;
+        public int N3_DefaultSkillId;
+        public int N4_DefaultSkillId;
+
+        public int Q_DefaultSkillId;
+        public int W_DefaultSkillId;
+        public int E_DefaultSkillId;
+        public int R_DefaultSkillId;
+
+        public int A_DefaultSkillId;
+        public int S_DefaultSkillId;
+        public int D_DefaultSkillId;
+
+        public List<int> TempDevSkillsDataId; // 초기 데이터 시트로 이전 필요
+
         public int MaxMp;
         public float MpGaugeAmount;
     }
@@ -418,7 +433,7 @@ namespace Data
         public string DescriptionTextID;
         public ENpcType NpcType;
         public string PrefabLabel;
-        public string SpriteName;
+        public string IconImage;
         public string SortingLayerName;
         public string AnimatorDataID;
         public int QuestDataId;
@@ -524,30 +539,6 @@ namespace Data
 
     #region DropTable
 
-    public class RewardData
-    {
-        public int Probability; // 100분율
-        public int ItemTemplateId;
-        // public int Count;
-    }
-
-    [Serializable]
-    public class DropTableData_Internal
-    {
-        public int DataId;
-        public int RewardExp;
-        public int Prob1;
-        public int Item1;
-        public int Prob2;
-        public int Item2;
-        public int Prob3;
-        public int Item3;
-        public int Prob4;
-        public int Item4;
-        public int Prob5;
-        public int Item5;
-    }
-
     [Serializable]
     public class DropTableData
     {
@@ -557,70 +548,23 @@ namespace Data
     }
 
     [Serializable]
+    public class RewardData
+    {
+        public int Probability; // 100분율
+        public int ItemTemplateId;
+        // public int Count;
+    }
+
+    [Serializable]
     public class DropTableDataLoader : ILoader<int, DropTableData>
     {
-        public List<DropTableData_Internal> dropTables = new List<DropTableData_Internal>();
+        public List<DropTableData> dropTables = new List<DropTableData>();
 
         public Dictionary<int, DropTableData> MakeDict()
         {
             Dictionary<int, DropTableData> dict = new Dictionary<int, DropTableData>();
-
-            foreach (DropTableData_Internal tempData in dropTables)
-            {
-                DropTableData data = new DropTableData()
-                {
-                    DataId = tempData.DataId,
-                    RewardExp = tempData.RewardExp,
-                };
-
-                if (tempData.Item1 > 0)
-                {
-                    data.Rewards.Add(new RewardData()
-                    {
-                        Probability = tempData.Prob1,
-                        ItemTemplateId = tempData.Item1,
-                    });
-                }
-
-                if (tempData.Item2 > 0)
-                {
-                    data.Rewards.Add(new RewardData()
-                    {
-                        Probability = tempData.Prob2,
-                        ItemTemplateId = tempData.Item2,
-                    });
-                }
-
-                if (tempData.Item3 > 0)
-                {
-                    data.Rewards.Add(new RewardData()
-                    {
-                        Probability = tempData.Prob3,
-                        ItemTemplateId = tempData.Item3,
-                    });
-                }
-
-                if (tempData.Item4 > 0)
-                {
-                    data.Rewards.Add(new RewardData()
-                    {
-                        Probability = tempData.Prob4,
-                        ItemTemplateId = tempData.Item4,
-                    });
-                }
-
-                if (tempData.Item5 > 0)
-                {
-                    data.Rewards.Add(new RewardData()
-                    {
-                        Probability = tempData.Prob5,
-                        ItemTemplateId = tempData.Item5,
-                    });
-                }
-
-                dict.Add(tempData.DataId, data);
-            }
-
+            foreach (DropTableData tables in dropTables)
+                dict.Add(tables.DataId, tables);
             return dict;
         }
     }

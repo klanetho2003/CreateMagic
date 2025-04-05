@@ -1,3 +1,4 @@
+using Data;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -175,18 +176,18 @@ public class InputMemorizer
     public void Clear()
     {
         InputLinkedList.Clear();
-        _usableSkill.Clear();
+        ResetUsableSkill();
     }
 }
 
 public class PlayerSkillBook : BaseSkillBook
 {
+    public Dictionary<int, SkillBase> SkillDict { get; } = new Dictionary<int, SkillBase>();
+    public Dictionary<KeyDownEvent, SkillBase> DefaultSkillDict { get; } = new Dictionary<KeyDownEvent, SkillBase>();
+
     public Action OnSkillValueChanged;
 
-    // public InputTransformer InputTransformer { get; private set; }
     public InputMemorizer InputMemorizer { get; private set; }
-
-    public Dictionary<int, SkillBase> SkillDict { get; } = new Dictionary<int, SkillBase>();
 
     #region Init Method
     public override bool Init()
@@ -201,14 +202,40 @@ public class PlayerSkillBook : BaseSkillBook
     }
     #endregion
 
-    public override void AddSkill(int skillTemplateID, ESkillSlot skillSlot)
+    public override void SetInfo(CreatureController owner, CreatureData creatureData)
     {
-        if (skillTemplateID == 0)
+        _owner = owner;
+
+        #region Default Skill AddSkill
+        StudentData playerData = (StudentData)creatureData;
+
+        AddSkill(playerData.N1_DefaultSkillId, ESkillSlot.N1_Default);
+        AddSkill(playerData.N2_DefaultSkillId, ESkillSlot.N2_Default);
+        AddSkill(playerData.N3_DefaultSkillId, ESkillSlot.N3_Default);
+        AddSkill(playerData.N4_DefaultSkillId, ESkillSlot.N4_Default);
+
+        AddSkill(playerData.Q_DefaultSkillId, ESkillSlot.Q_Default);
+        AddSkill(playerData.W_DefaultSkillId, ESkillSlot.W_Default);
+        AddSkill(playerData.E_DefaultSkillId, ESkillSlot.E_Default);
+        AddSkill(playerData.R_DefaultSkillId, ESkillSlot.R_Default);
+
+        AddSkill(playerData.A_DefaultSkillId, ESkillSlot.A_Default);
+        AddSkill(playerData.S_DefaultSkillId, ESkillSlot.S_Default);
+        AddSkill(playerData.D_DefaultSkillId, ESkillSlot.D_Default);
+        #endregion
+
+        foreach (int skillTemplateId in playerData.TempDevSkillsDataId)
+            AddSkill(skillTemplateId, ESkillSlot.CastingSkill);
+    }
+
+    public override void AddSkill(int skillTemplateId, ESkillSlot skillSlot)
+    {
+        if (skillTemplateId == 0)
             return;
 
-        if (Managers.Data.SkillDic.TryGetValue(skillTemplateID, out var data) == false)
+        if (Managers.Data.SkillDic.TryGetValue(skillTemplateId, out var data) == false)
         {
-            Debug.LogWarning($"AddSkill Failed {skillTemplateID}");
+            Debug.LogWarning($"AddSkill Failed {skillTemplateId}");
             return;
         }
 
@@ -216,19 +243,53 @@ public class PlayerSkillBook : BaseSkillBook
         if (skill == null)
             return;
 
-
-        skill.SetInfo(_owner, skillTemplateID);
-
-        // SkillList.Add(skill);
-        SkillDict.Add(skillTemplateID, skill);
-
+        skill.SetInfo(_owner, skillTemplateId);
         switch (skillSlot)
         {
-            case ESkillSlot.Default:
-                DefaultSkill = skill;
+            #region N1, N2, N3, N4
+            case ESkillSlot.N1_Default:
+                DefaultSkillDict.Add(KeyDownEvent.N1, skill);
                 break;
-            case ESkillSlot.Env:
-                EnvSkill = skill;
+            case ESkillSlot.N2_Default:
+                DefaultSkillDict.Add(KeyDownEvent.N2, skill);
+                break;
+            case ESkillSlot.N3_Default:
+                DefaultSkillDict.Add(KeyDownEvent.N3, skill);
+                break;
+            case ESkillSlot.N4_Default:
+                DefaultSkillDict.Add(KeyDownEvent.N4, skill);
+                break;
+            #endregion
+
+            #region Q, W, E, R
+            case ESkillSlot.Q_Default:
+                DefaultSkillDict.Add(KeyDownEvent.Q, skill);
+                break;
+            case ESkillSlot.W_Default:
+                DefaultSkillDict.Add(KeyDownEvent.W, skill);
+                break;
+            case ESkillSlot.E_Default:
+                DefaultSkillDict.Add(KeyDownEvent.E, skill);
+                break;
+            case ESkillSlot.R_Default:
+                DefaultSkillDict.Add(KeyDownEvent.R, skill);
+                break;
+            #endregion
+
+            #region A, S, D
+            case ESkillSlot.A_Default:
+                DefaultSkillDict.Add(KeyDownEvent.A, skill);
+                break;
+            case ESkillSlot.S_Default:
+                DefaultSkillDict.Add(KeyDownEvent.S, skill);
+                break;
+            case ESkillSlot.D_Default:
+                DefaultSkillDict.Add(KeyDownEvent.D, skill);
+                break;
+            #endregion
+
+            default:
+                SkillDict.Add(skillTemplateId, skill);
                 break;
         }
     }
@@ -239,93 +300,62 @@ public class PlayerSkillBook : BaseSkillBook
         get { return _currentCommand; }
         set
         {
-            // Mp 보유량에 따라, Skill 사용 여부 Check
-            if (Managers.Game.Player.CheckChangeMp(DefaultSkill.SkillData.UsedMp) == false)
-                return;
-
             if (_owner.CreatureState == CreatureState.DoSkill || _owner.CreatureState == CreatureState.FrontDelay || _owner.CreatureState == CreatureState.BackDelay)
                 return;
 
-            _owner.CreatureState = CreatureState.Casting;
-
-            // Add InputValue
-            if (value != KeyDownEvent.space)
-            {
-                InputMemorizer.AddInput(value);
-
-                // CompareWithList -> usableSkill 갱신
-                foreach (SkillBase skillTemp in SkillDict.Values)
-                {
-                    if (InputMemorizer.TrySetUsableSkill(skillTemp.SkillData.InputValues))
-                        Debug.Log($"사용 가능한 Skill : {skillTemp.SkillData.Name}"); // event 쏴서 UsableSkill 갱신
-                }
-            }
-
             switch (value)
             {
-                #region N1, N2, N3, N4
-                
                 case KeyDownEvent.N1:
-                    DefaultSkill.ActivateSkill();
-                    _currentCommand = value;
-                    break;
                 case KeyDownEvent.N2:
-                    DefaultSkill.ActivateSkill();
-                    _currentCommand = value;
-                    break;
                 case KeyDownEvent.N3:
-                    DefaultSkill.ActivateSkill();
-                    _currentCommand = value;
-                    break;
                 case KeyDownEvent.N4:
-                    DefaultSkill.ActivateSkill();
+                    TryCasting(value);
                     _currentCommand = value;
                     break;
-
-                #endregion
-
-                #region Q, W, E, R
 
                 case KeyDownEvent.Q:
-                    DefaultSkill.ActivateSkill();
-                    break;
                 case KeyDownEvent.W:
-                    DefaultSkill.ActivateSkill();
-                    break;
                 case KeyDownEvent.E:
-                    DefaultSkill.ActivateSkill();
-                    break;
                 case KeyDownEvent.R:
-                    DefaultSkill.ActivateSkill();
-                    break;
-
-                #endregion
-
-                #region A, S, D
-
                 case KeyDownEvent.A:
-                    DefaultSkill.ActivateSkill();
-                    break;
                 case KeyDownEvent.S:
-                    DefaultSkill.ActivateSkill();
-                    break;
                 case KeyDownEvent.D:
-                    DefaultSkill.ActivateSkill();
+                    TryCasting(value);
                     break;
-
-                #endregion
 
                 case KeyDownEvent.space:
                     _owner.CreatureState = TryDoSkill();
-                    break;
-
-                default:
                     break;
             }
 
             // Input Value 갱신 in Skill Navi
             RefreshSkillNavi();
         }
+    }
+
+    bool TryCasting(KeyDownEvent inputValue)
+    {
+        if (DefaultSkillDict.TryGetValue(inputValue, out SkillBase defaultSkill) == false)
+            return false;
+        if (_owner.CheckChangeMp(defaultSkill.SkillData.UsedMp) == false)
+            return false;
+
+        _owner.CreatureState = CreatureState.Casting;
+
+        defaultSkill.ActivateSkill();
+
+
+        // Add InputValue
+        InputMemorizer.AddInput(inputValue);
+
+        // CompareWithList -> usableSkill 갱신
+        foreach (SkillBase skillTemp in SkillDict.Values)
+        {
+            if (InputMemorizer.TrySetUsableSkill(skillTemp.SkillData.InputValues))
+                Debug.Log($"사용 가능한 Skill : {skillTemp.SkillData.Name}"); // event 쏴서 UsableSkill 갱신
+        }
+
+        return true;
     }
 
     void RefreshSkillNavi()
@@ -363,7 +393,7 @@ public class PlayerSkillBook : BaseSkillBook
 
     public void ClearCastingValue()
     {
-        
+        InputMemorizer.Clear();
     }
 
     #endregion

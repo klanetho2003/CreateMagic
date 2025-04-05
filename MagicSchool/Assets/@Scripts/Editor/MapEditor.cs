@@ -59,16 +59,14 @@ public class MapEditor : MonoBehaviour
         Dictionary<int, Data.MonsterData> MonsterDic = LoadJson<Data.MonsterDataLoader, int, Data.MonsterData>("MonsterData").MakeDict();
         foreach (var data in MonsterDic.Values)
         {
-            /*if (data.DataId < 202000)
-                continue;*/
-
             CustomTile customTile = ScriptableObject.CreateInstance<CustomTile>();
             customTile.Name = data.DescriptionTextID;
+
             string spriteName = data.IconImage;
             spriteName = spriteName.Replace(".sprite", "");
-
-            Sprite spr = AssetDatabase.LoadAssetAtPath<Sprite>($"Assets/@Resources/Sprites/Monsters/{spriteName}.png");
+            Sprite spr = AssetDatabase.LoadAssetAtPath<Sprite>($"Assets/@Resources/Sprites/Object/Monsters/{spriteName}.png");
             customTile.sprite = spr;
+
             customTile.DataId = data.DataId;
             customTile.ObjectType = Define.EObjectType.Monster;
             string name = $"{data.DataId}_{data.DescriptionTextID}";
@@ -92,7 +90,13 @@ public class MapEditor : MonoBehaviour
         {
         	CustomTile customTile = ScriptableObject.CreateInstance<CustomTile>();
         	customTile.Name = data.Name;
-        	customTile.DataId = data.DataId;
+
+            string spriteName = data.IconImage;
+            spriteName = spriteName.Replace(".sprite", "");
+            Sprite spr = AssetDatabase.LoadAssetAtPath<Sprite>($"Assets/@Resources/Sprites/Object/NPC/{spriteName}.png");
+            customTile.sprite = spr;
+
+            customTile.DataId = data.DataId;
         	customTile.ObjectType = Define.EObjectType.Npc;
         	string name = $"{data.DataId}_{data.Name}";
             string path = "Assets/@Resources/TileMap/Dev/Npc";

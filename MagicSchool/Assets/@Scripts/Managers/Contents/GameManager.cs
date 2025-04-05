@@ -28,9 +28,7 @@ public class GameSaveData
     public List<ItemSaveData> Items = new List<ItemSaveData>();
 
     // Quest
-    public List<QuestSaveData> ProcessingQuests = new List<QuestSaveData>(); // 진행중
-    public List<QuestSaveData> CompletedQuests = new List<QuestSaveData>(); // 완료
-    public List<QuestSaveData> RewardedQuests = new List<QuestSaveData>(); // 보상 받음
+    public List<QuestSaveData> AllQuests = new List<QuestSaveData>();
 }
 
 [Serializable]
@@ -111,8 +109,9 @@ public class GameManager
         get { return _saveData.Wood; }
         private set
         {
+            int diff = _saveData.Wood - value;
             _saveData.Wood = value;
-            BroadcastEvent(EBroadcastEventType.ChangeWood, value);
+            OnBroadcastEvent?.Invoke(EBroadcastEventType.ChangeWood, diff);
         }
     }
 
@@ -121,8 +120,9 @@ public class GameManager
         get { return _saveData.Mineral; }
         private set
         {
+            int diff = _saveData.Mineral - value;
             _saveData.Mineral = value;
-            BroadcastEvent(EBroadcastEventType.ChangeMineral, value);
+            OnBroadcastEvent?.Invoke(EBroadcastEventType.ChangeMineral, diff);
         }
     }
 
@@ -131,8 +131,9 @@ public class GameManager
         get { return _saveData.Meat; }
         private set
         {
+            int diff = _saveData.Meat - value;
             _saveData.Meat = value;
-            BroadcastEvent(EBroadcastEventType.ChangeMeat, value);
+            OnBroadcastEvent?.Invoke(EBroadcastEventType.ChangeMeat, diff);
         }
     }
 
@@ -141,8 +142,81 @@ public class GameManager
         get { return _saveData.Gold; }
         private set
         {
+            int diff = _saveData.Gold - value;
             _saveData.Gold = value;
-            BroadcastEvent(EBroadcastEventType.ChangeGold, value);
+            OnBroadcastEvent?.Invoke(EBroadcastEventType.ChangeGold, diff);
+        }
+    }
+
+    public bool CheckResource(EResourceType eResourceType, int amount)
+    {
+        switch (eResourceType)
+        {
+            case EResourceType.Wood:
+                return Wood >= amount;
+            case EResourceType.Mineral:
+                return Mineral >= amount;
+            case EResourceType.Meat:
+                return Meat >= amount;
+            case EResourceType.Gold:
+                return Gold >= amount;
+            case EResourceType.Dia:
+                return true;
+            case EResourceType.Materials:
+                return true;
+            default:
+                return false;
+        }
+    }
+
+    public bool SpendResource(EResourceType eResourceType, int amount)
+    {
+        if (CheckResource(eResourceType, amount) == false)
+            return false;
+
+        switch (eResourceType)
+        {
+            case EResourceType.Wood:
+                Wood -= amount;
+                break;
+            case EResourceType.Mineral:
+                Mineral -= amount;
+                break;
+            case EResourceType.Meat:
+                Meat -= amount;
+                break;
+            case EResourceType.Gold:
+                Gold -= amount;
+                break;
+            case EResourceType.Dia:
+                break;
+            case EResourceType.Materials:
+                break;
+        }
+
+        return true;
+    }
+
+    public void EarnResource(EResourceType eResourceType, int amount)
+    {
+        switch (eResourceType)
+        {
+            case EResourceType.Wood:
+                Wood += amount;
+                break;
+            case EResourceType.Mineral:
+                Mineral += amount;
+                break;
+            case EResourceType.Meat:
+                Meat += amount;
+                break;
+            case EResourceType.Gold:
+                Gold += amount;
+                break;
+            case EResourceType.Dia:
+                break;
+            case EResourceType.Materials:
+                break;
         }
     }
 
@@ -190,6 +264,29 @@ public class GameManager
             // Init 지급 Item이 있을 시 MakeItem
         }
 
+        // Quest
+        {
+            var quests = Managers.Data.QuestDic.Values.ToList();
+
+            foreach (QuestData questData in quests)
+            {
+                QuestSaveData saveData = new QuestSaveData()
+                {
+                    TemplateId = questData.DataId,
+                    State = EQuestState.None,
+                    ProgressCount = new List<int>(),
+                    NextResetTime = DateTime.Now,
+                };
+
+                for (int i = 0; i < questData.QuestTasks.Count; i++)
+                {
+                    saveData.ProgressCount.Add(0);
+                }
+
+                Managers.Quest.AddQuest(saveData);
+            }
+        }
+
 
         // TEMP - For Debug Skill
         SaveData.Skills[0].OwningState = SkillOwningState.Picked;
@@ -209,11 +306,11 @@ public class GameManager
 
         // Quest
         {
-            SaveData.ProcessingQuests.Clear();
-            SaveData.CompletedQuests.Clear();
-            SaveData.RewardedQuests.Clear();
-
-            // To Do
+            SaveData.AllQuests.Clear();
+            foreach (Quest quest in Managers.Quest.AllQuests.Values)
+            {
+                SaveData.AllQuests.Add(quest.SaveData);
+            }
         }
 
         string jsonStr = JsonUtility.ToJson(Managers.Game.SaveData);
@@ -242,9 +339,16 @@ public class GameManager
                 Managers.Inventory.AddItem(itemSaveData);
         }
 
-        // Quset
+        // Quest
         {
-            // To Do
+            Managers.Quest.Clear();
+
+            foreach (QuestSaveData questSaveData in data.AllQuests)
+            {
+                Managers.Quest.AddQuest(questSaveData);
+            }
+
+            Managers.Quest.AddUnknownQuests();
         }
 
         Debug.Log($"Save Game Loaded : {Path}");

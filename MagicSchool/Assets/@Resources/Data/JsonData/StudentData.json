@@ -1,6 +1,21 @@
 {
   "Students": [
     {
+      "N1_DefaultSkillId": 90001,
+      "N2_DefaultSkillId": 0,
+      "N3_DefaultSkillId": 0,
+      "N4_DefaultSkillId": 0,
+      "Q_DefaultSkillId": 90001,
+      "W_DefaultSkillId": 0,
+      "E_DefaultSkillId": 0,
+      "R_DefaultSkillId": 0,
+      "A_DefaultSkillId": 90001,
+      "S_DefaultSkillId": 0,
+      "D_DefaultSkillId": 0,
+      "TempDevSkillsDataId": [
+        1711,
+        18912
+      ],
       "MaxMp": 10,
       "MpGaugeAmount": 1.0,
       "DataId": 201000,
@@ -21,17 +36,25 @@
       "IconImage": "002.sprite",
       "MaterialID": "Magicion_01",
       "AnimatorDataID": "Magicion01_Animator",
-      "SortingLayerName": "Player",
-      "DefaultSkillId": 90001,
-      "EnvSkillId": 0,
-      "SkillAId": 1711,
-      "SkillBId": 18912
+      "SortingLayerName": "Player"
     },
     {
-      "MaxMp": 10,
-      "MpGaugeAmount": 1.0,
+      "N1_DefaultSkillId": 10001,
+      "N2_DefaultSkillId": 0,
+      "N3_DefaultSkillId": 0,
+      "N4_DefaultSkillId": 0,
+      "Q_DefaultSkillId": 0,
+      "W_DefaultSkillId": 0,
+      "E_DefaultSkillId": 0,
+      "R_DefaultSkillId": 0,
+      "A_DefaultSkillId": 0,
+      "S_DefaultSkillId": 0,
+      "D_DefaultSkillId": 0,
+      "TempDevSkillsDataId": [],
+      "MaxMp": 0,
+      "MpGaugeAmount": 0.0,
       "DataId": 201001,
-      "DescriptionTextID": "워리어",
+      "DescriptionTextID": "������",
       "Label": "HeroPrefab",
       "ColliderOffsetX": 0.0,
       "ColliderOffsetY": 0.5,
@@ -48,11 +71,7 @@
       "IconImage": "001.sprite",
       "MaterialID": "Magicion_01",
       "AnimatorDataID": "Magicion01_Animator",
-      "SortingLayerName": "Player",
-      "DefaultSkillId": 10001,
-      "EnvSkillId": 0,
-      "SkillAId": 0,
-      "SkillBId": 0
+      "SortingLayerName": "Player"
     }
   ]
 }

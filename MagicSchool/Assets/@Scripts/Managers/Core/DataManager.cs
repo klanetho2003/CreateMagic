@@ -66,7 +66,7 @@ public class DataManager
             ItemDic.Add(item.Key, item.Value);
 
         // Quest
-        // To Do Quest Data Parsing and MakeDic
+        QuestDic = LoadJson<Data.QuestDataLoader, int, Data.QuestData>("QuestData").MakeDict();
 
         // Languge
         TextDic = LoadJson<Data.TextDataLoader, string, Data.TextData>("TextData").MakeDict();

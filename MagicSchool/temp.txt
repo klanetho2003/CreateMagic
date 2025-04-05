@@ -6,18 +6,33 @@ EventBinding - GameManager에 BroadcastEvent 함수로 통일하기
 # ChangeInventory
 # KillMonster
 
---서리--
-기발한 정도는 아님. 현실과 타협했을 때 최선의 답변이라 생각함
+OnHandleBroadcastEvent 활용할 시 무한 루프가 발생 가능성이 있는지 지속적으로 확인해볼 것
 
+
+// To Do Save를 진행하는 타이밍 정의 필요
+
+
+-- Interface 활용을 고려할 것 --
+Artifact Item ApplyAbility 함수 처리 - 함수로 분기처리하지 말고 Interface Class로 빼자
+Usable Item 사용 부분 개별처리
+
+
+
+
+
+
+
+
+--서리--
 1. 타일에 표시하느냐
 2. 테두리에 표시 하느냐
 3. 퍼즐을 넘어서 겹치게 하느냐
-내 머리로는 다른 방법은 없음
 
 
-강아지가 신호를 줆 > 누르면 원형 게이지가 생김.
+- 강아지가 신호를 줆 > 누르면 원형 게이지가 생김.
 
-에초에 큰 원이 생기고 점차 줄어듦
+- 에초에 큰 원이 생기고 점차 줄어듦
+강아지가 밟고 있는 발판은 무지개 발판, 부가 효과 > 시작 부분에서 신경 써야하는 요소를 줄임
 
 
 

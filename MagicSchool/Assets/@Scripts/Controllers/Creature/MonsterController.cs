@@ -171,7 +171,7 @@ public class MonsterController : CreatureController
         }
 
         Skills = gameObject.GetOrAddComponent<BaseSkillBook>();
-        Skills.SetInfo(this, CreatureData);
+        Skills.SetInfo(this, MonsterData);
 
         AnimationEventManager.BindEvent(this, /*"OnDamaged_Complate",*/ () =>
         {
