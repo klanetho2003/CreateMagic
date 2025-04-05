@@ -1,5 +1,6 @@
 DataId,Name,DescriptionTextId,QuestPeriodType,QuestTask.ObjectiveType,QuestTask.ObjectiveDataId,QuestTask.Count,Reward.RewardType,Reward.RewardDataId,Reward.Count
-1,클로이 구하기,EarnedMeatObjectiveDescription,Once,SpendMeat,0,10,Gold,0,100
+1,클로이 구하기,EarnedMeatObjectiveDescription,Once,SpendMeat,0,10,Skill,18912,0
+,,,,,,,Gold,0,100
 ,,,,,,,Mineral,0,100
 ,,,,,,,Wood,0,100
 ,,,,,,,Meat,0,100

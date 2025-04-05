@@ -48,6 +48,9 @@ public class GameScene : BaseScene
 
     void OnHandleBroadcastEvent(EBroadcastEventType broadcastType, int monsterId)
     {
+        if (broadcastType != EBroadcastEventType.KillMonster)
+            return;
+
         /*UI_GameScene uiGameScene = Managers.UI.SceneUI.GetComponent<UI_GameScene>();
         uiGameScene.SetKillCount(killCount);*/
 

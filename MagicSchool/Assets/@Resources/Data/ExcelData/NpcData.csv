@@ -1,2 +1,3 @@
 DataId,Name,DescriptionTextID,NpcType,PrefabLabel,IconImage,SortingLayerName,AnimatorDataID,QuestDataId
 500001,WayPoint,,Waypoint,NpcPrefab,WayPoint,Npc,Npc_Door_AnimController,
+500002,TempQuestNPC,,Quest,NpcPrefab,TempQuestNPC,Npc,Magicion01_Animator,1

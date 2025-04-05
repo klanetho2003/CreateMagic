@@ -340,12 +340,14 @@ public static class Define
     public enum EBroadcastEventType
     {
         None,
+        //
         ChangeMeat,
         ChangeWood,
         ChangeMineral,
         ChangeGold,
         ChangeDia,
         ChangeMaterials,
+        //
         KillMonster,
         LevelUp,
         DungeonClear,

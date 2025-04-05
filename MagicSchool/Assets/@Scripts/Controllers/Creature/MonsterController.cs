@@ -128,6 +128,7 @@ public class MonsterController : CreatureController
     protected override void UpdateDead()
     {
         //if (_coWait == null) { }
+
             //OnDead(); To Do 일단 CreatureController에 넣어두었다
     }
 

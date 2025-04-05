@@ -291,6 +291,11 @@ public class GameManager
         // TEMP - For Debug Skill
         SaveData.Skills[0].OwningState = SkillOwningState.Picked;
         SaveData.Skills[1].OwningState = SkillOwningState.Owned;
+
+        Gold = 100;
+        Wood = 100;
+        Mineral = 100;
+        Meat = 100;
     }
 
     public void SaveGame()

@@ -324,6 +324,14 @@ public class PlayerSkillBook : BaseSkillBook
                     break;
 
                 case KeyDownEvent.space:
+                    #region Skill Reward NPC Test
+                    // CompareWithList -> usableSkill 갱신
+                    // foreach (SkillBase skillTemp in SkillDict.Values)
+                    // {
+                    //     if (InputMemorizer.TrySetUsableSkill(skillTemp.SkillData.InputValues))
+                    //         Debug.Log($"사용 가능한 Skill : {skillTemp.SkillData.Name}"); // event 쏴서 UsableSkill 갱신
+                    // }
+                    #endregion
                     _owner.CreatureState = TryDoSkill();
                     break;
             }

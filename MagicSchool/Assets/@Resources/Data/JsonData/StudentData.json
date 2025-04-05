@@ -5,16 +5,16 @@
       "N2_DefaultSkillId": 0,
       "N3_DefaultSkillId": 90001,
       "N4_DefaultSkillId": 0,
-      "Q_DefaultSkillId": 90001,
-      "W_DefaultSkillId": 0,
-      "E_DefaultSkillId": 0,
+      "Q_DefaultSkillId": 0,
+      "W_DefaultSkillId": 90001,
+      "E_DefaultSkillId": 90001,
       "R_DefaultSkillId": 0,
-      "A_DefaultSkillId": 90001,
-      "S_DefaultSkillId": 0,
+      "A_DefaultSkillId": 0,
+      "S_DefaultSkillId": 90001,
       "D_DefaultSkillId": 0,
       "TempDevSkillsDataId": [
         1711,
-        18912
+        0
       ],
       "MaxMp": 10,
       "MpGaugeAmount": 1.0,

@@ -82,10 +82,8 @@ public class Quest
                     Managers.Game.EarnResource(EResourceType.Gold, reward.RewardCount);
                     break;
                 case EQuestRewardType.Skill:
-                    // To Do
-                    // int heroId = reward.RewardDataId;
-                    // Managers.Hero.AcquireHeroCard(heroId, reward.RewardCount);
-                    // Managers.Hero.PickHero(heroId, Vector3Int.zero);
+                    int skillId = reward.RewardDataId;
+                    Managers.Game.Player.PlayerSkills.AddSkill(skillId, Define.ESkillSlot.CastingSkill);
                     break;
                 case EQuestRewardType.Meat:
                     Managers.Game.EarnResource(EResourceType.Meat, reward.RewardCount);
@@ -113,7 +111,7 @@ public class Quest
 
     public void OnHandleBroadcastEvent(EBroadcastEventType eventType, int value)
     {
-        // 公茄 风 规瘤
+        // 公茄 风橇 规瘤
         if (eventType == EBroadcastEventType.QuestClear)
             return;
 

@@ -10,6 +10,17 @@
       "SortingLayerName": "Npc",
       "AnimatorDataID": "Npc_Door_AnimController",
       "QuestDataId": 0
+    },
+    {
+      "DataId": 500002,
+      "Name": "TempQuestNPC",
+      "DescriptionTextID": null,
+      "NpcType": 8,
+      "PrefabLabel": "NpcPrefab",
+      "IconImage": "TempQuestNPC",
+      "SortingLayerName": "Npc",
+      "AnimatorDataID": "Magicion01_Animator",
+      "QuestDataId": 1
     }
   ]
 }
