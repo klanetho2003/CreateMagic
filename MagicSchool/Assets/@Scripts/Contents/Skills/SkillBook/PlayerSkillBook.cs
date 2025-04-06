@@ -403,6 +403,7 @@ public class PlayerSkillBook : BaseSkillBook
     public void ClearCastingValue()
     {
         InputMemorizer.Clear();
+        RefreshSkillNavi();
     }
 
     #endregion

@@ -1,3 +1,4 @@
+using Data;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -17,14 +18,11 @@ public class CastingImpact : AreaSkillBase // Only Player
     }
     #endregion
 
-    protected PlayerController _pc;
     protected ProjectileController _projectile;
 
     public override void SetInfo(CreatureController owner, int monsterSkillTemplateID)
     {
         base.SetInfo(owner, monsterSkillTemplateID);
-
-        _pc = Owner as PlayerController;
     }
 
     public override void ActivateSkill()
@@ -40,21 +38,23 @@ public class CastingImpact : AreaSkillBase // Only Player
 
     protected override void OnAttackEvent()
     {
+        Vector3 startSkillPosition = new Vector3(Owner.CenterPosition.x + SkillData.RangeMultipleX, Owner.CenterPosition.y + SkillData.RangeMultipleY);
+
         // Damage 범위
-        float radius = Utils.GetEffectRadius(SkillData.EffectSize) * SkillData.ScaleMultiplier;
+        float radius = Utils.GetEffectRadius(SkillData.EffectSize);
 
         // 보여주기용
-        _projectile = GenerateProjectile(_pc, _pc.transform.position);
+        _projectile = GenerateProjectile(Owner, startSkillPosition);
         _projectile.transform.localScale *= radius;
         _projectile.Collider.radius = radius;
-
-        List<CreatureController> targets = Managers.Object.FindCircleRangeTargets(_pc, _pc.transform.position, radius);
+        
+        List<CreatureController> targets = Managers.Object.FindCircleRangeTargets(Owner, startSkillPosition, radius);
 
         foreach (var target in targets)
         {
             if (target.IsValid())
             {
-                target.OnDamaged(_pc, this);
+                target.OnDamaged(Owner, this);
             }
         }
     }

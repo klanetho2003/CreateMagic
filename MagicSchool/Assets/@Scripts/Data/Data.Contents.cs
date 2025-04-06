@@ -273,6 +273,8 @@ namespace Data
         public List<int> EffectIds = new List<int>();
         public int NextLevelId;
         public int AoEId;
+        public float RangeMultipleX;
+        public float RangeMultipleY;
         public EEffectSize EffectSize;
         public float ActivateSkillDelay;
         public float CompleteSkillDelay;

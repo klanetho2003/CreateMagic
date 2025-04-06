@@ -1,16 +1,20 @@
-DataId,Name,ClassName,Description,InputValues,InputDescription,ProjectileId,PrefabLabel,IconLabel,AnimName,UsedMp,CoolTime,DamageMultiplier,SkillDuration,AnimImpactDuration,CastingSound,SkillRange,ScaleMultiplier,TargetCount,EffectsIds,NextLevelId,AoEId,EffectSize,ActivateSkillDelay,CompleteSkillDelay
-10001,±âº»°ø°İ,NormalAttack,±ÙÁ¢ÆòÅ¸,0,,0,,BattleSkillIcon_01,NormalAttack,0,1.2,1,2,0,EnergyBolt_Start,0,1,20,,,,,0,
-10002,À§ÀÚµå Á÷¼±ÆòÅ¸,NormalAttack,ÁÖº¯ÀÇ ÀûÀ» ÇâÇØ ¿¡³ÊÁö º¼Æ®¸¦ ¹ß»çÇÑ´Ù,0,,70001,ProjectilePrefab,BattleSkillIcon_01,NormalAttack,0,1.2,1,1.7,0,EnergyBolt_Start,0,1,20,,,,,0,
-10003,È­»ìµç °íºí¸° ÆòÅ¸,NormalAttack,ÁÖº¯ÀÇ ÀûÀ» ÇâÇØ ¿¡³ÊÁö º¼Æ®¸¦ ¹ß»çÇÑ´Ù,0,,70002,ProjectilePrefab,BattleSkillIcon_01,attack_b,0,1.2,1.28,0,0,EnergyBolt_Start,0,1,20,,,,,,
-10004,AreaImpact,AreaImpact,º¸½º ¿øÇü °ø°İ,0,,0,SpellIndicator,,AreaImpact,0,5,1,1.8,0.5,,3,1,20,62002,,,CircleNormal,,
-10005,,,,0,,,,,,,,,,,,,,,,,,,,
-10006,µ¹Áø,Dash,µ¹Áø,0,,0,SpellIndicator,,attack,0,7,1,2,2,,3,1,20,,,,,,
-90001,CastingImpact,CastingImpact,ÁÖº¯ ÀûÀ» Æ¨°Ü³½´Ù,0,,80000,ProjectilePrefab,,Casting,-1,0,1,0,0,,,1,,62000,,,CircleNormal,0,0
-90002,SkillKnockBack,SkillKnockBack,Àü¹æÀÇ ÀûÀ» °­ÇÏ°Ô ¹ĞÃÄ³½´Ù.,0,,80000,ProjectilePrefab,,Casting,-1,0,1,0,0,,,1,,62001,,,CircleNormal,0,0
-1711,FireBall,FireBall,Àü¹æÀ¸·Î È­¿°±¸¸¦ ´øÁø´Ù,1,N1 - Q - A,70002,ProjectilePrefab,FireballIcon_01.sprite,NormalAttack,1,0,20,1.1,0,EnergyBolt_Start,0,0,20,,,80022,CircleSmall,0,0
-,,,,7,,,,,,,,,,,,,,,,,,,,
-,,,,11,,,,,,,,,,,,,,,,,,,,
-18912,FireBreath,FireBreath,Àü¹æ ´Ù¼ö¿¡ Àû¿¡°Ô È­¿°À» »Ñ¸°´Ù,1,N1 - W - E - S,80020,ProjectilePrefab,FireBreathIcon_01.sprite,NormalAttack,5,0,1,0.5,0,,0,0,,62001,,,CircleNormal,,
-,,,,8,,,,,,,,,,,,,,,60013,,,,,
-,,,,9,,,,,,,,,,,,,,,,,,,,
-,,,,12,,,,,,,,,,,,,,,,,,,,
+DataId,Name,ClassName,Description,InputValues,InputDescription,ProjectileId,PrefabLabel,IconLabel,AnimName,UsedMp,CoolTime,DamageMultiplier,SkillDuration,AnimImpactDuration,CastingSound,SkillRange,ScaleMultiplier,TargetCount,EffectsIds,NextLevelId,AoEId,RangeMultipleX,RangeMultipleY,EffectSize,ActivateSkillDelay,CompleteSkillDelay
+10001,ê¸°ë³¸ê³µê²©,NormalAttack,ê·¼ì ‘í‰íƒ€,0,,0,,BattleSkillIcon_01,NormalAttack,0,1.2,1,2,0,EnergyBolt_Start,0,1,20,,,,,,,0,
+10002,ìœ„ìë“œ ì§ì„ í‰íƒ€,NormalAttack,ì£¼ë³€ì˜ ì ì„ í–¥í•´ ì—ë„ˆì§€ ë³¼íŠ¸ë¥¼ ë°œì‚¬í•œë‹¤,0,,70001,ProjectilePrefab,BattleSkillIcon_01,NormalAttack,0,1.2,1,1.7,0,EnergyBolt_Start,0,1,20,,,,,,,0,
+10003,í™”ì‚´ë“  ê³ ë¸”ë¦° í‰íƒ€,NormalAttack,ì£¼ë³€ì˜ ì ì„ í–¥í•´ ì—ë„ˆì§€ ë³¼íŠ¸ë¥¼ ë°œì‚¬í•œë‹¤,0,,70002,ProjectilePrefab,BattleSkillIcon_01,attack_b,0,1.2,1.28,0,0,EnergyBolt_Start,0,1,20,,,,,,,,
+10004,AreaImpact,AreaImpact,ë³´ìŠ¤ ì›í˜• ê³µê²©,0,,0,SpellIndicator,,AreaImpact,0,5,1,1.8,0.5,,3,1,20,62002,,,,,CircleNormal,,
+10005,,,,0,,,,,,,,,,,,,,,,,,,,,,
+10006,ëŒì§„,Dash,ëŒì§„,0,,0,SpellIndicator,,attack,0,7,1,2,2,,3,1,20,,,,,,,,
+90001,CastingImpact,CastingImpact,ì£¼ë³€ ì ì„ íŠ•ê²¨ë‚¸ë‹¤,0,,80000,ProjectilePrefab,,Casting,-1,0,1,0,0,,,1,,62000,,,,,CircleNormal,0,0
+90002,SkillKnockBack,SkillKnockBack,ì „ë°©ì˜ ì ì„ ê°•í•˜ê²Œ ë°€ì³ë‚¸ë‹¤.,0,,80000,ProjectilePrefab,,Casting,-1,0,1,0,0,,,1,,62001,,,,,CircleNormal,0,0
+90003,AreaStun,AreaStun,ì „ë°©ì˜ ì ì„ ì•½í•˜ê²Œ ê²½ì§ ì‹œí‚¨ë‹¤,0,,80000,ProjectilePrefab,,Casting,-1,0,1,0,0,,,1,,62004,,,,,CircleNormal,0,0
+1711,FireBall,FireBall,ì „ë°©ìœ¼ë¡œ í™”ì—¼êµ¬ë¥¼ ë˜ì§„ë‹¤,1,N1 - Q - A,70002,ProjectilePrefab,FireballIcon_01.sprite,NormalAttack,1,0,20,1.1,0,EnergyBolt_Start,0,0,20,,,80022,,,CircleSmall,0,0
+,,,,7,,,,,,,,,,,,,,,,,,,,,,
+,,,,11,,,,,,,,,,,,,,,,,,,,,,
+18912,FireBreath,FireBreath,ì „ë°© ë‹¤ìˆ˜ì— ì ì—ê²Œ í™”ì—¼ì„ ë¿Œë¦°ë‹¤,1,N1 - W - E - S,80020,ProjectilePrefab,FireBreathIcon_01.sprite,NormalAttack,5,0,1,0.5,0,,0,0,,62001,,,,,CircleNormal,,
+,,,,8,,,,,,,,,,,,,,,60013,,,,,,,
+,,,,9,,,,,,,,,,,,,,,,,,,,,,
+,,,,12,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,ì¬ì‚¬ìš© ì£¼ê¸°,,skill ì§€ì† ì‹œê°„,ë°ë¯¸ì§€ íŒì • ì‹œê°í™” íƒ€ì´ë° ì—°ì‚° ì‹œ ì‚¬ìš©,,,,,,,,,,,,
+,,,,,,,,,,,Monsterì—ê²Œë§Œìœ íš¨,,ìŠ¤í‚¬ ì‚¬ìš© ~ í•´ì œ,Monsterì—ê²Œë§Œ ìœ íš¨,,,,,,,,,,,,
+,,,,,,,,,,,,,Monsterì—ê²Œë§Œ ìœ íš¨,,,,,,,,,,,,,

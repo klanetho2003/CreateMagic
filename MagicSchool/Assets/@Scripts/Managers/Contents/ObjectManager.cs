@@ -189,7 +189,7 @@ public class ObjectManager // ID 부여하는 함수, Object들 들고 있는 등
     #region Skill 판정
 
     // Player, Monster 모두 CenterPosition. StartPosition 수정할 수 있도록 할 것. Sheet에 RangeMultipleX & RangeMultipleY
-    public List<CreatureController> FindConeRangeTargets(CreatureController owner, Vector3 dir, float range, int angleRange, bool isAllies = false)
+    public List<CreatureController> FindConeRangeTargets(CreatureController owner, Vector3 startPos, Vector3 dir, float range, int angleRange, bool isAllies = false)
     {
         HashSet<CreatureController> targets = new HashSet<CreatureController>();
         HashSet<CreatureController> ret = new HashSet<CreatureController>();
@@ -198,12 +198,12 @@ public class ObjectManager // ID 부여하는 함수, Object들 들고 있는 등
 
         if (targetType == EObjectType.Monster)
         {
-            var objs = Managers.Map.GatherObjects<MonsterController>(owner.CenterPosition, range, range);
+            var objs = Managers.Map.GatherObjects<MonsterController>(startPos, range, range);
             targets.AddRange(objs);
         }
         else if (targetType == EObjectType.Student)
         {
-            var objs = Managers.Map.GatherObjects<PlayerController>(owner.CenterPosition, range, range);
+            var objs = Managers.Map.GatherObjects<PlayerController>(startPos, range, range);
             targets.AddRange(objs);
         }
 
@@ -211,7 +211,7 @@ public class ObjectManager // ID 부여하는 함수, Object들 들고 있는 등
         {
             // 1. 거리 안에 있는가?
             var targetPos = target.transform.position;
-            float distance = Vector3.Distance(targetPos, owner.CenterPosition);
+            float distance = Vector3.Distance(targetPos, startPos);
 
             if (distance > range)
                 continue;
@@ -222,7 +222,7 @@ public class ObjectManager // ID 부여하는 함수, Object들 들고 있는 등
                 BaseController ownerTarget = (owner as CreatureController).Target;
 
                 // 2. 부채꼴
-                float dot = Vector3.Dot((targetPos - owner.CenterPosition).normalized, dir.normalized);
+                float dot = Vector3.Dot((targetPos - startPos).normalized, dir.normalized);
                 float degree = Mathf.Rad2Deg * Mathf.Acos(dot);
 
                 if (degree > angleRange / 2f)
@@ -244,12 +244,12 @@ public class ObjectManager // ID 부여하는 함수, Object들 들고 있는 등
 
         if (targetType == EObjectType.Monster)
         {
-            var objs = Managers.Map.GatherObjects<MonsterController>(startPos/*owner.transform.position*/, range, range); // owner 기준에서 skill 기준으로 변경
+            var objs = Managers.Map.GatherObjects<MonsterController>(startPos, range, range); // owner 기준에서 skill 기준으로 변경
             targets.AddRange(objs); 
         }
         else if (targetType == EObjectType.Student)
         {
-            var objs = Managers.Map.GatherObjects<PlayerController>(startPos/*owner.transform.position*/, range, range); // owner 기준에서 skill 기준으로 변경
+            var objs = Managers.Map.GatherObjects<PlayerController>(startPos, range, range); // owner 기준에서 skill 기준으로 변경
             targets.AddRange(objs);
         }
 

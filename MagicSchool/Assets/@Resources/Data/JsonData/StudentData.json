@@ -2,14 +2,14 @@
   "Students": [
     {
       "N1_DefaultSkillId": 90002,
-      "N2_DefaultSkillId": 0,
+      "N2_DefaultSkillId": 90003,
       "N3_DefaultSkillId": 90001,
       "N4_DefaultSkillId": 0,
-      "Q_DefaultSkillId": 0,
-      "W_DefaultSkillId": 90001,
+      "Q_DefaultSkillId": 90002,
+      "W_DefaultSkillId": 90003,
       "E_DefaultSkillId": 90001,
-      "R_DefaultSkillId": 0,
-      "A_DefaultSkillId": 0,
+      "R_DefaultSkillId": 90002,
+      "A_DefaultSkillId": 90003,
       "S_DefaultSkillId": 90001,
       "D_DefaultSkillId": 0,
       "TempDevSkillsDataId": [
@@ -54,7 +54,7 @@
       "MaxMp": 0,
       "MpGaugeAmount": 0.0,
       "DataId": 201001,
-      "DescriptionTextID": "������",
+      "DescriptionTextID": "워리어",
       "Label": "HeroPrefab",
       "ColliderOffsetX": 0.0,
       "ColliderOffsetY": 0.5,

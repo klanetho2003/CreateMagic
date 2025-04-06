@@ -383,6 +383,7 @@ public class PlayerController : CreatureController
             return;
 
         base.OnDamaged(attacker, skill);
+        PlayerSkills.ClearCastingValue();
     }
 
     protected override void OnDead(BaseController attacker, SkillBase skill)

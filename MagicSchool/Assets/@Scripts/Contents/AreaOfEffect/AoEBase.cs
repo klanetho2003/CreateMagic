@@ -77,7 +77,7 @@ public class AoEBase : BaseController
 		if (angle == 360)
 			return Managers.Object.FindCircleRangeTargets(Owner, Owner.transform.position, _radius, isAlly);
 		else
-			return Managers.Object.FindConeRangeTargets(Owner, _skillDir, _radius, angle, isAlly);
+			return Managers.Object.FindConeRangeTargets(Owner, Owner.transform.position, _skillDir, _radius, angle, isAlly);
 	}
 
 	private void ApplyEffectsToTargets(List<CreatureController> targets, int[] effects, bool applyDamage)

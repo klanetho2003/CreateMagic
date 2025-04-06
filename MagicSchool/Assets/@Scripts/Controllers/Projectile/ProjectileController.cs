@@ -42,7 +42,7 @@ public class ProjectileController : BaseController
             Anim.runtimeAnimatorController = Managers.Resource.Load<RuntimeAnimatorController>(ProjectileData.AnimatorDataID);
     }
 
-    public void SetSpawnInfo(CreatureController owner, SkillBase skill, LayerMask layer, Action<BaseController> onHit) // SkillBase 중Generate함수 끝 부분에 위치,
+    public void SetSpawnInfo(CreatureController owner, SkillBase skill, Vector3 spawnPos, LayerMask layer, Action<BaseController> onHit) // SkillBase 중Generate함수 끝 부분에 위치,
                                                                                          // 즉, SetInfo > Generate함수 진행 > SetSpawnInfo
     {
         Owner = owner;
@@ -72,7 +72,7 @@ public class ProjectileController : BaseController
 
         LinearMotion linearMotion = ProjectileMotion as LinearMotion;
         if (linearMotion != null)
-            linearMotion.SetInfo(ProjectileData.DataId, owner.GenerateSkillPosition, TargetPosition, () => Managers.Object.Despawn(this));
+            linearMotion.SetInfo(ProjectileData.DataId, spawnPos, TargetPosition, () => Managers.Object.Despawn(this));
     }
 
     private void OnTriggerEnter2D(Collider2D other)

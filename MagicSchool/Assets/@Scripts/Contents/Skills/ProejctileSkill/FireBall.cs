@@ -42,7 +42,8 @@ public class FireBall : SkillBase
 
     protected override void OnAttackEvent()
     {
-        projectile = GenerateProjectile(Owner, Owner.GenerateSkillPosition, ProjectileOnHit);
+        Vector3 startSkillPosition = new Vector3(Owner.GenerateSkillPosition.x + SkillData.RangeMultipleX, Owner.GenerateSkillPosition.y + SkillData.RangeMultipleY);
+        projectile = GenerateProjectile(Owner, startSkillPosition, ProjectileOnHit);
     }
 
     public void ProjectileOnHit(BaseController cc)

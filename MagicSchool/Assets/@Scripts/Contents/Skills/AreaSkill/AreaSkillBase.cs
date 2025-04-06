@@ -61,7 +61,9 @@ public class AreaSkillBase : SkillBase
     {
         // Damage w범위 판정
         float radius = Utils.GetEffectRadius(SkillData.EffectSize);
-        List<CreatureController> targets = Managers.Object.FindConeRangeTargets(Owner, _skillDir, radius, _angleRange);
+
+        Vector3 startSkillPosition = new Vector3(Owner.CenterPosition.x + SkillData.RangeMultipleX, Owner.CenterPosition.y + SkillData.RangeMultipleY);
+        List<CreatureController> targets = Managers.Object.FindConeRangeTargets(Owner, startSkillPosition, _skillDir, radius, _angleRange);
 
         foreach (var target in targets)
         {

@@ -1,8 +1,10 @@
+using Data;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.U2D;
 
-public class SkillKnockBack : AreaSkillBase
+public class AreaStun : AreaSkillBase
 {
     #region Init Method
     public override bool Init()
@@ -19,7 +21,7 @@ public class SkillKnockBack : AreaSkillBase
     {
         base.SetInfo(owner, skillTemplateID);
 
-        _angleRange = 120;
+        _angleRange = 240;
     }
 
     public override void ActivateSkill()
@@ -37,12 +39,10 @@ public class SkillKnockBack : AreaSkillBase
         Vector3 startSkillPosition = new Vector3(Owner.CenterPosition.x + SkillData.RangeMultipleX, Owner.CenterPosition.y + SkillData.RangeMultipleY);
 
         ProjectileController _projectile = GenerateProjectile(Owner, startSkillPosition);
-        // Vector2 lookDir = (Owner.GenerateSkillPosition - Owner.CenterPosition)/*.normalized*/;
-        // _projectile.transform.rotation = Quaternion.Euler(0, 0, Mathf.Atan2(lookDir.y, lookDir.x) * Mathf.Rad2Deg);
 
         // Animation이 나오면 Animation으로 교체 해도됨
         float radius = Utils.GetEffectRadius(SkillData.EffectSize);
-
+        
         List<CreatureController> targets = Managers.Object.FindConeRangeTargets(Owner, startSkillPosition, _skillDir, radius, _angleRange);
 
         foreach (var target in targets)

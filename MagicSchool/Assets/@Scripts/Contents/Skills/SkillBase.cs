@@ -46,6 +46,11 @@ public abstract class SkillBase : MonoBehaviour // 스킬을 스폰 > ActiveSkill 발�
         CurrentSkill = null;
     }
 
+    protected virtual void FindTargets()
+    {
+        // To Do
+    }
+
     protected abstract void OnAttackEvent();
 
     #region Init Method
@@ -165,7 +170,7 @@ public abstract class SkillBase : MonoBehaviour // 스킬을 스폰 > ActiveSkill 발�
                 break;
         }
 
-        projectile.SetSpawnInfo(Owner, this, excludeMask, onHit);
+        projectile.SetSpawnInfo(Owner, this, spawnPos, excludeMask, onHit);
 
         return projectile;
     }

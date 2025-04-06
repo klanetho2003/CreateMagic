@@ -25,7 +25,8 @@ public class FireBreath : AreaSkillBase
     {
         base.OnAttackEvent();
 
-        ProjectileController _projectile = GenerateProjectile(Owner, Owner.GenerateSkillPosition);
+        Vector3 startSkillPosition = new Vector3(Owner.CenterPosition.x + SkillData.RangeMultipleX, Owner.CenterPosition.y + SkillData.RangeMultipleY);
+        ProjectileController _projectile = GenerateProjectile(Owner, startSkillPosition);
         Vector2 lookDir = (Owner.GenerateSkillPosition - Owner.CenterPosition)/*.normalized*/;
 
         _projectile.transform.rotation = Quaternion.Euler(0, 0, Mathf.Atan2(lookDir.y, lookDir.x) * Mathf.Rad2Deg);

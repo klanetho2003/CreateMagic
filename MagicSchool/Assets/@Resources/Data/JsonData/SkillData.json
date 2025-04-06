@@ -2,9 +2,9 @@
   "skills": [
     {
       "DataId": 10001,
-      "Name": "�⺻����",
+      "Name": "기본공격",
       "ClassName": "NormalAttack",
-      "Description": "������Ÿ",
+      "Description": "근접평타",
       "InputValues": [
         0
       ],
@@ -25,15 +25,17 @@
       "EffectIds": [],
       "NextLevelId": 0,
       "AoEId": 0,
+      "RangeMultipleX": 0.0,
+      "RangeMultipleY": 0.0,
       "EffectSize": 0,
       "ActivateSkillDelay": 0.0,
       "CompleteSkillDelay": 0.0
     },
     {
       "DataId": 10002,
-      "Name": "���ڵ� ������Ÿ",
+      "Name": "위자드 직선평타",
       "ClassName": "NormalAttack",
-      "Description": "�ֺ��� ���� ���� ������ ��Ʈ�� �߻��Ѵ�",
+      "Description": "주변의 적을 향해 에너지 볼트를 발사한다",
       "InputValues": [
         0
       ],
@@ -54,15 +56,17 @@
       "EffectIds": [],
       "NextLevelId": 0,
       "AoEId": 0,
+      "RangeMultipleX": 0.0,
+      "RangeMultipleY": 0.0,
       "EffectSize": 0,
       "ActivateSkillDelay": 0.0,
       "CompleteSkillDelay": 0.0
     },
     {
       "DataId": 10003,
-      "Name": "ȭ��� ���� ��Ÿ",
+      "Name": "화살든 고블린 평타",
       "ClassName": "NormalAttack",
-      "Description": "�ֺ��� ���� ���� ������ ��Ʈ�� �߻��Ѵ�",
+      "Description": "주변의 적을 향해 에너지 볼트를 발사한다",
       "InputValues": [
         0
       ],
@@ -83,6 +87,8 @@
       "EffectIds": [],
       "NextLevelId": 0,
       "AoEId": 0,
+      "RangeMultipleX": 0.0,
+      "RangeMultipleY": 0.0,
       "EffectSize": 0,
       "ActivateSkillDelay": 0.0,
       "CompleteSkillDelay": 0.0
@@ -91,7 +97,7 @@
       "DataId": 10004,
       "Name": "AreaImpact",
       "ClassName": "AreaImpact",
-      "Description": "���� ���� ����",
+      "Description": "보스 원형 공격",
       "InputValues": [
         0
       ],
@@ -114,6 +120,8 @@
       ],
       "NextLevelId": 0,
       "AoEId": 0,
+      "RangeMultipleX": 0.0,
+      "RangeMultipleY": 0.0,
       "EffectSize": 1,
       "ActivateSkillDelay": 0.0,
       "CompleteSkillDelay": 0.0
@@ -143,15 +151,17 @@
       "EffectIds": [],
       "NextLevelId": 0,
       "AoEId": 0,
+      "RangeMultipleX": 0.0,
+      "RangeMultipleY": 0.0,
       "EffectSize": 0,
       "ActivateSkillDelay": 0.0,
       "CompleteSkillDelay": 0.0
     },
     {
       "DataId": 10006,
-      "Name": "����",
+      "Name": "돌진",
       "ClassName": "Dash",
-      "Description": "����",
+      "Description": "돌진",
       "InputValues": [
         0
       ],
@@ -172,6 +182,8 @@
       "EffectIds": [],
       "NextLevelId": 0,
       "AoEId": 0,
+      "RangeMultipleX": 0.0,
+      "RangeMultipleY": 0.0,
       "EffectSize": 0,
       "ActivateSkillDelay": 0.0,
       "CompleteSkillDelay": 0.0
@@ -180,7 +192,7 @@
       "DataId": 90001,
       "Name": "CastingImpact",
       "ClassName": "CastingImpact",
-      "Description": "�ֺ� ���� ƨ�ܳ���",
+      "Description": "주변 적을 튕겨낸다",
       "InputValues": [
         0
       ],
@@ -203,6 +215,8 @@
       ],
       "NextLevelId": 0,
       "AoEId": 0,
+      "RangeMultipleX": 0.0,
+      "RangeMultipleY": 0.0,
       "EffectSize": 1,
       "ActivateSkillDelay": 0.0,
       "CompleteSkillDelay": 0.0
@@ -211,7 +225,7 @@
       "DataId": 90002,
       "Name": "SkillKnockBack",
       "ClassName": "SkillKnockBack",
-      "Description": "������ ���� ���ϰ� ���ĳ���.",
+      "Description": "전방의 적을 강하게 밀쳐낸다.",
       "InputValues": [
         0
       ],
@@ -234,6 +248,41 @@
       ],
       "NextLevelId": 0,
       "AoEId": 0,
+      "RangeMultipleX": 0.0,
+      "RangeMultipleY": 0.0,
+      "EffectSize": 1,
+      "ActivateSkillDelay": 0.0,
+      "CompleteSkillDelay": 0.0
+    },
+    {
+      "DataId": 90003,
+      "Name": "AreaStun",
+      "ClassName": "AreaStun",
+      "Description": "전방의 적을 약하게 경직 시킨다",
+      "InputValues": [
+        0
+      ],
+      "InputDescription": null,
+      "ProjectileId": 80000,
+      "PrefabLabel": "ProjectilePrefab",
+      "IconLabel": null,
+      "AnimName": "Casting",
+      "UsedMp": -1,
+      "CoolTime": 0.0,
+      "DamageMultiplier": 1.0,
+      "SkillDuration": 0.0,
+      "AnimImpactDuration": 0.0,
+      "CastingSound": null,
+      "SkillRange": 0.0,
+      "ScaleMultiplier": 1.0,
+      "TargetCount": 0,
+      "EffectIds": [
+        62004
+      ],
+      "NextLevelId": 0,
+      "AoEId": 0,
+      "RangeMultipleX": 0.0,
+      "RangeMultipleY": 0.0,
       "EffectSize": 1,
       "ActivateSkillDelay": 0.0,
       "CompleteSkillDelay": 0.0
@@ -242,7 +291,7 @@
       "DataId": 1711,
       "Name": "FireBall",
       "ClassName": "FireBall",
-      "Description": "�������� ȭ������ ������",
+      "Description": "전방으로 화염구를 던진다",
       "InputValues": [
         1,
         7,
@@ -265,6 +314,8 @@
       "EffectIds": [],
       "NextLevelId": 0,
       "AoEId": 80022,
+      "RangeMultipleX": 0.0,
+      "RangeMultipleY": 0.0,
       "EffectSize": 0,
       "ActivateSkillDelay": 0.0,
       "CompleteSkillDelay": 0.0
@@ -273,7 +324,7 @@
       "DataId": 18912,
       "Name": "FireBreath",
       "ClassName": "FireBreath",
-      "Description": "���� �ټ��� ������ ȭ���� �Ѹ���",
+      "Description": "전방 다수에 적에게 화염을 뿌린다",
       "InputValues": [
         1,
         8,
@@ -300,6 +351,8 @@
       ],
       "NextLevelId": 0,
       "AoEId": 0,
+      "RangeMultipleX": 0.0,
+      "RangeMultipleY": 0.0,
       "EffectSize": 1,
       "ActivateSkillDelay": 0.0,
       "CompleteSkillDelay": 0.0
