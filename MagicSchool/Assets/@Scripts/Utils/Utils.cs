@@ -155,4 +155,14 @@ public static class Utils
 
         return spawnPosition;
     }
+
+    public static Vector2 ApplyPositionWeight(float weightX, float weightY, Vector2 lookDir)
+    {
+        if (lookDir == Vector2.zero)
+            return Vector2.zero;
+
+        Vector2 input = new Vector2(weightX, weightY);
+        Quaternion rotation = Quaternion.FromToRotation(Vector2.right, lookDir.normalized);
+        return rotation * input;
+    }
 }

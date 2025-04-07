@@ -59,7 +59,7 @@ public class AreaSkillBase : SkillBase
 
     protected override void OnAttackEvent()
     {
-        // Damage w범위 판정
+        // Damage 판정 범위 연산
         float radius = Utils.GetEffectRadius(SkillData.EffectSize);
 
         Vector3 startSkillPosition = new Vector3(Owner.CenterPosition.x + SkillData.RangeMultipleX, Owner.CenterPosition.y + SkillData.RangeMultipleY);
