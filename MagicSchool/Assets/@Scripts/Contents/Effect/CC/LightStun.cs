@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-public class Stun : CCBase
+public class LightStun : CCBase
 {
 	public override bool Init()
 	{

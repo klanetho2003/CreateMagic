@@ -158,6 +158,8 @@ public static class Utils
 
     public static Vector2 ApplyPositionWeight(float weightX, float weightY, Vector2 lookDir)
     {
+        if (weightX == 0 && weightY == 0)
+            return Vector2.zero;
         if (lookDir == Vector2.zero)
             return Vector2.zero;
 

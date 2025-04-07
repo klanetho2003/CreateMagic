@@ -1,8 +1,11 @@
+using Data;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.U2D;
+using static Define;
 
-public class SkillKnockBack : DefaultSkillBase
+public class LightStaggerSkill : DefaultSkillBase
 {
     #region Init Method
     public override bool Init()
@@ -19,7 +22,7 @@ public class SkillKnockBack : DefaultSkillBase
     {
         base.SetInfo(owner, skillTemplateID);
 
-        _angleRange = 120;
+        _angleRange = 240;
     }
 
     public override void ActivateSkill()

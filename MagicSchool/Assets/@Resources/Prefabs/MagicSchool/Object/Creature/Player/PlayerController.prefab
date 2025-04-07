@@ -276,6 +276,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 125a25173ce8f974591434d86cd0403d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _cellPos: {x: 0, y: 0, z: 0}
   MaxHp:
     _value: 0
   Atk:
@@ -293,6 +294,8 @@ MonoBehaviour:
   MoveSpeed:
     _value: 0
   AttackSpeedRate:
+    _value: 0
+  MaxMp:
     _value: 0
 --- !u!114 &8136187795893987591
 MonoBehaviour:
@@ -763,6 +766,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 944207b61f92f904d9a74b1fbaaa4880, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _cellPos: {x: 0, y: 0, z: 0}
 --- !u!1 &5446460688913537869
 GameObject:
   m_ObjectHideFlags: 0

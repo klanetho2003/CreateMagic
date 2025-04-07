@@ -1,32 +1,33 @@
 DataId,Name,ClassName,Description,AnimatorDataID,AnimName,MaterialID,SpriteID,SortingLayerName,IconLabel,SoundLabel,Amount,PercentAdd,PercentMult,TickTime,TickCount,EffectType
-60001,µµÆ®µ©ÃâÇ÷,DotBase,ÇÑÆ½´ç 4¸¸Å­ µµÆ®µ© 5ÃÊ À¯Áö,,,,,Skill,,,4,0,0,1,5,Debuff
-60002,µµÆ®µ©µ¶,DotBase,ÇÑÆ½´ç 3¸¸Å­ µµÆ®µ© 5ÃÊ À¯Áö,debuff_poison_1_SkeletonData,,,,Skill,,,3,0,0,1,5,Debuff
-60003,È­»ó,DotBase,ÇÑÆ½´ç ÃÖ´ëÃ¼·Â 1% µµÆ®µ© 5ÃÊÀ¯Áö,,,,,Skill,,,0,0.05,0,1,5,Debuff
-60004,µµÆ®Èú,DotBase,ÇÑÆ½´ç ÃÖ´ëÃ¼·ÂÀÇ 2%¸¦ 5ÃÊµ¿¾È ¿Ã·ÁÁØ´Ù,heal_1_SkeletonData,,,,Skill,,,0,0.05,0,1,5,Debuff
-60005,Èú,DotBase,ÇÑÆ½´ç Ã¼·Â 50¸¸Å­ È¸º¹,heal_1_SkeletonData,,,,Skill,,,50,1,0,1,1,Buff
-61001,°ø¾÷¹öÇÁ,AttackBuff,Amount + percent,,,,,Skill,,,0,0.3,0,1,5,Buff
-61002,°ø¾÷µğ¹öÇÁ,AttackBuff,Amount + percent,,,,,Skill,,,0,-0.3,0,1,5,Debuff
-61003,ÀÌ¼Ó¹öÇÁ,MoveSpeedBuff,Amount + percent,,,,,Skill,,,0,0.2,0,1,5,Buff
-61004,ÀÌ¼Óµğ¹öÇÁ,MoveSpeedBuff,Amount + percent,,,,,Skill,,,0,-0.2,0,1,5,Debuff
-61005,°ø¼Ó¹öÇÁ,AttackSpeedBuff,Amount + percent,buff_attack_speed_SkeletonData,,,,Skill,,,0,0.5,0,1,5,Buff
-61006,°ø¼Óµğ¹öÇÁ,AttackSpeedBuff,Amount + percent,,,,,Skill,,,0,-0.3,0,1,5,Debuff
-61007,ÈíÇ÷·®¹öÇÁ,LifeStealBuff,Amount + percent,buff_blood_up_SkeletonData,,,,Skill,,,0.3,0,0,1,5,Buff
-61008,ÈíÇ÷·®µğ¹öÇÁ,LifeStealBuff,Amount + percent,,,,,Skill,,,-0.3,0,0,1,5,Debuff
-61009,¹Ş´ÂÇÇÇØ¹öÇÁ,ReduceDmgBuff,Amount + percent,,,,,Skill,,,0.3,0,0,1,5,Buff
-61010,¹Ş´ÂÇÇÇØµğ¹öÇÁ,ReduceDmgBuff,Amount + percent,,,,,Skill,,,-0.3,0,0,1,5,Debuff
-61011,°¡½Ã,ThornsBuff,ÃÑ µ¥¹ÌÁöÀÇ ¸îÆÛ¸¸Å­ µ¥¹ÌÁö ¹İ»ç,,,,,Skill,,,0.3,0,0,1,5,Debuff
-62000,³Ë¹é_¾à,KnockBack,ÇÑÆ½¿¡ ³Ë¹é,,,,,Skill,,,2,0,0,0,0,Debuff
-62001,³Ë¹é_°­,KnockBack,ÇÑÆ½¿¡ ³Ë¹é,,,,,Skill,,,8,0,0,0,0,Debuff
-62002,¿¡¾îº»,Airborne,Durationµ¿¾È ¿¡¾îº»,,,,,Skill,,,0,0,0,1,1,CrowdControl
-62003,¶¯±â±â,PullEffect,ÇÑÆ½´ç Á¶±İ¾¿ ´ó±è,,,,,Skill,,,0,0,0,0.5,1,CrowdControl
-62004,½ºÅÏ,Stun,Duration µ¿¾È ½ºÅÏ,stun_SkeletonData,,,,Skill,,,0,0,0,1,10,CrowdControl
-62006,Á¤È­,CleanDebuff,Duration µ¿¾È ½ºÅÏ,,,,,Skill,,,0,0,0,0,0,Buff
-60006,¸Íµ¶È®»ê1 Effect,DotBase,ÇÑÆ½´ç 3¸¸Å­ µµÆ®µ© 5ÃÊ À¯Áö,debuff_poison_1_SkeletonData,,,,Skill,,,3,0,0,1,5,Debuff
-60007,¸Íµ¶È®»ê2 Effect,DotBase,ÇÑÆ½´ç 3¸¸Å­ µµÆ®µ© 5ÃÊ À¯Áö,debuff_poison_1_SkeletonData,,,,Skill,,,3,0,0,1,5,Debuff
-60008,¸Íµ¶È®»ê3 Effect,DotBase,ÇÑÆ½´ç 3¸¸Å­ µµÆ®µ© 5ÃÊ À¯Áö,debuff_poison_1_SkeletonData,,,,Skill,,,3,0,0,1,5,Debuff
-60009,ºù°á1,DotBase,Duration µ¿¾È ½ºÅÏ,debuff_freezing_SkeletonData,,,,Skill,,,0,0,0,1,1,Debuff
-60010,ºù°á2,DotBase,Duration µ¿¾È ½ºÅÏ,debuff_freezing_SkeletonData,,,,Skill,,,0,0,0,1,2,Debuff
-60011,ºù°á3,DotBase,Duration µ¿¾È ½ºÅÏ,debuff_freezing_SkeletonData,,,,Skill,,,0,0,0,1,3,Debuff
-60012,È­»ó1,Burn,ÇÑÆ½´ç ÃÖ´ëÃ¼·Â 1% µµÆ®µ© 5ÃÊÀ¯Áö,Burning_Animator,,,,Skill,,,5,0.05,0,1,3,Debuff
-60013,È­»ó2,Burn,ÇÑÆ½´ç ÃÖ´ëÃ¼·Â 1% µµÆ®µ© 5ÃÊÀ¯Áö,Burning_Animator,,,,Skill,,,5,0.05,0,1,6,Debuff
-60014,È­»ó3,DotBase,ÇÑÆ½´ç ÃÖ´ëÃ¼·Â 1% µµÆ®µ© 5ÃÊÀ¯Áö,debuff_burning_SkeletonData,,,,Skill,,,0,0.05,0,1,5,Debuff
+60001,ë„íŠ¸ë€ì¶œí˜ˆ,DotBase,í•œí‹±ë‹¹ 4ë§Œí¼ ë„íŠ¸ë€ 5ì´ˆ ìœ ì§€,,,,,Skill,,,4,0,0,1,5,Debuff
+60002,ë„íŠ¸ë€ë…,DotBase,í•œí‹±ë‹¹ 3ë§Œí¼ ë„íŠ¸ë€ 5ì´ˆ ìœ ì§€,debuff_poison_1_SkeletonData,,,,Skill,,,3,0,0,1,5,Debuff
+60003,í™”ìƒ,DotBase,í•œí‹±ë‹¹ ìµœëŒ€ì²´ë ¥ 1% ë„íŠ¸ë€ 5ì´ˆìœ ì§€,,,,,Skill,,,0,0.05,0,1,5,Debuff
+60004,ë„íŠ¸í,DotBase,í•œí‹±ë‹¹ ìµœëŒ€ì²´ë ¥ì˜ 2%ë¥¼ 5ì´ˆë™ì•ˆ ì˜¬ë ¤ì¤€ë‹¤,heal_1_SkeletonData,,,,Skill,,,0,0.05,0,1,5,Debuff
+60005,í,DotBase,í•œí‹±ë‹¹ ì²´ë ¥ 50ë§Œí¼ íšŒë³µ,heal_1_SkeletonData,,,,Skill,,,50,1,0,1,1,Buff
+61001,ê³µì—…ë²„í”„,AttackBuff,Amount + percent,,,,,Skill,,,0,0.3,0,1,5,Buff
+61002,ê³µì—…ë””ë²„í”„,AttackBuff,Amount + percent,,,,,Skill,,,0,-0.3,0,1,5,Debuff
+61003,ì´ì†ë²„í”„,MoveSpeedBuff,Amount + percent,,,,,Skill,,,0,0.2,0,1,5,Buff
+61004,ì´ì†ë””ë²„í”„,MoveSpeedBuff,Amount + percent,,,,,Skill,,,0,-0.2,0,1,5,Debuff
+61005,ê³µì†ë²„í”„,AttackSpeedBuff,Amount + percent,buff_attack_speed_SkeletonData,,,,Skill,,,0,0.5,0,1,5,Buff
+61006,ê³µì†ë””ë²„í”„,AttackSpeedBuff,Amount + percent,,,,,Skill,,,0,-0.3,0,1,5,Debuff
+61007,í¡í˜ˆëŸ‰ë²„í”„,LifeStealBuff,Amount + percent,buff_blood_up_SkeletonData,,,,Skill,,,0.3,0,0,1,5,Buff
+61008,í¡í˜ˆëŸ‰ë””ë²„í”„,LifeStealBuff,Amount + percent,,,,,Skill,,,-0.3,0,0,1,5,Debuff
+61009,ë°›ëŠ”í”¼í•´ë²„í”„,ReduceDmgBuff,Amount + percent,,,,,Skill,,,0.3,0,0,1,5,Buff
+61010,ë°›ëŠ”í”¼í•´ë””ë²„í”„,ReduceDmgBuff,Amount + percent,,,,,Skill,,,-0.3,0,0,1,5,Debuff
+61011,ê°€ì‹œ,ThornsBuff,ì´ ë°ë¯¸ì§€ì˜ ëª‡í¼ë§Œí¼ ë°ë¯¸ì§€ ë°˜ì‚¬,,,,,Skill,,,0.3,0,0,1,5,Debuff
+62000,ë„‰ë°±_ì•½,KnockBack,í•œí‹±ì— ë„‰ë°±,,,,,Skill,,,2,0,0,0,0,Debuff
+62001,ë„‰ë°±_ê°•,KnockBack,í•œí‹±ì— ë„‰ë°±,,,,,Skill,,,8,0,0,0,0,Debuff
+62002,ì—ì–´ë³¸,Airborne,Durationë™ì•ˆ ì—ì–´ë³¸,,,,,Skill,,,0,0,0,1,1,CrowdControl
+62003,ë•¡ê¸°ê¸°,PullEffect,í•œí‹±ë‹¹ ì¡°ê¸ˆì”© ëŒ•ê¹€,,,,,Skill,,,0,0,0,0.5,1,CrowdControl
+62004,ì•½ìŠ¤í„´,LightStun,Duration ë™ì•ˆ ìŠ¤í„´,,,,,Skill,,,0,0,0,1,3,CrowdControl
+62005,ê°•ìŠ¤í„´,HeavyStun,Duration ë™ì•ˆ ìŠ¤í„´,,,,,Skill,,,0,0,0,1,10,CrowdControl
+62006,ì •í™”,CleanDebuff,Duration ë™ì•ˆ ìŠ¤í„´,,,,,Skill,,,0,0,0,0,0,Buff
+60006,ë§¹ë…í™•ì‚°1 Effect,DotBase,í•œí‹±ë‹¹ 3ë§Œí¼ ë„íŠ¸ë€ 5ì´ˆ ìœ ì§€,debuff_poison_1_SkeletonData,,,,Skill,,,3,0,0,1,5,Debuff
+60007,ë§¹ë…í™•ì‚°2 Effect,DotBase,í•œí‹±ë‹¹ 3ë§Œí¼ ë„íŠ¸ë€ 5ì´ˆ ìœ ì§€,debuff_poison_1_SkeletonData,,,,Skill,,,3,0,0,1,5,Debuff
+60008,ë§¹ë…í™•ì‚°3 Effect,DotBase,í•œí‹±ë‹¹ 3ë§Œí¼ ë„íŠ¸ë€ 5ì´ˆ ìœ ì§€,debuff_poison_1_SkeletonData,,,,Skill,,,3,0,0,1,5,Debuff
+60009,ë¹™ê²°1,DotBase,Duration ë™ì•ˆ ìŠ¤í„´,debuff_freezing_SkeletonData,,,,Skill,,,0,0,0,1,1,Debuff
+60010,ë¹™ê²°2,DotBase,Duration ë™ì•ˆ ìŠ¤í„´,debuff_freezing_SkeletonData,,,,Skill,,,0,0,0,1,2,Debuff
+60011,ë¹™ê²°3,DotBase,Duration ë™ì•ˆ ìŠ¤í„´,debuff_freezing_SkeletonData,,,,Skill,,,0,0,0,1,3,Debuff
+60012,í™”ìƒ1,Burn,í•œí‹±ë‹¹ ìµœëŒ€ì²´ë ¥ 1% ë„íŠ¸ë€ 5ì´ˆìœ ì§€,Burning_Animator,,,,Skill,,,5,0.05,0,1,3,Debuff
+60013,í™”ìƒ2,Burn,í•œí‹±ë‹¹ ìµœëŒ€ì²´ë ¥ 1% ë„íŠ¸ë€ 5ì´ˆìœ ì§€,Burning_Animator,,,,Skill,,,5,0.05,0,1,6,Debuff
+60014,í™”ìƒ3,DotBase,í•œí‹±ë‹¹ ìµœëŒ€ì²´ë ¥ 1% ë„íŠ¸ë€ 5ì´ˆìœ ì§€,debuff_burning_SkeletonData,,,,Skill,,,0,0.05,0,1,5,Debuff

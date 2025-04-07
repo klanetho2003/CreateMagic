@@ -188,7 +188,6 @@ public class ObjectManager // ID 부여하는 함수, Object들 들고 있는 등
 
     #region Skill 판정
 
-    // Player, Monster 모두 CenterPosition. StartPosition 수정할 수 있도록 할 것. Sheet에 RangeMultipleX & RangeMultipleY
     public List<CreatureController> FindConeRangeTargets(CreatureController owner, Vector3 startPos, Vector3 dir, float range, int angleRange, bool isAllies = false)
     {
         HashSet<CreatureController> targets = new HashSet<CreatureController>();
@@ -223,6 +222,52 @@ public class ObjectManager // ID 부여하는 함수, Object들 들고 있는 등
 
                 // 2. 부채꼴
                 float dot = Vector3.Dot((targetPos - startPos).normalized, dir.normalized);
+                float degree = Mathf.Rad2Deg * Mathf.Acos(dot);
+
+                if (degree > angleRange / 2f)
+                    continue;
+            }
+
+            ret.Add(target);
+        }
+
+        return ret.ToList();
+    }
+
+    public List<CreatureController> FindTriangleRangeTargets(CreatureController owner, Vector3 startPos, Vector3 dir, float range, int angleRange, bool isAllies = false)
+    {
+        HashSet<CreatureController> targets = new HashSet<CreatureController>();
+        HashSet<CreatureController> ret = new HashSet<CreatureController>();
+
+        EObjectType targetType = Utils.DetermineTargetType(owner.ObjectType, isAllies);
+
+        if (targetType == EObjectType.Monster)
+        {
+            var objs = Managers.Map.GatherObjects<MonsterController>(startPos, range, range);
+            targets.AddRange(objs);
+        }
+        else if (targetType == EObjectType.Student)
+        {
+            var objs = Managers.Map.GatherObjects<PlayerController>(startPos, range, range);
+            targets.AddRange(objs);
+        }
+
+        foreach (var target in targets)
+        {
+            // 1. 거리 안에 있는가?
+            var targetPos = target.transform.position;
+            float distance = Vector3.Distance(targetPos, startPos);
+
+            if (distance > range)
+                continue;
+
+            // 2. 각도 check
+            if (angleRange != 360)
+            {
+                BaseController ownerTarget = (owner as CreatureController).Target;
+
+                // 2. 부채꼴
+                float dot = Vector3.Dot((startPos - targetPos).normalized, dir.normalized);
                 float degree = Mathf.Rad2Deg * Mathf.Acos(dot);
 
                 if (degree > angleRange / 2f)

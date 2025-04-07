@@ -5,9 +5,12 @@ using UnityEngine;
 public class AreaSkillBase : SkillBase
 {
     protected SpellIndicator _indicator;
-    protected Vector2 _skillDir;
     protected Define.EIndicatorType _indicatorType = Define.EIndicatorType.Cone;
     protected int _angleRange = 360;
+
+    public ProjectileController Projectile { get; protected set; }
+    protected Vector2 _skillLookDir { get; set; }
+    protected Vector3 _skillcenterPosition { get; set; }
 
     public override void SetInfo(CreatureController owner, int skillTemplateID)
     {
@@ -22,9 +25,13 @@ public class AreaSkillBase : SkillBase
             return;
 
         if (Owner.Target != null)
-            _skillDir = (Owner.Target.transform.position - Owner.transform.position).normalized;
+            _skillLookDir = (Owner.Target.transform.position - Owner.transform.position).normalized;
         else
-            _skillDir = (Owner.GenerateSkillPosition - Owner.CenterPosition).normalized;
+            _skillLookDir = (Owner.GenerateSkillPosition - Owner.CenterPosition).normalized;
+
+        // 방향 + 따른 가중치 연산
+        Vector2 weight = Utils.ApplyPositionWeight(SkillData.RangeMultipleX, SkillData.RangeMultipleY, _skillLookDir);
+        _skillcenterPosition = Owner.CenterPosition + (Vector3)weight;
     }
 
     public override void CancelSkill()
@@ -49,7 +56,7 @@ public class AreaSkillBase : SkillBase
         /*if (Owner.Target.IsValid() == false)
             return;*/
 
-        _indicator.ShowCone(Owner.transform.position, _skillDir.normalized, _angleRange);
+        _indicator.ShowCone(Owner.transform.position, _skillLookDir.normalized, _angleRange);
     }
 
     protected override void OnAttackTargetHandler()
@@ -59,11 +66,13 @@ public class AreaSkillBase : SkillBase
 
     protected override void OnAttackEvent()
     {
+        // Projectile
+        if (SkillData.ProjectileId != 0)
+            Projectile = GenerateProjectile(Owner, _skillcenterPosition);
+
         // Damage 판정 범위 연산
         float radius = Utils.GetEffectRadius(SkillData.EffectSize);
-
-        Vector3 startSkillPosition = new Vector3(Owner.CenterPosition.x + SkillData.RangeMultipleX, Owner.CenterPosition.y + SkillData.RangeMultipleY);
-        List<CreatureController> targets = Managers.Object.FindConeRangeTargets(Owner, startSkillPosition, _skillDir, radius, _angleRange);
+        List<CreatureController> targets = Managers.Object.FindConeRangeTargets(Owner, _skillcenterPosition, _skillLookDir, radius, _angleRange);
 
         foreach (var target in targets)
         {

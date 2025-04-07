@@ -3,8 +3,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.U2D;
+using static Define;
 
-public class AreaStun : AreaSkillBase
+public class HeavyStaggerSkill : DefaultSkillBase
 {
     #region Init Method
     public override bool Init()
@@ -21,29 +22,23 @@ public class AreaStun : AreaSkillBase
     {
         base.SetInfo(owner, skillTemplateID);
 
-        _angleRange = 240;
+        _angleRange = 90;
     }
 
     public override void ActivateSkill()
     {
-        if (Owner.Target != null)
-            _skillDir = (Owner.Target.transform.position - Owner.transform.position).normalized;
-        else
-            _skillDir = (Owner.GenerateSkillPosition - Owner.CenterPosition).normalized;
-
-        OnAttackEvent();
+        base.ActivateSkill();
     }
 
     protected override void OnAttackEvent()
     {
-        Vector3 startSkillPosition = new Vector3(Owner.CenterPosition.x + SkillData.RangeMultipleX, Owner.CenterPosition.y + SkillData.RangeMultipleY);
+        // Projectile
+        if (SkillData.ProjectileId != 0)
+            Projectile = GenerateProjectile(Owner, _skillcenterPosition);
 
-        ProjectileController _projectile = GenerateProjectile(Owner, startSkillPosition);
-
-        // Animation이 나오면 Animation으로 교체 해도됨
+        // Damage 판정 범위 연산
         float radius = Utils.GetEffectRadius(SkillData.EffectSize);
-        
-        List<CreatureController> targets = Managers.Object.FindConeRangeTargets(Owner, startSkillPosition, _skillDir, radius, _angleRange);
+        List<CreatureController> targets = Managers.Object.FindTriangleRangeTargets(Owner, _skillcenterPosition, _skillLookDir, radius, _angleRange);
 
         foreach (var target in targets)
         {
