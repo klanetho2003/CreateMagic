@@ -355,6 +355,15 @@ public class PlayerController : CreatureController
             return;
         }
 
+        // 전방에 한 칸이 갈 수 있는 영역인가? - 빠른 탈출
+        Vector3Int frontCellPos = Managers.Map.World2Cell(transform.position + (Vector3)_moveDir.normalized);
+        if (Managers.Map.CanGo(this, frontCellPos) == false)
+        {
+            SetRigidBodyVelocity(Vector3.zero); // To Do : 길찾기
+            return;
+        }
+
+        //실제 좌표 연산
         Vector3 dest = _moveDir.normalized * MoveSpeed.Value;
         Vector3Int destCellPos = Managers.Map.World2Cell(transform.position + (dest * Time.fixedDeltaTime));
 
