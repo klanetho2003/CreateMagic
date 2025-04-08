@@ -1,11 +1,10 @@
-using Data;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using static Define;
 
-public class FireExplosionAoE : AoEBase
+public class CircleShapeAoE : AoEBase
 {
     protected override void OnDisable()
     {
@@ -25,11 +24,13 @@ public class FireExplosionAoE : AoEBase
     {
         base.SetInfo(dataId, owner, skill);
 
+        SetAnimation(_aoEData.AnimatorDataID, _aoEData.SortingLayerName, SortingLayers.SKILL_EFFECT);
+
         StartCoroutine(CoReserveDestroy());
         StartCoroutine(CoDetectTargetsPeriodically());
     }
 
-    private IEnumerator CoDetectTargetsPeriodically()
+    protected virtual IEnumerator CoDetectTargetsPeriodically()
     {
         while (true)
         {
@@ -38,7 +39,7 @@ public class FireExplosionAoE : AoEBase
         }
     }
 
-    private void DetectTargets()
+    protected virtual void DetectTargets()
     {
         List<CreatureController> detectedCreatures = new List<CreatureController>();
         List<CreatureController> rangeTargets = Managers.Object.FindCircleRangeTargets(Owner, transform.position, _radius);
@@ -70,7 +71,7 @@ public class FireExplosionAoE : AoEBase
         }
     }
 
-    private void RemoveEffect(CreatureController target)
+    protected virtual void RemoveEffect(CreatureController target)
     {
         List<EffectBase> effectsToRemove = new List<EffectBase>();
 
@@ -87,11 +88,5 @@ public class FireExplosionAoE : AoEBase
         {
             _activeEffects.Remove(effect);
         }
-    }
-
-    protected override IEnumerator CoReserveDestroy()
-    {
-        yield return new WaitForSeconds(_aoEData.Duration);
-        Managers.Object.Despawn(this); // To Pooling
     }
 }

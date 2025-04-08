@@ -2,9 +2,9 @@
   "skills": [
     {
       "DataId": 10001,
-      "Name": "기본공격",
+      "Name": "�⺻����",
       "ClassName": "NormalAttack",
-      "Description": "근접평타",
+      "Description": "������Ÿ",
       "InputValues": [
         0
       ],
@@ -33,9 +33,9 @@
     },
     {
       "DataId": 10002,
-      "Name": "위자드 직선평타",
+      "Name": "���ڵ� ������Ÿ",
       "ClassName": "NormalAttack",
-      "Description": "주변의 적을 향해 에너지 볼트를 발사한다",
+      "Description": "�ֺ��� ���� ���� ������ ��Ʈ�� �߻��Ѵ�",
       "InputValues": [
         0
       ],
@@ -64,9 +64,9 @@
     },
     {
       "DataId": 10003,
-      "Name": "화살든 고블린 평타",
+      "Name": "ȭ��� ���� ��Ÿ",
       "ClassName": "NormalAttack",
-      "Description": "주변의 적을 향해 에너지 볼트를 발사한다",
+      "Description": "�ֺ��� ���� ���� ������ ��Ʈ�� �߻��Ѵ�",
       "InputValues": [
         0
       ],
@@ -97,7 +97,7 @@
       "DataId": 10004,
       "Name": "AreaImpact",
       "ClassName": "AreaImpact",
-      "Description": "보스 원형 공격",
+      "Description": "���� ���� ����",
       "InputValues": [
         0
       ],
@@ -159,9 +159,9 @@
     },
     {
       "DataId": 10006,
-      "Name": "돌진",
+      "Name": "����",
       "ClassName": "Dash",
-      "Description": "돌진",
+      "Description": "����",
       "InputValues": [
         0
       ],
@@ -192,7 +192,7 @@
       "DataId": 90001,
       "Name": "CastingImpact",
       "ClassName": "CastingImpact",
-      "Description": "주변 적을 튕겨낸다",
+      "Description": "�ֺ� ���� ƨ�ܳ���",
       "InputValues": [
         0
       ],
@@ -225,7 +225,7 @@
       "DataId": 90002,
       "Name": "SkillKnockBack",
       "ClassName": "SkillKnockBack",
-      "Description": "전방의 적을 강하게 밀쳐낸다.",
+      "Description": "������ ���� ���ϰ� ���ĳ���.",
       "InputValues": [
         0
       ],
@@ -258,7 +258,7 @@
       "DataId": 90003,
       "Name": "LightStaggerSkill",
       "ClassName": "LightStaggerSkill",
-      "Description": "전방의 적을 약하게 경직 시킨다",
+      "Description": "������ ���� ���ϰ� ���� ��Ų��",
       "InputValues": [
         0
       ],
@@ -291,7 +291,7 @@
       "DataId": 90004,
       "Name": "HeavyStaggerSkill",
       "ClassName": "HeavyStaggerSkill",
-      "Description": "전방의 적을 강하게 경직 시킨다",
+      "Description": "������ ���� ���ϰ� ���� ��Ų��",
       "InputValues": [
         0
       ],
@@ -321,10 +321,41 @@
       "CompleteSkillDelay": 0.0
     },
     {
+      "DataId": 90005,
+      "Name": "SlowFieldSkill",
+      "ClassName": "SlowFieldSkill",
+      "Description": "���� ��ȭ��Ű�� ������ �����Ѵ�",
+      "InputValues": [
+        0
+      ],
+      "InputDescription": null,
+      "ProjectileId": 80000,
+      "PrefabLabel": "ProjectilePrefab",
+      "IconLabel": null,
+      "AnimName": "Casting",
+      "UsedMp": -1,
+      "CoolTime": 0.0,
+      "DamageMultiplier": 0.0,
+      "SkillDuration": 0.0,
+      "AnimImpactDuration": 0.0,
+      "CastingSound": null,
+      "SkillRange": 0.0,
+      "ScaleMultiplier": 0.0,
+      "TargetCount": 0,
+      "EffectIds": [],
+      "NextLevelId": 0,
+      "AoEId": 80021,
+      "RangeMultipleX": 2.0,
+      "RangeMultipleY": 0.0,
+      "EffectSize": 1,
+      "ActivateSkillDelay": 0.0,
+      "CompleteSkillDelay": 0.0
+    },
+    {
       "DataId": 1711,
       "Name": "FireBall",
       "ClassName": "FireBall",
-      "Description": "전방으로 화염구를 던진다",
+      "Description": "�������� ȭ������ ������",
       "InputValues": [
         1,
         7,
@@ -357,7 +388,7 @@
       "DataId": 18912,
       "Name": "FireBreath",
       "ClassName": "FireBreath",
-      "Description": "전방 다수에 적에게 화염을 뿌린다",
+      "Description": "���� �ټ��� ������ ȭ���� �Ѹ���",
       "InputValues": [
         1,
         8,

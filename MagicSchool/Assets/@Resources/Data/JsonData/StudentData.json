@@ -9,7 +9,7 @@
       "W_DefaultSkillId": 90003,
       "E_DefaultSkillId": 90001,
       "R_DefaultSkillId": 90004,
-      "A_DefaultSkillId": 90002,
+      "A_DefaultSkillId": 90005,
       "S_DefaultSkillId": 90003,
       "D_DefaultSkillId": 90001,
       "TempDevSkillsDataId": [
@@ -54,7 +54,7 @@
       "MaxMp": 0,
       "MpGaugeAmount": 0.0,
       "DataId": 201001,
-      "DescriptionTextID": "워리어",
+      "DescriptionTextID": "������",
       "Label": "HeroPrefab",
       "ColliderOffsetX": 0.0,
       "ColliderOffsetY": 0.5,

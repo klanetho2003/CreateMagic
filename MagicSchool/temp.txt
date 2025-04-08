@@ -8,11 +8,14 @@ To Do :
 # KillMonster
 
 
+★★★★★★★★★★★★★★★★★★★★★★★★★
+1. Player가 대각선으로 이동할 때 문제 생김
+> normalized한 값을 더해서 앞에 갈 수 있는지를 확인하는데, normalized한 값이 작아서 현재 Tile 값을 가지고 오는 것으로 보임
+> 전방에 두칸을 확인하는 방법은 어떨까
 
-// ★★★평타 스킬 만들기★★★
-// ★Skill 판정 - StartPosition 수정할 수 있도록 할 것. Sheet에 RangeMultipleX & RangeMultipleY (CenterPosition 기준)
-// ★★★★★★★★★★★★★★
-// 판정 모양은 Dev에서 바꾸는게 좋을 듯한데, 차피 리소스랑 연동을 해야하기 때문이다. -  그냥 핑계인데, 이래도 상관없을 것으로 보임.
+2. 게임 끌 때 error 생기는 문제
+
+
 
 // To Do Save를 진행하는 타이밍 정의 필요
 

@@ -7,6 +7,7 @@ using static Define;
 public class EffectComponent : MonoBehaviour
 {
 	public List<EffectBase> ActiveEffects = new List<EffectBase>();
+	public Dictionary<int, EffectBase> ExclusiveActiveEffects = new Dictionary<int, EffectBase>();
 	public Queue<EffectBase> BurnQueue = new Queue<EffectBase>();
     private CreatureController _owner;
 
@@ -48,10 +49,19 @@ public class EffectComponent : MonoBehaviour
             }
             //
 
+            effect.SetInfo(id, _owner, spawnType, skill);
+
+            // 중첩 불가 Effect 처리
+            if (effect.EffectType == EEffectType.ExclusiveBuff || effect.EffectType == EEffectType.ExclusiveDeBuff)
+            {
+                if (ExclusiveActiveEffects.ContainsKey(effect.DataTemplateID))
+                    continue;
+
+                ExclusiveActiveEffects.Add(effect.DataTemplateID, effect);
+            }
+                
             ActiveEffects.Add(effect);
             generatedEffects.Add(effect);
-
-            effect.SetInfo(id, _owner, spawnType, skill);
             effect.ApplyEffect();
         }
 
@@ -67,16 +77,29 @@ public class EffectComponent : MonoBehaviour
 	{
 		foreach (var buff in ActiveEffects.ToArray())
 		{
-			if (buff.EffectType != EEffectType.Buff)
+			if (buff.EffectType != EEffectType.Buff || buff.EffectType != EEffectType.ExclusiveBuff)
 			{
 				buff.ClearEffect(EEffectClearType.ClearSkill);
 			}
 		}
+
+        foreach (var buff in ExclusiveActiveEffects.Values)
+        {
+            if (buff.EffectType != EEffectType.Buff || buff.EffectType != EEffectType.ExclusiveBuff)
+            {
+                buff.ClearEffect(EEffectClearType.ClearSkill);
+            }
+        }
 	}
 
     public void Clear()
     {
         foreach (var buff in ActiveEffects.ToArray())
+        {
+            buff.ClearEffect(EEffectClearType.Despawn);
+        }
+
+        foreach (var buff in ExclusiveActiveEffects.Values)
         {
             buff.ClearEffect(EEffectClearType.Despawn);
         }

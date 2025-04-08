@@ -19,5 +19,5 @@ DataId,Name,PrefabLabel,ClassName,AnimatorDataID,SoundLabel,Duration,AllyEffects
 80018,인형의 브레스 3,,ConeShapeAoE,,,,,60014,skill_a_big,Skill,,,,,,,,
 80019,권법연타 AoE,,CircleShapeAoE,,,,,,skill_a_small,Skill,,,,,,,,
 80020,권법연타 AoE,,CircleShapeAoE,,,,,,skill_a_normal,Skill,,,,,,,,
-80021,권법연타 AoE,,CircleShapeAoE,,,,,,skill_a_big,Skill,,,,,,,,
+80021,중첩 불가 슬로우 장판 AoE,,CircleShapeAoE,CastingImpact01AnimController,,3,,61006,skill_a_big,Skill,,,,,,,,
 80022,Explosion,FireExplosionAoE,FireExplosionAoE,,,1,,60012,,Skill,,,,,,,,

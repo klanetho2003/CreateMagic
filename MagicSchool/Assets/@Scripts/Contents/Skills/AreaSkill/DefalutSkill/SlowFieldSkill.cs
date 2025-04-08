@@ -1,12 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using static Define;
 
-public class NormalAttack : SkillBase
+public class SlowFieldSkill : DefaultSkillBase
 {
 
-    #region Init Methds
+    #region Init Method
     public override bool Init()
     {
         if (base.Init() == false)
@@ -25,8 +26,6 @@ public class NormalAttack : SkillBase
     public override void ActivateSkill()
     {
         base.ActivateSkill();
-
-        Owner.LookAtTarget(Owner.Target);
     }
 
     protected override void OnAttackTargetHandler()
@@ -36,25 +35,11 @@ public class NormalAttack : SkillBase
 
     protected override void OnAttackEvent()
     {
-        if (Owner.Target.IsValid() == false)
-            return;
-
-        if (SkillData.ProjectileId == 0) // 근거리 평타
-        {
-            // Melee
-            Owner.Target.OnDamaged(Owner, this);
-        }
-        else // 원거리 평타
-        {
-            GenerateProjectile(Owner, Owner.CenterPosition, ProjectileOnHit);
-        }
+        GenerateAoE(transform.position);
     }
 
-    public void ProjectileOnHit(BaseController cc)
+    protected override void Clear()
     {
-        if (cc.IsValid() == false)
-            return;
-
-        cc.OnDamaged(Owner, this);
+        base.Clear();
     }
 }

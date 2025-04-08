@@ -165,7 +165,8 @@ public class BaseController : MonoBehaviour
             return;
 
         // Animatior
-        Anim.runtimeAnimatorController = Managers.Resource.Load<RuntimeAnimatorController>(dataLabel);
+        if (string.IsNullOrEmpty(dataLabel) == false)
+            Anim.runtimeAnimatorController = Managers.Resource.Load<RuntimeAnimatorController>(dataLabel);
         SortingGroup sg = gameObject.GetOrAddComponent<SortingGroup>();
         sg.sortingLayerName = sortingLayerName;
         sg.sortingOrder = sortingOrder;
@@ -214,6 +215,8 @@ public class BaseController : MonoBehaviour
 
     public void LerpToCellPos(float moveSpeed)
     {
+        if (moveSpeed < 0)
+            return;
         if (LerpCellPosCompleted)
             return;
 

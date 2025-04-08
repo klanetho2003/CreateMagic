@@ -286,14 +286,16 @@
     },
     {
       "DataId": 80021,
-      "Name": "�ǹ���Ÿ AoE",
+      "Name": "��ø �Ұ� ���ο� ���� AoE",
       "PrefabLabel": null,
       "ClassName": "CircleShapeAoE",
-      "AnimatorDataID": null,
+      "AnimatorDataID": "CastingImpact01AnimController",
       "SoundLabel": null,
-      "Duration": 0.0,
+      "Duration": 3.0,
       "AllyEffects": [],
-      "EnemyEffects": [],
+      "EnemyEffects": [
+        61006
+      ],
       "AnimName": "skill_a_big",
       "SortingLayerName": "Skill"
     },

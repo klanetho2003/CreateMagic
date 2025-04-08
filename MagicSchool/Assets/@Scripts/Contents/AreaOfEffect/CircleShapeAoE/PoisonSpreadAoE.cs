@@ -24,11 +24,11 @@ public class PoisonSpreadAoE : AoEBase
 	{
 		base.SetInfo(dataId, owner, skill);
 
-		// SetAnimation(_aoEData.SkeletonDataID, , SortingLayers.SPELL_INDICATOR);
+        // SetAnimation(_aoEData.SkeletonDataID, , SortingLayers.SPELL_INDICATOR);
         // Anim.Play()
-		// PlayAnimation(0, _aoEData.AnimName, false);
+        // PlayAnimation(0, _aoEData.AnimName, false);
 
-		StartCoroutine(CoReserveDestroy());
+        StartCoroutine(CoReserveDestroy());
 		StartCoroutine(CoDetectTargetsPeriodically());
 	}
 

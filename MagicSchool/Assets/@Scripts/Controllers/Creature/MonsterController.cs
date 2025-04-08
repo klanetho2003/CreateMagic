@@ -203,7 +203,7 @@ public class MonsterController : CreatureController
         });
     }
 
-    protected override void FixedUpdateMoving() // 물리와 연관돼 있으면
+    protected override void FixedUpdateMoving() // 물리와 연관돼 있으면 fixed
     {
         if (CreatureState != CreatureState.Moving)
             return;
@@ -216,7 +216,7 @@ public class MonsterController : CreatureController
         //Vector3 dir = Target.transform.position - transform.position;
         //Vector3 destPos = transform.position + (dir * MoveSpeed * Time.fixedDeltaTime * 10);
         EFindPathResult result = FindPathAndMoveToCellPos(Target.transform.position, MONSTER_DEFAULT_MOVE_DEPTH);
-        LerpToCellPos(CreatureData.MoveSpeed);
+        LerpToCellPos(MoveSpeed.Value);
     }
 
     #region Battle

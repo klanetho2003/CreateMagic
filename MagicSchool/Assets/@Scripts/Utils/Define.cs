@@ -161,7 +161,11 @@ public static class Define
     public enum EEffectType
     {
         Buff,
+        ExclusiveBuff,
+
         Debuff,
+        ExclusiveDeBuff,
+
         CrowdControl, // CC
     }
 
