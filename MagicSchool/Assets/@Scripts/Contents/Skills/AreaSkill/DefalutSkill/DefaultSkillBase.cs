@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using static Define;
 
-public class DefaultSkillBase : AreaSkillBase
+public class DefaultSkillBase : PlayerAreaSkillBase
 {
     #region Init Method
     public override bool Init()
@@ -17,8 +17,6 @@ public class DefaultSkillBase : AreaSkillBase
         return true;
     }
     #endregion
-
-    public Data.PlayerSkillData PlayerSkillData { get { return (Data.PlayerSkillData)SkillData; } }
 
     public override void SetInfo(CreatureController owner, int monsterSkillTemplateID)
     {

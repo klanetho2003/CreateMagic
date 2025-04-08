@@ -6,7 +6,6 @@ using static Define;
 
 public class SlowFieldSkill : DefaultSkillBase
 {
-
     #region Init Method
     public override bool Init()
     {
