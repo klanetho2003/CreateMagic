@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEditor.Rendering.LookDev;
 using UnityEngine;
 
-public class FireBreath : AreaSkillBase
+public class FireBreath : PlayerAreaSkillBase
 {
     public override void SetInfo(CreatureController owner, int skillTemplateID)
     {

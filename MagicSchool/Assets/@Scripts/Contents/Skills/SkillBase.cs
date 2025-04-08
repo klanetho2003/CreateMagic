@@ -19,14 +19,18 @@ public abstract class SkillBase : MonoBehaviour // ½ºÅ³À» ½ºÆù > ActiveSkill ¹ßµ
     public virtual void SetInfo(CreatureController owner, int skillTemplateID)
     {
         Owner = owner;
-        SkillData = Managers.Data.SkillDic[skillTemplateID];
+
+        if (owner.ObjectType == EObjectType.Student)
+            SkillData = Managers.Data.PlayerSkillDic[skillTemplateID];
+        else
+            SkillData = Managers.Data.MonsterSkillDic[skillTemplateID];
 
         // Handle AnimEvent
         if (Owner.Anim != null)
             BindEvent(Owner, OnAttackTargetHandler);
     }
 
-    private void OnDisable() // °ÔÀÓ °­Á¾
+    protected virtual void OnDisable() // °ÔÀÓ °­Á¾
     {
         Clear();
     }
@@ -71,11 +75,8 @@ public abstract class SkillBase : MonoBehaviour // ½ºÅ³À» ½ºÆù > ActiveSkill ¹ßµ
     }
     #endregion
     
-    public void ActivateSkillOrDelay()
+    public virtual void ActivateSkillOrDelay()
     {
-        if (Owner.CheckChangeMp(SkillData.UsedMp) == false)
-            return;
-
         float delaySeconds = SkillData.ActivateSkillDelay;
         CurrentSkill = this;
 
@@ -138,10 +139,15 @@ public abstract class SkillBase : MonoBehaviour // ½ºÅ³À» ½ºÆù > ActiveSkill ¹ßµ
 
     }
 
-    private IEnumerator CoCountdownCooldown()
+    protected virtual IEnumerator CoCountdownCooldown()
     {
-        RemainCoolTime = SkillData.CoolTime;
-        yield return new WaitForSeconds(SkillData.CoolTime);
+        if (Owner.ObjectType != Define.EObjectType.Monster)
+            yield break;
+
+        Data.MonsterSkillData monsterData = (Data.MonsterSkillData)SkillData;
+
+        RemainCoolTime = monsterData.CoolTime;
+        yield return new WaitForSeconds(monsterData.CoolTime);
         RemainCoolTime = 0;
 
         // Ready Skill Add

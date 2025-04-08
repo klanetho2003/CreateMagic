@@ -6,7 +6,7 @@ using static Define;
 
 public class UI_GameScene_NavSkillItem : UI_Base
 {
-    SkillBase _skillBase;
+    PlayerSkillBase _skillBase;
 
     enum Texts
     {
@@ -29,7 +29,7 @@ public class UI_GameScene_NavSkillItem : UI_Base
         return true;
     }
 
-    public void SetInfo(SkillBase skill)
+    public void SetInfo(PlayerSkillBase skill)
     {
         _skillBase = skill;
 
@@ -41,7 +41,7 @@ public class UI_GameScene_NavSkillItem : UI_Base
         if (_init == false)
             return;
 
-        GetText((int)Texts.ValueText).text = $"{_skillBase.SkillData.InputDescription}\n{_skillBase.SkillData.Name}";
+        GetText((int)Texts.ValueText).text = $"{_skillBase.PlayerSkillData.InputDescription}\n{_skillBase.SkillData.Name}";
         GetImage((int)Images.SkillIconImage).sprite = Managers.Resource.Load<Sprite>(_skillBase.SkillData.IconLabel);
 
         transform.localScale = Vector3.one;

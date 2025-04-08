@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using static Define;
 
-public class FireBall : SkillBase
+public class FireBall : PlayerSkillBase
 {
 
     #region Init Method

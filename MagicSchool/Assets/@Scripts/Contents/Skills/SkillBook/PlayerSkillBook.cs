@@ -182,8 +182,8 @@ public class InputMemorizer
 
 public class PlayerSkillBook : BaseSkillBook
 {
-    public Dictionary<int, SkillBase> SkillDict { get; } = new Dictionary<int, SkillBase>();
-    public Dictionary<KeyDownEvent, SkillBase> DefaultSkillDict { get; } = new Dictionary<KeyDownEvent, SkillBase>();
+    public Dictionary<int, PlayerSkillBase> SkillDict { get; } = new Dictionary<int, PlayerSkillBase>();
+    public Dictionary<KeyDownEvent, DefaultSkillBase> DefaultSkillDict { get; } = new Dictionary<KeyDownEvent, DefaultSkillBase>();
 
     public Action OnSkillValueChanged;
 
@@ -233,7 +233,7 @@ public class PlayerSkillBook : BaseSkillBook
         if (skillTemplateId == 0)
             return;
 
-        if (Managers.Data.SkillDic.TryGetValue(skillTemplateId, out var data) == false)
+        if (Managers.Data.PlayerSkillDic.TryGetValue(skillTemplateId, out var data) == false)
         {
             Debug.LogWarning($"AddSkill Failed {skillTemplateId}");
             return;
@@ -248,48 +248,48 @@ public class PlayerSkillBook : BaseSkillBook
         {
             #region N1, N2, N3, N4
             case ESkillSlot.N1_Default:
-                DefaultSkillDict.Add(KeyDownEvent.N1, skill);
+                DefaultSkillDict.Add(KeyDownEvent.N1, (DefaultSkillBase)skill);
                 break;
             case ESkillSlot.N2_Default:
-                DefaultSkillDict.Add(KeyDownEvent.N2, skill);
+                DefaultSkillDict.Add(KeyDownEvent.N2, (DefaultSkillBase)skill);
                 break;
             case ESkillSlot.N3_Default:
-                DefaultSkillDict.Add(KeyDownEvent.N3, skill);
+                DefaultSkillDict.Add(KeyDownEvent.N3, (DefaultSkillBase)skill);
                 break;
             case ESkillSlot.N4_Default:
-                DefaultSkillDict.Add(KeyDownEvent.N4, skill);
+                DefaultSkillDict.Add(KeyDownEvent.N4, (DefaultSkillBase)skill);
                 break;
             #endregion
 
             #region Q, W, E, R
             case ESkillSlot.Q_Default:
-                DefaultSkillDict.Add(KeyDownEvent.Q, skill);
+                DefaultSkillDict.Add(KeyDownEvent.Q, (DefaultSkillBase)skill);
                 break;
             case ESkillSlot.W_Default:
-                DefaultSkillDict.Add(KeyDownEvent.W, skill);
+                DefaultSkillDict.Add(KeyDownEvent.W, (DefaultSkillBase)skill);
                 break;
             case ESkillSlot.E_Default:
-                DefaultSkillDict.Add(KeyDownEvent.E, skill);
+                DefaultSkillDict.Add(KeyDownEvent.E, (DefaultSkillBase)skill);
                 break;
             case ESkillSlot.R_Default:
-                DefaultSkillDict.Add(KeyDownEvent.R, skill);
+                DefaultSkillDict.Add(KeyDownEvent.R, (DefaultSkillBase)skill);
                 break;
             #endregion
 
             #region A, S, D
             case ESkillSlot.A_Default:
-                DefaultSkillDict.Add(KeyDownEvent.A, skill);
+                DefaultSkillDict.Add(KeyDownEvent.A, (DefaultSkillBase)skill);
                 break;
             case ESkillSlot.S_Default:
-                DefaultSkillDict.Add(KeyDownEvent.S, skill);
+                DefaultSkillDict.Add(KeyDownEvent.S, (DefaultSkillBase)skill);
                 break;
             case ESkillSlot.D_Default:
-                DefaultSkillDict.Add(KeyDownEvent.D, skill);
+                DefaultSkillDict.Add(KeyDownEvent.D, (DefaultSkillBase)skill);
                 break;
             #endregion
 
             default:
-                SkillDict.Add(skillTemplateId, skill);
+                SkillDict.Add(skillTemplateId, (PlayerSkillBase)skill);
                 break;
         }
     }
@@ -343,9 +343,9 @@ public class PlayerSkillBook : BaseSkillBook
 
     bool TryCasting(KeyDownEvent inputValue)
     {
-        if (DefaultSkillDict.TryGetValue(inputValue, out SkillBase defaultSkill) == false)
+        if (DefaultSkillDict.TryGetValue(inputValue, out DefaultSkillBase defaultSkill) == false)
             return false;
-        if (_owner.CheckChangeMp(defaultSkill.SkillData.UsedMp) == false)
+        if (_owner.CheckChangeMp(defaultSkill.PlayerSkillData.UsedMp) == false)
             return false;
 
         _owner.CreatureState = CreatureState.Casting;
@@ -358,9 +358,9 @@ public class PlayerSkillBook : BaseSkillBook
         InputMemorizer.AddInput(inputValue);
 
         // CompareWithList -> usableSkill 갱신
-        foreach (SkillBase skillTemp in SkillDict.Values)
+        foreach (PlayerSkillBase skillTemp in SkillDict.Values)
         {
-            if (InputMemorizer.TrySetUsableSkill(skillTemp.SkillData.InputValues))
+            if (InputMemorizer.TrySetUsableSkill(skillTemp.PlayerSkillData.InputValues))
                 Debug.Log($"사용 가능한 Skill : {skillTemp.SkillData.Name}"); // event 쏴서 UsableSkill 갱신
         }
 
@@ -378,7 +378,7 @@ public class PlayerSkillBook : BaseSkillBook
     {
         int inputValue = InputMemorizer.GetCombinedInputToInt();
 
-        if (SkillDict.TryGetValue(inputValue, out SkillBase skill) == false)
+        if (SkillDict.TryGetValue(inputValue, out PlayerSkillBase skill) == false)
         {
             Debug.Log($"Player Do not have --{inputValue}--");
 
@@ -389,7 +389,7 @@ public class PlayerSkillBook : BaseSkillBook
             skill.ActivateSkillOrDelay();
 
             _owner.StartWait(skill.SkillData.ActivateSkillDelay + skill.SkillData.SkillDuration);
-            Debug.Log($"Do Skill Key : {skill.SkillData.InputValues} in ActivateSkillOrDelay");
+            Debug.Log($"Do Skill Key : {skill.PlayerSkillData.InputValues} in ActivateSkillOrDelay");
 
             // Refrash Input Value
             InputMemorizer.RemoveMatchingPattern();

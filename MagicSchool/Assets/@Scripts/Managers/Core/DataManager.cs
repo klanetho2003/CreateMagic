@@ -17,7 +17,9 @@ public class DataManager
     public Dictionary<int, Data.StudentData> StudentDic { get; private set; } = new Dictionary<int, Data.StudentData>();
     public Dictionary<int, Data.NpcData> NpcDic { get; private set; } = new Dictionary<int, Data.NpcData>();
     
-    public Dictionary<int, Data.SkillData> SkillDic { get; private set; } = new Dictionary<int, Data.SkillData>();
+    public Dictionary<int, Data.PlayerSkillData> PlayerSkillDic { get; private set; } = new Dictionary<int, Data.PlayerSkillData>();
+    public Dictionary<int, Data.MonsterSkillData> MonsterSkillDic { get; private set; } = new Dictionary<int, Data.MonsterSkillData>();
+
     public Dictionary<int, Data.SkillInfoData> SkillInfoDic { get; private set; } = new Dictionary<int, Data.SkillInfoData>();
     public Dictionary<int, Data.ProjectileData> ProjectileDic { get; private set; } = new Dictionary<int, Data.ProjectileData>();
     public Dictionary<int, Data.EffectData> EffectDic { get; private set; } = new Dictionary<int, Data.EffectData>();
@@ -42,7 +44,9 @@ public class DataManager
         NpcDic = LoadJson<Data.NpcDataLoader, int, Data.NpcData>("NpcData").MakeDict();
 
         // Skill
-        SkillDic = LoadJson<Data.SkillDataLoader, int, Data.SkillData>("SkillData").MakeDict();
+        PlayerSkillDic = LoadJson<Data.PlayerSkillDataLoader, int, Data.PlayerSkillData>("PlayerSkillData").MakeDict();
+        MonsterSkillDic = LoadJson<Data.MonsterSkillDataLoader, int, Data.MonsterSkillData>("MonsterSkillData").MakeDict();
+
         SkillInfoDic = LoadJson<Data.SkillInfoDataLoader, int, Data.SkillInfoData>("SkillInfoData").MakeDict();
         ProjectileDic = LoadJson<Data.ProjectileDataLoader, int, Data.ProjectileData>("ProjectileData").MakeDict();
         EffectDic = LoadJson<Data.EffectDataLoader, int, Data.EffectData>("EffectData").MakeDict();

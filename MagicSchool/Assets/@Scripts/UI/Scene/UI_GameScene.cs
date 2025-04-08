@@ -194,7 +194,7 @@ public class UI_GameScene : UI_Scene
             {
                 UI_GameScene_NavSkillItem ui = _navSkillItems[i];
                 ui.gameObject.SetActive(true);
-                ui.SetInfo(_cachePlayerActivateSkills[i]); // Skill을 매개로 SetInfo 필요
+                ui.SetInfo((PlayerSkillBase)_cachePlayerActivateSkills[i]); // Skill을 매개로 SetInfo 필요
             }
             else
             {

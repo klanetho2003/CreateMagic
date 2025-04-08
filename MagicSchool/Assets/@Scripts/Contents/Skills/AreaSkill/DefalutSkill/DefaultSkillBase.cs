@@ -18,6 +18,8 @@ public class DefaultSkillBase : AreaSkillBase
     }
     #endregion
 
+    public Data.PlayerSkillData PlayerSkillData { get { return (Data.PlayerSkillData)SkillData; } }
+
     public override void SetInfo(CreatureController owner, int monsterSkillTemplateID)
     {
         base.SetInfo(owner, monsterSkillTemplateID);

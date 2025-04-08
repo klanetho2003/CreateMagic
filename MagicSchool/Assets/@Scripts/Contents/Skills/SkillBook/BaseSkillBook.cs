@@ -66,11 +66,11 @@ public class BaseSkillBook : MonoBehaviour // 일종의 스킬 매니저
         if (skillTemplateID == 0)
             return;
 
-        if (Managers.Data.SkillDic.TryGetValue(skillTemplateID, out var data) == false)
-        {
-            Debug.LogWarning($"AddSkill Failed {skillTemplateID}");
-            return;
-        }
+        SkillData data;
+        if (_owner.ObjectType == EObjectType.Student)
+            data = Managers.Data.PlayerSkillDic[skillTemplateID];
+        else
+            data = Managers.Data.MonsterSkillDic[skillTemplateID];
 
         SkillBase skill = gameObject.AddComponent(Type.GetType(data.ClassName)) as SkillBase;
         if (skill == null)

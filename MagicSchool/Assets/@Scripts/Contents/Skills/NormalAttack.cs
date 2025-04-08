@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using static Define;
 
-public class NormalAttack : SkillBase
+public class NormalAttack : MonsterSkillBase
 {
 
     #region Init Methds

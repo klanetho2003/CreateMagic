@@ -6,7 +6,7 @@ using static Define;
 public class SpellIndicator : BaseController
 {
     private CreatureController _owner;
-    private Data.SkillData _skillData;
+    private Data.MonsterSkillData _monsterSkillData;
     private EIndicatorType _indicateorType = EIndicatorType.Cone;
 
     private SpriteRenderer _coneSprite;
@@ -29,9 +29,9 @@ public class SpellIndicator : BaseController
         Cancel();
     }
 
-    public void SetInfo(CreatureController creature, Data.SkillData skillData, EIndicatorType type)
+    public void SetInfo(CreatureController creature, Data.MonsterSkillData skillData, EIndicatorType type)
     {
-        _skillData = skillData;
+        _monsterSkillData = skillData;
         _indicateorType = type;
         _owner = creature;
 
@@ -46,7 +46,7 @@ public class SpellIndicator : BaseController
         _coneSprite.gameObject.SetActive(true);
         transform.position = startPos;
         _coneSprite.material.SetFloat("_Angle", angleRange);
-        _coneSprite.transform.localScale = Vector3.one * _skillData.SkillRange;
+        _coneSprite.transform.localScale = Vector3.one * _monsterSkillData.SkillRange;
         transform.eulerAngles = GetLookAtRotation(dir);
         StartCoroutine(SetConeFill());
     }
@@ -57,12 +57,12 @@ public class SpellIndicator : BaseController
         float elapsedTime = 0f;
         float value = 0;
 
-        while (elapsedTime < _skillData.AnimImpactDuration)
+        while (elapsedTime < _monsterSkillData.AnimImpactDuration)
         {
             if (_owner.CreatureState != CreatureState.DoSkill)
                 Cancel();
 
-            value = Mathf.Lerp(0f, 1f, elapsedTime / _skillData.AnimImpactDuration);
+            value = Mathf.Lerp(0f, 1f, elapsedTime / _monsterSkillData.AnimImpactDuration);
             _coneSprite.material.SetFloat("_Duration", value);
             elapsedTime += Time.deltaTime;
             yield return null;

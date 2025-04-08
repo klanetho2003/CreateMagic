@@ -2,8 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-// Monster 전용, Player는 PlayerAreaSkillBase를 사용할 것
-public class AreaSkillBase : SkillBase
+public class PlayerAreaSkillBase : PlayerSkillBase
 {
     protected SpellIndicator _indicator;
     protected Define.EIndicatorType _indicatorType = Define.EIndicatorType.Cone;

@@ -1,0 +1,202 @@
+{
+  "playerSkills": [
+    {
+      "InputValues": [
+        0
+      ],
+      "InputDescription": null,
+      "UsedMp": -1,
+      "DataId": 90001,
+      "Name": "CastingImpact",
+      "ClassName": "CastingImpact",
+      "Description": "�ֺ� ���� ƨ�ܳ���",
+      "ProjectileId": 80000,
+      "PrefabLabel": "ProjectilePrefab",
+      "IconLabel": null,
+      "AnimName": "Casting",
+      "DamageMultiplier": 0.0,
+      "SkillDuration": 0.0,
+      "CastingSound": null,
+      "SkillRange": 0.0,
+      "TargetCount": 0,
+      "EffectIds": [
+        62000
+      ],
+      "AoEId": 0,
+      "RangeMultipleX": 0.0,
+      "RangeMultipleY": 0.0,
+      "EffectSize": 1,
+      "ActivateSkillDelay": 0.0
+    },
+    {
+      "InputValues": [
+        0
+      ],
+      "InputDescription": null,
+      "UsedMp": -1,
+      "DataId": 90002,
+      "Name": "SkillKnockBack",
+      "ClassName": "SkillKnockBack",
+      "Description": "������ ���� ���ϰ� ���ĳ���.",
+      "ProjectileId": 80000,
+      "PrefabLabel": "ProjectilePrefab",
+      "IconLabel": null,
+      "AnimName": "Casting",
+      "DamageMultiplier": 0.0,
+      "SkillDuration": 0.0,
+      "CastingSound": null,
+      "SkillRange": 0.0,
+      "TargetCount": 0,
+      "EffectIds": [
+        62001
+      ],
+      "AoEId": 0,
+      "RangeMultipleX": 2.0,
+      "RangeMultipleY": 0.0,
+      "EffectSize": 1,
+      "ActivateSkillDelay": 0.0
+    },
+    {
+      "InputValues": [
+        0
+      ],
+      "InputDescription": null,
+      "UsedMp": -1,
+      "DataId": 90003,
+      "Name": "LightStaggerSkill",
+      "ClassName": "LightStaggerSkill",
+      "Description": "������ ���� ���ϰ� ���� ��Ų��",
+      "ProjectileId": 80000,
+      "PrefabLabel": "ProjectilePrefab",
+      "IconLabel": null,
+      "AnimName": "Casting",
+      "DamageMultiplier": 0.0,
+      "SkillDuration": 0.0,
+      "CastingSound": null,
+      "SkillRange": 0.0,
+      "TargetCount": 0,
+      "EffectIds": [
+        62004
+      ],
+      "AoEId": 0,
+      "RangeMultipleX": 0.0,
+      "RangeMultipleY": 0.0,
+      "EffectSize": 1,
+      "ActivateSkillDelay": 0.0
+    },
+    {
+      "InputValues": [
+        0
+      ],
+      "InputDescription": null,
+      "UsedMp": -1,
+      "DataId": 90004,
+      "Name": "HeavyStaggerSkill",
+      "ClassName": "HeavyStaggerSkill",
+      "Description": "������ ���� ���ϰ� ���� ��Ų��",
+      "ProjectileId": 80000,
+      "PrefabLabel": "ProjectilePrefab",
+      "IconLabel": null,
+      "AnimName": "Casting",
+      "DamageMultiplier": 0.0,
+      "SkillDuration": 0.0,
+      "CastingSound": null,
+      "SkillRange": 0.0,
+      "TargetCount": 0,
+      "EffectIds": [
+        62005
+      ],
+      "AoEId": 0,
+      "RangeMultipleX": 2.0,
+      "RangeMultipleY": 0.0,
+      "EffectSize": 1,
+      "ActivateSkillDelay": 0.0
+    },
+    {
+      "InputValues": [
+        0
+      ],
+      "InputDescription": null,
+      "UsedMp": -1,
+      "DataId": 90005,
+      "Name": "SlowFieldSkill",
+      "ClassName": "SlowFieldSkill",
+      "Description": "���� ��ȭ��Ű�� ������ �����Ѵ�",
+      "ProjectileId": 80000,
+      "PrefabLabel": "ProjectilePrefab",
+      "IconLabel": null,
+      "AnimName": "Casting",
+      "DamageMultiplier": 0.0,
+      "SkillDuration": 0.0,
+      "CastingSound": null,
+      "SkillRange": 0.0,
+      "TargetCount": 0,
+      "EffectIds": [],
+      "AoEId": 80021,
+      "RangeMultipleX": 2.0,
+      "RangeMultipleY": 0.0,
+      "EffectSize": 1,
+      "ActivateSkillDelay": 0.0
+    },
+    {
+      "InputValues": [
+        1,
+        7,
+        11
+      ],
+      "InputDescription": "N1 - Q - A",
+      "UsedMp": 1,
+      "DataId": 1711,
+      "Name": "FireBall",
+      "ClassName": "FireBall",
+      "Description": "�������� ȭ������ ������",
+      "ProjectileId": 70002,
+      "PrefabLabel": "ProjectilePrefab",
+      "IconLabel": "FireballIcon_01.sprite",
+      "AnimName": "NormalAttack",
+      "DamageMultiplier": 20.0,
+      "SkillDuration": 1.1,
+      "CastingSound": "EnergyBolt_Start",
+      "SkillRange": 0.0,
+      "TargetCount": 20,
+      "EffectIds": [],
+      "AoEId": 80022,
+      "RangeMultipleX": 0.0,
+      "RangeMultipleY": 0.0,
+      "EffectSize": 0,
+      "ActivateSkillDelay": 0.0
+    },
+    {
+      "InputValues": [
+        1,
+        8,
+        9,
+        12
+      ],
+      "InputDescription": "N1 - W - E - S",
+      "UsedMp": 5,
+      "DataId": 18912,
+      "Name": "FireBreath",
+      "ClassName": "FireBreath",
+      "Description": "���� �ټ��� ������ ȭ���� �Ѹ���",
+      "ProjectileId": 80020,
+      "PrefabLabel": "ProjectilePrefab",
+      "IconLabel": "FireBreathIcon_01.sprite",
+      "AnimName": "NormalAttack",
+      "DamageMultiplier": 1.0,
+      "SkillDuration": 0.5,
+      "CastingSound": null,
+      "SkillRange": 0.0,
+      "TargetCount": 0,
+      "EffectIds": [
+        62001,
+        60013
+      ],
+      "AoEId": 0,
+      "RangeMultipleX": 0.0,
+      "RangeMultipleY": 0.0,
+      "EffectSize": 1,
+      "ActivateSkillDelay": 0.0
+    }
+  ]
+}

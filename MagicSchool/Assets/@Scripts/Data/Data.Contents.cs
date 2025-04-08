@@ -255,40 +255,68 @@ namespace Data
         public string Name;
         public string ClassName;
         public string Description;
-        public List<int> InputValues = new List<int>();
-        public string InputDescription;
         public int ProjectileId;
         public string PrefabLabel;
         public string IconLabel;
         public string AnimName;
-        public int UsedMp;
-        public float CoolTime;
         public float DamageMultiplier;
         public float SkillDuration;
-        public float AnimImpactDuration;
         public string CastingSound;
         public float SkillRange;
-        public float ScaleMultiplier;
         public int TargetCount;
         public List<int> EffectIds = new List<int>();
-        public int NextLevelId;
         public int AoEId;
         public float RangeMultipleX;
         public float RangeMultipleY;
         public EEffectSize EffectSize;
         public float ActivateSkillDelay;
-        public float CompleteSkillDelay;
+    }
+
+    #endregion
+
+    #region Monster Skill Data
+
+    [Serializable]
+    public class MonsterSkillData : SkillData
+    {
+        public float CoolTime;
+        public float AnimImpactDuration;
     }
 
     [Serializable]
-    public class SkillDataLoader : ILoader<int, SkillData>
+    public class MonsterSkillDataLoader : ILoader<int, MonsterSkillData>
     {
-        public List<SkillData> skills = new List<SkillData>();
-        public Dictionary<int, SkillData> MakeDict()
+        public List<MonsterSkillData> monsterSkills = new List<MonsterSkillData>();
+        public Dictionary<int, MonsterSkillData> MakeDict()
         {
-            Dictionary<int, SkillData> dict = new Dictionary<int, SkillData>();
-            foreach (SkillData skill in skills)
-                dict.Add(skill.DataId, skill);
+            Dictionary<int, MonsterSkillData> dict = new Dictionary<int, MonsterSkillData>();
+            foreach (MonsterSkillData monsterSkill in monsterSkills)
+                dict.Add(monsterSkill.DataId, monsterSkill);
+            return dict;
+        }
+    }
+
+    #endregion
+
+    #region Player Skill Data
+
+    [Serializable]
+    public class PlayerSkillData : SkillData
+    {
+        public List<int> InputValues = new List<int>();
+        public string InputDescription;
+        public int UsedMp;
+    }
+
+    [Serializable]
+    public class PlayerSkillDataLoader : ILoader<int, PlayerSkillData>
+    {
+        public List<PlayerSkillData> playerSkills = new List<PlayerSkillData>();
+        public Dictionary<int, PlayerSkillData> MakeDict()
+        {
+            Dictionary<int, PlayerSkillData> dict = new Dictionary<int, PlayerSkillData>();
+            foreach (PlayerSkillData playerSkill in playerSkills)
+                dict.Add(playerSkill.DataId, playerSkill);
             return dict;
         }
     }

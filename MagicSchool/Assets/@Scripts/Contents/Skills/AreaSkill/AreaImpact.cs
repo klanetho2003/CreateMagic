@@ -13,7 +13,7 @@ public class AreaImpact : AreaSkillBase
         AddIndicatorComponent();
 
         if (_indicator != null)
-            _indicator.SetInfo(Owner, SkillData, Define.EIndicatorType.Cone);
+            _indicator.SetInfo(Owner, (Data.MonsterSkillData)SkillData, Define.EIndicatorType.Cone);
     }
 
     public override void ActivateSkill()
