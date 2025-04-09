@@ -20,7 +20,7 @@ public class DataManager
     public Dictionary<int, Data.MonsterStatData> MonsterStatDic { get; private set; } = new Dictionary<int, Data.MonsterStatData>();
     public Dictionary<int, Data.StudentStatData> StudentStatDic { get; private set; } = new Dictionary<int, Data.StudentStatData>();
     
-    public Dictionary<int, Data.PlayerSkillData> PlayerSkillDic { get; private set; } = new Dictionary<int, Data.PlayerSkillData>();
+    public Dictionary<int, Data.StudentSkillData> StudentSkillDic { get; private set; } = new Dictionary<int, Data.StudentSkillData>();
     public Dictionary<int, Data.MonsterSkillData> MonsterSkillDic { get; private set; } = new Dictionary<int, Data.MonsterSkillData>();
     public Dictionary<int, Data.SkillInfoData> SkillInfoDic { get; private set; } = new Dictionary<int, Data.SkillInfoData>();
 
@@ -52,7 +52,7 @@ public class DataManager
         #endregion
 
         #region Skill
-        PlayerSkillDic = LoadJson<Data.PlayerSkillDataLoader, int, Data.PlayerSkillData>("PlayerSkillData").MakeDict();
+        StudentSkillDic = LoadJson<Data.StudentSkillDataLoader, int, Data.StudentSkillData>("StudentSkillData").MakeDict();
         MonsterSkillDic = LoadJson<Data.MonsterSkillDataLoader, int, Data.MonsterSkillData>("MonsterSkillData").MakeDict();
         SkillInfoDic = LoadJson<Data.SkillInfoDataLoader, int, Data.SkillInfoData>("SkillInfoData").MakeDict();
 

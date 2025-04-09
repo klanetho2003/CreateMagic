@@ -21,7 +21,7 @@ public abstract class SkillBase : MonoBehaviour // 스킬을 스폰 > ActiveSkill 발�
         Owner = owner;
 
         if (owner.ObjectType == EObjectType.Student)
-            SkillData = Managers.Data.PlayerSkillDic[skillTemplateID];
+            SkillData = Managers.Data.StudentSkillDic[skillTemplateID];
         else
             SkillData = Managers.Data.MonsterSkillDic[skillTemplateID];
 

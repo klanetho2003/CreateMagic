@@ -346,6 +346,7 @@ namespace Data
         public string CastingSound;
         public float SkillRange;
         public int TargetCount;
+        public ResistType SkillType;
         public List<int> EffectIds = new List<int>();
         public int AoEId;
         public float RangeMultipleX;
@@ -383,7 +384,7 @@ namespace Data
     #region Player Skill Data
 
     [Serializable]
-    public class PlayerSkillData : SkillData
+    public class StudentSkillData : SkillData
     {
         public List<int> InputValues = new List<int>();
         public string InputDescription;
@@ -391,13 +392,13 @@ namespace Data
     }
 
     [Serializable]
-    public class PlayerSkillDataLoader : ILoader<int, PlayerSkillData>
+    public class StudentSkillDataLoader : ILoader<int, StudentSkillData>
     {
-        public List<PlayerSkillData> playerSkills = new List<PlayerSkillData>();
-        public Dictionary<int, PlayerSkillData> MakeDict()
+        public List<StudentSkillData> playerSkills = new List<StudentSkillData>();
+        public Dictionary<int, StudentSkillData> MakeDict()
         {
-            Dictionary<int, PlayerSkillData> dict = new Dictionary<int, PlayerSkillData>();
-            foreach (PlayerSkillData playerSkill in playerSkills)
+            Dictionary<int, StudentSkillData> dict = new Dictionary<int, StudentSkillData>();
+            foreach (StudentSkillData playerSkill in playerSkills)
                 dict.Add(playerSkill.DataId, playerSkill);
             return dict;
         }

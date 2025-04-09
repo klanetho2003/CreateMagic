@@ -15,6 +15,6 @@ public class DotBase : EffectBase
 
     protected override void ProcessDot()
     {
-        Owner.HandleDotDamage(this);
+        Owner.HandleDotDamage(Skill, this);
     }
 }

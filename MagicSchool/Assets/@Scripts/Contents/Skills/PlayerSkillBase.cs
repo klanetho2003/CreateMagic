@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PlayerSkillBase : SkillBase
 {
-    public Data.PlayerSkillData PlayerSkillData { get { return (Data.PlayerSkillData)SkillData; } }
+    public Data.StudentSkillData PlayerSkillData { get { return (Data.StudentSkillData)SkillData; } }
 
     #region Init Method
     public override bool Init()

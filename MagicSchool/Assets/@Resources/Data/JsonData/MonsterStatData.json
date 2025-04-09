@@ -14,7 +14,7 @@
         },
         {
           "ResistType": 1,
-          "value": 0.0
+          "value": 2.0
         },
         {
           "ResistType": 2,
@@ -40,7 +40,7 @@
         },
         {
           "ResistType": 1,
-          "value": 0.0
+          "value": 0.5
         },
         {
           "ResistType": 2,

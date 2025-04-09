@@ -68,7 +68,7 @@ public class BaseSkillBook : MonoBehaviour // 일종의 스킬 매니저
 
         SkillData data;
         if (_owner.ObjectType == EObjectType.Student)
-            data = Managers.Data.PlayerSkillDic[skillTemplateID];
+            data = Managers.Data.StudentSkillDic[skillTemplateID];
         else
             data = Managers.Data.MonsterSkillDic[skillTemplateID];
 

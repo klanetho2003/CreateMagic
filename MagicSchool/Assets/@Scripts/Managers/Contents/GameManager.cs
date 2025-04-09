@@ -248,7 +248,7 @@ public class GameManager
 
         // Skill
         // To Do : 패치에 따라 늘어나는 skill을 대처할 수 있도록 수정 - Version 정보를 참조하는 방법?
-        var skills = Managers.Data.PlayerSkillDic.Values.ToList();
+        var skills = Managers.Data.StudentSkillDic.Values.ToList();
         foreach (SkillData skill in skills)
         {
             SkillSaveData saveData = new SkillSaveData()

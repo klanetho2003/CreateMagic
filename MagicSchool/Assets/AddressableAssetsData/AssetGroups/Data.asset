@@ -102,7 +102,7 @@ MonoBehaviour:
     - PreLoad
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 0e3a9dcf4f71bb247ad3f581989c2eb7
-    m_Address: PlayerSkillData
+    m_Address: StudentSkillData
     m_ReadOnly: 0
     m_SerializedLabels:
     - PreLoad

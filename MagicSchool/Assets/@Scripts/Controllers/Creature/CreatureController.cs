@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEditor;
 using UnityEditor.Experimental.GraphView;
 using UnityEngine;
+using UnityEngine.AdaptivePerformance.Provider;
 using UnityEngine.Rendering;
 using static Define;
 
@@ -264,22 +265,22 @@ public class CreatureController : BaseController
             LookDown = false;
     }
 
+    #endregion
+
+    #region Battle
+
     void AddResist(int type, CreatureStat resist)
     {
         resist = new CreatureStat(CreatureStatData.ResistData[type].value);
         CreatureResistDic.Add(CreatureStatData.ResistData[type].ResistType, resist);
     }
 
-    #endregion
-
-    #region Battle
-
-    /*public float GetResistance(ResistType type)
+    public float GetResistance(ResistType type)
     {
-        return _resistances.TryGetValue(type, out float val) ? val : 0f;
-    }*/
+        return CreatureResistDic.TryGetValue(type, out CreatureStat Stat) ? Stat.Value : 0f;
+    }
 
-    public void HandleDotDamage(EffectBase effect)
+    public void HandleDotDamage(SkillBase skill, EffectBase effect)
     {
         if (effect == null)
             return;
@@ -289,11 +290,15 @@ public class CreatureController : BaseController
             return;*/
 
         // TEMP
-        float damage = (Hp * effect.EffectData.PercentAdd) + effect.EffectData.Amount;
+        /*float damage = (Hp * effect.EffectData.PercentAdd) + effect.EffectData.Amount;
         if (effect.EffectData.ClassName.Contains("Heal"))
-            damage *= -1f;
+            damage *= -1f;*/
 
-        float finalDamage = Mathf.Round(damage);
+        float rawDamage = skill.Owner.Atk.Value * effect.EffectData.PercentAdd;
+        ResistType resisType = skill.SkillData.SkillType;
+        float sumDamage = rawDamage * (1f - GetResistance(resisType));
+
+        float finalDamage = Mathf.Round(sumDamage);
         Hp = Mathf.Clamp(Hp - finalDamage, 0, MaxHp.Value);
         Managers.Object.ShowDamageFont(CenterPosition, finalDamage, transform, false);
 
@@ -321,12 +326,16 @@ public class CreatureController : BaseController
         if (creature == null)
             return;
 
-        float finalDamage = creature.Atk.Value;
+        // Sum Damage
+        float rawDamage = creature.Atk.Value * skill.SkillData.DamageMultiplier;
+        ResistType resisType = skill.SkillData.SkillType;
+        float finalDamage = rawDamage * (1f - GetResistance(resisType));
         Hp = Mathf.Clamp(Hp - finalDamage, 0, MaxHp.Value);
         Managers.Object.ShowDamageFont(CenterPosition, finalDamage, transform);
 
         CreatureState = CreatureState.Dameged;
 
+        // OnDead
         if (Hp <= 0)
         {
             CreatureState = CreatureState.Dead;

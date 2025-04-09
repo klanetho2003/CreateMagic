@@ -233,7 +233,7 @@ public class PlayerSkillBook : BaseSkillBook
         if (skillTemplateId == 0)
             return;
 
-        if (Managers.Data.PlayerSkillDic.TryGetValue(skillTemplateId, out var data) == false)
+        if (Managers.Data.StudentSkillDic.TryGetValue(skillTemplateId, out var data) == false)
         {
             Debug.LogWarning($"AddSkill Failed {skillTemplateId}");
             return;

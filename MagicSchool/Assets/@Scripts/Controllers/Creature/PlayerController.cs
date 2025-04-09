@@ -481,6 +481,13 @@ public class PlayerController : CreatureController
 
     #endregion
 
+    protected override void Clear() // To Do : 초기화 내용 필요
+    {
+        StopAllCoroutines();
+
+        CreatureResistDic.Clear();
+    }
+
     #region 주석화 - Collect Item
     // float EnvCollectDist { get; set; } = 1.0f;
     /* Temp Collect Env

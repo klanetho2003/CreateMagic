@@ -294,6 +294,7 @@ public class MonsterController : CreatureController
     {
         StopAllCoroutines();
 
+        CreatureResistDic.Clear();
         Effects.Clear();
         #region 특정 Coroutine만 멈춰야할 경우 주석 처리한 방법으로 바꿀 것
         /*if (_coDotDamage != null)

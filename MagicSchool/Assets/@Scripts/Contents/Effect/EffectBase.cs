@@ -1,6 +1,7 @@
 using Data;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using static Define;
 
@@ -28,11 +29,10 @@ public class EffectBase : BaseController
 	{
 		DataTemplateID = templateID;
 		EffectData = Managers.Data.EffectDic[templateID];
-
         Skill = skill;
 
         Owner = owner;
-		_spawnType = spawnType;
+        _spawnType = spawnType;
         EffectType = EffectData.EffectType;
 
         if (string.IsNullOrEmpty(EffectData.SpriteID) == false)
