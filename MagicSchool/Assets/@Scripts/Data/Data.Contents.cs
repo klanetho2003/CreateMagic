@@ -162,19 +162,7 @@ namespace Data
         public float ColliderOffsetX;
         public float ColliderOffsetY;
         public float ColliderRadius;
-        #region Stat
-        public float MaxHp;
-        public float UpMaxHp;
-
-        public float Atk;
         public float AtkRange;
-        public float AtkBonus;
-
-        public float MoveSpeed;
-
-        public float CriRate;
-        public float Cridamage;
-        #endregion
         public float SpawnDelaySeconds;
         public string IconImage;
         public string MaterialID;
@@ -245,6 +233,90 @@ namespace Data
         }
     }
     #endregion
+
+    #region NPC
+    [Serializable]
+    public class NpcData
+    {
+        public int DataId;
+        public string Name;
+        public string DescriptionTextID;
+        public ENpcType NpcType;
+        public string PrefabLabel;
+        public string IconImage;
+        public string SortingLayerName;
+        public string AnimatorDataID;
+        public int QuestDataId;
+    }
+
+    [Serializable]
+    public class NpcDataLoader : ILoader<int, NpcData>
+    {
+        public List<NpcData> creatures = new List<NpcData>();
+        public Dictionary<int, NpcData> MakeDict()
+        {
+            Dictionary<int, NpcData> dict = new Dictionary<int, NpcData>();
+            foreach (NpcData creature in creatures)
+                dict.Add(creature.DataId, creature);
+            return dict;
+        }
+    }
+    #endregion
+
+    #region Creature Stat Data
+    public class CreatureStatData
+    {
+        public int CreatureDataId;
+        public float MaxHp;
+        public float Atk;
+        public float MoveSpeed;
+        public float CriRate;
+        public float CriDamageMult;
+    }
+    #endregion
+
+    #region Monster Stat Data
+    [Serializable]
+    public class MonsterStatData : CreatureStatData
+    {
+        // To Do
+    }
+
+    [Serializable]
+    public class MonsterStatDataLoader : ILoader<int, MonsterStatData>
+    {
+        public List<MonsterStatData> monsterStats = new List<MonsterStatData>();
+        public Dictionary<int, MonsterStatData> MakeDict()
+        {
+            Dictionary<int, MonsterStatData> dict = new Dictionary<int, MonsterStatData>();
+            foreach (MonsterStatData monsterStat in monsterStats)
+                dict.Add(monsterStat.CreatureDataId, monsterStat);
+            return dict;
+        }
+    }
+    #endregion
+
+    #region Student Stat Data
+    [Serializable]
+    public class StudentStatData : CreatureStatData
+    {
+        // To Do
+    }
+
+    [Serializable]
+    public class StudentStatDataLoader : ILoader<int, StudentStatData>
+    {
+        public List<StudentStatData> studentStats = new List<StudentStatData>();
+        public Dictionary<int, StudentStatData> MakeDict()
+        {
+            Dictionary<int, StudentStatData> dict = new Dictionary<int, StudentStatData>();
+            foreach (StudentStatData studentStat in studentStats)
+                dict.Add(studentStat.CreatureDataId, studentStat);
+            return dict;
+        }
+    }
+    #endregion
+
 
     #region Skill Data
 
@@ -449,35 +521,6 @@ namespace Data
             Dictionary<int, AoEData> dict = new Dictionary<int, AoEData>();
             foreach (AoEData aoe in aoes)
                 dict.Add(aoe.DataId, aoe);
-            return dict;
-        }
-    }
-    #endregion
-
-    #region NPC
-    [Serializable]
-    public class NpcData
-    {
-        public int DataId;
-        public string Name;
-        public string DescriptionTextID;
-        public ENpcType NpcType;
-        public string PrefabLabel;
-        public string IconImage;
-        public string SortingLayerName;
-        public string AnimatorDataID;
-        public int QuestDataId;
-    }
-
-    [Serializable]
-    public class NpcDataLoader : ILoader<int, NpcData>
-    {
-        public List<NpcData> creatures = new List<NpcData>();
-        public Dictionary<int, NpcData> MakeDict()
-        {
-            Dictionary<int, NpcData> dict = new Dictionary<int, NpcData>();
-            foreach (NpcData creature in creatures)
-                dict.Add(creature.DataId, creature);
             return dict;
         }
     }

@@ -10,6 +10,7 @@ using static Define;
 public class MonsterController : CreatureController
 {
     public Data.MonsterData MonsterData { get { return (Data.MonsterData)CreatureData; } }
+    public Data.MonsterStatData MonsterStatData { get { return (Data.MonsterStatData)CreatureStatData; } }
 
     #region Animation
 

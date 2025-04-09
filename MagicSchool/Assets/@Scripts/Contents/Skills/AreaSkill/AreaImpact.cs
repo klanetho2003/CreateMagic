@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AreaImpact : AreaSkillBase
+public class AreaImpact : MonsterAreaSkillBase
 {
     public override void SetInfo(CreatureController owner, int skillTemplateID)
     {
@@ -13,7 +13,7 @@ public class AreaImpact : AreaSkillBase
         AddIndicatorComponent();
 
         if (_indicator != null)
-            _indicator.SetInfo(Owner, (Data.MonsterSkillData)SkillData, Define.EIndicatorType.Cone);
+            _indicator.SetInfo(Owner, MonsterSkillData, Define.EIndicatorType.Cone);
     }
 
     public override void ActivateSkill()

@@ -1,0 +1,44 @@
+{
+  "monsterStats": [
+    {
+      "CreatureDataId": 202001,
+      "MaxHp": 35.0,
+      "Atk": 2.0,
+      "MoveSpeed": 1.0,
+      "CriRate": 0.0,
+      "CriDamageMult": 1.5
+    },
+    {
+      "CreatureDataId": 202002,
+      "MaxHp": 35.0,
+      "Atk": 2.0,
+      "MoveSpeed": 4.0,
+      "CriRate": 0.0,
+      "CriDamageMult": 1.5
+    },
+    {
+      "CreatureDataId": 202003,
+      "MaxHp": 40.0,
+      "Atk": 2.0,
+      "MoveSpeed": 4.0,
+      "CriRate": 0.0,
+      "CriDamageMult": 1.5
+    },
+    {
+      "CreatureDataId": 202004,
+      "MaxHp": 500.0,
+      "Atk": 2.0,
+      "MoveSpeed": 4.0,
+      "CriRate": 0.0,
+      "CriDamageMult": 1.5
+    },
+    {
+      "CreatureDataId": 202005,
+      "MaxHp": 400.0,
+      "Atk": 2.0,
+      "MoveSpeed": 4.0,
+      "CriRate": 0.0,
+      "CriDamageMult": 1.5
+    }
+  ]
+}

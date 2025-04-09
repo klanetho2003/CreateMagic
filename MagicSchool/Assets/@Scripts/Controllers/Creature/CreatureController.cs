@@ -77,6 +77,7 @@ public class CreatureController : BaseController
     public virtual Vector3 GenerateSkillPosition { get { return CenterPosition; } } // player override
 
     public Data.CreatureData CreatureData { get; private set; }
+    public Data.CreatureStatData CreatureStatData { get; private set; }
 
     public EffectComponent Effects { get; set; }
 
@@ -150,9 +151,16 @@ public class CreatureController : BaseController
         DataTemplateID = templateID;
 
         if (ObjectType == EObjectType.Student)
+        {
             CreatureData = Managers.Data.StudentDic[templateID];
+            CreatureStatData = Managers.Data.StudentStatDic[templateID];
+        }
         else
+        {
             CreatureData = Managers.Data.MonsterDic[templateID];
+            CreatureStatData = Managers.Data.MonsterStatDic[templateID];
+        }
+            
 
         gameObject.name = $"{CreatureData.DataId}_{CreatureData.DescriptionTextID}"; // To Do : string data sheet
 
@@ -173,15 +181,15 @@ public class CreatureController : BaseController
         //CreatureData.SkillList; // 각 Controller SetInfo에서 초기화 하는 중
 
         // Stat
-        Hp = CreatureData.MaxHp;
-        MaxHp = new CreatureStat(CreatureData.MaxHp);
-        Atk = new CreatureStat(CreatureData.Atk);
-        CriRate = new CreatureStat(CreatureData.CriRate);
-        CriDamage = new CreatureStat(CreatureData.Cridamage);
+        Hp = CreatureStatData.MaxHp;
+        MaxHp = new CreatureStat(CreatureStatData.MaxHp);
+        Atk = new CreatureStat(CreatureStatData.Atk);
+        CriRate = new CreatureStat(CreatureStatData.CriRate);
+        CriDamage = new CreatureStat(CreatureStatData.CriDamageMult);
         ReduceDamageRate = new CreatureStat(0);
         LifeStealRate = new CreatureStat(0);
         ThornsDamageRate = new CreatureStat(0);
-        MoveSpeed = new CreatureStat(CreatureData.MoveSpeed);
+        MoveSpeed = new CreatureStat(CreatureStatData.MoveSpeed);
         AttackSpeedRate = new CreatureStat(1);
 
 

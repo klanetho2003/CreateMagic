@@ -16,6 +16,9 @@ public class DataManager
     public Dictionary<int, Data.MonsterData> MonsterDic { get; private set; } = new Dictionary<int, Data.MonsterData>();
     public Dictionary<int, Data.StudentData> StudentDic { get; private set; } = new Dictionary<int, Data.StudentData>();
     public Dictionary<int, Data.NpcData> NpcDic { get; private set; } = new Dictionary<int, Data.NpcData>();
+
+    public Dictionary<int, Data.MonsterStatData> MonsterStatDic { get; private set; } = new Dictionary<int, Data.MonsterStatData>();
+    public Dictionary<int, Data.StudentStatData> StudentStatDic { get; private set; } = new Dictionary<int, Data.StudentStatData>();
     
     public Dictionary<int, Data.PlayerSkillData> PlayerSkillDic { get; private set; } = new Dictionary<int, Data.PlayerSkillData>();
     public Dictionary<int, Data.MonsterSkillData> MonsterSkillDic { get; private set; } = new Dictionary<int, Data.MonsterSkillData>();
@@ -38,10 +41,14 @@ public class DataManager
 
     public void Init()
     {
-        // Creature
+        #region Creature
         MonsterDic = LoadJson<Data.MonsterDataLoader, int, Data.MonsterData>("MonsterData").MakeDict();
         StudentDic = LoadJson<Data.StudentDataLoader, int, Data.StudentData>("StudentData").MakeDict();
         NpcDic = LoadJson<Data.NpcDataLoader, int, Data.NpcData>("NpcData").MakeDict();
+
+        MonsterStatDic = LoadJson<Data.MonsterStatDataLoader, int, Data.MonsterStatData>("MonsterStatData").MakeDict();
+        StudentStatDic = LoadJson<Data.StudentStatDataLoader, int, Data.StudentStatData>("StudentStatData").MakeDict();
+        #endregion
 
         // Skill
         PlayerSkillDic = LoadJson<Data.PlayerSkillDataLoader, int, Data.PlayerSkillData>("PlayerSkillData").MakeDict();
@@ -52,14 +59,13 @@ public class DataManager
         EffectDic = LoadJson<Data.EffectDataLoader, int, Data.EffectData>("EffectData").MakeDict();
         AoEDic = LoadJson<Data.AoEDataLoader, int, Data.AoEData>("AoEData").MakeDict();
 
-        //Item
+        #region Item
         ArtifactsDic = LoadJson<Data.ItemDataLoader<Data.ArtifactData>, int, Data.ArtifactData>("Item_ArtifactData").MakeDict();
         EquipmentsDic = LoadJson<Data.ItemDataLoader<Data.EquipmentData>, int, Data.EquipmentData>("Item_EquipmentData").MakeDict();
         ConsumableDic = LoadJson<Data.ItemDataLoader<Data.ConsumableData>, int, Data.ConsumableData>("Item_ConsumableData").MakeDict();
         DropTableDic = LoadJson<Data.DropTableDataLoader, int, Data.DropTableData>("DropTableData").MakeDict();
 
         ItemDic.Clear();
-
         foreach (var item in ArtifactsDic)
             ItemDic.Add(item.Key, item.Value);
 
@@ -68,6 +74,7 @@ public class DataManager
 
         foreach (var item in ConsumableDic)
             ItemDic.Add(item.Key, item.Value);
+        #endregion
 
         // Quest
         QuestDic = LoadJson<Data.QuestDataLoader, int, Data.QuestData>("QuestData").MakeDict();

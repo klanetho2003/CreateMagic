@@ -1,0 +1,20 @@
+{
+  "studentStats": [
+    {
+      "CreatureDataId": 201000,
+      "MaxHp": 1000.0,
+      "Atk": 25.0,
+      "MoveSpeed": 5.0,
+      "CriRate": 0.15,
+      "CriDamageMult": 1.5
+    },
+    {
+      "CreatureDataId": 201001,
+      "MaxHp": 1000.0,
+      "Atk": 25.0,
+      "MoveSpeed": 5.0,
+      "CriRate": 0.15,
+      "CriDamageMult": 1.5
+    }
+  ]
+}

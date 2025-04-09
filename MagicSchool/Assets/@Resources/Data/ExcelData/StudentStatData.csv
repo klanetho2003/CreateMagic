@@ -1,0 +1,6 @@
+TemplateID,MaxHp,Atk,MoveSpeed,CriRate,CriDamageMult
+201000,1000,25,5,0.15,1.5
+,,,,,
+201001,1000,25,5,0.15,1.5
+,,,,,
+,,int,,,

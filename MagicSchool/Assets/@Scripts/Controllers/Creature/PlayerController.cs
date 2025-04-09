@@ -10,8 +10,9 @@ using static Define;
 
 public class PlayerController : CreatureController
 {
-    public PlayerSkillBook PlayerSkills { get { return (PlayerSkillBook)Skills; } set { base.Skills = value; } }
+    public PlayerSkillBook PlayerSkills { get { return (PlayerSkillBook)Skills; } private set { base.Skills = value; } }
     public Data.StudentData PlayerData { get { return (Data.StudentData)CreatureData; } }
+    public Data.StudentStatData PlayerStatData { get { return (Data.StudentStatData)CreatureStatData; } }
 
     #region Only Player Data
     public int Mp { get; set; }
