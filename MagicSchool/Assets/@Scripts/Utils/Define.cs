@@ -64,12 +64,6 @@ public static class Define
     public const int MAGICION01_ID = 201000;
     public const int KNIGHT01_ID = 201001;
 
-    public const int MONSTER_ASSASIN_ID = 202001;
-    public const int MONSTER_SKELETON_ID = 202002;
-    public const int MONSTER_SKELETO_SHIELD_ID = 202003;
-    public const int MONSTER_MAGESKELETON_ID = 202004;
-    public const int MONSTER_MAGESKELETON_SHIELD_ID = 202005;
-
     public enum EObjectType
     {
         None,
@@ -107,6 +101,13 @@ public static class Define
         Dameged,
         Stun,
         Dead,
+    }
+
+    public enum ResistType
+    {
+        Fire,
+        Water,
+        Electric,
     }
 
     public enum EMonsterWaveType

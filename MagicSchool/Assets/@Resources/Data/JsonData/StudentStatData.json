@@ -6,7 +6,21 @@
       "Atk": 25.0,
       "MoveSpeed": 5.0,
       "CriRate": 0.15,
-      "CriDamageMult": 1.5
+      "CriDamageMult": 1.5,
+      "ResistData": [
+        {
+          "ResistType": 0,
+          "value": 0.0
+        },
+        {
+          "ResistType": 1,
+          "value": 0.0
+        },
+        {
+          "ResistType": 2,
+          "value": 0.0
+        }
+      ]
     },
     {
       "CreatureDataId": 201001,
@@ -14,7 +28,21 @@
       "Atk": 25.0,
       "MoveSpeed": 5.0,
       "CriRate": 0.15,
-      "CriDamageMult": 1.5
+      "CriDamageMult": 1.5,
+      "ResistData": [
+        {
+          "ResistType": 0,
+          "value": 0.0
+        },
+        {
+          "ResistType": 1,
+          "value": 0.0
+        },
+        {
+          "ResistType": 2,
+          "value": 0.0
+        }
+      ]
     }
   ]
 }

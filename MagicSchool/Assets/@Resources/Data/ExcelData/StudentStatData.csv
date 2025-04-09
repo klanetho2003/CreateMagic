@@ -1,6 +1,7 @@
-TemplateID,MaxHp,Atk,MoveSpeed,CriRate,CriDamageMult
-201000,1000,25,5,0.15,1.5
-,,,,,
-201001,1000,25,5,0.15,1.5
-,,,,,
-,,int,,,
+TemplateID,MaxHp,Atk,MoveSpeed,CriRate,CriDamageMult,ResistData.ResistType,ResistData.value
+201000,1000,25,5,0.15,1.5,Fire,0
+,,,,,,Water,0
+,,,,,,Electric,0
+201001,1000,25,5,0.15,1.5,Fire,0
+,,,,,,Water,0
+,,,,,,Electric,0

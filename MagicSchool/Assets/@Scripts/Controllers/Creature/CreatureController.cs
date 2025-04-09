@@ -78,6 +78,7 @@ public class CreatureController : BaseController
 
     public Data.CreatureData CreatureData { get; private set; }
     public Data.CreatureStatData CreatureStatData { get; private set; }
+    public Dictionary<ResistType, float> CreatureResistDic = new Dictionary<ResistType, float>();
 
     public EffectComponent Effects { get; set; }
 
@@ -160,7 +161,6 @@ public class CreatureController : BaseController
             CreatureData = Managers.Data.MonsterDic[templateID];
             CreatureStatData = Managers.Data.MonsterStatDic[templateID];
         }
-            
 
         gameObject.name = $"{CreatureData.DataId}_{CreatureData.DescriptionTextID}"; // To Do : string data sheet
 
@@ -184,14 +184,9 @@ public class CreatureController : BaseController
         Hp = CreatureStatData.MaxHp;
         MaxHp = new CreatureStat(CreatureStatData.MaxHp);
         Atk = new CreatureStat(CreatureStatData.Atk);
+        MoveSpeed = new CreatureStat(CreatureStatData.MoveSpeed);
         CriRate = new CreatureStat(CreatureStatData.CriRate);
         CriDamage = new CreatureStat(CreatureStatData.CriDamageMult);
-        ReduceDamageRate = new CreatureStat(0);
-        LifeStealRate = new CreatureStat(0);
-        ThornsDamageRate = new CreatureStat(0);
-        MoveSpeed = new CreatureStat(CreatureStatData.MoveSpeed);
-        AttackSpeedRate = new CreatureStat(1);
-
 
         // State
         CreatureState = CreatureState.Idle;
@@ -266,6 +261,11 @@ public class CreatureController : BaseController
     #endregion
 
     #region Battle
+
+    /*public float GetResistance(ResistType type)
+    {
+        return _resistances.TryGetValue(type, out float val) ? val : 0f;
+    }*/
 
     public void HandleDotDamage(EffectBase effect)
     {

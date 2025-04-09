@@ -272,7 +272,17 @@ namespace Data
         public float MoveSpeed;
         public float CriRate;
         public float CriDamageMult;
+
+        public List<ResistData> ResistData = new List<ResistData>();
     }
+
+    [Serializable]
+    public class ResistData
+    {
+        public ResistType ResistType;
+        public float value;
+    }
+
     #endregion
 
     #region Monster Stat Data

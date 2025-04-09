@@ -6,7 +6,13 @@
       "Atk": 2.0,
       "MoveSpeed": 1.0,
       "CriRate": 0.0,
-      "CriDamageMult": 1.5
+      "CriDamageMult": 1.5,
+      "ResistData": [
+        {
+          "ResistType": 0,
+          "value": 0.0
+        }
+      ]
     },
     {
       "CreatureDataId": 202002,
@@ -14,7 +20,13 @@
       "Atk": 2.0,
       "MoveSpeed": 4.0,
       "CriRate": 0.0,
-      "CriDamageMult": 1.5
+      "CriDamageMult": 1.5,
+      "ResistData": [
+        {
+          "ResistType": 0,
+          "value": 0.0
+        }
+      ]
     },
     {
       "CreatureDataId": 202003,
@@ -22,7 +34,13 @@
       "Atk": 2.0,
       "MoveSpeed": 4.0,
       "CriRate": 0.0,
-      "CriDamageMult": 1.5
+      "CriDamageMult": 1.5,
+      "ResistData": [
+        {
+          "ResistType": 0,
+          "value": 0.0
+        }
+      ]
     },
     {
       "CreatureDataId": 202004,
@@ -30,7 +48,13 @@
       "Atk": 2.0,
       "MoveSpeed": 4.0,
       "CriRate": 0.0,
-      "CriDamageMult": 1.5
+      "CriDamageMult": 1.5,
+      "ResistData": [
+        {
+          "ResistType": 0,
+          "value": 0.0
+        }
+      ]
     },
     {
       "CreatureDataId": 202005,
@@ -38,7 +62,13 @@
       "Atk": 2.0,
       "MoveSpeed": 4.0,
       "CriRate": 0.0,
-      "CriDamageMult": 1.5
+      "CriDamageMult": 1.5,
+      "ResistData": [
+        {
+          "ResistType": 0,
+          "value": 0.0
+        }
+      ]
     }
   ]
 }

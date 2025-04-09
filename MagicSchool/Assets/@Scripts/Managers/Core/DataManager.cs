@@ -22,8 +22,8 @@ public class DataManager
     
     public Dictionary<int, Data.PlayerSkillData> PlayerSkillDic { get; private set; } = new Dictionary<int, Data.PlayerSkillData>();
     public Dictionary<int, Data.MonsterSkillData> MonsterSkillDic { get; private set; } = new Dictionary<int, Data.MonsterSkillData>();
-
     public Dictionary<int, Data.SkillInfoData> SkillInfoDic { get; private set; } = new Dictionary<int, Data.SkillInfoData>();
+
     public Dictionary<int, Data.ProjectileData> ProjectileDic { get; private set; } = new Dictionary<int, Data.ProjectileData>();
     public Dictionary<int, Data.EffectData> EffectDic { get; private set; } = new Dictionary<int, Data.EffectData>();
     public Dictionary<int, Data.AoEData> AoEDic { get; private set; } = new Dictionary<int, Data.AoEData>();
@@ -33,6 +33,7 @@ public class DataManager
     public Dictionary<int, Data.ConsumableData> ConsumableDic { get; private set; } = new Dictionary<int, Data.ConsumableData>();
     public Dictionary<int, Data.ItemData> ItemDic { get; private set; } = new Dictionary<int, Data.ItemData>();
     public Dictionary<int, Data.DropTableData> DropTableDic { get; private set; } = new Dictionary<int, Data.DropTableData>();
+
     public Dictionary<int, Data.QuestData> QuestDic { get; private set; } = new Dictionary<int, Data.QuestData>();
 
     public Dictionary<string, Data.TextData> TextDic { get; private set; } = new Dictionary<string, Data.TextData>();
@@ -50,14 +51,16 @@ public class DataManager
         StudentStatDic = LoadJson<Data.StudentStatDataLoader, int, Data.StudentStatData>("StudentStatData").MakeDict();
         #endregion
 
-        // Skill
+        #region Skill
         PlayerSkillDic = LoadJson<Data.PlayerSkillDataLoader, int, Data.PlayerSkillData>("PlayerSkillData").MakeDict();
         MonsterSkillDic = LoadJson<Data.MonsterSkillDataLoader, int, Data.MonsterSkillData>("MonsterSkillData").MakeDict();
-
         SkillInfoDic = LoadJson<Data.SkillInfoDataLoader, int, Data.SkillInfoData>("SkillInfoData").MakeDict();
+
         ProjectileDic = LoadJson<Data.ProjectileDataLoader, int, Data.ProjectileData>("ProjectileData").MakeDict();
+
         EffectDic = LoadJson<Data.EffectDataLoader, int, Data.EffectData>("EffectData").MakeDict();
         AoEDic = LoadJson<Data.AoEDataLoader, int, Data.AoEData>("AoEData").MakeDict();
+        #endregion
 
         #region Item
         ArtifactsDic = LoadJson<Data.ItemDataLoader<Data.ArtifactData>, int, Data.ArtifactData>("Item_ArtifactData").MakeDict();
