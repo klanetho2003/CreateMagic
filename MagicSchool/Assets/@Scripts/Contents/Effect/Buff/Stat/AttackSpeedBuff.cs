@@ -13,7 +13,7 @@ public class AttackSpeedBuff : BuffBase
         return true;
     }
    
-    public override void ApplyEffect()
+    /*public override void ApplyEffect()
     {
         base.ApplyEffect();
         AddModifier(Owner.AttackSpeedRate,this);
@@ -25,6 +25,6 @@ public class AttackSpeedBuff : BuffBase
             RemoveModifier(Owner.AttackSpeedRate, this);
 
         return true;
-    }
+    }*/
 
 }

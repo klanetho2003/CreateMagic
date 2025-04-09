@@ -13,7 +13,7 @@ public class ReduceDmgBuff : BuffBase
         return true;
     }
     
-    public override void ApplyEffect()
+    /*public override void ApplyEffect()
     {
         base.ApplyEffect();
         AddModifier(Owner.ReduceDamageRate, this);
@@ -24,5 +24,5 @@ public class ReduceDmgBuff : BuffBase
         if (base.ClearEffect(clearType) == true)
             RemoveModifier(Owner.ReduceDamageRate, this);
         return true;
-    }
+    }*/
 }

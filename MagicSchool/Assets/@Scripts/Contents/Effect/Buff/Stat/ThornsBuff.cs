@@ -13,7 +13,7 @@ public class ThornsBuff : BuffBase
         return true;
     }
 
-    public override void ApplyEffect()
+    /*public override void ApplyEffect()
     {
         base.ApplyEffect();
         AddModifier(Owner.ThornsDamageRate, this);
@@ -25,5 +25,5 @@ public class ThornsBuff : BuffBase
             RemoveModifier(Owner.ThornsDamageRate, this);
 
         return true;
-    }
+    }*/
 }

@@ -78,7 +78,7 @@ public class CreatureController : BaseController
 
     public Data.CreatureData CreatureData { get; private set; }
     public Data.CreatureStatData CreatureStatData { get; private set; }
-    public Dictionary<ResistType, float> CreatureResistDic = new Dictionary<ResistType, float>();
+    public Dictionary<ResistType, CreatureStat> CreatureResistDic = new Dictionary<ResistType, CreatureStat>();
 
     public EffectComponent Effects { get; set; }
 
@@ -96,13 +96,13 @@ public class CreatureController : BaseController
     //public float Hp { get; set; }
     public CreatureStat MaxHp;
     public CreatureStat Atk;
+    public CreatureStat MoveSpeed;
     public CreatureStat CriRate;
     public CreatureStat CriDamage;
-    public CreatureStat ReduceDamageRate;
-    public CreatureStat LifeStealRate;
-    public CreatureStat ThornsDamageRate; // 쏜즈
-    public CreatureStat MoveSpeed;
-    public CreatureStat AttackSpeedRate;
+
+    public CreatureStat FireResist;
+    public CreatureStat IceResist;
+    public CreatureStat ElectricResist;
     #endregion
 
     protected float AttackDistance
@@ -176,17 +176,23 @@ public class CreatureController : BaseController
 
         // Animatior
         SetAnimation(CreatureData.AnimatorDataID, CreatureData.SortingLayerName, SortingLayers.CREATURE);
-        
+
         // Skills
         //CreatureData.SkillList; // 각 Controller SetInfo에서 초기화 하는 중
 
-        // Stat
+        #region Stat
         Hp = CreatureStatData.MaxHp;
         MaxHp = new CreatureStat(CreatureStatData.MaxHp);
         Atk = new CreatureStat(CreatureStatData.Atk);
         MoveSpeed = new CreatureStat(CreatureStatData.MoveSpeed);
         CriRate = new CreatureStat(CreatureStatData.CriRate);
         CriDamage = new CreatureStat(CreatureStatData.CriDamageMult);
+
+        AddResist((int)ResistType.Melee, FireResist);
+        AddResist((int)ResistType.Fire, FireResist);
+        AddResist((int)ResistType.Ice, IceResist);
+        AddResist((int)ResistType.Electric, ElectricResist);
+        #endregion
 
         // State
         CreatureState = CreatureState.Idle;
@@ -256,6 +262,12 @@ public class CreatureController : BaseController
             LookDown = true;
         else if (velocity.y > 0)
             LookDown = false;
+    }
+
+    void AddResist(int type, CreatureStat resist)
+    {
+        resist = new CreatureStat(CreatureStatData.ResistData[type].value);
+        CreatureResistDic.Add(CreatureStatData.ResistData[type].ResistType, resist);
     }
 
     #endregion

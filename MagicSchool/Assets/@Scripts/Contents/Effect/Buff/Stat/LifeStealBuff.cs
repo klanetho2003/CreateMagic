@@ -12,7 +12,7 @@ public class LifeStealBuff : BuffBase
         return true;
     }
     
-    public override void ApplyEffect()
+    /*public override void ApplyEffect()
     {
         base.ApplyEffect();
        
@@ -24,6 +24,6 @@ public class LifeStealBuff : BuffBase
         if(base.ClearEffect(clearType) == true)
             RemoveModifier(Owner.LifeStealRate, this);
         return true;
-    }
+    }*/
     
 }

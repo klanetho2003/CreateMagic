@@ -105,8 +105,9 @@ public static class Define
 
     public enum ResistType
     {
+        Melee,
         Fire,
-        Water,
+        Ice,
         Electric,
     }
 
