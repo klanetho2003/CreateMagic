@@ -2,10 +2,10 @@
   "studentStats": [
     {
       "CreatureDataId": 201000,
-      "MaxHp": 1000.0,
-      "Atk": 25.0,
-      "MoveSpeed": 5.0,
-      "CriRate": 0.15,
+      "MaxHp": 8.0,
+      "Atk": 20.0,
+      "MoveSpeed": 4.0,
+      "CriRate": 0.1,
       "CriDamageMult": 1.5,
       "ResistData": [
         {

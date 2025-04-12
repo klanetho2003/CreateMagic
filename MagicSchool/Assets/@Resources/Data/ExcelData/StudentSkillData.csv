@@ -1,13 +1,13 @@
 DataId,Name,ClassName,Description,ProjectileId,PrefabLabel,IconLabel,AnimName,DamageMultiplier,SkillDuration,CastingSound,SkillRange,TargetCount,SkillType,EffectsIds,AoEId,RangeMultipleX,RangeMultipleY,EffectSize,ActivateSkillDelay,InputValues,InputDescription,UsedMp
-90001,CastingImpact,CastingImpact,ì£¼ë³€ ì ì„ íŠ•ê²¨ë‚¸ë‹¤,80000,ProjectilePrefab,,Casting,1,0,,,,Melee,62000,,,,CircleNormal,0,0,,-1
-90002,SkillKnockBack,SkillKnockBack,ì „ë°©ì˜ ì ì„ ê°•í•˜ê²Œ ë°€ì³ë‚¸ë‹¤.,80000,ProjectilePrefab,,Casting,1,0,,,,Melee,62001,,,,CircleNormal,0,0,,-1
-90003,LightStaggerSkill,LightStaggerSkill,ì „ë°©ì˜ ì ì„ ì•½í•˜ê²Œ ê²½ì§ ì‹œí‚¨ë‹¤,80000,ProjectilePrefab,,Casting,1,0,,,,Melee,62004,,,,CircleNormal,0,0,,-1
-90004,HeavyStaggerSkill,HeavyStaggerSkill,ì „ë°©ì˜ ì ì„ ê°•í•˜ê²Œ ê²½ì§ ì‹œí‚¨ë‹¤,80000,ProjectilePrefab,,Casting,1,0,,,,Melee,62005,,,,CircleNormal,0,0,,-1
-90005,SlowFieldSkill,SlowFieldSkill,ì ì„ ë‘”í™”ì‹œí‚¤ëŠ” ì¥íŒì„ ìƒì„±í•œë‹¤,80000,ProjectilePrefab,,Casting,1,0,,,,Melee,,80021,2,,CircleNormal,0,0,,-1
-1711,FireBall,FireBall,ì „ë°©ìœ¼ë¡œ í™”ì—¼êµ¬ë¥¼ ë˜ì§„ë‹¤,70002,ProjectilePrefab,FireballIcon_01.sprite,NormalAttack,0.7,1.1,EnergyBolt_Start,0,20,Fire,,80022,,,CircleSmall,0,1,N1 - Q - A,1
+90001,CastingImpact,CastingImpact,ÁÖº¯ ÀûÀ» Æ¨°Ü³½´Ù,80000,ProjectilePrefab,,Casting,0.5,0,,,,Melee,62000,,,,CircleNormal,0,0,,-1
+90002,SkillKnockBack,SkillKnockBack,Àü¹æÀÇ ÀûÀ» °­ÇÏ°Ô ¹ĞÃÄ³½´Ù.,80000,ProjectilePrefab,,Casting,0.5,0,,,,Melee,62001,,,,CircleNormal,0,0,,-1
+90003,LightStaggerSkill,LightStaggerSkill,Àü¹æÀÇ ÀûÀ» ¾àÇÏ°Ô °æÁ÷ ½ÃÅ²´Ù,80000,ProjectilePrefab,,Casting,0.5,0,,,,Melee,62004,,,,CircleNormal,0,0,,-1
+90004,HeavyStaggerSkill,HeavyStaggerSkill,Àü¹æÀÇ ÀûÀ» °­ÇÏ°Ô °æÁ÷ ½ÃÅ²´Ù,80000,ProjectilePrefab,,Casting,0.5,0,,,,Melee,62005,,,,CircleNormal,0,0,,-1
+90005,SlowFieldSkill,SlowFieldSkill,ÀûÀ» µĞÈ­½ÃÅ°´Â ÀåÆÇÀ» »ı¼ºÇÑ´Ù,80000,ProjectilePrefab,,Casting,0.5,0,,,,Melee,,80021,2,,CircleNormal,0,0,,-1
+1711,FireBall,FireBall,Àü¹æÀ¸·Î È­¿°±¸¸¦ ´øÁø´Ù,70002,ProjectilePrefab,FireballIcon_01.sprite,NormalAttack,1,1.1,EnergyBolt_Start,0,20,Fire,,80022,,,CircleSmall,0,1,N1 - Q - A,1
 ,,,,,,,,,,,,,,,,,,,,7,,
 ,,,,,,,,,,,,,,,,,,,,11,,
-18912,FireBreath,FireBreath,ì „ë°© ë‹¤ìˆ˜ì— ì ì—ê²Œ í™”ì—¼ì„ ë¿Œë¦°ë‹¤,80020,ProjectilePrefab,FireBreathIcon_01.sprite,NormalAttack,1,0.5,,0,,Fire,62001,,,,CircleNormal,,1,N1 - W - E - S,5
+18912,FireBreath,FireBreath,Àü¹æ ´Ù¼ö¿¡ Àû¿¡°Ô È­¿°À» »Ñ¸°´Ù,80020,ProjectilePrefab,FireBreathIcon_01.sprite,NormalAttack,1,0.5,,0,,Fire,62001,,,,CircleNormal,,1,N1 - W - E - S,5
 ,,,,,,,,,,,,,,60013,,,,,,8,,
 ,,,,,,,,,,,,,,,,,,,,9,,
 ,,,,,,,,,,,,,,,,,,,,12,,

@@ -28,19 +28,19 @@
     },
     {
       "CreatureDataId": 202002,
-      "MaxHp": 35.0,
+      "MaxHp": 50.0,
       "Atk": 2.0,
-      "MoveSpeed": 4.0,
+      "MoveSpeed": 3.0,
       "CriRate": 0.0,
-      "CriDamageMult": 1.5,
+      "CriDamageMult": 0.0,
       "ResistData": [
         {
           "ResistType": 0,
-          "value": 0.0
+          "value": 0.3
         },
         {
           "ResistType": 1,
-          "value": 0.5
+          "value": 0.0
         },
         {
           "ResistType": 2,
@@ -80,11 +80,11 @@
     },
     {
       "CreatureDataId": 202004,
-      "MaxHp": 500.0,
+      "MaxHp": 40.0,
       "Atk": 2.0,
-      "MoveSpeed": 4.0,
+      "MoveSpeed": 3.0,
       "CriRate": 0.0,
-      "CriDamageMult": 1.5,
+      "CriDamageMult": 0.0,
       "ResistData": [
         {
           "ResistType": 0,
