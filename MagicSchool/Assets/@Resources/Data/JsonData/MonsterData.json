@@ -65,7 +65,7 @@
       "ColliderOffsetX": 0.0,
       "ColliderOffsetY": 0.75,
       "ColliderRadius": 0.8,
-      "AtkRange": 3.0,
+      "AtkRange": 10.0,
       "SpawnDelaySeconds": 3.5,
       "IconImage": "MageSkeleton.sprite",
       "MaterialID": "Mage_Skeleton",
