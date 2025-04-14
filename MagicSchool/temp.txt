@@ -8,12 +8,22 @@ To Do :
 # KillMonster
 
 
-★★★★★★★★★★★★★★★★★★★★★★★★★
-1. Player가 대각선으로 이동할 때 문제 생김
-> normalized한 값을 더해서 앞에 갈 수 있는지를 확인하는데, normalized한 값이 작아서 현재 Tile 값을 가지고 오는 것으로 보임
-> 전방에 두칸을 확인하는 방법은 어떨까
+★★★★★★★★★★★★★★★★★★★★★★★★★ To Day To Do
+1. mage가 DoSkill을 처리 못하는 문제
+2. mage가 체력이 감소한 체로 Spawn
+3.  MonsterController에서 SetInfo할 때 스킬을 모두 Destroy하고 새로 부여하는데, Destroy할 때 정상적으로 삭제가 안 됨.
+> RemoveComponent 사용 필요.
+4. Monster Hp가 이상함. MaxHp가 일단 0이고(이건 의도한 거였나?) Hp바가 가득 차지 않은 상태로 스폰됨
 
-2. 게임 끌 때 error 생기는 문제
+
+ 
+3. Player 그림자 수정
+- Player 하위에 그림자가 있을텐데, Player와 그림자가 동일한 계층을 가지도록 수정
+
+// DeBuff와 화염 Skill 피해량을 낮추는 수치인가?
+// 
+
+3. 게임 끌 때 error 생기는 문제
 
 
 

@@ -24,6 +24,7 @@ public class UI_World_HpBar : UI_Base
     {
         _owner = owner;
         owner.OnHpChange += Refresh;
+        Refresh(owner.MaxHp.Value);
 
         _rectTransform.anchoredPosition = Vector2.zero;
     }

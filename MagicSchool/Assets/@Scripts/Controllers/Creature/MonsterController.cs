@@ -93,7 +93,7 @@ public class MonsterController : CreatureController
         if (_coWait != null)
             return;
         
-        if (Target.IsValid() == false && LerpCellPosCompleted/* || Target.ObjectType == EObjectType.HeroCamp*/)
+        if (Target.IsValid(ignoreDead: false) == false && LerpCellPosCompleted/* || Target.ObjectType == EObjectType.HeroCamp*/)
         {
             CreatureState = CreatureState.Idle;
             return;
@@ -166,11 +166,9 @@ public class MonsterController : CreatureController
         CreatureState = CreatureState.Spawning;
         StartWait(CreatureData.SpawnDelaySeconds);
 
-        if (Skills != null) // Remove Component when Pooling revive
-        {
-            foreach (SkillBase skill in Skills.SkillList)
-                Destroy(skill);
-        }
+        // Remove Component when Pooling revive
+        if (Skills != null) 
+            Skills.Clear();
 
         Skills = gameObject.GetOrAddComponent<BaseSkillBook>();
         Skills.SetInfo(this, MonsterData);
@@ -244,8 +242,6 @@ public class MonsterController : CreatureController
             itemHolder.SetInfo(0, rewardData.ItemTemplateId, dropPos);
         }
 
-        Clear();
-
         // Broadcast
         Managers.Game.KillCount++;
         Managers.Game.BroadcastEvent(EBroadcastEventType.KillMonster, MonsterData.DataId);
@@ -292,6 +288,7 @@ public class MonsterController : CreatureController
 
     protected override void Clear() // To Do : 초기화 내용 필요
     {
+        base.Clear();
         StopAllCoroutines();
 
         CreatureResistDic.Clear();

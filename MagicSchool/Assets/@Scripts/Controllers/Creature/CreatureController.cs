@@ -203,13 +203,10 @@ public class CreatureController : BaseController
         Effects.SetInfo(this);
 
         // HpBar - Temp
-        if (gameObject.FindChild<UI_World_HpBar>(recursive: false) == null)
-        {
-            UI_World_HpBar hpBar_temp = Managers.UI.MakeWorldSpaceUI<UI_World_HpBar>(this.transform);
-            hpBar_temp.SetInfo(this);
-        }
-            
-            
+        UI_World_HpBar hpBar_temp = gameObject.FindChild<UI_World_HpBar>(recursive: false);
+        if (hpBar_temp == null)
+            hpBar_temp = Managers.UI.MakeWorldSpaceUI<UI_World_HpBar>(this.transform);
+        hpBar_temp.SetInfo(this);
 
         // Map Move
         //StartCoroutine(CoLerpToCellPos()); // MonsterController 내부 Update에서 하는 중

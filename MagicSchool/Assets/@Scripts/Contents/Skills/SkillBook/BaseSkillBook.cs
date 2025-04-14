@@ -101,4 +101,17 @@ public class BaseSkillBook : MonoBehaviour // 일종의 스킬 매니저
         // Temp
         return SkillList[0];
     }
+
+    public virtual void Clear()
+    {
+        foreach (SkillBase skill in SkillList)
+            Destroy(skill);
+
+        SkillList.Clear();
+        ActivateSkills.Clear();
+        DefaultSkill = null;
+        ASkill = null;
+        BSkill = null;
+        EnvSkill = null;
+    }
 }
