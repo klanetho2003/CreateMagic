@@ -220,23 +220,37 @@ public static class Define
     public enum EItemGroupType // Remmove 해도 될 듯
     {
         None,
-        Equipment,
         StatBoost,
+        Equipment,
         Consumable,
     }
 
     public enum EItemType
     {
         None,
-        Artifact,
-        Weapon,
-        Armor,
+
+        #region Passive
+        // StatBoost
+        StatBoost,
+
+        // 특수 취급해야 하는 Item - 공격할 때마다 미사일을 하나 Spawn
+            // To Do
+        #endregion
+
+        #region Active
+        // Equipment
+        ItemSkill,
+
+        // Consumable
+        Scroll,
         Potion,
-        Scroll
+        #endregion
     }
 
     public enum EItemSubType
     {
+        // To Do 아르카나로 교체
+
         None,
 
         Sword,
@@ -259,13 +273,20 @@ public static class Define
     public enum EEquipSlotType
     {
         None,
-        Weapon = 1,
+
+        Shift = 1,
+        Z = 2,
+        X = 3,
+        C = 4,
+        EquipMax,
+
+        /*Weapon = 1,
         Helmet = 2,
         Armor = 3,
         Shield = 4,
         Gloves = 5,
         Shoes = 6,
-        EquipMax,
+        EquipMax,*/
 
         Inventory = 100,
         UnknownItems = 200,

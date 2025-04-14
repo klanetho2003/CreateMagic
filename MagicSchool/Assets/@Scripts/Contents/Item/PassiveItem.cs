@@ -6,21 +6,8 @@ using static Define;
 
 public class PassiveItem : Item
 {
+    #region Init
     public PassiveItem(int templateId) : base(templateId)
-    {
-
-    }
-}
-
-public class Artifact : PassiveItem
-{
-    public float Damage { get; private set; }
-    public float Defence { get; private set; }
-    public double Speed { get; private set; }
-
-    protected Data.ArtifactData ArtifactData { get { return (Data.ArtifactData)TemplateData; } }
-
-    public Artifact(int templateId) : base(templateId)
     {
         Init();
     }
@@ -30,13 +17,54 @@ public class Artifact : PassiveItem
         if (base.Init() == false)
             return false;
 
-        if (TemplateData == null)
+        return true;
+    }
+    #endregion
+
+    public override void ApplyItemAbility(EStatModType statModType, CreatureController target)
+    {
+        base.ApplyItemAbility(statModType, target);
+
+        // Inventory에 지닌 장비인가? (즉, 획득한 장비인가?)
+        if (this.IsInInventory() == false)
+            return;
+    }
+
+    public override void RemoveItemAbility(CreatureController target)
+    {
+        base.RemoveItemAbility(target);
+
+        // Inventory에 지닌 장비인가? (즉, 획득한 장비인가?)
+        if (this.IsInInventory() == false)
+            return;
+    }
+}
+
+// StatBoost Item
+public class StatBoost : PassiveItem
+{
+    public List<StatModifier> statModifiers { get; } = new List<StatModifier>();
+    public float Damage { get; private set; }
+    public float Defence { get; private set; }
+    public double Speed { get; private set; }
+
+    protected Data.StatBoostData StatBoostData { get { return (Data.StatBoostData)TemplateData; } }
+
+    #region Init
+    public StatBoost(int templateId) : base(templateId)
+    {
+        Init();
+    }
+
+    public override bool Init()
+    {
+        if (base.Init() == false)
             return false;
 
-        if (TemplateData.Type != EItemType.Artifact)
+        if (TemplateData.Type != EItemType.StatBoost)
             return false;
 
-        ArtifactData data = (ArtifactData)TemplateData;
+        StatBoostData data = (StatBoostData)TemplateData;
         {
             Damage = data.Damage;
             Defence = data.Defence;
@@ -45,34 +73,36 @@ public class Artifact : PassiveItem
 
         return true;
     }
+    #endregion
+
+    StatModifier MakeModifier(float amount, EStatModType statModType)
+    {
+        StatModifier statMod = new StatModifier(this.Damage, statModType);
+        statModifiers.Add(statMod);
+        return statMod;
+    }
 
     //  Temp, To DO : 어떤 Stat이 어떤 StatModType 만큼 상승하는지 Class로 묶은 뒤, List로 관리해야할 듯
     public override void ApplyItemAbility(EStatModType statModType, CreatureController target)
     {
         base.ApplyItemAbility(statModType, target);
 
-        // Inventory에 지닌 장비인가? (즉, 획득한 장비인가?)
-        if (this.IsInInventory() == false)
-            return;
-
         if (this.IsHaveAtkWeight())
         {
-            StatModifier Atk = new StatModifier(this.Damage, statModType);
-            target.Atk.AddModifier(Atk);
-            statModifiers.Add(Atk);
+            StatModifier atk = MakeModifier(this.Damage, statModType);
+            target.Atk.AddModifier(atk);
         }
 
         if (this.IsHaveDefWeight())
         {
-            /*StatModifier Def = new StatModifier(EItem.Defence, statModType);
-            target.Atk.AddModifier(Def);*/
+            StatModifier def = MakeModifier(this.Defence, statModType);
+            target.Atk.AddModifier(def);
         }
 
         if (this.IsHaveSpeedWeight())
         {
-            StatModifier speed = new StatModifier((float)this.Speed, statModType);
+            StatModifier speed = MakeModifier((float)this.Speed, statModType);
             target.MoveSpeed.AddModifier(speed);
-            statModifiers.Add(speed);
         }
     }
 

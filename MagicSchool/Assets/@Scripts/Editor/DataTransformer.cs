@@ -46,7 +46,7 @@ public class DataTransformer : EditorWindow
         ParseExcelDataToJson<NpcDataLoader, NpcData>("Npc");
         ParseExcelDataToJson<TextDataLoader, TextData>("Text");
 
-        ParseExcelDataToJson<ItemDataLoader<ArtifactData>, ArtifactData>("Item_Artifact");
+        ParseExcelDataToJson<ItemDataLoader<StatBoostData>, StatBoostData>("Item_StatBoost");
         ParseExcelDataToJson<ItemDataLoader<EquipmentData>, EquipmentData>("Item_Equipment");
         ParseExcelDataToJson<ItemDataLoader<ConsumableData>, ConsumableData>("Item_Consumable");
         ParseExcelDataToJson<DropTableDataLoader, DropTableData>("DropTable");

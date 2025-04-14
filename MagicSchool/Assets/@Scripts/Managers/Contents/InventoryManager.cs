@@ -91,7 +91,7 @@ public class InventoryManager
     }
 
     // Item 장착
-    public void EquipItem(int instanceId)
+    public void EquipItem(int instanceId, EEquipSlotType equipSlotType)
     {
         Item item = InventoryItems.Find(x => x.SaveData.InstanceId == instanceId);
         if (item == null)
@@ -101,8 +101,7 @@ public class InventoryManager
         }
 
         // 장착 불가 Item 판별
-        EEquipSlotType equipSlotType = item.GetEquipItemEquipSlot();
-        if (equipSlotType == EEquipSlotType.None)
+        if (item.IsEquippable() == false)
             return;
 
         // 기존 아이템 해제

@@ -7,8 +7,8 @@ using static Define;
 public class Item
 {
     public ItemSaveData SaveData { get; set; } = new ItemSaveData();
-    public List<StatModifier> statModifiers { get; } = new List<StatModifier>();
 
+    #region Save Datas
     public int InstanceId
     {
         get { return SaveData.InstanceId; }
@@ -37,6 +37,7 @@ public class Item
         get { return SaveData.EquipSlot; }
         set { SaveData.EquipSlot = value; }
     }
+    #endregion
 
     // Caching
     public Data.ItemData TemplateData 
@@ -46,6 +47,9 @@ public class Item
 
     public EItemType ItemType { get; private set; }
     public EItemSubType SubType { get; private set; }
+    
+    public EEquipSlotType ItemSlotType { get; private set; }
+    public int MaxCount { get; private set; }
 
     // 생성자
     public Item(int templateId)
@@ -57,6 +61,9 @@ public class Item
 
     public virtual bool Init()
     {
+        if (TemplateData == null)
+            return false;
+
         return true;
     }
 
@@ -69,20 +76,18 @@ public class Item
 
         switch (itemData.Type)
         {
-            case EItemType.Artifact:
-                item = new Artifact(itemInfo.TemplateId);
+            case EItemType.StatBoost:
+                item = new StatBoost(itemInfo.TemplateId);
                 break;
-            case EItemType.Weapon:
-                item = new Equipment(itemInfo.TemplateId);
-                break;
-            case EItemType.Armor:
-                item = new Equipment(itemInfo.TemplateId);
+
+            case EItemType.ItemSkill:
+                item = new ItemSkill(itemInfo.TemplateId);
                 break;
             case EItemType.Potion:
-                item = new Consumable(itemInfo.TemplateId);
+                item = new Potion(itemInfo.TemplateId);
                 break;
             case EItemType.Scroll:
-                item = new Consumable(itemInfo.TemplateId);
+                item = new Scroll(itemInfo.TemplateId);
                 break;
         }
 
@@ -96,7 +101,7 @@ public class Item
         return item;
     }
 
-    // ActiveItem으로 옮길 것
+    // Artifact로 옮길 것
     public static bool RemoveItemInDic_Temp(ItemSaveData itemInfo)
     {
         // Inventory에서 보여져야 하기에 Item Data를 담고 있는 Dictionary에서는 지우면 안됨!!!
@@ -104,15 +109,13 @@ public class Item
         return false;
     }
 
-    #region Helpers
-
-    // Active Item Class로 옮기는 것을 고려
+    #region Equipment Helpers
     public bool IsEquippable()
     {
-        return GetEquipItemEquipSlot() != EEquipSlotType.None;
+        return ItemType != EItemType.StatBoost;
     }
-    // Active Item Class로 옮기는 것을 고려
-    public EEquipSlotType GetEquipItemEquipSlot()
+
+    /*public EEquipSlotType GetEquipItemEquipSlot()
     {
         if (ItemType == EItemType.Weapon)
             return EEquipSlotType.Weapon;
@@ -135,13 +138,11 @@ public class Item
         }
 
         return EEquipSlotType.None;
-    }
+    }*/
 
+    #endregion
 
-
-
-
-
+    #region Passive Overrides
     public virtual void ApplyItemAbility(EStatModType statModType, CreatureController target)
     {
         if (target.IsValid() == false)
@@ -157,6 +158,7 @@ public class Item
 
         // override
     }
+    #endregion
 
     public bool IsEquippedItem()
     {
@@ -172,41 +174,9 @@ public class Item
     {
         return SaveData.EquipSlot == (int)EEquipSlotType.UnknownItems;
     }
-    #endregion
 
     public void ClearStatModifier()
     {
         // To Do
-    }
-}
-
-
-
-public class Consumable : Item
-{
-    public double Value { get; private set; }
-
-    public Consumable(int templateId) : base(templateId)
-    {
-        Init();
-    }
-
-    public override bool Init()
-    {
-        if (base.Init() == false)
-            return false;
-
-        if (TemplateData == null)
-            return false;
-
-        if (TemplateData.Type != EItemType.Potion && TemplateData.Type != EItemType.Scroll)
-            return false;
-
-        ConsumableData data = (ConsumableData)TemplateData;
-        {
-            Value = data.Value;
-        }
-
-        return true;
     }
 }

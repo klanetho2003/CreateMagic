@@ -84,7 +84,7 @@ public class UI_ItemsList_Item : UI_Base
         if (item.IsEquippedItem())
             Managers.Inventory.UnEquipItem(item.InstanceId);
         else
-            Managers.Inventory.EquipItem(item.InstanceId);
+            Managers.Inventory.EquipItem(item.InstanceId, Define.EEquipSlotType.Shift); // To Do Temp
 
         _parentUI.Refresh();
     }

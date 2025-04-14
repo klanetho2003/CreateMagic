@@ -583,7 +583,7 @@ namespace Data
     }
 
     [Serializable]
-    public class ArtifactData : ItemData
+    public class StatBoostData : ItemData
     {
         public float Damage;
         public float Defence;

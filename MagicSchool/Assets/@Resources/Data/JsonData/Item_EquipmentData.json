@@ -6,7 +6,7 @@
       "Speed": 0.0,
       "Name": "TestEquipmentSomthing",
       "SpriteName": "Ring_05.sprite",
-      "ItemGroupType": 1,
+      "ItemGroupType": 2,
       "Type": 2,
       "SubType": 2,
       "Grade": 1,

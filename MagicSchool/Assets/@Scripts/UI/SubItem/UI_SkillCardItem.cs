@@ -78,7 +78,7 @@ public class UI_SkillCardItem : UI_Base
         // Temp Casting
         if (_data.ItemGroupType == Define.EItemGroupType.StatBoost)
         {
-            ArtifactData data = (ArtifactData)_data;
+            StatBoostData data = (StatBoostData)_data;
 
             // Text
             cardNameText.text = $"{data.Name}";

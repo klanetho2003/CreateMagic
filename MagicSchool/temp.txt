@@ -9,12 +9,19 @@ To Do :
 
 
 ★★★★★★★★★★★★★★★★★★★★★★★★★ To Day To Do
-1. mage가 DoSkill을 처리 못하는 문제
-2. mage가 체력이 감소한 체로 Spawn
-3.  MonsterController에서 SetInfo할 때 스킬을 모두 Destroy하고 새로 부여하는데, Destroy할 때 정상적으로 삭제가 안 됨.
-> RemoveComponent 사용 필요.
-4. Monster Hp가 이상함. MaxHp가 일단 0이고(이건 의도한 거였나?) Hp바가 가득 차지 않은 상태로 스폰됨
+-- 처리할 것
+1. Item Slot Type
+2. Max Count
 
+--대분류
+Active는 사용할 수 있는 Item
+패시브는 사용할 수 없는 Item
+
+--중첩은 종류와 상관 없이 가능 - 단, 최대 개수가 정해져 있음
+
+--Active는 두 가지로 분기
+소모하는냐
+소모하지 않느냐
 
  
 3. Player 그림자 수정

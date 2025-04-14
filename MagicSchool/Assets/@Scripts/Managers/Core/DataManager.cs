@@ -28,7 +28,7 @@ public class DataManager
     public Dictionary<int, Data.EffectData> EffectDic { get; private set; } = new Dictionary<int, Data.EffectData>();
     public Dictionary<int, Data.AoEData> AoEDic { get; private set; } = new Dictionary<int, Data.AoEData>();
 
-    public Dictionary<int, Data.ArtifactData> ArtifactsDic { get; private set; } = new Dictionary<int, Data.ArtifactData>();
+    public Dictionary<int, Data.StatBoostData> StatBoostsDic { get; private set; } = new Dictionary<int, Data.StatBoostData>();
     public Dictionary<int, Data.EquipmentData> EquipmentsDic { get; private set; } = new Dictionary<int, Data.EquipmentData>();
     public Dictionary<int, Data.ConsumableData> ConsumableDic { get; private set; } = new Dictionary<int, Data.ConsumableData>();
     public Dictionary<int, Data.ItemData> ItemDic { get; private set; } = new Dictionary<int, Data.ItemData>();
@@ -63,13 +63,13 @@ public class DataManager
         #endregion
 
         #region Item
-        ArtifactsDic = LoadJson<Data.ItemDataLoader<Data.ArtifactData>, int, Data.ArtifactData>("Item_ArtifactData").MakeDict();
+        StatBoostsDic = LoadJson<Data.ItemDataLoader<Data.StatBoostData>, int, Data.StatBoostData>("Item_StatBoostData").MakeDict();
         EquipmentsDic = LoadJson<Data.ItemDataLoader<Data.EquipmentData>, int, Data.EquipmentData>("Item_EquipmentData").MakeDict();
         ConsumableDic = LoadJson<Data.ItemDataLoader<Data.ConsumableData>, int, Data.ConsumableData>("Item_ConsumableData").MakeDict();
         DropTableDic = LoadJson<Data.DropTableDataLoader, int, Data.DropTableData>("DropTableData").MakeDict();
 
         ItemDic.Clear();
-        foreach (var item in ArtifactsDic)
+        foreach (var item in StatBoostsDic)
             ItemDic.Add(item.Key, item.Value);
 
         foreach (var item in EquipmentsDic)
