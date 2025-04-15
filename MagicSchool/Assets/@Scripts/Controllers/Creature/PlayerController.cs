@@ -392,7 +392,7 @@ public class PlayerController : CreatureController
         if (this.CreatureState == CreatureState.Dameged)
             return;
 
-        // base.OnDamaged(attacker, skill);
+        base.OnDamaged(attacker, skill);
         PlayerSkills.ClearCastingValue();
     }
 

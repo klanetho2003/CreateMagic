@@ -17,8 +17,8 @@ public class InventoryManager
     // Cache
     Dictionary<int /*EquipSlot*/, Item> EquippedItems = new Dictionary<int, Item>(); // 장비 인벤
     List<Item> InventoryItems = new List<Item>(); // 인벤
-    List<Item> UnknownItems = new List<Item>(); // 등장X
-    HashSet<Item> RewardItems = new HashSet<Item>(); // Stage Clear 시 등장할 수 있는 Item
+    Dictionary<int /*IntanceId*/, Item> UnknownItems = new Dictionary<int, Item>(); // 등장X
+    List<Item> RewardItems = new List<Item>(); // Stage Clear 시 등장할 수 있는 Item
 
     // Evnet
     public Action OnItemSlotChange;
@@ -62,7 +62,7 @@ public class InventoryManager
         }
         else if (item.IsInUnknownItems())
         {
-            UnknownItems.Add(item);
+            UnknownItems.Add(item.InstanceId, item);
         }
         else if (item.Count < item.TemplateData.MaxCount)
         {
@@ -97,7 +97,7 @@ public class InventoryManager
         }
         else if (item.IsInUnknownItems())
         {
-            UnknownItems.Remove(item);
+            UnknownItems.Remove(item.InstanceId);
         }
         else if (RewardItems.Contains(item) == false)
         {
@@ -112,7 +112,7 @@ public class InventoryManager
 
     public void GainItem(int instanceId, EEquipSlotType equipSlotType)
     {
-        Item item = UnknownItems.Find(x => x.SaveData.InstanceId == instanceId);
+        UnknownItems.TryGetValue(instanceId, out Item item);
         if (item == null)
         {
             Debug.Log("아이템존재안함");
@@ -130,7 +130,7 @@ public class InventoryManager
         }
 
         // 아이템 Remove in UnknownItems
-        UnknownItems.Remove(item);
+        UnknownItems.Remove(item.InstanceId);
 
         if (_player.IsValid())
             item.ApplyItemAbility(item.TemplateData.StatModType, _player);
@@ -266,26 +266,37 @@ public class InventoryManager
     // Unknown
     public Item GetUnknownItem(int templateId)
     {
-        return UnknownItems.Find(x => x.SaveData.TemplateId == templateId);
+        foreach (Item item in UnknownItems.Values)
+        {
+            if (item.TemplateId == templateId)
+                return item;
+        }
+
+        return null;
     }
 
     public List<Item> GetUnknownItems()
     {
-        return UnknownItems.ToList();
+        return UnknownItems.Values.ToList();
     }
 
     public List<ItemSaveData> GetUnknownItemInfos()
     {
-        return UnknownItems.Select(x => x.SaveData).ToList();
+        List<ItemSaveData> itemSaveDatas = new List<ItemSaveData>();
+
+        foreach (Item item in UnknownItems.Values)
+            itemSaveDatas.Add(item.SaveData);
+
+        return itemSaveDatas;
     }
 
-    public List<ItemSaveData> GetUnknownItemInfosOrderbyGrade()
+    /*public List<ItemSaveData> GetUnknownItemInfosOrderbyGrade()
     {
         return UnknownItems.OrderByDescending(y => (int)y.TemplateData.Grade)
                                     .ThenBy(y => (int)y.TemplateId)
                                     .Select(x => x.SaveData)
                                     .ToList();
-    }
+    }*/
     #endregion
 
     public void Clear()
