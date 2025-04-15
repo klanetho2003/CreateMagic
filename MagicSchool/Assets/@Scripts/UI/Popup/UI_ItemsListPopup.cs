@@ -74,6 +74,9 @@ public class UI_ItemsListPopup : UI_Popup
         }
 
         // Refresh();
+        
+        // Event Binding
+        Managers.Inventory.OnItemSlotChange += Refresh;
 
         return true;
 	}

@@ -700,4 +700,35 @@ namespace Data
     }
 
     #endregion
+
+    #region Init Game Data
+
+    [Serializable]
+    public class InitGameData
+    {
+        public int DataId; // 시작 난이도에 따라 얻는 게 다를 수 있음
+        public List<StartItemData> StartItems = new List<StartItemData>();
+    }
+
+    [Serializable]
+    public class StartItemData
+    {
+        public int ItemTemplateId;
+        public int Count;
+    }
+
+    [Serializable]
+    public class InitGameDataLoader : ILoader<int, InitGameData>
+    {
+        public List<InitGameData> initGameDatas = new List<InitGameData>();
+        public Dictionary<int, InitGameData> MakeDict()
+        {
+            Dictionary<int, InitGameData> dict = new Dictionary<int, InitGameData>();
+            foreach (InitGameData initGameData in initGameDatas)
+                dict.Add(initGameData.DataId, initGameData);
+            return dict;
+        }
+    }
+
+    #endregion
 }

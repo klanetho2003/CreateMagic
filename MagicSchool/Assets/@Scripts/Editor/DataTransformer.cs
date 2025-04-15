@@ -32,6 +32,8 @@ public class DataTransformer : EditorWindow
     [MenuItem("Tools/ParseExcel %#K")]
     public static void ParseExcelDataToJson()
     {
+        ParseExcelDataToJson<InitGameDataLoader, InitGameData>("InitGame");
+
         ParseExcelDataToJson<MonsterDataLoader, MonsterData>("Monster");
         ParseExcelDataToJson<StudentDataLoader, StudentData>("Student");
         ParseExcelDataToJson<StudentStatDataLoader, StudentStatData>("StudentStat");

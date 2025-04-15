@@ -196,24 +196,33 @@ public class Stage : MonoBehaviour
 
     RewardData GetRandomReward()
     {
+        // 여기까지를 등급 확률 시트로 변경
         if (Managers.Data.DropTableDic.TryGetValue(400000, out DropTableData dropTableData) == false)
             return null;
 
         if (dropTableData.Rewards.Count <= 0)
             return null;
 
+        //
+
         int sum = 0;
         int randValue = UnityEngine.Random.Range(0, 100);
 
-        foreach (RewardData item in dropTableData.Rewards)
+        foreach (RewardData item in dropTableData.Rewards) // Rewards를 Grades로 변경
         {
             sum += item.Probability;
 
-            if (randValue <= sum)
-                return item;
+            if (randValue <= sum)   // randValue에 따라 Grades가 결정 됨.
+                return item;        // return하지 말고 Grade 변수에 담을 것
         }
 
-        //return dropTableData.Rewards.RandomElementByWeight(e => e.Probability);
+        // 0 ~ List최대 개수 사이의 int값을 하나 자겨 온다.
+        // 등급에 맞는 Item List[int값]을 통해서 Item을 하나 뽑는다.
+        // return 뽑은 Item
+
+
+
+        // return dropTableData.Rewards.RandomElementByWeight(e => e.Probability);
         return null;
     }
 

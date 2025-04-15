@@ -80,12 +80,12 @@ public class UI_ItemsList_Item : UI_Base
             return;
         }
 
+        if (item.EquipSlot == (int)Define.EEquipSlotType.UnknownItems)
+            return;
+
         if (item.IsEquippedItem())
             Managers.Inventory.UnEquipItem(item.InstanceId);
         else
             Managers.Inventory.EquipItem(item.InstanceId, Define.EEquipSlotType.Shift); // To Do Temp
-
-        // To Do 아래 Refresh 부분, Inven에서 Event CallBack 방식으로 수정할 것
-        _parentUI.Refresh();
     }
 }

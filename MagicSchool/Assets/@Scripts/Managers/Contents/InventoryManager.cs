@@ -1,4 +1,5 @@
 using Data;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,8 +20,12 @@ public class InventoryManager
     List<Item> UnknownItems = new List<Item>(); // 등장X
     HashSet<Item> RewardItems = new HashSet<Item>(); // Stage Clear 시 등장할 수 있는 Item
 
+    // Evnet
+    public Action OnItemSlotChange;
+
+    #region In Init Game or Load Game
     // 보유하지 않은 Item Make
-    public Item MakeItem(int itemTemplateId, int count = 1)
+    public Item MakeItem(int itemTemplateId, EEquipSlotType equipSlot = EEquipSlotType.UnknownItems, int count = 1)
     {
         int itemDbId = Managers.Game.GenerateItemDbId();
 
@@ -33,7 +38,7 @@ public class InventoryManager
             DbId = itemDbId,
             TemplateId = itemTemplateId,
             Count = count,
-            EquipSlot = (int)EEquipSlotType.Inventory, // temp - 기본적으론 Inven에 들어가지 않을까
+            EquipSlot = (int)equipSlot,
             EnchantCount = 0,
         };
 
@@ -66,11 +71,14 @@ public class InventoryManager
 
         AllItems.Add(item);
 
-        item.ApplyItemAbility(item.TemplateData.StatModType, _player);
+        // UI Refresh
+        OnItemSlotChange?.Invoke();
+
         // Item.RemoveItemInDic(itemInfo); // 다시 얻을 수 없도록 Dictionay에서 삭제 -> RewardItem과 연계 필요
 
         return item;
     }
+    #endregion
 
     // Item 완전 삭제 Method - ex 버리기
     public void RemoveItem(int instanceId)
@@ -97,6 +105,38 @@ public class InventoryManager
         }
 
         AllItems.Remove(item);
+
+        // UI Refresh
+        OnItemSlotChange?.Invoke();
+    }
+
+    public void GainItem(int instanceId, EEquipSlotType equipSlotType)
+    {
+        Item item = UnknownItems.Find(x => x.SaveData.InstanceId == instanceId);
+        if (item == null)
+        {
+            Debug.Log("아이템존재안함");
+            return;
+        }
+
+        // 장착 가능 여부 판별
+        if (item.IsEquippable())
+            EquipItem(instanceId, equipSlotType);
+        else
+        {
+            // 아이템 Gain in Inventory
+            item.EquipSlot = (int)EEquipSlotType.Inventory; // Save Data 적용
+            InventoryItems.Add(item);                       // In Game Dictionary에 적용
+        }
+
+        // 아이템 Remove in UnknownItems
+        UnknownItems.Remove(item);
+
+        if (_player.IsValid())
+            item.ApplyItemAbility(item.TemplateData.StatModType, _player);
+
+        // UI Refresh
+        OnItemSlotChange?.Invoke();
     }
 
     // Item 장착
@@ -124,7 +164,8 @@ public class InventoryManager
         // 아이템 Remove in Inventory
         InventoryItems.Remove(item);
 
-        // CallBack - UI
+        // UI Refresh
+        OnItemSlotChange?.Invoke();
     }
 
     // Item 장착 해제
@@ -147,7 +188,8 @@ public class InventoryManager
         // Item Stat Remove
         // item.RemoveItemAbility(_player);
 
-        // CallBack - UI
+        // UI Refresh
+        OnItemSlotChange?.Invoke();
     }
 
     // UI 작업 진행할 때 많이 사용할 Helper
@@ -222,6 +264,11 @@ public class InventoryManager
     }
 
     // Unknown
+    public Item GetUnknownItem(int templateId)
+    {
+        return UnknownItems.Find(x => x.SaveData.TemplateId == templateId);
+    }
+
     public List<Item> GetUnknownItems()
     {
         return UnknownItems.ToList();

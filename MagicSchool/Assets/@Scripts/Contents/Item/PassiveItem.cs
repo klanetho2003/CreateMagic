@@ -83,26 +83,28 @@ public class StatBoost : PassiveItem
     }
 
     //  Temp, To DO : 어떤 Stat이 어떤 StatModType 만큼 상승하는지 Class로 묶은 뒤, List로 관리해야할 듯
-    public override void ApplyItemAbility(EStatModType statModType, CreatureController target)
+    public override void ApplyItemAbility(EStatModType statModType, CreatureController owner)
     {
-        base.ApplyItemAbility(statModType, target);
+        base.ApplyItemAbility(statModType, owner);
 
         if (this.IsHaveAtkWeight())
         {
             StatModifier atk = MakeModifier(this.Damage, statModType);
-            target.Atk.AddModifier(atk);
+            owner.Atk.AddModifier(atk);
+
+            Debug.Log($"Atk : {owner.Atk.Value}");
         }
 
         if (this.IsHaveDefWeight())
         {
             StatModifier def = MakeModifier(this.Defence, statModType);
-            target.Atk.AddModifier(def);
+            owner.Atk.AddModifier(def);
         }
 
         if (this.IsHaveSpeedWeight())
         {
             StatModifier speed = MakeModifier((float)this.Speed, statModType);
-            target.MoveSpeed.AddModifier(speed);
+            owner.MoveSpeed.AddModifier(speed);
         }
     }
 

@@ -58,7 +58,7 @@ public class ItemSaveData
     public int DbId;
     public int TemplateId;
     public int Count;
-    public int EquipSlot; // 장착 + 인벤 + 창고
+    public int EquipSlot; // 장착 + 인벤 + 창고 + 발견X
     // public int OwnerId;
     public int EnchantCount;
 }
@@ -261,7 +261,19 @@ public class GameManager
 
         // Item
         {
-            // Init 지급 Item이 있을 시 MakeItem
+            // Make Item Data
+            var allItems = Managers.Data.ItemDic.Values.ToList();
+            foreach (var item in allItems)
+                Managers.Inventory.MakeItem(item.DataId, equipSlot: EEquipSlotType.UnknownItems, count: 0);
+
+            // Gain Start Item
+            var initGameData = Managers.Data.InitGameDic[100]; // To Do 100 = 난이도
+            foreach (var startItem in initGameData.StartItems)
+            {
+                Item item = Managers.Inventory.GetUnknownItem(startItem.ItemTemplateId);
+                Managers.Inventory.GainItem(item.InstanceId, EEquipSlotType.Inventory);
+            }
+            
         }
 
         // Quest

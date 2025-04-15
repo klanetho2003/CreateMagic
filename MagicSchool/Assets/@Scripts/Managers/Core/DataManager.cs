@@ -13,6 +13,8 @@ public interface ILoader<Key, Value>
 
 public class DataManager
 {
+    public Dictionary<int, Data.InitGameData> InitGameDic { get; private set; } = new Dictionary<int, Data.InitGameData>();
+
     public Dictionary<int, Data.MonsterData> MonsterDic { get; private set; } = new Dictionary<int, Data.MonsterData>();
     public Dictionary<int, Data.StudentData> StudentDic { get; private set; } = new Dictionary<int, Data.StudentData>();
     public Dictionary<int, Data.NpcData> NpcDic { get; private set; } = new Dictionary<int, Data.NpcData>();
@@ -42,6 +44,8 @@ public class DataManager
 
     public void Init()
     {
+        InitGameDic = LoadJson<Data.InitGameDataLoader, int, Data.InitGameData>("InitGameData").MakeDict();
+
         #region Creature
         MonsterDic = LoadJson<Data.MonsterDataLoader, int, Data.MonsterData>("MonsterData").MakeDict();
         StudentDic = LoadJson<Data.StudentDataLoader, int, Data.StudentData>("StudentData").MakeDict();

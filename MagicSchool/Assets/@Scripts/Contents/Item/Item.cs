@@ -47,9 +47,6 @@ public class Item
 
     public EItemType ItemType { get; private set; }
     public EItemSubType SubType { get; private set; }
-    
-    // 历厘等 傍埃
-    public EEquipSlotType ItemSlotType { get; private set; }
 
     // 积己磊
     public Item(int templateId)

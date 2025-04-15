@@ -28,6 +28,8 @@ public class GameScene : BaseScene
         // 메모리에만 들고 있던 Item Player에게 적용
         foreach (var item in Managers.Inventory.GetEquippedItems())
             item.ApplyItemAbility(item.TemplateData.StatModType, player);
+        foreach (var item in Managers.Inventory.GetInventoryItems())
+            item.ApplyItemAbility(item.TemplateData.StatModType, player);
 
         // Event
         Managers.Game.OnBroadcastEvent -= OnHandleBroadcastEvent;
