@@ -10,7 +10,7 @@
       "SubType": 11,
       "Grade": 1,
       "StatModType": 1,
-      "MaxStack": 10,
+      "MaxCount": 10,
       "DataId": 10
     }
   ]

@@ -579,7 +579,7 @@ namespace Data
         public EItemSubType SubType;
         public EItemGrade Grade;
         public EStatModType StatModType;
-        public int MaxStack;
+        public int MaxCount;
     }
 
     [Serializable]

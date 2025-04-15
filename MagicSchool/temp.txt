@@ -8,20 +8,24 @@ To Do :
 # KillMonster
 
 
+# Clear했을 때, 등장할 수 있는 Item들을 HashSet으로 캐싱하고 있자.
+
+
+# GetItemInGame() 함수하나 만들자 - UI_어쩌구에서 MakeItem을 하는 부분을 이 함수로 교체할 것
+>		Count 비교해서 얻을 수 있는 Item인지 확인
+>>		가능하면 MakeItem,
+>>> 		OnItemCountIncreased by GPT (Count하나 올리고,만약 MaxCount 보다 같거나 크다면 Mathf.Clamp써서 최대개수로 맞추											고 가득차지 않은 Item을 보관 하는 List에서 제외.)
+
+
+
+
 ★★★★★★★★★★★★★★★★★★★★★★★★★ To Day To Do
--- 처리할 것
-1. Item Slot Type
-2. Max Count
-
---대분류
-Active는 사용할 수 있는 Item
-패시브는 사용할 수 없는 Item
-
---중첩은 종류와 상관 없이 가능 - 단, 최대 개수가 정해져 있음
-
---Active는 두 가지로 분기
-소모하는냐
-소모하지 않느냐
+--처리할 것-- 전제 DataBase 전용인 TemplateId를 유저에게 공개하는 것은 좀 불안하니깐, 가급적 사용을 자제한다. InstanceId를 사용한다?
+1. Max Count
+- Inven과 Equip을 순회하면서 매개변수로 전달 받은 TemplateId와 같은 Item이 있는지 확인해보기 + 있다면 그 Item을 return
+- 그 Item들 Consumable인지 Equipment인지 확인하기
+- Consumable이면 + MaxCount와 Count가 같은 상태이면? ㅠㅎ
+2. Item Slot Type
 
  
 3. Player 그림자 수정

@@ -1,2 +1,2 @@
-DataId,Name,SpriteName,GroupType,Type,SubType,Grade,StatModType,MaxStack,Value,Cooltime
+DataId,Name,SpriteName,GroupType,Type,SubType,Grade,StatModType,MaxCount,Value,Cooltime
 10,TestPotionID,EgoSwordIcon_01.sprite,Consumable,Potion,HealthPotion,Normal,Add,10,3.5,2

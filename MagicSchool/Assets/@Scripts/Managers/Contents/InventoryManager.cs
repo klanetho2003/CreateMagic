@@ -7,16 +7,17 @@ using static Define;
 
 public class InventoryManager
 {
+    PlayerController _player { get { return Managers.Game.Player; } }
+
     public readonly int DEFAULT_INVENTORY_SLOT_COUNT = 30;
 
     public List<Item> AllItems { get; } = new List<Item>();
-
-    PlayerController _player { get { return Managers.Game.Player; } }
 
     // Cache
     Dictionary<int /*EquipSlot*/, Item> EquippedItems = new Dictionary<int, Item>(); // 장비 인벤
     List<Item> InventoryItems = new List<Item>(); // 인벤
     List<Item> UnknownItems = new List<Item>(); // 등장X
+    HashSet<Item> RewardItems = new HashSet<Item>(); // Stage Clear 시 등장할 수 있는 Item
 
     // 보유하지 않은 Item Make
     public Item MakeItem(int itemTemplateId, int count = 1)
@@ -58,6 +59,10 @@ public class InventoryManager
         {
             UnknownItems.Add(item);
         }
+        else if (item.Count < item.TemplateData.MaxCount)
+        {
+            RewardItems.Add(item);
+        }
 
         AllItems.Add(item);
 
@@ -85,6 +90,10 @@ public class InventoryManager
         else if (item.IsInUnknownItems())
         {
             UnknownItems.Remove(item);
+        }
+        else if (RewardItems.Contains(item) == false)
+        {
+            RewardItems.Add(item);
         }
 
         AllItems.Remove(item);
@@ -141,21 +150,14 @@ public class InventoryManager
         // CallBack - UI
     }
 
-    public void Clear()
-    {
-        AllItems.Clear();
-
-        EquippedItems.Clear();
-        InventoryItems.Clear();
-        UnknownItems.Clear();
-    }
-
     // UI 작업 진행할 때 많이 사용할 Helper
     #region Helper
     public Item GetItem(int instanceId)
     {
         return AllItems.Find(item => item.InstanceId == instanceId);
     }
+
+    // RewardItems를 순회하면서 매개변수로 전달 받은 TemplateId와 같은 Item이 있는지 확인해보기
 
     // Equip
     public Item GetEquippedItem(EEquipSlotType equipSlotType)
@@ -238,4 +240,13 @@ public class InventoryManager
                                     .ToList();
     }
     #endregion
+
+    public void Clear()
+    {
+        AllItems.Clear();
+
+        EquippedItems.Clear();
+        InventoryItems.Clear();
+        UnknownItems.Clear();
+    }
 }

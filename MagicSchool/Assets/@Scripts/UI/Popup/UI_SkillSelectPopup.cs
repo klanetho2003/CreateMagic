@@ -32,9 +32,7 @@ public class UI_SkillSelectPopup : UI_Popup
     void PopulateGrid(List<Data.RewardData> rewards)
     {
         foreach (Transform t in _grid.transform)
-        {
             Managers.Resource.Destroy(t.gameObject);
-        }
 
         for (int i = 0; i < rewards.Count; i++)
         {

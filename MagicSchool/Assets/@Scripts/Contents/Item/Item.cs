@@ -48,8 +48,8 @@ public class Item
     public EItemType ItemType { get; private set; }
     public EItemSubType SubType { get; private set; }
     
+    // 저장된 공간
     public EEquipSlotType ItemSlotType { get; private set; }
-    public int MaxCount { get; private set; }
 
     // 생성자
     public Item(int templateId)
@@ -101,7 +101,7 @@ public class Item
         return item;
     }
 
-    // Artifact로 옮길 것
+    // 다시 얻을 수 없도록 한다
     public static bool RemoveItemInDic_Temp(ItemSaveData itemInfo)
     {
         // Inventory에서 보여져야 하기에 Item Data를 담고 있는 Dictionary에서는 지우면 안됨!!!
@@ -142,7 +142,7 @@ public class Item
 
     #endregion
 
-    #region Passive Overrides
+    #region Overrides
     public virtual void ApplyItemAbility(EStatModType statModType, CreatureController target)
     {
         if (target.IsValid() == false)

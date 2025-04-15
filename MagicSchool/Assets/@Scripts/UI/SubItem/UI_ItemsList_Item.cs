@@ -69,11 +69,10 @@ public class UI_ItemsList_Item : UI_Base
 		GetImage((int)Images.ItemImage).sprite = Managers.Resource.Load<Sprite>(Managers.Data.ItemDic[_itemTemplateId].SpriteName);
 	}
 
+
+    // To Do __ 25.04.15
 	void OnClickItemButton(PointerEventData evt)
 	{
-        //UI_HeroInfoPopup popup = Managers.UI.ShowPopupUI<UI_HeroInfoPopup>();
-        //popup.SetInfo(_heroDataId);
-
         Item item = Managers.Inventory.GetItem(_itemDataId);
         if (item == null)
         {
@@ -86,6 +85,7 @@ public class UI_ItemsList_Item : UI_Base
         else
             Managers.Inventory.EquipItem(item.InstanceId, Define.EEquipSlotType.Shift); // To Do Temp
 
+        // To Do 아래 Refresh 부분, Inven에서 Event CallBack 방식으로 수정할 것
         _parentUI.Refresh();
     }
 }

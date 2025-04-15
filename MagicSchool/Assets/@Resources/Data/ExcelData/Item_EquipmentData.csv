@@ -1,4 +1,4 @@
-DataId,Name,SpriteName,GroupType,Type,SubType,Grade,StatModType,MaxStack,Damage,Defence,Speed
+DataId,Name,SpriteName,GroupType,Type,SubType,Grade,StatModType,MaxCount,Damage,Defence,Speed
 6,TestEquipmentSomthing,Ring_05.sprite,Equipment,ItemSkill,Dagger,Normal,None,1,0,0,0
 ,,,,,,,,,,,
 ,,,,,,,,,,,
