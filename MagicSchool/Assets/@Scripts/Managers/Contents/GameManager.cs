@@ -264,7 +264,7 @@ public class GameManager
             // Make Item Data
             var allItems = Managers.Data.ItemDic.Values.ToList();
             foreach (var item in allItems)
-                Managers.Inventory.MakeItem(item.DataId, equipSlot: EEquipSlotType.UnknownItems, count: 0);
+                Managers.Inventory.MakeItem(item.DataId, equipSlot: EEquipSlotType.UnknownItems);
 
             // Gain Start Item
             var initGameData = Managers.Data.InitGameDic[100]; // To Do 100 = ≥≠¿Ãµµ

@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 6150483792269950814}
   - component: {fileID: 2890705210418321580}
   m_Layer: 5
-  m_Name: LevelIcon
+  m_Name: ItemCount
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -320,7 +320,7 @@ GameObject:
   - component: {fileID: 2690630873110469407}
   - component: {fileID: 4473165989621407054}
   m_Layer: 5
-  m_Name: ItemExpSlider
+  m_Name: ItemMaxCountSlider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -411,7 +411,7 @@ GameObject:
   - component: {fileID: 1765362473267877063}
   - component: {fileID: 226593422375497020}
   m_Layer: 5
-  m_Name: ExpText
+  m_Name: ItemMaxCountText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -545,7 +545,7 @@ GameObject:
   - component: {fileID: 3153579615174885882}
   - component: {fileID: 3910303511214132016}
   m_Layer: 5
-  m_Name: LevelText
+  m_Name: ItemCountText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -598,7 +598,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 10
+  m_text: t10
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 7e5141cf120369f459cca35208531e65, type: 2}
   m_sharedMaterial: {fileID: -1185709121785741761, guid: 7e5141cf120369f459cca35208531e65, type: 2}
@@ -607,8 +607,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4294967295
-  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
+    rgba: 4278190080
+  m_fontColor: {r: 0, g: 0, b: 0, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:

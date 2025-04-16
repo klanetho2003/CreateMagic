@@ -213,11 +213,11 @@ public static class Define
         None,
         Normal,
         Rare,
+        Legendary,
         Epic,
-        Legendary
     }
 
-    public enum EItemGroupType // Remmove 해도 될 듯
+    public enum EItemGroupType
     {
         None,
         StatBoost,

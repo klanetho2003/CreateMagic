@@ -109,7 +109,7 @@ public class UI_ItemsListPopup : UI_Popup
             if (i < inventoryItemList.Count)
             {
                 ItemSaveData item = inventoryItemList[i].SaveData;
-                uiItemList[i].SetInfo(item.TemplateId, item.InstanceId, this);
+                uiItemList[i].SetInfo(item.InstanceId, this);
                 uiItemList[i].gameObject.SetActive(true);
             }
             else

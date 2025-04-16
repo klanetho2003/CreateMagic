@@ -1,3 +1,5 @@
+// 전제 DataBase 전용인 TemplateId를 유저에게 공개하는 것은 좀 불안하니깐, 가급적 사용을 자제한다. InstanceId를 사용한다?
+
 UI로 Stage 이동 시, Error 발생 - GetNearbyPosition 후에 Stage를 Load해서 발생하는 문제로 보임
 
 To Do :
@@ -18,27 +20,28 @@ To Do :
 
 
 
-
 ★★★★★★★★★★★★★★★★★★★★★★★★★ To Day To Do
---처리할 것-- 전제 DataBase 전용인 TemplateId를 유저에게 공개하는 것은 좀 불안하니깐, 가급적 사용을 자제한다. InstanceId를 사용한다?
-1. Max Count
-- Inven과 Equip을 순회하면서 매개변수로 전달 받은 TemplateId와 같은 Item이 있는지 확인해보기 + 있다면 그 Item을 return
-- 그 Item들 Consumable인지 Equipment인지 확인하기
-- Consumable이면 + MaxCount와 Count가 같은 상태이면? ㅠㅎ
-2. Item Slot Type
+완 		1. Count 구현 - UI도 구현
+1-1. Count++ 구현
+1-2. Max Count  ( RewardItems Remove Check -> Remove or Pass )
+
+
+2. 확률 데이터 시트 파기
+> RewardItems를 Dictionary<Define.Grade, List<Item>>으로 교체 ( 랜덤 돌려서 Grade 구하고, ItemList를 구할 예정
+
+
+4. Item Slot Type
 
  
-3. Player 그림자 수정
+5. Player 그림자 수정
 - Player 하위에 그림자가 있을텐데, Player와 그림자가 동일한 계층을 가지도록 수정
 
 // DeBuff와 화염 Skill 피해량을 낮추는 수치인가?
 // 
 
-3. 게임 끌 때 error 생기는 문제
+6. 게임 끌 때 error 생기는 문제
 
 
-
-// To Do Save를 진행하는 타이밍 정의 필요
 
 
 -- Interface 활용을 고려할 것 --

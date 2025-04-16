@@ -106,7 +106,28 @@ public class Item
         return false;
     }
 
-    #region Equipment Helpers
+    public bool TryChangeCount(int amount)
+    {
+        int tempCount = Count + amount;
+
+        // 음수가 되는 경우 false
+        if (tempCount < 0)
+            return false;
+            
+        // 최대값을 넘긴 경우 조정 후 true
+        Count = Mathf.Min(tempCount, TemplateData.MaxCount);
+        return true;
+    }
+
+    #region Helpers
+    public bool IsMaxCount()
+    {
+        if (Count > TemplateData.MaxCount || Count < 0)
+            Debug.LogWarning($"Count_({Count}) , MaxCount_({TemplateData.MaxCount})");
+
+        return Count == TemplateData.MaxCount;
+    }
+
     public bool IsEquippable()
     {
         return ItemType != EItemType.StatBoost;
@@ -136,7 +157,6 @@ public class Item
 
         return EEquipSlotType.None;
     }*/
-
     #endregion
 
     #region Overrides

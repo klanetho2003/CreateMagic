@@ -17,18 +17,18 @@ public class UI_ItemsList_Item : UI_Base
 
 	enum Texts
 	{
-		ExpText,
-		LevelText,
+        ItemMaxCountText,
+        ItemCountText,
 	}
 
 	enum Sliders
 	{
-        ItemExpSlider,
+        ItemMaxCountSlider,
 	}
 
     UI_ItemsListPopup _parentUI;
-    int _itemTemplateId = -1;
-	int _itemDataId = -1;
+
+    Item item = null;
 
 	public override bool Init()
 	{
@@ -47,33 +47,30 @@ public class UI_ItemsList_Item : UI_Base
         return true;
 	}
 
-	public void SetInfo(int itemTemplateId, int itemInstanceId, UI_ItemsListPopup parentUI)
+	public void SetInfo(int itemInstanceId, UI_ItemsListPopup parentUI)
 	{
         transform.localScale = Vector3.one;
 
         _parentUI = parentUI;
-        _itemTemplateId = itemTemplateId;
-        _itemDataId = itemInstanceId;
 
-		Refresh();
+        item = Managers.Inventory.GetItem(itemInstanceId);
+
+        Refresh();
 	}
 
 	void Refresh()
 	{
 		if (_init == false)
 			return;
-
-		if (_itemDataId < 0)
+		if (item == null)
 			return;
 
-		GetImage((int)Images.ItemImage).sprite = Managers.Resource.Load<Sprite>(Managers.Data.ItemDic[_itemTemplateId].SpriteName);
+		GetImage((int)Images.ItemImage).sprite = Managers.Resource.Load<Sprite>(Managers.Data.ItemDic[item.TemplateId].SpriteName);
+		GetText((int)Texts.ItemCountText).text = $"{item.Count}";
 	}
 
-
-    // To Do __ 25.04.15
 	void OnClickItemButton(PointerEventData evt)
 	{
-        Item item = Managers.Inventory.GetItem(_itemDataId);
         if (item == null)
         {
             Debug.Log("아이템 존재 안 함");
