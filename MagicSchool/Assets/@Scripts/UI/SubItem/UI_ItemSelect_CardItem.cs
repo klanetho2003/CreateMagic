@@ -92,6 +92,14 @@ public class UI_ItemSelect_CardItem : UI_Base
             cardNameText.text = $"{data.Name}";
             skillDescriptionText.text = $"장착 시험용 Temp Item 입니다.";
         }
+        else if (_data.ItemGroupType == Define.EItemGroupType.Consumable)
+        {
+            ConsumableData data = (ConsumableData)_data;
+
+            // Text
+            cardNameText.text = $"{data.Name}";
+            skillDescriptionText.text = $"Consumable";
+        }
 
         // Sprite
         skillImage.sprite = Managers.Resource.Load<Sprite>(_data.SpriteName);
@@ -102,9 +110,11 @@ public class UI_ItemSelect_CardItem : UI_Base
     public void OnClick()
     {
         Item item = Managers.Inventory.GetUnknownItem(_data.DataId);
-        Managers.Inventory.GainItem(item.InstanceId, Define.EEquipSlotType.Inventory);
+        if (item == null)
+            item = Managers.Inventory.GetItemByTemplateId(_data.DataId);
 
-        Debug.Log($"Atk : {Managers.Game.Player.Atk.Value}");
+        // Item 얻기
+        Managers.Inventory.GainItem(item.InstanceId, Define.EEquipSlotType.Inventory);
 
         Managers.UI.ClosePopupUI();
     }

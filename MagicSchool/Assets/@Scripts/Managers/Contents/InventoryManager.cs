@@ -109,16 +109,14 @@ public class InventoryManager
         }
 
         // 아이템 Gain in Inventory
-        if (item.EquipSlot == (int)EEquipSlotType.None)
+        if (item.EquipSlot == (int)EEquipSlotType.UnknownItems)
         {
             item.EquipSlot = (int)EEquipSlotType.Inventory; // Save Data 적용
             InventoryItems.Add(item);                       // In Game Dictionary에 적용
-        }
 
-        // Item Remove in UnknownItems
-        UnknownItems.Remove(item.InstanceId);
-        // Item Remove in RewardItems
-        RewardItems[item.TemplateData.Grade].Remove(item.TemplateId);
+            // Item Remove in UnknownItems
+            UnknownItems.Remove(item.InstanceId);
+        }
 
         if (_player.IsValid())
             item.ApplyItemAbility(item.TemplateData.StatModType, _player);

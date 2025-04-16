@@ -152,9 +152,13 @@ public class Stage : MonoBehaviour
 
         // To Do GameManager로 이전 ~~ (ClearStage 함수 하나 파고 거기에 처리해야할 거 몰빵하자)
         List<ItemData> rewards = new List<ItemData>();
+        
+        if (Managers.Data.ItemProbabilityDic.TryGetValue(ItemProbability_Data_Sheet_Id, out ItemProbabilityData itemProbabilityData) == false) // 확률 시트 정보 가져오기
+            return false;
+
         for (int i = 0; i < 2; i++)
         {
-            ItemData data = GetRandomReward();
+            ItemData data = GetRandomReward(itemProbabilityData);
             if (data != null)
                 rewards.Add(data);
         }
@@ -198,36 +202,41 @@ public class Stage : MonoBehaviour
         SpawnObjects(waveData);
     }
 
-    ItemData GetRandomReward()
+    ItemData GetRandomReward(ItemProbabilityData itemProbabilityData)
     {
         EItemGrade currentGrade = EItemGrade.None;
+        Information currentInfo = null;
 
-        // 확률 시트 정보 가져오기
-        if (Managers.Data.ItemProbabilityDic.TryGetValue(ItemProbability_Data_Sheet_Id, out ItemProbabilityData data) == false)
-            return null;
-
-        if (data.informations.Count <= 0)
+        if (itemProbabilityData.informations.Count <= 0)
             return null;
 
         int sum = 0;
-        int randValue = UnityEngine.Random.Range(0, 100);
+        int probabilityValue = 0;
+        foreach (Information info in itemProbabilityData.informations)
+            probabilityValue += info.Probability;
+        int randValue = UnityEngine.Random.Range(0, probabilityValue);
 
-        foreach (Information info in data.informations)
+        // 등급 정하기
+        foreach (Information info in itemProbabilityData.informations)
         {
             sum += info.Probability;
 
             if (randValue <= sum)
             {
                 currentGrade = info.Grade;
+                currentInfo = info;
                 break;
             }
-                
         }
 
         // 등급에 맞는 Item 가져오기
         List<int> currentRewards = Managers.Inventory.GetRewardItemsByGrade(currentGrade);
         if (currentRewards.Count <= 0)
-            return null;
+        {
+            itemProbabilityData.informations.Remove(currentInfo);
+            return GetRandomReward(itemProbabilityData);
+        }
+            
         int selectValue = UnityEngine.Random.Range(0, currentRewards.Count-1);
         int rewardTemplateId = currentRewards[selectValue];
 

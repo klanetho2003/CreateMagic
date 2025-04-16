@@ -10,25 +10,13 @@ To Do :
 # KillMonster
 
 
-# Clear했을 때, 등장할 수 있는 Item들을 HashSet으로 캐싱하고 있자.
 
-
-# GetItemInGame() 함수하나 만들자 - UI_어쩌구에서 MakeItem을 하는 부분을 이 함수로 교체할 것
->		Count 비교해서 얻을 수 있는 Item인지 확인
->>		가능하면 MakeItem,
->>> 		OnItemCountIncreased by GPT (Count하나 올리고,만약 MaxCount 보다 같거나 크다면 Mathf.Clamp써서 최대개수로 맞추											고 가득차지 않은 Item을 보관 하는 List에서 제외.)
 
 
 
 ★★★★★★★★★★★★★★★★★★★★★★★★★ To Day To Do
-완 		1. Count 구현 - UI도 구현
-1-1. Count++ 구현
-1-2. Max Count  ( RewardItems Remove Check -> Remove or Pass )
-
-
-2. 확률 데이터 시트 파기
-> RewardItems를 Dictionary<Define.Grade, List<Item>>으로 교체 ( 랜덤 돌려서 Grade 구하고, ItemList를 구할 예정
-
+1. Clear했을 때 Item이 중복으로 등장
+2. 모든 Item을 획득했을 시 선택 화면에서 벗어날 수 없음
 
 4. Item Slot Type
 
