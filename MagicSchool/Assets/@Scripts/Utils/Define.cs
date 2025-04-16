@@ -453,6 +453,8 @@ public static class Define
     }
 
     //HARD CODING
+    public const int ItemProbability_Data_Sheet_Id = 1000;
+
     public const float EFFECT_SMALL_RADIUS = 1f;
     public const float EFFECT_NORMAL_RADIUS = 2.5f;
     public const float EFFECT_BIG_RADIUS = 5.5f;

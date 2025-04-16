@@ -7,7 +7,7 @@ using UnityEditor.Experimental;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class UI_SkillCardItem : UI_Base
+public class UI_ItemSelect_CardItem : UI_Base
 {
     private ItemData _data;
 
@@ -63,9 +63,9 @@ public class UI_SkillCardItem : UI_Base
         return true;
     }
 
-    public void SetInfo(int itemTemplateId)
+    public void SetInfo(ItemData itemData)
     {
-        _data = Managers.Data.ItemDic[itemTemplateId];
+        _data = itemData;
 
         Refresh();
     }
@@ -101,8 +101,8 @@ public class UI_SkillCardItem : UI_Base
 
     public void OnClick()
     {
-        Item tempItem = Managers.Inventory.MakeItem(_data.DataId);
-        // Managers.Inventory.EquipItem(tempItem.InstanceId);          // Equiped in GameScene
+        Item item = Managers.Inventory.GetUnknownItem(_data.DataId);
+        Managers.Inventory.GainItem(item.InstanceId, Define.EEquipSlotType.Inventory);
 
         Debug.Log($"Atk : {Managers.Game.Player.Atk.Value}");
 

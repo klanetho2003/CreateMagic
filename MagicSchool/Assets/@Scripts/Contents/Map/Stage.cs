@@ -151,10 +151,14 @@ public class Stage : MonoBehaviour
         // To Do NPC Spawn
 
         // To Do GameManager로 이전 ~~ (ClearStage 함수 하나 파고 거기에 처리해야할 거 몰빵하자)
-        List<RewardData> rewards = new List<RewardData>();
-        rewards.Add(GetRandomReward());
-        rewards.Add(GetRandomReward());
-        UI_SkillSelectPopup ui = Managers.UI.ShowPopupUI<UI_SkillSelectPopup>();
+        List<ItemData> rewards = new List<ItemData>();
+        for (int i = 0; i < 2; i++)
+        {
+            ItemData data = GetRandomReward();
+            if (data != null)
+                rewards.Add(data);
+        }
+        UI_ItemSelectPopup ui = Managers.UI.ShowPopupUI<UI_ItemSelectPopup>();
         ui.SetInfo(rewards);
 
         Managers.Game.Player.PlayerSkills.ClearCastingValue();
@@ -194,36 +198,42 @@ public class Stage : MonoBehaviour
         SpawnObjects(waveData);
     }
 
-    RewardData GetRandomReward()
+    ItemData GetRandomReward()
     {
-        // 여기까지를 등급 확률 시트로 변경
-        if (Managers.Data.DropTableDic.TryGetValue(400000, out DropTableData dropTableData) == false)
+        EItemGrade currentGrade = EItemGrade.None;
+
+        // 확률 시트 정보 가져오기
+        if (Managers.Data.ItemProbabilityDic.TryGetValue(ItemProbability_Data_Sheet_Id, out ItemProbabilityData data) == false)
             return null;
 
-        if (dropTableData.Rewards.Count <= 0)
+        if (data.informations.Count <= 0)
             return null;
-
-        //
 
         int sum = 0;
         int randValue = UnityEngine.Random.Range(0, 100);
 
-        foreach (RewardData item in dropTableData.Rewards) // Rewards를 Grades로 변경
+        foreach (Information info in data.informations)
         {
-            sum += item.Probability;
+            sum += info.Probability;
 
-            if (randValue <= sum)   // randValue에 따라 Grades가 결정 됨.
-                return item;        // return하지 말고 Grade 변수에 담을 것
+            if (randValue <= sum)
+            {
+                currentGrade = info.Grade;
+                break;
+            }
+                
         }
 
-        // 0 ~ List최대 개수 사이의 int값을 하나 자겨 온다.
-        // 등급에 맞는 Item List[int값]을 통해서 Item을 하나 뽑는다.
-        // return 뽑은 Item
+        // 등급에 맞는 Item 가져오기
+        List<int> currentRewards = Managers.Inventory.GetRewardItemsByGrade(currentGrade);
+        if (currentRewards.Count <= 0)
+            return null;
+        int selectValue = UnityEngine.Random.Range(0, currentRewards.Count-1);
+        int rewardTemplateId = currentRewards[selectValue];
 
+        return Managers.Data.ItemDic[rewardTemplateId];
 
-
-        // return dropTableData.Rewards.RandomElementByWeight(e => e.Probability);
-        return null;
+        // return dropTableData.Rewards.RandomElementByWeight(e => e.Probability); // 갓챠 함수 다른 버전
     }
 
     #endregion

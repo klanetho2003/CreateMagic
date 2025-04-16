@@ -1,0 +1,25 @@
+{
+  "itemProbabilityTables": [
+    {
+      "DataId": 1000,
+      "informations": [
+        {
+          "Grade": 1,
+          "Probability": 75
+        },
+        {
+          "Grade": 2,
+          "Probability": 20
+        },
+        {
+          "Grade": 3,
+          "Probability": 4
+        },
+        {
+          "Grade": 4,
+          "Probability": 1
+        }
+      ]
+    }
+  ]
+}

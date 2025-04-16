@@ -94,10 +94,10 @@ public class InventoryManager
     // Item 획득
     public void GainItem(int instanceId, EEquipSlotType equipSlotType)
     {
-        UnknownItems.TryGetValue(instanceId, out Item item);
+        Item item = GetItem(instanceId);
         if (item == null)
         {
-            Debug.Log("아이템존재안함 in UnknownItems");
+            Debug.Log("아이템존재안함 in AllItems");
             return;
         }
 
@@ -107,23 +107,18 @@ public class InventoryManager
             if (item.IsMaxCount())
                 RewardItems[item.TemplateData.Grade].Remove(item.TemplateId);
         }
-        else
-        {
-            return;
-        }
 
-        // 장착 가능 여부 판별
-        if (item.IsEquippable())
-            EquipItem(instanceId, equipSlotType);
-        else
+        // 아이템 Gain in Inventory
+        if (item.EquipSlot == (int)EEquipSlotType.None)
         {
-            // 아이템 Gain in Inventory
             item.EquipSlot = (int)EEquipSlotType.Inventory; // Save Data 적용
             InventoryItems.Add(item);                       // In Game Dictionary에 적용
         }
 
-        // 아이템 Remove in UnknownItems
+        // Item Remove in UnknownItems
         UnknownItems.Remove(item.InstanceId);
+        // Item Remove in RewardItems
+        RewardItems[item.TemplateData.Grade].Remove(item.TemplateId);
 
         if (_player.IsValid())
             item.ApplyItemAbility(item.TemplateData.StatModType, _player);
@@ -160,8 +155,6 @@ public class InventoryManager
         // UI Refresh
         OnItemSlotChange?.Invoke();
     }
-
-    // Remove in RewardsItems
 
     #region 탈착
     // Item 장착
@@ -337,6 +330,11 @@ public class InventoryManager
             return null;
 
         return GetItemByTemplateId(itemTemplateId);
+    }
+
+    public List<int> GetRewardItemsByGrade(EItemGrade itemGrade)
+    {
+        return RewardItems[itemGrade].ToList(); // return TemplateIds
     }
     #endregion
 

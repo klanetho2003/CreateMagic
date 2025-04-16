@@ -621,7 +621,39 @@ namespace Data
     }
     #endregion
 
-    #region DropTable
+    #region Item Probability Data by Grade
+
+    [Serializable]
+    public class ItemProbabilityData
+    {
+        public int DataId;
+        public List<Information> informations = new List<Information>();
+    }
+
+    [Serializable]
+    public class Information
+    {
+        public EItemGrade Grade; // 등급
+        public int Probability; // 100분율
+    }
+
+    [Serializable]
+    public class ItemProbabilityDataLoader : ILoader<int, ItemProbabilityData>
+    {
+        public List<ItemProbabilityData> itemProbabilityTables = new List<ItemProbabilityData>();
+
+        public Dictionary<int, ItemProbabilityData> MakeDict()
+        {
+            Dictionary<int, ItemProbabilityData> dict = new Dictionary<int, ItemProbabilityData>();
+            foreach (ItemProbabilityData table in itemProbabilityTables)
+                dict.Add(table.DataId, table);
+            return dict;
+        }
+    }
+
+    #endregion
+
+    #region DropTable_미사용
 
     [Serializable]
     public class DropTableData

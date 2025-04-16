@@ -125,7 +125,7 @@ public class GameScene : BaseScene
 
         if (_collectedJamCount == _remainingTotalJamCount)
         {
-            Managers.UI.ShowPopupUI<UI_SkillSelectPopup>();
+            Managers.UI.ShowPopupUI<UI_ItemSelectPopup>();
             _collectedJamCount = 0;
             _remainingTotalJamCount *= 2;
         }

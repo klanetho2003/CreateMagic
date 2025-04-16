@@ -489,7 +489,7 @@ GameObject:
   - component: {fileID: 1070249083755706835}
   - component: {fileID: -5841764158449694740}
   m_Layer: 5
-  m_Name: UI_SkillSelectPopup
+  m_Name: UI_ItemSelectPopup
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

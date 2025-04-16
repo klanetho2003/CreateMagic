@@ -51,6 +51,7 @@ public class DataTransformer : EditorWindow
         ParseExcelDataToJson<ItemDataLoader<StatBoostData>, StatBoostData>("Item_StatBoost");
         ParseExcelDataToJson<ItemDataLoader<EquipmentData>, EquipmentData>("Item_Equipment");
         ParseExcelDataToJson<ItemDataLoader<ConsumableData>, ConsumableData>("Item_Consumable");
+        ParseExcelDataToJson<ItemProbabilityDataLoader, ItemProbabilityData>("ItemProbability");
         ParseExcelDataToJson<DropTableDataLoader, DropTableData>("DropTable");
 
         ParseExcelDataToJson<QuestDataLoader, QuestData>("Quest");
