@@ -101,7 +101,8 @@ public abstract class UI_Base : MonoBehaviour
         }
     }
 
-    public static void BindEvent(GameObject go, Action<PointerEventData> action1, Action<PointerEventData> action2, UIEvent type1 = UIEvent.Click, UIEvent type2 = UIEvent.None)
+    public static void BindEvent(GameObject go, Action<PointerEventData> action1, Action<PointerEventData> action2, Action<PointerEventData> action3,
+        UIEvent type1 = UIEvent.Click, UIEvent type2 = UIEvent.None, UIEvent type3 = UIEvent.None)
     {
 
         //evt.OnClickHandler는 델리게이트에서 파생된 이벤트, action은 델리게이트 그자체(함수)
@@ -146,6 +147,26 @@ public abstract class UI_Base : MonoBehaviour
             case UIEvent.Drag:
                 evt.OnDragHandler -= action2;
                 evt.OnDragHandler += action2;
+                break;
+        }
+
+        switch (type3)
+        {
+            case UIEvent.Click:
+                evt.OnClickHandler -= action3;
+                evt.OnClickHandler += action3;
+                break;
+            case UIEvent.PointerDown:
+                evt.OnPointerDownHandler -= action3;
+                evt.OnPointerDownHandler += action3;
+                break;
+            case UIEvent.PointerUp:
+                evt.OnPointerUpHandler -= action3;
+                evt.OnPointerUpHandler += action3;
+                break;
+            case UIEvent.Drag:
+                evt.OnDragHandler -= action3;
+                evt.OnDragHandler += action3;
                 break;
         }
     }

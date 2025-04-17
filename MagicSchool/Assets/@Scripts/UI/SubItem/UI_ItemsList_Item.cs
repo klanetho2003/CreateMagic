@@ -6,7 +6,8 @@ using static Define;
 
 public class UI_ItemsList_Item : UI_Base
 {
-	enum Buttons
+    #region Bind Enum
+    enum Buttons
 	{
         ItemButton,
 	}
@@ -14,7 +15,8 @@ public class UI_ItemsList_Item : UI_Base
 	enum Images
 	{
         ItemImage,
-	}
+        ItemButton,
+    }
 
 	enum Texts
 	{
@@ -26,24 +28,25 @@ public class UI_ItemsList_Item : UI_Base
 	{
         ItemMaxCountSlider,
 	}
+    #endregion
 
-    UI_ItemsListPopup _parentUI;
+    private RectTransform _rectTransform;
 
-    Item item = null;
+    private Item item = null;
 
-	public override bool Init()
+    public override bool Init()
 	{
 		if (base.Init() == false)
 			return false;
+
+        _rectTransform = GetComponent<RectTransform>();
 
         BindButtons(typeof(Buttons));
         BindTexts(typeof(Texts));
         BindSliders(typeof(Sliders));
         BindImages(typeof(Images));
 
-        GetButton((int)Buttons.ItemButton).gameObject.BindEvent(OnDragItemButton, OnUpItemButton, UIEvent.Drag, UIEvent.PointerUp);
-
-        Refresh();
+        GetButton((int)Buttons.ItemButton).gameObject.BindEvent(OnBeginDragItemButton, OnDragItemButton, OnUpItemButton, UIEvent.PointerDown, UIEvent.Drag, UIEvent.PointerUp);
 
         return true;
 	}
@@ -52,50 +55,73 @@ public class UI_ItemsList_Item : UI_Base
 	{
         transform.localScale = Vector3.one;
 
-        _parentUI = parentUI;
-
         item = Managers.Inventory.GetItem(itemInstanceId);
 
         Refresh();
 	}
 
-	void Refresh()
+    void Refresh()
 	{
 		if (_init == false)
 			return;
 		if (item == null)
 			return;
 
-		GetImage((int)Images.ItemImage).sprite = Managers.Resource.Load<Sprite>(Managers.Data.ItemDic[item.TemplateId].SpriteName);
+        GetImage((int)Images.ItemImage).sprite = Managers.Resource.Load<Sprite>(Managers.Data.ItemDic[item.TemplateId].SpriteName);
 		GetText((int)Texts.ItemCountText).text = $"{item.Count}";
 	}
 
-	void OnDragItemButton(PointerEventData evt)
+    private bool TryEquipToSlot(PointerEventData evt)
+    {
+        if (evt.pointerEnter == null) return false;
+
+        var slot = evt.pointerEnter.GetComponentInParent<UI_ItemsList_EquipSlot>();
+        if (slot == null) return false;
+
+        slot.AttachItem(item);
+
+        Managers.Inventory.EquipItem(item.InstanceId, slot.SlotType);
+        gameObject.SetActive(false);
+
+        return true;
+    }
+
+    #region EventHandling
+    private Vector3 _originalPosition;
+    void OnBeginDragItemButton(PointerEventData evt)
+    {
+        if (item == null)
+            return;
+        if (item.IsEquippable() == false)
+            return;
+
+        _originalPosition = _rectTransform.position;
+
+        GetImage((int)Images.ItemButton).raycastTarget = false;
+    }
+
+    void OnDragItemButton(PointerEventData evt)
 	{
         if (item == null)
-        {
-            Debug.Log("아이템 존재 안 함");
             return;
-        }
-
-        if (item.EquipSlot == (int)Define.EEquipSlotType.UnknownItems)
+        if (item.IsEquippable() == false)
             return;
-
-        Debug.Log("On Drag");
 
         Vector2 touchPosition = evt.position;
-        transform.position = touchPosition;
-
-        /*if (item.IsEquippedItem())
-            Managers.Inventory.UnEquipItem(item.InstanceId);
-        else
-            Managers.Inventory.EquipItem(item.InstanceId, Define.EEquipSlotType.Shift);*/
+        _rectTransform.position = touchPosition;
     }
 
     void OnUpItemButton(PointerEventData evt)
     {
-        Debug.Log("On Up Button");
+        if (item == null)
+            return;
+        if (item.IsEquippable() == false)
+            return;
 
-        _parentUI.Refresh();
+        if (!TryEquipToSlot(evt))
+            _rectTransform.position = _originalPosition; // 실패 시 복귀
+
+        GetImage((int)Images.ItemButton).raycastTarget = true;
     }
+    #endregion
 }

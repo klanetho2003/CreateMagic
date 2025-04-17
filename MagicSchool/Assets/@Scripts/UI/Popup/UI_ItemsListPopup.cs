@@ -5,6 +5,7 @@ using UnityEngine;
 using UnityEngine.Animations;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
+using static Define;
 
 public class UI_ItemsListPopup : UI_Popup
 {
@@ -30,7 +31,7 @@ public class UI_ItemsListPopup : UI_Popup
 	}
     #endregion
 
-    List<UI_ItemsList_Item> _equippedItems = new List<UI_ItemsList_Item>();
+    List<UI_ItemsList_EquipSlot> _equippedItemSlot = new List<UI_ItemsList_EquipSlot>();
 	List<UI_ItemsList_Item> _inventoryItems = new List<UI_ItemsList_Item>();
 	List<UI_ItemsList_Item> _unknownItems = new List<UI_ItemsList_Item>();
 
@@ -50,10 +51,11 @@ public class UI_ItemsListPopup : UI_Popup
 
         {
             var parent = GetObject((int)GameObjects.EquippedItemsList).transform;
-            for (int i = 0; i < MAX_ITEM_COUNT; i++)
+            for (int i = 1; i < (int)EEquipSlotType.EquipMax; i++)
             {
-                UI_ItemsList_Item item = Managers.UI.MakeSubItem<UI_ItemsList_Item>(parent);
-                _equippedItems.Add(item);
+                UI_ItemsList_EquipSlot slot = Managers.UI.MakeSubItem<UI_ItemsList_EquipSlot>(parent);
+                slot.SetInfo((EEquipSlotType)i);
+                _equippedItemSlot.Add(slot);
             }
         }
         {
@@ -97,7 +99,8 @@ public class UI_ItemsListPopup : UI_Popup
 		GetText((int)Texts.InventoryItemsCountText).text = $"{Managers.Inventory.GetInventoryItems().Count} / ??";
 		GetText((int)Texts.UnknownItemsCountText).text = $"{Managers.Inventory.GetUnknownItems().Count} / ??";
 
-        Refresh_Item(_equippedItems, Managers.Inventory.GetEquippedItems());
+        foreach (var slot in _equippedItemSlot)
+            slot.Refresh();
         Refresh_Item(_inventoryItems, Managers.Inventory.GetInventoryItems());
         Refresh_Item(_unknownItems, Managers.Inventory.GetUnknownItems());
 	}

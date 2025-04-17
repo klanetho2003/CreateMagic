@@ -1,6 +1,6 @@
 DataId,Name,SpriteName,GroupType,Type,SubType,Grade,StatModType,MaxCount,Damage,Defence,Speed
+0,Slot,InventorySlot.sprite,None,None,None,None,None,0,0,0,0
 6,TestEquipmentSomthing,Ring_05.sprite,Equipment,ItemSkill,Dagger,Normal,None,1,0,0,0
-,,,,,,,,,,,
 ,,,,,,,,,,,
 ,,,,,,,,,,,
 ,,,,,,,,,,,

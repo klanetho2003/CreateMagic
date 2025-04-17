@@ -17,9 +17,10 @@ public static class Extension
         UI_Base.BindEvent(go, action, type);
     }
 
-    public static void BindEvent(this GameObject go, Action<PointerEventData> action1, Action<PointerEventData> action2, UIEvent type1 = UIEvent.Click, UIEvent type2 = UIEvent.None)
+    public static void BindEvent(this GameObject go, Action<PointerEventData> action1, Action<PointerEventData> action2, Action<PointerEventData> action3,
+        UIEvent type1 = UIEvent.Click, UIEvent type2 = UIEvent.None, UIEvent type3 = UIEvent.None)
     {
-        UI_Base.BindEvent(go, action1, action2, type1, type2);
+        UI_Base.BindEvent(go, action1, action2, action3, type1, type2, type3);
     }
 
     public static GameObject FindChild(this GameObject go, string name = null, bool recursive = false)
