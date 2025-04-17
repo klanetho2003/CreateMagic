@@ -1,11 +1,11 @@
 using Data;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 using static Define;
-using static UnityEngine.AdaptivePerformance.Provider.AdaptivePerformanceSubsystemDescriptor;
 
 public struct ObjectSpawnInfo
 {
@@ -24,6 +24,73 @@ public struct ObjectSpawnInfo
 	public Vector3Int CellPos;
 	public Vector3 WorldPos;
 	public EObjectType ObjectType;
+}
+
+public class RewardSelector
+{
+    public static List<ItemData> PickRewardOptions(ItemProbabilityData probData, int count = 3)
+    {
+        List<ItemData> result = new List<ItemData>();
+        HashSet<int> alreadyChosenTemplateIds = new HashSet<int>();
+
+        int maxTry = 100; // 무한루프 방지
+        int attempts = 0;
+
+        while (result.Count < count && attempts < maxTry)
+        {
+            attempts++;
+            var reward = GetRandomReward(probData);
+            if (reward == null) continue;
+
+            if (alreadyChosenTemplateIds.Contains(reward.DataId))
+                continue;
+
+            result.Add(reward);
+            alreadyChosenTemplateIds.Add(reward.DataId);
+        }
+
+        return result;
+    }
+
+    public static ItemData GetRandomReward(ItemProbabilityData probData)
+    {
+        // 1. 필터링: 뽑을 수 있는 Item이 존재하는 등급만 추출
+        List<Information> validInfos = probData.informations
+            .Where(info => Managers.Inventory.GetRewardItemsByGrade(info.Grade).Count > 0)
+            .ToList();
+
+        if (validInfos.Count == 0)
+            return null;
+
+        // 2. 확률 기반 등급 추출
+        int total = validInfos.Sum(info => info.Probability);
+        int rand = UnityEngine.Random.Range(0, total);
+        int cumulative = 0;
+        Information selected = null;
+
+        foreach (var info in validInfos)
+        {
+            cumulative += info.Probability;
+            if (rand < cumulative)
+            {
+                selected = info;
+                break;
+            }
+        }
+
+        if (selected == null)
+            return null;
+
+        // 3. 해당 등급의 아이템 중 하나 랜덤 추출
+        List<int> candidates = Managers.Inventory.GetRewardItemsByGrade(selected.Grade);
+        if (candidates.Count == 0)
+            return null;
+
+        int index = UnityEngine.Random.Range(0, candidates.Count);
+        int templateId = candidates[index];
+
+        return Managers.Data.ItemDic.TryGetValue(templateId, out var item) ? item : null;
+    }
 }
 
 public class Stage : MonoBehaviour
@@ -71,6 +138,8 @@ public class Stage : MonoBehaviour
     public bool IsActive = false;
     
     private Grid _grid;
+
+    private RewardSelector _rewardSelector;
 
     public void SetInfo(int stageIdx)
     {
@@ -150,23 +219,16 @@ public class Stage : MonoBehaviour
 
         // To Do NPC Spawn
 
-        // To Do GameManager로 이전 ~~ (ClearStage 함수 하나 파고 거기에 처리해야할 거 몰빵하자)
-        List<ItemData> rewards = new List<ItemData>();
-        
+        // Pick Reward Items
         if (Managers.Data.ItemProbabilityDic.TryGetValue(ItemProbability_Data_Sheet_Id, out ItemProbabilityData itemProbabilityData) == false) // 확률 시트 정보 가져오기
             return false;
+        List<ItemData> rewards = RewardSelector.PickRewardOptions(itemProbabilityData, 3);
 
-        for (int i = 0; i < 2; i++)
-        {
-            ItemData data = GetRandomReward(itemProbabilityData);
-            if (data != null)
-                rewards.Add(data);
-        }
+        // Show Reward UI
         UI_ItemSelectPopup ui = Managers.UI.ShowPopupUI<UI_ItemSelectPopup>();
         ui.SetInfo(rewards);
 
         Managers.Game.Player.PlayerSkills.ClearCastingValue();
-        // ~~
 
         return true;
     }
@@ -200,49 +262,6 @@ public class Stage : MonoBehaviour
 
         DespawnObjects();
         SpawnObjects(waveData);
-    }
-
-    ItemData GetRandomReward(ItemProbabilityData itemProbabilityData)
-    {
-        EItemGrade currentGrade = EItemGrade.None;
-        Information currentInfo = null;
-
-        if (itemProbabilityData.informations.Count <= 0)
-            return null;
-
-        int sum = 0;
-        int probabilityValue = 0;
-        foreach (Information info in itemProbabilityData.informations)
-            probabilityValue += info.Probability;
-        int randValue = UnityEngine.Random.Range(0, probabilityValue);
-
-        // 등급 정하기
-        foreach (Information info in itemProbabilityData.informations)
-        {
-            sum += info.Probability;
-
-            if (randValue <= sum)
-            {
-                currentGrade = info.Grade;
-                currentInfo = info;
-                break;
-            }
-        }
-
-        // 등급에 맞는 Item 가져오기
-        List<int> currentRewards = Managers.Inventory.GetRewardItemsByGrade(currentGrade);
-        if (currentRewards.Count <= 0)
-        {
-            itemProbabilityData.informations.Remove(currentInfo);
-            return GetRandomReward(itemProbabilityData);
-        }
-            
-        int selectValue = UnityEngine.Random.Range(0, currentRewards.Count-1);
-        int rewardTemplateId = currentRewards[selectValue];
-
-        return Managers.Data.ItemDic[rewardTemplateId];
-
-        // return dropTableData.Rewards.RandomElementByWeight(e => e.Probability); // 갓챠 함수 다른 버전
     }
 
     #endregion

@@ -5,6 +5,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
+using static Define;
 
 public abstract class UI_Base : MonoBehaviour
 {
@@ -71,7 +72,7 @@ public abstract class UI_Base : MonoBehaviour
     protected Slider GetSliders(int idx) { return Get<Slider>(idx); }
     
 
-    public static void BindEvent(GameObject go, Action<PointerEventData> action = null, Define.UIEvent type = Define.UIEvent.Click)
+    public static void BindEvent(GameObject go, Action<PointerEventData> action = null, UIEvent type = UIEvent.Click)
     {
         
         //evt.OnClickHandler는 델리게이트에서 파생된 이벤트, action은 델리게이트 그자체(함수)
@@ -81,21 +82,70 @@ public abstract class UI_Base : MonoBehaviour
 
         switch (type)
         {
-            case Define.UIEvent.Click:
+            case UIEvent.Click:
                 evt.OnClickHandler -= action;
                 evt.OnClickHandler += action;
                 break;
-            case Define.UIEvent.PointerDown:
+            case UIEvent.PointerDown:
                 evt.OnPointerDownHandler -= action;
                 evt.OnPointerDownHandler += action;
                 break;
-            case Define.UIEvent.PointerUp:
+            case UIEvent.PointerUp:
                 evt.OnPointerUpHandler -= action;
                 evt.OnPointerUpHandler += action;
                 break;
-            case Define.UIEvent.Drag:
+            case UIEvent.Drag:
                 evt.OnDragHandler -= action;
                 evt.OnDragHandler += action;
+                break;
+        }
+    }
+
+    public static void BindEvent(GameObject go, Action<PointerEventData> action1, Action<PointerEventData> action2, UIEvent type1 = UIEvent.Click, UIEvent type2 = UIEvent.None)
+    {
+
+        //evt.OnClickHandler는 델리게이트에서 파생된 이벤트, action은 델리게이트 그자체(함수)
+        //evt.OnClickHandler를 가져오기 위해 GameObject를 가져와서 GetComponents<UI_EventHandler>를 하는 것
+
+        UI_EventHandler evt = Utils.GetOrAddComponent<UI_EventHandler>(go);
+
+        switch (type1)
+        {
+            case UIEvent.Click:
+                evt.OnClickHandler -= action1;
+                evt.OnClickHandler += action1;
+                break;
+            case UIEvent.PointerDown:
+                evt.OnPointerDownHandler -= action1;
+                evt.OnPointerDownHandler += action1;
+                break;
+            case UIEvent.PointerUp:
+                evt.OnPointerUpHandler -= action1;
+                evt.OnPointerUpHandler += action1;
+                break;
+            case UIEvent.Drag:
+                evt.OnDragHandler -= action1;
+                evt.OnDragHandler += action1;
+                break;
+        }
+
+        switch (type2)
+        {
+            case UIEvent.Click:
+                evt.OnClickHandler -= action2;
+                evt.OnClickHandler += action2;
+                break;
+            case UIEvent.PointerDown:
+                evt.OnPointerDownHandler -= action2;
+                evt.OnPointerDownHandler += action2;
+                break;
+            case UIEvent.PointerUp:
+                evt.OnPointerUpHandler -= action2;
+                evt.OnPointerUpHandler += action2;
+                break;
+            case UIEvent.Drag:
+                evt.OnDragHandler -= action2;
+                evt.OnDragHandler += action2;
                 break;
         }
     }

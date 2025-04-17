@@ -48,6 +48,7 @@ public static class Define
 
     public enum UIEvent
     {
+        None,
         Click,
         Pressed,
         PointerDown,

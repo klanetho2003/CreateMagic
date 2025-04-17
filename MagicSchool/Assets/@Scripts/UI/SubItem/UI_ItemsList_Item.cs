@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using static Define;
 
 public class UI_ItemsList_Item : UI_Base
 {
@@ -40,7 +41,7 @@ public class UI_ItemsList_Item : UI_Base
         BindSliders(typeof(Sliders));
         BindImages(typeof(Images));
 
-        GetButton((int)Buttons.ItemButton).gameObject.BindEvent(OnClickItemButton);
+        GetButton((int)Buttons.ItemButton).gameObject.BindEvent(OnDragItemButton, OnUpItemButton, UIEvent.Drag, UIEvent.PointerUp);
 
         Refresh();
 
@@ -69,7 +70,7 @@ public class UI_ItemsList_Item : UI_Base
 		GetText((int)Texts.ItemCountText).text = $"{item.Count}";
 	}
 
-	void OnClickItemButton(PointerEventData evt)
+	void OnDragItemButton(PointerEventData evt)
 	{
         if (item == null)
         {
@@ -80,9 +81,21 @@ public class UI_ItemsList_Item : UI_Base
         if (item.EquipSlot == (int)Define.EEquipSlotType.UnknownItems)
             return;
 
-        if (item.IsEquippedItem())
+        Debug.Log("On Drag");
+
+        Vector2 touchPosition = evt.position;
+        transform.position = touchPosition;
+
+        /*if (item.IsEquippedItem())
             Managers.Inventory.UnEquipItem(item.InstanceId);
         else
-            Managers.Inventory.EquipItem(item.InstanceId, Define.EEquipSlotType.Shift); // To Do Temp
+            Managers.Inventory.EquipItem(item.InstanceId, Define.EEquipSlotType.Shift);*/
+    }
+
+    void OnUpItemButton(PointerEventData evt)
+    {
+        Debug.Log("On Up Button");
+
+        _parentUI.Refresh();
     }
 }

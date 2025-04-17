@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using static Define;
 
 public static class Extension
 {
@@ -11,9 +12,14 @@ public static class Extension
         return Utils.GetOrAddComponent<T>(go);
     }
 
-    public static void BindEvent(this GameObject go, Action<PointerEventData> action = null, Define.UIEvent type = Define.UIEvent.Click)
+    public static void BindEvent(this GameObject go, Action<PointerEventData> action = null, UIEvent type = UIEvent.Click)
     {
         UI_Base.BindEvent(go, action, type);
+    }
+
+    public static void BindEvent(this GameObject go, Action<PointerEventData> action1, Action<PointerEventData> action2, UIEvent type1 = UIEvent.Click, UIEvent type2 = UIEvent.None)
+    {
+        UI_Base.BindEvent(go, action1, action2, type1, type2);
     }
 
     public static GameObject FindChild(this GameObject go, string name = null, bool recursive = false)

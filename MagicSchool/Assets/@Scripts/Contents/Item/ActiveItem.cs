@@ -77,14 +77,9 @@ public class ItemSkill : Equipment
     }
 }
 
-
-
-
-
-
 public class Consumable : ActiveItem
 {
-    public double Value { get; private set; }
+    public float Value { get; private set; }
 
     public Consumable(int templateId) : base(templateId)
     {

@@ -601,7 +601,7 @@ namespace Data
     [Serializable]
     public class ConsumableData : ItemData
     {
-        public double Value;
+        public float Value;
         public int CoolTime;
     }
 
