@@ -22,6 +22,7 @@ public class ActiveItem : Item
     #endregion
 }
 
+#region Equipment
 public class Equipment : ActiveItem
 {
     #region Init
@@ -64,9 +65,15 @@ public class Equipment : ActiveItem
         // To Do ..
     }
 
-    public void UseItemSkill()
+    public override void UseItem(CreatureController target)
     {
-        // To Do
+        base.UseItem(target);
+
+        // 장착된 장비인가?
+        if (this.IsEquippedItem() == false)
+            return;
+
+        // To Do ..
     }
 }
 
@@ -76,10 +83,14 @@ public class ItemSkill : Equipment
     {
     }
 }
+#endregion
 
+#region Consumable
 public class Consumable : ActiveItem
 {
     public float Value { get; private set; }
+
+    protected Data.ConsumableData ConsumableData { get { return (Data.ConsumableData)TemplateData; } }
 
     public Consumable(int templateId) : base(templateId)
     {
@@ -91,6 +102,9 @@ public class Consumable : ActiveItem
         if (base.Init() == false)
             return false;
 
+        if (TemplateData.ItemGroupType != EItemGroupType.Consumable)
+            return false;
+
         ConsumableData data = (ConsumableData)TemplateData;
         {
             Value = data.Value;
@@ -98,12 +112,46 @@ public class Consumable : ActiveItem
 
         return true;
     }
+    public override void UseItem(CreatureController target)
+    {
+        base.UseItem(target);
+
+        // 장착된 장비인가?
+        if (this.IsEquippedItem() == false)
+            return;
+
+        // To Do ..
+    }
+
 }
 
 public class Potion : Consumable
 {
+    // 추가할 Value 선언
+
     public Potion(int templateId) : base(templateId)
     {
+        Init();
+    }
+
+    public override bool Init()
+    {
+        if (base.Init() == false)
+            return false;
+
+        if (TemplateData.Type != EItemType.Potion) // Potion의 ItemType을 Hp와 Mp로 분기해서 관리할 것(당연히 Potion type은 삭제)
+            return false;
+
+        // Value Parsing
+
+        return true;
+    }
+
+    public override void UseItem(CreatureController target)
+    {
+        base.UseItem(target);
+
+        // 물약 사용
     }
 }
 
@@ -113,3 +161,4 @@ public class Scroll : Consumable
     {
     }
 }
+#endregion

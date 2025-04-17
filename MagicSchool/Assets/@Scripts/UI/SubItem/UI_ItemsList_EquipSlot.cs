@@ -1,7 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
+using UnityEngine.UI;
 using static Define;
+using static UnityEditor.Progress;
 
 public class UI_ItemsList_EquipSlot : UI_Base
 {
@@ -17,6 +20,7 @@ public class UI_ItemsList_EquipSlot : UI_Base
 
     enum Texts
     {
+        ItemCountText,
         SlotInputKeyText,
     }
 
@@ -34,8 +38,7 @@ public class UI_ItemsList_EquipSlot : UI_Base
         BindTexts(typeof(Texts));
         BindImages(typeof(Images));
 
-        // To Do : 클릭 시 Item 해제
-        // GetButton((int)Buttons.ItemButton).gameObject.BindEvent(OnDragItemButton, OnUpItemButton, UIEvent.Drag, UIEvent.PointerUp);
+        GetButton((int)Buttons.EquipSlotButton).gameObject.BindEvent(OnClickSlotButton, UIEvent.Click);
 
         return true;
     }
@@ -56,13 +59,33 @@ public class UI_ItemsList_EquipSlot : UI_Base
         transform.localScale = Vector3.one;
 
         if (_item == null)
+        {
             GetImage((int)Images.EquipSlotImage).sprite = Managers.Resource.Load<Sprite>(Managers.Data.ItemDic[Slot_DataId].SpriteName);
+            GetText((int)Texts.ItemCountText).text = "N";
+        }
         else
+        {
             GetImage((int)Images.EquipSlotImage).sprite = Managers.Resource.Load<Sprite>(Managers.Data.ItemDic[_item.TemplateId].SpriteName);
+            GetText((int)Texts.ItemCountText).text = $"{_item.Count}";
+        }
+            
     }
 
     public void AttachItem(Item item)
     {
         _item = item;
+    }
+
+    void OnClickSlotButton(PointerEventData evt)
+    {
+        if (_item == null)
+            return;
+        if (_item.IsEquippable() == false)
+            return;
+
+        Managers.Inventory.UnEquipItem(_item.InstanceId);
+        _item = null;
+
+        Refresh();
     }
 }

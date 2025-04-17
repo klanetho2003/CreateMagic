@@ -98,14 +98,6 @@ public class Item
         return item;
     }
 
-    // 다시 얻을 수 없도록 한다
-    public static bool RemoveItemInDic_Temp(ItemSaveData itemInfo)
-    {
-        // Inventory에서 보여져야 하기에 Item Data를 담고 있는 Dictionary에서는 지우면 안됨!!!
-        // return Managers.Data.ItemDic.Remove(itemInfo.TemplateId);
-        return false;
-    }
-
     public bool TryChangeCount(int amount)
     {
         int tempCount = Count + amount;
@@ -133,6 +125,7 @@ public class Item
         return ItemType != EItemType.StatBoost;
     }
 
+    // 특정 Item이 어디에 장착되어 있는지 알려주는 함수
     /*public EEquipSlotType GetEquipItemEquipSlot()
     {
         if (ItemType == EItemType.Weapon)
@@ -169,6 +162,14 @@ public class Item
     }
 
     public virtual void RemoveItemAbility(CreatureController target)
+    {
+        if (target.IsValid() == false)
+            return;
+
+        // override
+    }
+
+    public virtual void UseItem(CreatureController target)
     {
         if (target.IsValid() == false)
             return;

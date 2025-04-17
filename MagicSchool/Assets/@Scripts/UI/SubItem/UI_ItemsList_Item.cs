@@ -32,7 +32,7 @@ public class UI_ItemsList_Item : UI_Base
 
     private RectTransform _rectTransform;
 
-    private Item item = null;
+    private Item _item = null;
 
     public override bool Init()
 	{
@@ -55,7 +55,7 @@ public class UI_ItemsList_Item : UI_Base
 	{
         transform.localScale = Vector3.one;
 
-        item = Managers.Inventory.GetItem(itemInstanceId);
+        _item = Managers.Inventory.GetItem(itemInstanceId);
 
         Refresh();
 	}
@@ -64,11 +64,11 @@ public class UI_ItemsList_Item : UI_Base
 	{
 		if (_init == false)
 			return;
-		if (item == null)
+		if (_item == null)
 			return;
 
-        GetImage((int)Images.ItemImage).sprite = Managers.Resource.Load<Sprite>(Managers.Data.ItemDic[item.TemplateId].SpriteName);
-		GetText((int)Texts.ItemCountText).text = $"{item.Count}";
+        GetImage((int)Images.ItemImage).sprite = Managers.Resource.Load<Sprite>(Managers.Data.ItemDic[_item.TemplateId].SpriteName);
+		GetText((int)Texts.ItemCountText).text = $"{_item.Count}";
 	}
 
     private bool TryEquipToSlot(PointerEventData evt)
@@ -77,11 +77,9 @@ public class UI_ItemsList_Item : UI_Base
 
         var slot = evt.pointerEnter.GetComponentInParent<UI_ItemsList_EquipSlot>();
         if (slot == null) return false;
+        slot.AttachItem(_item);
 
-        slot.AttachItem(item);
-
-        Managers.Inventory.EquipItem(item.InstanceId, slot.SlotType);
-        gameObject.SetActive(false);
+        Managers.Inventory.EquipItem(_item.InstanceId, slot.SlotType);
 
         return true;
     }
@@ -90,9 +88,9 @@ public class UI_ItemsList_Item : UI_Base
     private Vector3 _originalPosition;
     void OnBeginDragItemButton(PointerEventData evt)
     {
-        if (item == null)
+        if (_item == null)
             return;
-        if (item.IsEquippable() == false)
+        if (_item.IsEquippable() == false)
             return;
 
         _originalPosition = _rectTransform.position;
@@ -102,9 +100,9 @@ public class UI_ItemsList_Item : UI_Base
 
     void OnDragItemButton(PointerEventData evt)
 	{
-        if (item == null)
+        if (_item == null)
             return;
-        if (item.IsEquippable() == false)
+        if (_item.IsEquippable() == false)
             return;
 
         Vector2 touchPosition = evt.position;
@@ -113,9 +111,9 @@ public class UI_ItemsList_Item : UI_Base
 
     void OnUpItemButton(PointerEventData evt)
     {
-        if (item == null)
+        if (_item == null)
             return;
-        if (item.IsEquippable() == false)
+        if (_item.IsEquippable() == false)
             return;
 
         if (!TryEquipToSlot(evt))
