@@ -351,7 +351,6 @@ public class GameManager
         // Item
         {
             Managers.Inventory.Clear();
-
             foreach (ItemSaveData itemSaveData in data.Items)
                 Managers.Inventory.AddItem(itemSaveData);
         }
@@ -359,11 +358,8 @@ public class GameManager
         // Quest
         {
             Managers.Quest.Clear();
-
             foreach (QuestSaveData questSaveData in data.AllQuests)
-            {
                 Managers.Quest.AddQuest(questSaveData);
-            }
 
             Managers.Quest.AddUnknownQuests();
         }

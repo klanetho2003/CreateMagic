@@ -73,19 +73,29 @@ public class Item
 
         switch (itemData.Type)
         {
+            #region StatBoost
             case EItemType.StatBoost:
                 item = new StatBoost(itemInfo.TemplateId);
                 break;
+            #endregion
 
+            #region Equipment
             case EItemType.ItemSkill:
                 item = new ItemSkill(itemInfo.TemplateId);
                 break;
-            case EItemType.Potion:
-                item = new Potion(itemInfo.TemplateId);
-                break;
+            #endregion
+
+            #region Consumable
             case EItemType.Scroll:
                 item = new Scroll(itemInfo.TemplateId);
                 break;
+            case EItemType.HpPotion:
+                item = new Potion(itemInfo.TemplateId);
+                break;
+            case EItemType.MpPotion:
+                item = new Potion(itemInfo.TemplateId);
+                break;
+            #endregion
         }
 
         if (item != null)
@@ -169,12 +179,14 @@ public class Item
         // override
     }
 
-    public virtual void UseItem(CreatureController target)
+    public virtual bool TryUseItem(CreatureController target)
     {
         if (target.IsValid() == false)
-            return;
+            return false;
 
         // override
+
+        return true;
     }
     #endregion
 

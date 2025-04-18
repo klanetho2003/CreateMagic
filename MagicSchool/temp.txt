@@ -15,10 +15,12 @@ To Do :
 
 
 ★★★★★★★★★★★★★★★★★★★★★★★★★ To Day To Do
-1. Clear했을 때 Item이 중복으로 등장
-2. 모든 Item을 획득했을 시 선택 화면에서 벗어날 수 없음
-
-4. Item Slot Type
+1. Consunable 사용 구현 + 감소 시, RewardItems에 추가하기
+완		- sh, z, x, c Input 구현
+완		- Consunable사용 함수 파기
+완		- 함수를 통해서 Hp ++
+- 사용 완료 시, Potion Count 감소
+- Count <= 0일 시 사용 못하는 부분 구현
 
  
 5. Player 그림자 수정

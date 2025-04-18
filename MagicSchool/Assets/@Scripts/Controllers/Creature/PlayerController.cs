@@ -205,9 +205,12 @@ public class PlayerController : CreatureController
 
     void HandleOnKeyDown(KeyDownEvent key)
     {
+        // Use Item
+        Managers.Inventory.UseEquipItem(key);
+
+        // Do Casting
         if (CreatureState == CreatureState.DoSkill)
             return;
-
         PlayerSkills.Command = key;
     }
     #endregion

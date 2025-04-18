@@ -72,7 +72,7 @@ public class UI_ItemSelect_CardItem : UI_Base
 
     void Refresh()
     {
-        transform.localScale = new Vector3(1.2f, 1.2f, 0);
+        transform.localScale = Vector3.one;
 
         #region Temp Code - Casting And View Item
         // Temp Casting

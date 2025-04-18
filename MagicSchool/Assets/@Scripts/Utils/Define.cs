@@ -38,6 +38,11 @@ public static class Define
         S = 12,
         D = 13,
         space = 20,
+
+        LSh = 100,
+        Z = 101,
+        X = 102,
+        C = 103,
     }
 
     public enum Sound
@@ -244,7 +249,8 @@ public static class Define
 
         // Consumable
         Scroll,
-        Potion,
+        HpPotion,
+        MpPotion,
         #endregion
     }
 
@@ -280,14 +286,6 @@ public static class Define
         X = 3,
         C = 4,
         EquipMax,
-
-        /*Weapon = 1,
-        Helmet = 2,
-        Armor = 3,
-        Shield = 4,
-        Gloves = 5,
-        Shoes = 6,
-        EquipMax,*/
 
         Inventory = 100,
         UnknownItems = 200,

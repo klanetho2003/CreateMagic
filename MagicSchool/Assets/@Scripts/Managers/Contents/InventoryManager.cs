@@ -154,6 +154,36 @@ public class InventoryManager
         OnItemSlotChange?.Invoke();
     }
 
+    public void UseEquipItem(KeyDownEvent key)
+    {
+        Item item = null;
+        EEquipSlotType slot = EEquipSlotType.None;
+
+        switch (key)
+        {
+            case KeyDownEvent.LSh:
+                slot = EEquipSlotType.Shift;
+                break;
+            case KeyDownEvent.Z:
+                slot = EEquipSlotType.Z;
+                break;
+            case KeyDownEvent.X:
+                slot = EEquipSlotType.X;
+                break;
+            case KeyDownEvent.C:
+                slot = EEquipSlotType.C;
+                break;
+        }
+
+        item = GetEquippedItem(slot);
+        if (item == null)
+            return;
+
+        // Try Use //적용 대상 종류가 많아지면 수정 필요 like Skill
+        if (item.TryUseItem(_player) && item.IsMaxCount() == false)
+            RewardItems[item.TemplateData.Grade].Add(item.TemplateId);
+    }
+
     #region 탈착
     // Item 장착
     public void EquipItem(int instanceId, EEquipSlotType equipSlotType)
@@ -221,8 +251,6 @@ public class InventoryManager
     {
         return AllItems.Find(item => item.TemplateId == templateId);
     }
-
-    // RewardItems를 순회하면서 매개변수로 전달 받은 TemplateId와 같은 Item이 있는지 확인해보기
 
     // Equip
     public Item GetEquippedItem(EEquipSlotType equipSlotType)

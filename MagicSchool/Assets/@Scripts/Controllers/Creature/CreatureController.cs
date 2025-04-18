@@ -90,7 +90,7 @@ public class CreatureController : BaseController
     public float Hp
     {
         get { return _hpTemp; }
-        set { _hpTemp = value; OnHpChange?.Invoke(_hpTemp); }
+        set { _hpTemp = Mathf.Clamp(value, 0, MaxHp.Value); OnHpChange?.Invoke(_hpTemp); }
     }
     //
 
@@ -182,8 +182,8 @@ public class CreatureController : BaseController
         //CreatureData.SkillList; // 각 Controller SetInfo에서 초기화 하는 중
 
         #region Stat
-        Hp = CreatureStatData.MaxHp;
         MaxHp = new CreatureStat(CreatureStatData.MaxHp);
+        Hp = CreatureStatData.MaxHp;
         Atk = new CreatureStat(CreatureStatData.Atk);
         MoveSpeed = new CreatureStat(CreatureStatData.MoveSpeed);
         CriRate = new CreatureStat(CreatureStatData.CriRate);
@@ -327,7 +327,7 @@ public class CreatureController : BaseController
         float rawDamage = creature.Atk.Value * skill.SkillData.DamageMultiplier;
         ResistType resisType = skill.SkillData.SkillType;
         float finalDamage = rawDamage * (1f - GetResistance(resisType));
-        Hp = Mathf.Clamp(Hp - finalDamage, 0, MaxHp.Value);
+        Hp = Hp - finalDamage; // Clamp in Property
         Managers.Object.ShowDamageFont(CenterPosition, finalDamage, transform);
 
         CreatureState = CreatureState.Dameged;

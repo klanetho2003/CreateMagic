@@ -65,15 +65,17 @@ public class Equipment : ActiveItem
         // To Do ..
     }
 
-    public override void UseItem(CreatureController target)
+    public override bool TryUseItem(CreatureController target)
     {
-        base.UseItem(target);
+        base.TryUseItem(target);
 
         // 장착된 장비인가?
         if (this.IsEquippedItem() == false)
-            return;
+            return false;
 
         // To Do ..
+
+        return true;
     }
 }
 
@@ -112,15 +114,17 @@ public class Consumable : ActiveItem
 
         return true;
     }
-    public override void UseItem(CreatureController target)
+    public override bool TryUseItem(CreatureController target)
     {
-        base.UseItem(target);
+        base.TryUseItem(target);
 
         // 장착된 장비인가?
         if (this.IsEquippedItem() == false)
-            return;
+            return false;
 
         // To Do ..
+
+        return true;
     }
 
 }
@@ -139,7 +143,7 @@ public class Potion : Consumable
         if (base.Init() == false)
             return false;
 
-        if (TemplateData.Type != EItemType.Potion) // Potion의 ItemType을 Hp와 Mp로 분기해서 관리할 것(당연히 Potion type은 삭제)
+        if (TemplateData.Type != EItemType.HpPotion && TemplateData.Type != EItemType.MpPotion)
             return false;
 
         // Value Parsing
@@ -147,11 +151,28 @@ public class Potion : Consumable
         return true;
     }
 
-    public override void UseItem(CreatureController target)
+    public override bool TryUseItem(CreatureController target)
     {
-        base.UseItem(target);
+        base.TryUseItem(target);
 
-        // 물약 사용
+        if (Count <= 0)
+            return false;
+
+        TryChangeCount(-1);
+
+        // Use
+        switch (TemplateData.Type)
+        {
+            case EItemType.HpPotion:
+                target.Hp += Value;
+                break;
+            case EItemType.MpPotion:
+                // target.Mp += Value;
+                break;
+        }
+
+        Debug.Log("Use Potion");
+        return true;
     }
 }
 

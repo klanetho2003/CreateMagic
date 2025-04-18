@@ -90,6 +90,27 @@ public class InputManager : IPointerClickHandler, IPointerDownHandler, IPointerU
 
         #endregion
 
+        #region Sh, Z, X, C
+
+        else if (Input.GetKeyDown(KeyCode.LeftShift))
+        {
+            OnKeyDownHandler.Invoke(Define.KeyDownEvent.LSh);
+        }
+        else if (Input.GetKeyDown(KeyCode.Z))
+        {
+            OnKeyDownHandler.Invoke(Define.KeyDownEvent.Z);
+        }
+        else if (Input.GetKeyDown(KeyCode.X))
+        {
+            OnKeyDownHandler.Invoke(Define.KeyDownEvent.X);
+        }
+        else if (Input.GetKeyDown(KeyCode.C))
+        {
+            OnKeyDownHandler.Invoke(Define.KeyDownEvent.C);
+        }
+
+        #endregion
+
         else if (Input.GetKeyDown(KeyCode.Space))
         {
             OnKeyDownHandler.Invoke(Define.KeyDownEvent.space);
