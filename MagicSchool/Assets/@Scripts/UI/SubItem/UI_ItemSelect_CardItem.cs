@@ -72,7 +72,7 @@ public class UI_ItemSelect_CardItem : UI_Base
         transform.localScale = Vector3.one;
 
         // Name
-        _rewardDescriptionText.text = $"{_data.Name}";
+        _cardNameText.text = $"{_data.Name}";
         // Description
         string descriptionText = Managers.GetText(_data.RewardDescriptionId);
         _rewardDescriptionText.text = descriptionText;
@@ -88,7 +88,7 @@ public class UI_ItemSelect_CardItem : UI_Base
         if (item == null)
             item = Managers.Inventory.GetItemByTemplateId(_data.DataId);
 
-        // Item ¾ò±â
+        // Item ì–»ê¸°
         Managers.Inventory.GainItem(item.InstanceId, Define.EEquipSlotType.Inventory);
 
         Managers.UI.ClosePopupUI();

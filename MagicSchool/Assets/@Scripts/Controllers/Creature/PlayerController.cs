@@ -76,7 +76,7 @@ public class PlayerController : CreatureController
             switch (value)
             {
                 case CreatureState.Casting:
-                    OnPlayCastingAnimation(5f, 0.0005f); // To Do : Data ½ÃÆ® length´Â È¦¼ö ¿©¾ßÇÑ´Ù(CosÁÖ±â ÀÌ½´)
+                    OnPlayCastingAnimation(5f, 0.0005f); // To Do : Data ì‹œíŠ¸ lengthëŠ” í™€ìˆ˜ ì—¬ì•¼í•œë‹¤(Così£¼ê¸° ì´ìŠˆ)
                     break;
                 case CreatureState.Dameged:
                     PlayerSkills.ClearCastingValue();
@@ -224,11 +224,10 @@ public class PlayerController : CreatureController
 
         // Event
         Managers.Game.OnMoveDirChanged -= HandleOnMoveDirChange;
-        Managers.Game.OnMoveDirChanged += HandleOnMoveDirChange; // °´Ã¼ ÂüÁ¶°ª°ú ÇÔ²² ÇÔ¼ö¸¦ Àü´ŞÇÏ±â¿¡ °¡´ÉÇÑ ±¸µ¶
+        Managers.Game.OnMoveDirChanged += HandleOnMoveDirChange; // ê°ì²´ ì°¸ì¡°ê°’ê³¼ í•¨ê»˜ í•¨ìˆ˜ë¥¼ ì „ë‹¬í•˜ê¸°ì— ê°€ëŠ¥í•œ êµ¬ë…
         Managers.Input.OnKeyDownHandler -= HandleOnKeyDown;
         Managers.Input.OnKeyDownHandler += HandleOnKeyDown;
 
-        Collider.isTrigger = true;
         // RigidBody.simulated = false;
 
         return true;
@@ -355,19 +354,19 @@ public class PlayerController : CreatureController
     {
         if (CreatureState != CreatureState.Moving && CreatureState != CreatureState.Casting && CreatureState != CreatureState.FrontDelay)
         {
-            SetRigidBodyVelocity(Vector3.zero); // To Do : ±æÃ£±â
+            SetRigidBodyVelocity(Vector3.zero); // To Do : ê¸¸ì°¾ê¸°
             return;
         }
 
-        // Àü¹æ¿¡ ÇÑ Ä­ÀÌ °¥ ¼ö ÀÖ´Â ¿µ¿ªÀÎ°¡? - ºü¸¥ Å»Ãâ
+        // ì „ë°©ì— í•œ ì¹¸ì´ ê°ˆ ìˆ˜ ìˆëŠ” ì˜ì—­ì¸ê°€? - ë¹ ë¥¸ íƒˆì¶œ
         Vector3Int frontCellPos = Managers.Map.World2Cell(transform.position + (Vector3)_moveDir.normalized);
         if (Managers.Map.CanGo(this, frontCellPos, ignoreObjects: true) == false)
         {
-            SetRigidBodyVelocity(Vector3.zero); // To Do : ±æÃ£±â
+            SetRigidBodyVelocity(Vector3.zero); // To Do : ê¸¸ì°¾ê¸°
             return;
         }
 
-        //½ÇÁ¦ ÁÂÇ¥ ¿¬»ê
+        //ì‹¤ì œ ì¢Œí‘œ ì—°ì‚°
         Vector3 dest = _moveDir.normalized * MoveSpeed.Value;
         Vector3Int destCellPos = Managers.Map.World2Cell(transform.position + (dest * Time.fixedDeltaTime));
 
@@ -414,7 +413,7 @@ public class PlayerController : CreatureController
     Coroutine _coStartMpUp;
     public void StartMpUp(float oneGaugeAmount)
     {
-        // ¹æ¾î
+        // ë°©ì–´
         if (MaxMp.Value <= Mp)
         {
             CancleMpUp();
@@ -429,19 +428,19 @@ public class PlayerController : CreatureController
 
     public IEnumerator CoStartMpUp(float oneGaugeAmount)
     {
-        // Àç½ÃÀÛ
+        // ì¬ì‹œì‘
         while (OnMpGaugeUpStart == null)
             yield return null;
 
         // Gauge Start
         float currentMpGaugeAmount = 0;
-        OnMpGaugeUpStart.Invoke(); // ³Î·¯ºí·Î ¹Ù²ãº¼±î
+        OnMpGaugeUpStart.Invoke(); // ë„ëŸ¬ë¸”ë¡œ ë°”ê¿”ë³¼ê¹Œ
 
         while (this.IsValid() && MaxMp.Value > Mp)
         {
             currentMpGaugeAmount += Time.deltaTime;
 
-            // Gauge °»½Å
+            // Gauge ê°±ì‹ 
             OnMpGaugeFill.Invoke(currentMpGaugeAmount);
 
             if (currentMpGaugeAmount > oneGaugeAmount)
@@ -449,13 +448,13 @@ public class PlayerController : CreatureController
                 // Mp Up
                 Mp += 1;
 
-                StartMpUp(PlayerData.MpGaugeAmount); // Àç½ÃÀÛ
+                StartMpUp(PlayerData.MpGaugeAmount); // ì¬ì‹œì‘
             }
 
             yield return null;
         }
 
-        // ¸ğµÎ Â÷¸é Á¤Áö
+        // ëª¨ë‘ ì°¨ë©´ ì •ì§€
         CancleMpUp();
     }
 
@@ -484,14 +483,14 @@ public class PlayerController : CreatureController
 
     #endregion
 
-    protected override void Clear() // To Do : ÃÊ±âÈ­ ³»¿ë ÇÊ¿ä
+    protected override void Clear() // To Do : ì´ˆê¸°í™” ë‚´ìš© í•„ìš”
     {
         StopAllCoroutines();
 
         CreatureResistDic.Clear();
     }
 
-    #region ÁÖ¼®È­ - Collect Item
+    #region ì£¼ì„í™” - Collect Item
     // float EnvCollectDist { get; set; } = 1.0f;
     /* Temp Collect Env
     void CollectEnv()

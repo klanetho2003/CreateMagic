@@ -78,7 +78,7 @@ MonoBehaviour:
     - PreLoad
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 8b36eba1c2242eb47b42a4b2426af2a7
-    m_Address: Potion_01
+    m_Address: Potion_01.sprite
     m_ReadOnly: 0
     m_SerializedLabels:
     - PreLoad

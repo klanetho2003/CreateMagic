@@ -179,7 +179,7 @@ public class CreatureController : BaseController
         SetAnimation(CreatureData.AnimatorDataID, CreatureData.SortingLayerName, SortingLayers.CREATURE);
 
         // Skills
-        //CreatureData.SkillList; // °¢ Controller SetInfo¿¡¼­ ÃÊ±âÈ­ ÇÏ´Â Áß
+        //CreatureData.SkillList; // ê° Controller SetInfoì—ì„œ ì´ˆê¸°í™” í•˜ëŠ” ì¤‘
 
         #region Stat
         MaxHp = new CreatureStat(CreatureStatData.MaxHp);
@@ -209,7 +209,7 @@ public class CreatureController : BaseController
         hpBar_temp.SetInfo(this);
 
         // Map Move
-        //StartCoroutine(CoLerpToCellPos()); // MonsterController ³»ºÎ Update¿¡¼­ ÇÏ´Â Áß
+        //StartCoroutine(CoLerpToCellPos()); // MonsterController ë‚´ë¶€ Updateì—ì„œ í•˜ëŠ” ì¤‘
     }
 
     #region Wait
@@ -283,7 +283,7 @@ public class CreatureController : BaseController
             return;
         if (this.IsValid() == false)
             return;
-        /*if (effect.Owner.IsValid() == false) // DeBuff¸¦ °Ç(?) °´Ã¼°¡ Áö¼Ó½Ã°£ ÀÌÀü¿¡ DespanwµÇ¸é Debuffµµ »ç¶óÁö°Ô ÇÒ °ÍÀÎ°¡?
+        /*if (effect.Owner.IsValid() == false) // DeBuffë¥¼ ê±´(?) ê°ì²´ê°€ ì§€ì†ì‹œê°„ ì´ì „ì— Despanwë˜ë©´ Debuffë„ ì‚¬ë¼ì§€ê²Œ í•  ê²ƒì¸ê°€?
             return;*/
 
         // TEMP
@@ -301,7 +301,7 @@ public class CreatureController : BaseController
 
         CreatureState = CreatureState.Dameged;
 
-        // TODO : OnDamaged ÅëÇÕ
+        // TODO : OnDamaged í†µí•©
         if (Hp <= 0)
         {
             CreatureState = CreatureState.Dead;
@@ -344,7 +344,7 @@ public class CreatureController : BaseController
             return;
         }
 
-        // Skill¿¡ µû¸¥ Effect Àû¿ë
+        // Skillì— ë”°ë¥¸ Effect ì ìš©
         if (skill.SkillData.EffectIds != null)
             Effects.GenerateEffects(skill.SkillData.EffectIds.ToArray(), EEffectSpawnType.Skill, skill);
     }

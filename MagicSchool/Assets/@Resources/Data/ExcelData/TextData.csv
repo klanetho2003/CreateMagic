@@ -1,21 +1,21 @@
 DataId,KOR
-RookieName,°ÌÀïÀÌ¸ðÇè°¡ ·çÅ°
-RemName,½ÖµÕÀÌ µ¿»ý ·½
+RookieName,ê²ìŸì´ëª¨í—˜ê°€ ë£¨í‚¤
+RemName,ìŒë‘¥ì´ ë™ìƒ ë ˜
 ToDoName,empty
-RookieDescription,¸¶Á·À» µ¿°æÇÏ¿© ¸¶Á·ÀÌ µÇ°í½ÍÀº ÀÎ°£
-RemDescription,·ÎÁî¿ù ÀúÅÃÀÇ ¸ÞÀÌµåÀÌÀÚ ¿À´ÏÁ·ÀÇ ¸¶Áö¸· »ýÁ¸ÀÚµé Áß µ¿»ý. ¹° ¸¶¹ýÀÌ Æ¯±âÀÌ¸ç ÇöÀç ´«Àº ¶¸À¸³ª ±â¾ïÀ» ÀÒ¾î¹ö¸²
+RookieDescription,ë§ˆì¡±ì„ ë™ê²½í•˜ì—¬ ë§ˆì¡±ì´ ë˜ê³ ì‹¶ì€ ì¸ê°„
+RemDescription,ë¡œì¦ˆì›” ì €íƒì˜ ë©”ì´ë“œì´ìž ì˜¤ë‹ˆì¡±ì˜ ë§ˆì§€ë§‰ ìƒì¡´ìžë“¤ ì¤‘ ë™ìƒ. ë¬¼ ë§ˆë²•ì´ íŠ¹ê¸°ì´ë©° í˜„ìž¬ ëˆˆì€ ë–³ìœ¼ë‚˜ ê¸°ì–µì„ ìžƒì–´ë²„ë¦¼
 ToDoCreatureDescription,empty
-RookieSkillAName,°­ÇÏ°Ô ³»·ÁÄ¡±â
-RookieSkillBName,¹æÆÐ·Î ¹ÐÄ¡±â
-RemSkillAName,¿¤ ÈÞ¸¶
-RemSkillBName,¾Ë ÈÞ¸¶
+RookieSkillAName,ê°•í•˜ê²Œ ë‚´ë ¤ì¹˜ê¸°
+RookieSkillBName,ë°©íŒ¨ë¡œ ë°€ì¹˜ê¸°
+RemSkillAName,ì—˜ íœ´ë§ˆ
+RemSkillBName,ì•Œ íœ´ë§ˆ
 ToDoSkillDescription,empty
 ,
 ,
-DaggerRewardDescriptionId,´Ü°ËÀÌ´Ù. ±ø °ø°Ý·Â 100 UP (ÃÖ´ë ¼ÒÁö °³¼ö 1) [DataId : 1]
-HelmetRewardDescriptionId,¾Æ¹«Æ° Çï¸äÀÌ´Ù. °ø°Ý·Â 80% UP (ÃÖ´ë ¼ÒÁö °³¼ö 2) [DataId : 2]
-ArmorRewardDescriptionId,°©¿ÊÀÌ´Ù. °ø°Ý·Â 30% UP (ÃÖ´ë ¼ÒÁö °³¼ö 1) [DataId : 3]
-SwordRewardDescriptionId,°ËÀÌ´Ù. 2 °°Àº 0¸¸Å­ ¹æ¾î·Â UP (ÃÖ´ë ¼ÒÁö °³¼ö 1) [DataId : 4]
-BowRewardDescriptionId,È°ÀÌ´Ù. 3 °°Àº 0¸¸Å­ ¹æ¾î·Â UP (ÃÖ´ë ¼ÒÁö °³¼ö 1) [DataId : 5]
-RingRewardDescriptionId,¹ÝÁö´Ù. ¾Æ¸§´ä´Ù. (ÃÖ´ë ¼ÒÁö °³¼ö 1) [DataId : 5]
-PotionRewardDescriptionId,»ç¿ë ½Ã Hp¸¦ 1È¸º¹ÇÏ´Â Æ÷¼ÇÀ» 9°³¸¦ È¹µæÇÑ´Ù. (ÃÖ´ë ¼ÒÁö °³¼ö 10) [DataId : 10]
+DaggerRewardDescriptionId,ë‹¨ê²€ì´ë‹¤. ê¹¡ ê³µê²©ë ¥ 100 UP (ìµœëŒ€ ì†Œì§€ ê°œìˆ˜ 1) [DataId : 1]
+HelmetRewardDescriptionId,ì•„ë¬´íŠ¼ í—¬ë©§ì´ë‹¤. ê³µê²©ë ¥ 80% UP (ìµœëŒ€ ì†Œì§€ ê°œìˆ˜ 2) [DataId : 2]
+ArmorRewardDescriptionId,ê°‘ì˜·ì´ë‹¤. ê³µê²©ë ¥ 30% UP (ìµœëŒ€ ì†Œì§€ ê°œìˆ˜ 1) [DataId : 3]
+SwordRewardDescriptionId,ê²€ì´ë‹¤. 2 ê°™ì€ 0ë§Œí¼ ë°©ì–´ë ¥ UP (ìµœëŒ€ ì†Œì§€ ê°œìˆ˜ 1) [DataId : 4]
+BowRewardDescriptionId,í™œì´ë‹¤. 3 ê°™ì€ 0ë§Œí¼ ë°©ì–´ë ¥ UP (ìµœëŒ€ ì†Œì§€ ê°œìˆ˜ 1) [DataId : 5]
+RingRewardDescriptionId,ë°˜ì§€ë‹¤. ì•„ë¦„ë‹µë‹¤. (ìµœëŒ€ ì†Œì§€ ê°œìˆ˜ 1) [DataId : 5]
+PotionRewardDescriptionId,ì‚¬ìš© ì‹œ Hpë¥¼ 1íšŒë³µí•˜ëŠ” í¬ì…˜ì„ 9ê°œë¥¼ íšë“í•œë‹¤. (ìµœëŒ€ ì†Œì§€ ê°œìˆ˜ 10) [DataId : 10]
