@@ -1,11 +1,11 @@
-DataId,Name,SpriteName,GroupType,Type,SubType,Grade,StatModType,MaxCount,Damage,Defence,Speed
-1,TestDaggerID,EgoSwordIcon_01.sprite,StatBoost,StatBoost,Dagger,Normal,Add,1,100,0,0
-2,TestHelmetID,Gloves_03.sprite,StatBoost,StatBoost,Helmet,Normal,PercentMult,1,0.8,0,0
-3,TestArmorID,Armor_01_2.sprite,StatBoost,StatBoost,Armor,Normal,PercentMult,2,0.3,0,0
-4,TestSwordID,Box_02.sprite,StatBoost,StatBoost,Sword,Rare,Add,1,0,2,0
-5,TestBowID,Box_03.sprite,StatBoost,StatBoost,Bow,Epic,Add,1,0,3,0
-,,,,,,,,,,,
-,Item Data,,,,,,아래 3 중 택 1,,,,
-,,,,,,,Add,,,,
-,,,,,,,PercentAdd,,,,
-,,,,,,,PercentMult,,,,
+DataId,Name,SpriteName,GroupType,Type,SubType,Grade,StatModType,MaxCount,RewardDescriptionId,RewardCount,Damage,Defence,Speed
+1,TestDaggerID,EgoSwordIcon_01.sprite,StatBoost,StatBoost,Dagger,Normal,Add,1,DaggerRewardDescriptionId,1,100,0,0
+2,TestHelmetID,Gloves_03.sprite,StatBoost,StatBoost,Helmet,Normal,PercentMult,1,HelmetRewardDescriptionId,1,0.8,0,0
+3,TestArmorID,Armor_01_2.sprite,StatBoost,StatBoost,Armor,Normal,PercentMult,2,ArmorRewardDescriptionId,1,0.3,0,0
+4,TestSwordID,Box_02.sprite,StatBoost,StatBoost,Sword,Rare,Add,1,SwordRewardDescriptionId,1,0,2,0
+5,TestBowID,Box_03.sprite,StatBoost,StatBoost,Bow,Epic,Add,1,BowRewardDescriptionId,1,0,3,0
+,,,,,,,,,,,,,
+,Item Data,,,,,,아래 3 중 택 1,,,,,,
+,,,,,,,Add,,,,,,
+,,,,,,,PercentAdd,,,,,,
+,,,,,,,PercentMult,,,,,,

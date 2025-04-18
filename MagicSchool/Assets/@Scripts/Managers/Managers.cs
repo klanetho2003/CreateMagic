@@ -42,8 +42,8 @@ public class Managers : MonoBehaviour
 
     #region Language
 
-    private Define.ELanguage _language = Define.ELanguage.Korean;
-    public Define.ELanguage Language
+    private static Define.ELanguage _language = Define.ELanguage.Korean;
+    public static Define.ELanguage Language
     {
         get { return _language; }
         set
@@ -54,7 +54,7 @@ public class Managers : MonoBehaviour
         }
     }
 
-    public string GetText(string textId)
+    public static string GetText(string textId)
     {
         switch (_language)
         {

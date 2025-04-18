@@ -560,9 +560,6 @@ namespace Data
     #endregion
 
     #region Item
-    // 계층 구조 예시
-    // Equipment.Weapon.Dagger
-    // Consumable.Potion.Hp
     [Serializable]
     public class BaseData
     {
@@ -580,6 +577,8 @@ namespace Data
         public EItemGrade Grade;
         public EStatModType StatModType;
         public int MaxCount;
+        public string RewardDescriptionId;
+        public int RewardCount;
     }
 
     [Serializable]

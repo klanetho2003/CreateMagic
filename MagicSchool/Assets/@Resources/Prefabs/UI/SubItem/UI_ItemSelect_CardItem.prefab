@@ -273,7 +273,7 @@ GameObject:
   - component: {fileID: 947600312405987960}
   - component: {fileID: 947600312405987961}
   m_Layer: 5
-  m_Name: SkillDescription
+  m_Name: RewardDescription
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -404,8 +404,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Card Name
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 7fe04ba86d119b44dbc900b70a159d7b, type: 2}
-  m_sharedMaterial: {fileID: 3687719888284368304, guid: 7fe04ba86d119b44dbc900b70a159d7b, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 7e5141cf120369f459cca35208531e65, type: 2}
+  m_sharedMaterial: {fileID: -1185709121785741761, guid: 7e5141cf120369f459cca35208531e65, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -429,12 +429,12 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 40
+  m_fontSize: 34
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
   m_fontSizeMin: 18
-  m_fontSizeMax: 40
+  m_fontSizeMax: 34
   m_fontStyle: 0
   m_HorizontalAlignment: 2
   m_VerticalAlignment: 512
@@ -529,7 +529,7 @@ GameObject:
   - component: {fileID: 947600312559737026}
   - component: {fileID: 947600312559737027}
   m_Layer: 5
-  m_Name: SkillImage
+  m_Name: RewardImage
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1421,7 +1421,7 @@ GameObject:
   - component: {fileID: 947600313556745278}
   - component: {fileID: 947600313556745279}
   m_Layer: 5
-  m_Name: SkillDescriptionText
+  m_Name: RewardDescriptionText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1476,8 +1476,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Skill Description
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 7fe04ba86d119b44dbc900b70a159d7b, type: 2}
-  m_sharedMaterial: {fileID: 3687719888284368304, guid: 7fe04ba86d119b44dbc900b70a159d7b, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 7e5141cf120369f459cca35208531e65, type: 2}
+  m_sharedMaterial: {fileID: -1185709121785741761, guid: 7e5141cf120369f459cca35208531e65, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -1934,7 +1934,7 @@ GameObject:
   - component: {fileID: 5486696499017163786}
   - component: {fileID: 606775659191710328}
   m_Layer: 5
-  m_Name: SkillCardBackgroundImage
+  m_Name: RewardCardBackgroundImage
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

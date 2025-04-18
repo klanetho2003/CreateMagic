@@ -16,28 +16,25 @@ public class UI_ItemSelect_CardItem : UI_Base
     enum Texts
     {
         CardNameText,
-        SkillDescriptionText,
+        RewardDescriptionText,
     }
 
     enum Images
     {
-        SkillImage,
+        RewardImage,
     }
 
     enum GameObjects
     {
-        SkillCardBackgroundImage,
+        RewardCardBackgroundImage,
     }
 
-    int _templateID;
-    Data.SkillData _skillData;
+    TMP_Text _cardNameText;
+    TMP_Text _rewardDescriptionText;
 
-    TMP_Text cardNameText;
-    TMP_Text skillDescriptionText;
+    Image _rewardImage;
 
-    Image skillImage;
-
-    GameObject skillCardBackgroundImage;
+    GameObject _rewardCardBackgroundImage;
 
     #endregion
 
@@ -50,12 +47,12 @@ public class UI_ItemSelect_CardItem : UI_Base
         BindImages(typeof(Images));
         BindObjects(typeof(GameObjects));
 
-        cardNameText = GetText((int)Texts.CardNameText);
-        skillDescriptionText = GetText((int)Texts.SkillDescriptionText);
-        skillImage = GetImage((int)Images.SkillImage);
-        skillCardBackgroundImage = GetObject((int)GameObjects.SkillCardBackgroundImage);
+        _cardNameText = GetText((int)Texts.CardNameText);
+        _rewardDescriptionText = GetText((int)Texts.RewardDescriptionText);
+        _rewardImage = GetImage((int)Images.RewardImage);
+        _rewardCardBackgroundImage = GetObject((int)GameObjects.RewardCardBackgroundImage);
 
-        BindEvent(skillCardBackgroundImage.gameObject, (Event) =>
+        BindEvent(_rewardCardBackgroundImage.gameObject, (Event) =>
         {
             OnClick();
         });
@@ -74,36 +71,14 @@ public class UI_ItemSelect_CardItem : UI_Base
     {
         transform.localScale = Vector3.one;
 
-        #region Temp Code - Casting And View Item
-        // Temp Casting
-        if (_data.ItemGroupType == Define.EItemGroupType.StatBoost)
-        {
-            StatBoostData data = (StatBoostData)_data;
-
-            // Text
-            cardNameText.text = $"{data.Name}";
-            skillDescriptionText.text = $"Player의 공격력을 {data.Damage} 상승 시킨다.";
-        }
-        else if (_data.ItemGroupType == Define.EItemGroupType.Equipment)
-        {
-            EquipmentData data = (EquipmentData)_data;
-
-            // Text
-            cardNameText.text = $"{data.Name}";
-            skillDescriptionText.text = $"장착 시험용 Temp Item 입니다.";
-        }
-        else if (_data.ItemGroupType == Define.EItemGroupType.Consumable)
-        {
-            ConsumableData data = (ConsumableData)_data;
-
-            // Text
-            cardNameText.text = $"{data.Name}";
-            skillDescriptionText.text = $"Consumable";
-        }
+        // Name
+        _rewardDescriptionText.text = $"{_data.Name}";
+        // Description
+        string descriptionText = Managers.GetText(_data.RewardDescriptionId);
+        _rewardDescriptionText.text = descriptionText;
 
         // Sprite
-        skillImage.sprite = Managers.Resource.Load<Sprite>(_data.SpriteName);
-        #endregion
+        _rewardImage.sprite = Managers.Resource.Load<Sprite>(_data.SpriteName);
 
     }
 

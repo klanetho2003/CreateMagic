@@ -1,11 +1,11 @@
-DataId,Name,SpriteName,GroupType,Type,SubType,Grade,StatModType,MaxCount,Damage,Defence,Speed
-0,Slot,InventorySlot.sprite,None,None,None,None,None,0,0,0,0
-6,TestEquipmentSomthing,Ring_05.sprite,Equipment,ItemSkill,Dagger,Normal,None,1,0,0,0
-,,,,,,,,,,,
-,,,,,,,,,,,
-,,,,,,,,,,,
-,,,,,,,,,,,
-,Item Data,,,,,,아래 3 중 택 1,,,,
-,,,,,,,Add,,,,
-,,,,,,,PercentAdd,,,,
-,,,,,,,PercentMult,,,,
+DataId,Name,SpriteName,GroupType,Type,SubType,Grade,StatModType,MaxCount,RewardDescriptionId,RewardCount,Damage,Defence,Speed
+0,Slot,InventorySlot.sprite,None,None,None,None,None,0,,1,0,0,0
+6,TestEquipmentRing,Ring_05.sprite,Equipment,ItemSkill,Dagger,Normal,None,1,RingRewardDescriptionId,,0,0,0
+,,,,,,,,,,,,,
+,,,,,,,,,,,,,
+,,,,,,,,,,,,,
+,,,,,,,,,,,,,
+,Item Data,,,,,,아래 3 중 택 1,,,,,,
+,,,,,,,Add,,,,,,
+,,,,,,,PercentAdd,,,,,,
+,,,,,,,PercentMult,,,,,,

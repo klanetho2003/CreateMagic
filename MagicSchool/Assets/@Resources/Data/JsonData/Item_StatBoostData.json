@@ -1,4 +1,4 @@
-{
+﻿{
   "items": [
     {
       "Damage": 100.0,
@@ -12,6 +12,8 @@
       "Grade": 1,
       "StatModType": 1,
       "MaxCount": 1,
+      "RewardDescriptionId": "DaggerRewardDescriptionId",
+      "RewardCount": 1,
       "DataId": 1
     },
     {
@@ -26,6 +28,8 @@
       "Grade": 1,
       "StatModType": 3,
       "MaxCount": 1,
+      "RewardDescriptionId": "HelmetRewardDescriptionId",
+      "RewardCount": 1,
       "DataId": 2
     },
     {
@@ -40,6 +44,8 @@
       "Grade": 1,
       "StatModType": 3,
       "MaxCount": 2,
+      "RewardDescriptionId": "ArmorRewardDescriptionId",
+      "RewardCount": 1,
       "DataId": 3
     },
     {
@@ -54,6 +60,8 @@
       "Grade": 2,
       "StatModType": 1,
       "MaxCount": 1,
+      "RewardDescriptionId": "SwordRewardDescriptionId",
+      "RewardCount": 1,
       "DataId": 4
     },
     {
@@ -68,6 +76,8 @@
       "Grade": 4,
       "StatModType": 1,
       "MaxCount": 1,
+      "RewardDescriptionId": "BowRewardDescriptionId",
+      "RewardCount": 1,
       "DataId": 5
     }
   ]

@@ -10,6 +10,7 @@ using System.Reflection;
 using System.Collections;
 using System.ComponentModel;
 using Unity.VisualScripting;
+using System.Text;
 
 public class DataTransformer : EditorWindow
 {
@@ -122,7 +123,7 @@ public class DataTransformer : EditorWindow
         field.SetValue(loader, ParseExcelDataToList<LoaderData>(filename));
 
         string jsonStr = JsonConvert.SerializeObject(loader, Formatting.Indented);
-        File.WriteAllText($"{Application.dataPath}/@Resources/Data/JsonData/{filename}Data.json", jsonStr);
+        File.WriteAllText($"{Application.dataPath}/@Resources/Data/JsonData/{filename}Data.json", jsonStr, Encoding.UTF8);
         AssetDatabase.Refresh();
     }
 
@@ -130,7 +131,7 @@ public class DataTransformer : EditorWindow
     {
         List<LoaderData> loaderDatas = new List<LoaderData>();
 
-        string[] lines = File.ReadAllText($"{Application.dataPath}/@Resources/Data/ExcelData/{filename}Data.csv").Trim().Split("\n");
+        string[] lines = File.ReadAllText($"{Application.dataPath}/@Resources/Data/ExcelData/{filename}Data.csv", Encoding.UTF8).Trim().Split(new[] { "\r\n", "\n" }, StringSplitOptions.None);
 
         List<string[]> rows = new List<string[]>();
 

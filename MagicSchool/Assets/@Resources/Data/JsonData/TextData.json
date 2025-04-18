@@ -1,4 +1,4 @@
-{
+﻿{
   "texts": [
     {
       "DataId": "RookieName",
@@ -43,6 +43,34 @@
     {
       "DataId": "ToDoSkillDescription",
       "KOR": "empty"
+    },
+    {
+      "DataId": "DaggerRewardDescriptionId",
+      "KOR": "�ܰ��̴�. �� ���ݷ� 100 UP (�ִ� ���� ���� 1) [DataId : 1]"
+    },
+    {
+      "DataId": "HelmetRewardDescriptionId",
+      "KOR": "�ƹ�ư ����̴�. ���ݷ� 80% UP (�ִ� ���� ���� 2) [DataId : 2]"
+    },
+    {
+      "DataId": "ArmorRewardDescriptionId",
+      "KOR": "�����̴�. ���ݷ� 30% UP (�ִ� ���� ���� 1) [DataId : 3]"
+    },
+    {
+      "DataId": "SwordRewardDescriptionId",
+      "KOR": "���̴�. 2 ���� 0��ŭ ���� UP (�ִ� ���� ���� 1) [DataId : 4]"
+    },
+    {
+      "DataId": "BowRewardDescriptionId",
+      "KOR": "Ȱ�̴�. 3 ���� 0��ŭ ���� UP (�ִ� ���� ���� 1) [DataId : 5]"
+    },
+    {
+      "DataId": "RingRewardDescriptionId",
+      "KOR": "������. �Ƹ����. (�ִ� ���� ���� 1) [DataId : 5]"
+    },
+    {
+      "DataId": "PotionRewardDescriptionId",
+      "KOR": "��� �� Hp�� 1ȸ���ϴ� ������ 9���� ȹ���Ѵ�. (�ִ� ���� ���� 10) [DataId : 10]"
     }
   ]
 }

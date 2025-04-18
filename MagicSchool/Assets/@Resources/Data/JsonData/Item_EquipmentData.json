@@ -1,4 +1,4 @@
-{
+﻿{
   "items": [
     {
       "Damage": 0.0,
@@ -12,13 +12,15 @@
       "Grade": 0,
       "StatModType": 0,
       "MaxCount": 0,
+      "RewardDescriptionId": null,
+      "RewardCount": 1,
       "DataId": 0
     },
     {
       "Damage": 0.0,
       "Defence": 0.0,
       "Speed": 0.0,
-      "Name": "TestEquipmentSomthing",
+      "Name": "TestEquipmentRing",
       "SpriteName": "Ring_05.sprite",
       "ItemGroupType": 2,
       "Type": 2,
@@ -26,6 +28,8 @@
       "Grade": 1,
       "StatModType": 0,
       "MaxCount": 1,
+      "RewardDescriptionId": "RingRewardDescriptionId",
+      "RewardCount": 0,
       "DataId": 6
     }
   ]

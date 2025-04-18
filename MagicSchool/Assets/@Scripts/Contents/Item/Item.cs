@@ -108,19 +108,6 @@ public class Item
         return item;
     }
 
-    public bool TryChangeCount(int amount)
-    {
-        int tempCount = Count + amount;
-
-        // 음수가 되는 경우 false
-        if (tempCount < 0)
-            return false;
-            
-        // 최대값을 넘긴 경우 조정 후 true
-        Count = Mathf.Min(tempCount, TemplateData.MaxCount);
-        return true;
-    }
-
     #region Helpers
     public bool IsMaxCount()
     {

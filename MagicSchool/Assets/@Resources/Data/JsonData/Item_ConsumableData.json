@@ -1,16 +1,18 @@
-{
+﻿{
   "items": [
     {
       "Value": 1.0,
       "CoolTime": 2,
       "Name": "TestPotionID",
-      "SpriteName": "EgoSwordIcon_01.sprite",
+      "SpriteName": "Potion_01",
       "ItemGroupType": 3,
       "Type": 4,
       "SubType": 11,
       "Grade": 1,
       "StatModType": 1,
       "MaxCount": 10,
+      "RewardDescriptionId": "PotionRewardDescriptionId",
+      "RewardCount": 9,
       "DataId": 10
     }
   ]

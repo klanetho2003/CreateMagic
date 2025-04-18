@@ -102,7 +102,7 @@ public class InventoryManager
         }
 
         // Item Count ++
-        if (item.TryChangeCount(1)) // To Do Data Parsng
+        if (TryChangeItemCount(item, item.TemplateData.RewardCount)) // To Do Data Parsng
         {
             if (item.IsMaxCount())
                 RewardItems[item.TemplateData.Grade].Remove(item.TemplateId);
@@ -180,8 +180,28 @@ public class InventoryManager
             return;
 
         // Try Use //적용 대상 종류가 많아지면 수정 필요 like Skill
-        if (item.TryUseItem(_player) && item.IsMaxCount() == false)
+        item.TryUseItem(_player);
+    }
+
+    public bool TryChangeItemCount(Item item, int amount)
+    {
+        if (item == null)
+            return false;
+
+        int tempCount = item.Count + amount;
+
+        // 음수가 되는 경우 false
+        if (tempCount < 0)
+            return false;
+
+        // 최대값을 넘긴 경우 조정 후 true
+        item.Count = Mathf.Min(tempCount, item.TemplateData.MaxCount);
+
+        // MaxCount와 맞지 않으면 Reward에 추가
+        if (item.IsMaxCount() == false)
             RewardItems[item.TemplateData.Grade].Add(item.TemplateId);
+
+        return true;
     }
 
     #region 탈착

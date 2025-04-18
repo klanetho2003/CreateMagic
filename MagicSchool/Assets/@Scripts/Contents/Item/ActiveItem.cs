@@ -155,10 +155,8 @@ public class Potion : Consumable
     {
         base.TryUseItem(target);
 
-        if (Count <= 0)
+        if (Managers.Inventory.TryChangeItemCount(this, -1) == false)
             return false;
-
-        TryChangeCount(-1);
 
         // Use
         switch (TemplateData.Type)
