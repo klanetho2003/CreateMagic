@@ -14,13 +14,13 @@ public class MonsterController : CreatureController
 
     #region Animation
 
-    public override void FlipX(bool flag) // Monster´Â ÅÂ»ıÀÌ ¿À¸¥ÂÊ, ¹İ´ë·Î °ª ³Ö
+    public override void FlipX(bool flag) // MonsterëŠ” íƒœìƒì´ ì˜¤ë¥¸ìª½, ë°˜ëŒ€ë¡œ ê°’ ë„£
     {
         flag = !flag;
         base.FlipX(flag);
     }
 
-    // Wait¿Í AnimationÀ» ¹­´Â ÇÔ¼ö BaseController¿¡ ³ÖÀÚ
+    // Waitì™€ Animationì„ ë¬¶ëŠ” í•¨ìˆ˜ BaseControllerì— ë„£ì
     protected override void UpdateAnimation()
     {
         switch (CreatureState)
@@ -42,15 +42,15 @@ public class MonsterController : CreatureController
                 break;
             case CreatureState.DoSkill:
                 //Anim.Play($"DoSkill");
-                //Wait(1f); // Damege Animation + ÈÄµô·¹ÀÌ Àç»ı wait // To Do Animation RunTime Parsing
+                //Wait(1f); // Damege Animation + í›„ë”œë ˆì´ ì¬ìƒ wait // To Do Animation RunTime Parsing
                 break;
             case CreatureState.Dameged:
                 Anim.Play($"Dameged");
-                //Wait(0.75f); // Damege Animation + ÈÄµô·¹ÀÌ Àç»ı wait // To Do Animation RunTime Parsing
+                //Wait(0.75f); // Damege Animation + í›„ë”œë ˆì´ ì¬ìƒ wait // To Do Animation RunTime Parsing
                 break;
             case CreatureState.Dead:
                 Anim.Play($"Death");
-                //Wait(1.5f); // Death Animation + ÈÄµô·¹ÀÌ Àç»ı wait // To Do Animation RunTime Parsing
+                //Wait(1.5f); // Death Animation + í›„ë”œë ˆì´ ì¬ìƒ wait // To Do Animation RunTime Parsing
                 break;
         }
     }
@@ -130,7 +130,7 @@ public class MonsterController : CreatureController
     {
         //if (_coWait == null) { }
 
-            //OnDead(); To Do ÀÏ´Ü CreatureController¿¡ ³Ö¾îµÎ¾ú´Ù
+            //OnDead(); To Do ì¼ë‹¨ CreatureControllerì— ë„£ì–´ë‘ì—ˆë‹¤
     }
 
     void CheckAttackTarget(/*float sqrMagnitude, */float attackRange)
@@ -150,7 +150,7 @@ public class MonsterController : CreatureController
     public override bool Init()
     {
         if (base.Init() == false)
-            return false; // µÎ ¹ø ÃÊ±âÈ­ÇÏÁö ¾Êµµ·Ï ²÷¾îÁÖ´Â ºÎºĞ
+            return false; // ë‘ ë²ˆ ì´ˆê¸°í™”í•˜ì§€ ì•Šë„ë¡ ëŠì–´ì£¼ëŠ” ë¶€ë¶„
 
         ObjectType = EObjectType.Monster;
 
@@ -200,9 +200,15 @@ public class MonsterController : CreatureController
                     break;
             }
         });
+
+        // ì¶©ëŒ ê¸°í”¼ ê°ì²´ ì •ì˜ // Trigger On
+        /*LayerMask excludeMask = 0;
+        excludeMask.AddLayer(ELayer.Student);
+        excludeMask.AddLayer(ELayer.Monster);
+        Collider.excludeLayers = excludeMask;*/
     }
 
-    protected override void FixedUpdateMoving() // ¹°¸®¿Í ¿¬°üµÅ ÀÖÀ¸¸é fixed
+    protected override void FixedUpdateMoving() // ë¬¼ë¦¬ì™€ ì—°ê´€ë¼ ìˆìœ¼ë©´ fixed
     {
         if (CreatureState != CreatureState.Moving)
             return;
@@ -210,10 +216,8 @@ public class MonsterController : CreatureController
         if (Target.IsValid() == false)
             return;
 
-        CheckAttackTarget(/*dir.sqrMagnitude, */AttackDistance);
+        CheckAttackTarget(AttackDistance);
 
-        //Vector3 dir = Target.transform.position - transform.position;
-        //Vector3 destPos = transform.position + (dir * MoveSpeed * Time.fixedDeltaTime * 10);
         EFindPathResult result = FindPathAndMoveToCellPos(Target.transform.position, MONSTER_DEFAULT_MOVE_DEPTH);
         LerpToCellPos(MoveSpeed.Value);
     }
@@ -286,14 +290,14 @@ public class MonsterController : CreatureController
         return dropTableData.RewardExp;
     }
 
-    protected override void Clear() // To Do : ÃÊ±âÈ­ ³»¿ë ÇÊ¿ä
+    protected override void Clear() // To Do : ì´ˆê¸°í™” ë‚´ìš© í•„ìš”
     {
         base.Clear();
         StopAllCoroutines();
 
         CreatureResistDic.Clear();
         Effects.Clear();
-        #region Æ¯Á¤ Coroutine¸¸ ¸ØÃç¾ßÇÒ °æ¿ì ÁÖ¼® Ã³¸®ÇÑ ¹æ¹ıÀ¸·Î ¹Ù²Ü °Í
+        #region íŠ¹ì • Coroutineë§Œ ë©ˆì¶°ì•¼í•  ê²½ìš° ì£¼ì„ ì²˜ë¦¬í•œ ë°©ë²•ìœ¼ë¡œ ë°”ê¿€ ê²ƒ
         /*if (_coDotDamage != null)
             StopCoroutine(_coDotDamage);
         _coDotDamage = null;*/

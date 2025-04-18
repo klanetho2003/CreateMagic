@@ -64,10 +64,10 @@ public class BaseController : MonoBehaviour
 
     public static Vector3 GetLookAtRotation(Vector3 dir)
     {
-        // Mathf.Atan2¸¦ »ç¿ëÇØ °¢µµ¸¦ °³¼±ÇÏ°í, ¶óµğ¾È¿¡¼­ ¸Â¹Ù·Î º¯È¯
+        // Mathf.Atan2ë¥¼ ì‚¬ìš©í•´ ê°ë„ë¥¼ ê°œì„ í•˜ê³ , ë¼ë””ì•ˆì—ì„œ ë§ë°”ë¡œ ë³€í™˜
         float angle = Mathf.Atan2(-dir.x, dir.y) * Mathf.Rad2Deg;
 
-        // ZÃà ±âÁØÀ¸·Î È¸ÀüÇÏ´Â Vector3 °ªÀ» return
+        // Zì¶• ê¸°ì¤€ìœ¼ë¡œ íšŒì „í•˜ëŠ” Vector3 ê°’ì„ return
         return new Vector3(0, 0, angle);
     }
 
@@ -82,7 +82,7 @@ public class BaseController : MonoBehaviour
 
     bool _init = false;
 
-    public virtual bool Init() // ÃÖÃÊ ½ÇÇàÀÏ ‹š´Â true¸¦ ¹İÈ¯, ÇÑ ¹øÀÌ¶óµµ ½ÇÇàÇÑ ³»¿ªÀÌ ÀÖÀ» °æ¿ì false¸¦ ¹İÈ¯
+    public virtual bool Init() // ìµœì´ˆ ì‹¤í–‰ì¼ ë–„ëŠ” trueë¥¼ ë°˜í™˜, í•œ ë²ˆì´ë¼ë„ ì‹¤í–‰í•œ ë‚´ì—­ì´ ìˆì„ ê²½ìš° falseë¥¼ ë°˜í™˜
     {
         if (_init)
             return false;

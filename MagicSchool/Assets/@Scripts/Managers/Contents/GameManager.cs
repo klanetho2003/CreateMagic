@@ -39,16 +39,16 @@ public class SkillSaveData
     public int Exp = 0;
     public SkillOwningState OwningState = SkillOwningState.Lock;
 
-    /* °¡·É skill ¾Æ´Ï¶ó, Ä³¸¯ÅÍ¸¦ List·Î °ü¸®ÇÏ°í ÀÖ´õ¶óµµ ÆòÅ¸_SkiillA_SkillB±îÁö List¿¡ ´ãÀ» ÇÊ¿ä ¾ø´Ù.
-    Level & Á¤¿¹È­ Á¤º¸ ÅëÇØ¼­ SkillÀ» ¾òÀ» ¼ö ÀÖ±â ‹š¹®ÀÌ´Ù. in RunTime*/
+    /* ê°€ë ¹ skill ì•„ë‹ˆë¼, ìºë¦­í„°ë¥¼ Listë¡œ ê´€ë¦¬í•˜ê³  ìˆë”ë¼ë„ í‰íƒ€_SkiillA_SkillBê¹Œì§€ Listì— ë‹´ì„ í•„ìš” ì—†ë‹¤.
+    Level & ì •ì˜ˆí™” ì •ë³´ í†µí•´ì„œ Skillì„ ì–»ì„ ìˆ˜ ìˆê¸° ë–„ë¬¸ì´ë‹¤. in RunTime*/
 }
 
 public enum SkillOwningState
 {
-    Lock,       // ¹ß°ß X
-    Unowned,    // ¹ß°ß O, º¸À¯ X
-    Owned,      // º¸À¯
-    Picked,     // Àåºñ Áß
+    Lock,       // ë°œê²¬ X
+    Unowned,    // ë°œê²¬ O, ë³´ìœ  X
+    Owned,      // ë³´ìœ 
+    Picked,     // ì¥ë¹„ ì¤‘
 }
 
 [Serializable]
@@ -58,7 +58,7 @@ public class ItemSaveData
     public int DbId;
     public int TemplateId;
     public int Count;
-    public int EquipSlot; // ÀåÂø + ÀÎº¥ + Ã¢°í + ¹ß°ßX
+    public int EquipSlot; // ì¥ì°© + ì¸ë²¤ + ì°½ê³  + ë°œê²¬X
     // public int OwnerId;
     public int EnchantCount;
 }
@@ -68,7 +68,7 @@ public class QuestSaveData
 {
     public int TemplateId;
     public EQuestState State = EQuestState.None;
-    public List<int> ProgressCount = new List<int>(); // ÁøÇà »óÈ² ¼öÄ¡ ex. Monster N Slay
+    public List<int> ProgressCount = new List<int>(); // ì§„í–‰ ìƒí™© ìˆ˜ì¹˜ ex. Monster N Slay
     public DateTime NextResetTime;
 }
 
@@ -81,7 +81,7 @@ public class GameManager
     public List<Transform> WayPoints { get { return _wayPoints; }}
     //
 
-    #region ÀçÈ­ Temp_Ex
+    #region ì¬í™” Temp_Ex
     /*public int Gold { get; set; }
 
     public Action<int> OnJamCountChanged;
@@ -100,7 +100,7 @@ public class GameManager
 
     #region GameData
 
-    // ÁøÇà¿¡ µû¶ó ´Ş¶óÁö´Â Data
+    // ì§„í–‰ì— ë”°ë¼ ë‹¬ë¼ì§€ëŠ” Data
     GameSaveData _saveData = new GameSaveData();
     public GameSaveData SaveData { get { return _saveData; } set { _saveData = value; } }
 
@@ -238,7 +238,7 @@ public class GameManager
 
     #region Save & Load	
 
-    // ¿Ö ÆÄ½Ì ¾ÈÇÔ? > »ı¼ºÀÚ ½ÃÁ¡¿¡ ½ÇÇàµÉ±îºÁ
+    // ì™œ íŒŒì‹± ì•ˆí•¨? > ìƒì„±ì ì‹œì ì— ì‹¤í–‰ë ê¹Œë´
     public string Path { get { return Application.persistentDataPath + "/SaveData.json"; } }
 
     public void InitGame()
@@ -247,7 +247,7 @@ public class GameManager
             return;
 
         // Skill
-        // To Do : ÆĞÄ¡¿¡ µû¶ó ´Ã¾î³ª´Â skillÀ» ´ëÃ³ÇÒ ¼ö ÀÖµµ·Ï ¼öÁ¤ - Version Á¤º¸¸¦ ÂüÁ¶ÇÏ´Â ¹æ¹ı?
+        // To Do : íŒ¨ì¹˜ì— ë”°ë¼ ëŠ˜ì–´ë‚˜ëŠ” skillì„ ëŒ€ì²˜í•  ìˆ˜ ìˆë„ë¡ ìˆ˜ì • - Version ì •ë³´ë¥¼ ì°¸ì¡°í•˜ëŠ” ë°©ë²•?
         var skills = Managers.Data.StudentSkillDic.Values.ToList();
         foreach (SkillData skill in skills)
         {
@@ -267,7 +267,7 @@ public class GameManager
                 Managers.Inventory.MakeItem(item.DataId, equipSlot: EEquipSlotType.UnknownItems);
 
             // Gain Start Item
-            var initGameData = Managers.Data.InitGameDic[100]; // To Do 100 = ³­ÀÌµµ
+            var initGameData = Managers.Data.InitGameDic[100]; // To Do 100 = ë‚œì´ë„
             foreach (var startItem in initGameData.StartItems)
             {
                 Item item = Managers.Inventory.GetUnknownItem(startItem.ItemTemplateId);
@@ -370,7 +370,7 @@ public class GameManager
 
     #endregion
 
-    #region ÀÌµ¿ & Teleport
+    #region ì´ë™ & Teleport
 
     Vector2 _moveDir;
     public Vector2 MoveDir
@@ -397,7 +397,7 @@ public class GameManager
         Player.Cam.enabled = true;
 
 
-        // PetÀÌ ÀÖÀ» °æ¿ì ¾Æ·¡ ÄÚµå·Î º¯È¯
+        // Petì´ ìˆì„ ê²½ìš° ì•„ë˜ ì½”ë“œë¡œ ë³€í™˜
         /*foreach (var hero in Managers.Object.Heroes)
         {
             Vector3Int randCellPos = Managers.Game.GetNearbyPosition(hero, cellPos);
@@ -411,7 +411,7 @@ public class GameManager
 
     #endregion
 
-    #region ÀüÅõ
+    #region ì „íˆ¬
     int _killCount;
     public int KillCount
     {

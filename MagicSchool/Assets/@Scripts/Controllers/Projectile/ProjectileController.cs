@@ -6,7 +6,7 @@ using static Define;
 
 public class ProjectileController : BaseController
 {
-    // ³ª¸¦ ½ºÆùÇÑ ÁÖÃ¼ Skill
+    // ë‚˜ë¥¼ ìŠ¤í°í•œ ì£¼ì²´ Skill
     public SkillBase Skill { get; private set; }
     public CreatureController Owner { get; private set; }
     public Action<BaseController> _onHit;
@@ -28,7 +28,7 @@ public class ProjectileController : BaseController
         return true;
     }
 
-    public void SetInfo(int dataTemplateID) // in ObjectManager >> Init ´ÙÀ½ ½ÇÇàµÇ´Â Init ´À³¦ // SkillBase > ObjectManager > ProjectileController
+    public void SetInfo(int dataTemplateID) // in ObjectManager >> Init ë‹¤ìŒ ì‹¤í–‰ë˜ëŠ” Init ëŠë‚Œ // SkillBase > ObjectManager > ProjectileController
     {
         ProjectileData = Managers.Data.ProjectileDic[dataTemplateID];
 
@@ -42,13 +42,15 @@ public class ProjectileController : BaseController
             Anim.runtimeAnimatorController = Managers.Resource.Load<RuntimeAnimatorController>(ProjectileData.AnimatorDataID);
     }
 
-    public void SetSpawnInfo(CreatureController owner, SkillBase skill, Vector3 spawnPos, LayerMask layer, Action<BaseController> onHit) // SkillBase ÁßGenerateÇÔ¼ö ³¡ ºÎºĞ¿¡ À§Ä¡,
-                                                                                         // Áï, SetInfo > GenerateÇÔ¼ö ÁøÇà > SetSpawnInfo
+    public void SetSpawnInfo(CreatureController owner, SkillBase skill, Vector3 spawnPos, LayerMask layer, Action<BaseController> onHit) // SkillBase ì¤‘Generateí•¨ìˆ˜ ë ë¶€ë¶„ì— ìœ„ì¹˜,
+                                                                                         // ì¦‰, SetInfo > Generateí•¨ìˆ˜ ì§„í–‰ > SetSpawnInfo
     {
         Owner = owner;
         Skill = skill;
         _onHit = onHit;
-        TargetPosition = (owner.Target == null) ? (owner.GenerateSkillPosition - owner.CenterPosition).normalized * PROJECTILE_DISTANCE_MAX : owner.Target.CenterPosition;
+        TargetPosition = (owner.Target == null) ?
+            (owner.GenerateSkillPosition - owner.CenterPosition).normalized * PROJECTILE_DISTANCE_MAX :
+            (owner.Target.CenterPosition - owner.GenerateSkillPosition).normalized * PROJECTILE_DISTANCE_MAX;
 
         // Size
         Collider.radius = ProjectileData.ProjRange;
@@ -96,9 +98,9 @@ public class ProjectileController : BaseController
     {
         base.Clear();
 
-        /* To Do : ¸ğµç ProjectileÀÌ µ¿ÀÏÇÑ PrefabÀ» °øÀ¯ÇÒ ¼ö ÀÖµµ·Ï ±¸ÇöµÇ¾î,
-        PoolingÇÒ ½Ã CastingImpactÀÇ ¼öÁ¤µÈ scaleÀÌ Àû¿ëµÇ´Â ¹®Á¦°¡ »ı°å´Ù.
-        Pooling Á¤»óÈ­ÇÏ°í, ¾Æ·¡ ÄÚµå¸¦ Áö¿ìµµ·ÏÇÏÀÚ*/
+        /* To Do : ëª¨ë“  Projectileì´ ë™ì¼í•œ Prefabì„ ê³µìœ í•  ìˆ˜ ìˆë„ë¡ êµ¬í˜„ë˜ì–´,
+        Poolingí•  ì‹œ CastingImpactì˜ ìˆ˜ì •ëœ scaleì´ ì ìš©ë˜ëŠ” ë¬¸ì œê°€ ìƒê²¼ë‹¤.
+        Pooling ì •ìƒí™”í•˜ê³ , ì•„ë˜ ì½”ë“œë¥¼ ì§€ìš°ë„ë¡í•˜ì*/
         transform.localScale = Vector3.one;
         transform.rotation = Quaternion.Euler(0, 0, 0); ;
     }

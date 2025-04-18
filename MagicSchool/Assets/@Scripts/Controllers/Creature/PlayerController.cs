@@ -7,6 +7,7 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 using static Define;
+using static UnityEditor.Experimental.GraphView.GraphView;
 
 public class PlayerController : CreatureController
 {
@@ -286,6 +287,12 @@ public class PlayerController : CreatureController
         // Skill
         PlayerSkills = gameObject.GetOrAddComponent<PlayerSkillBook>();
         Skills.SetInfo(this, PlayerData);
+
+        // 충돌 기피 객체 정의
+        LayerMask excludeMask = 0;
+        excludeMask.AddLayer(ELayer.Student);
+        excludeMask.AddLayer(ELayer.Monster);
+        Collider.excludeLayers = excludeMask;
     }
 
 
@@ -360,7 +367,7 @@ public class PlayerController : CreatureController
 
         // 전방에 한 칸이 갈 수 있는 영역인가? - 빠른 탈출
         Vector3Int frontCellPos = Managers.Map.World2Cell(transform.position + (Vector3)_moveDir.normalized);
-        if (Managers.Map.CanGo(this, frontCellPos, ignoreObjects: true) == false)
+        if (Managers.Map.CanGo(this, frontCellPos, ignoreObjects: true, ignoreSemiWall: true) == false)
         {
             SetRigidBodyVelocity(Vector3.zero); // To Do : 길찾기
             return;
