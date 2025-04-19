@@ -4,14 +4,6 @@
       "DataId": 100,
       "StartItems": [
         {
-          "ItemTemplateId": 1,
-          "Count": 1
-        },
-        {
-          "ItemTemplateId": 2,
-          "Count": 1
-        },
-        {
           "ItemTemplateId": 6,
           "Count": 1
         }
