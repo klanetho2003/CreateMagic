@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 5327063038642430523}
   - component: {fileID: 5327063038642430524}
   m_Layer: 0
-  m_Name: IceWater_11
+  m_Name: IceBreath
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

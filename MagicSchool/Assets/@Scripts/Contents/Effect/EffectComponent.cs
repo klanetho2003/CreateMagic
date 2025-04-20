@@ -8,7 +8,8 @@ public class EffectComponent : MonoBehaviour
 {
 	public List<EffectBase> ActiveEffects = new List<EffectBase>();
 	public Dictionary<int, EffectBase> ExclusiveActiveEffects = new Dictionary<int, EffectBase>();
-	public Queue<EffectBase> BurnQueue = new Queue<EffectBase>();
+	public Dictionary<string, Queue<EffectBase>> StackableEffects = new Dictionary<string, Queue<EffectBase>>();
+	// public Queue<EffectBase> BurnQueue = new Queue<EffectBase>();
     private CreatureController _owner;
 
 	public void SetInfo(CreatureController Owner)
@@ -37,23 +38,29 @@ public class EffectComponent : MonoBehaviour
             effect.transform.parent = _owner.Effects.transform;
             effect.transform.localPosition = Vector2.zero;
             Managers.Object.Effects.Add(effect);
-
-            // Temp : Burn°°Àº Ä£±¸µéÀº ElementalEffect¸¦ »ó¼Ó ¹Ş´Â °ÍÀ¸·Î ´Ù½Ã ¸¸µé¾î¾ßÇÒ µí
-            if (className == "Burn")
-            {
-                BurnQueue.Enqueue(effect);
-                effect.SetInfo(id, _owner, spawnType, skill);
-
-                if (BurnQueue.Count > 1)
-                    continue;
-            }
-            //
-
             effect.SetInfo(id, _owner, spawnType, skill);
 
-            // ÁßÃ¸ ºÒ°¡ Effect Ã³¸®
+            // Stackable Effect ì²˜ë¦¬
+            if (effect.EffectType == EEffectType.StackableDebuff)
+            {
+                if (StackableEffects.ContainsKey(className) == false)
+                {
+                    Queue<EffectBase> effectQueue = new Queue<EffectBase>();
+                    StackableEffects.Add(className, effectQueue);
+                }
+
+                StackableEffects[className].Enqueue(effect);
+                Debug.Log($"{_owner.CreatureData.DescriptionTextID} , {StackableEffects[className].Count} testetse");
+                effect.ApplyStack();
+
+                if (StackableEffects[className].Count > 1)
+                    continue;
+            }
+
+            // ì¤‘ì²© ë¶ˆê°€ Effect ì²˜ë¦¬
             if (effect.EffectType == EEffectType.ExclusiveBuff || effect.EffectType == EEffectType.ExclusiveDeBuff)
             {
+                // ì ìš© ì‹œê°„ë§Œ ë‹¬ë¼ì§€ëŠ” ê²½ìš° classNameìœ¼ë¡œ ë³€ê²½ í•„ìš”
                 if (ExclusiveActiveEffects.ContainsKey(effect.DataTemplateID))
                     continue;
 

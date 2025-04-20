@@ -3,10 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using static Define;
 
-
 public class CCBase : EffectBase
 {
-	protected CreatureState lastState;
+    protected CreatureState lastState;
 
 	public override bool Init()
 	{
@@ -35,5 +34,4 @@ public class CCBase : EffectBase
 
         return true;
 	}
-
 }

@@ -30,9 +30,9 @@ public class FireBall : PlayerSkillBase
         base.ActivateSkill();
     }
 
-    public override void OnSkillDelay(float delaySeconds)
+    public override void OnSkillDelay(Action action, float delaySeconds)
     {
-        base.OnSkillDelay(delaySeconds);
+        base.OnSkillDelay(action, delaySeconds);
     }
 
     protected override void OnAttackTargetHandler()

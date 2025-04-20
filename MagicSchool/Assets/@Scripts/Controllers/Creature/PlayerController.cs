@@ -84,7 +84,6 @@ public class PlayerController : CreatureController
                     break;
                 default:
                     break;
-
             }
         }
     }

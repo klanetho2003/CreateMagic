@@ -5,7 +5,7 @@ using System.Linq;
 using UnityEngine;
 using static Define;
 
-public class FireExplosionAoE : CircleShapeAoE
+public class FireExplosionAoE : AoEBase
 {
     #region Init & Disable
     protected override void OnDisable()
@@ -35,11 +35,6 @@ public class FireExplosionAoE : CircleShapeAoE
     protected override void DetectTargets()
     {
         base.DetectTargets();
-    }
-
-    protected override void RemoveEffect(CreatureController target)
-    {
-        base.RemoveEffect(target);
     }
 
     // To Pooling

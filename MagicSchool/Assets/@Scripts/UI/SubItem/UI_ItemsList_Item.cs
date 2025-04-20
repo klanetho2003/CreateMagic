@@ -90,6 +90,8 @@ public class UI_ItemsList_Item : UI_Base
     {
         if (_item == null)
             return;
+        if (_item.EquipSlot == (int)EEquipSlotType.UnknownItems)
+            return;
         if (_item.IsEquippable() == false)
             return;
 
@@ -102,6 +104,8 @@ public class UI_ItemsList_Item : UI_Base
 	{
         if (_item == null)
             return;
+        if (_item.EquipSlot == (int)EEquipSlotType.UnknownItems)
+            return;
         if (_item.IsEquippable() == false)
             return;
 
@@ -113,11 +117,13 @@ public class UI_ItemsList_Item : UI_Base
     {
         if (_item == null)
             return;
+        if (_item.EquipSlot == (int)EEquipSlotType.UnknownItems)
+            return;
         if (_item.IsEquippable() == false)
             return;
 
         if (!TryEquipToSlot(evt))
-            _rectTransform.position = _originalPosition; // ½ÇÆÐ ½Ã º¹±Í
+            _rectTransform.position = _originalPosition; // ì‹¤íŒ¨ ì‹œ ë³µê·€
 
         GetImage((int)Images.ItemButton).raycastTarget = true;
     }

@@ -18,18 +18,25 @@ public class Burn : DotBase
         base.ProcessDot();
     }
 
+    public override void ApplyStack()
+    {
+        base.ApplyStack();
+        
+        Debug.Log($"{Owner.CreatureData.DescriptionTextID} , {EffectComponent.StackableEffects[EffectData.ClassName].Count}");
+    }
+
     public override bool ClearEffect(Define.EEffectClearType clearType)
     {
-        // Àû¿ëµÇ°í ÀÖ´Â '³ª' Queue¿¡¼­ Á¦°Å
-        if (EffectComponent.BurnQueue.TryDequeue(out EffectBase self) == false)
+        // ì ìš©ë˜ê³  ìžˆëŠ” 'ë‚˜' Queueì—ì„œ ì œê±°
+        if (EffectComponent.StackableEffects[EffectData.ClassName].TryDequeue(out EffectBase self) == false)
             return false;
 
-        // Despawn ½Ã Àç±ÍÇÏ¸é¼­ ¿ÏÀü Á¦°Å // CleatSkillÀÏ ½Ãµµ °°Àº ¹æ¹ýÀ¸·Î ÁøÇÛÇÒÁö »ý°¢
+        // Despawn ì‹œ ìž¬ê·€í•˜ë©´ì„œ ì™„ì „ ì œê±° // CleatSkillì¼ ì‹œë„ ê°™ì€ ë°©ë²•ìœ¼ë¡œ ì§„í•¼í• ì§€ ìƒê°
         if (clearType == Define.EEffectClearType.Despawn)
             return self.ClearEffect(clearType);
 
-        // ³ª ¸»°íµµ BurnÀÌ ´õ Á¸ÀçÇÑ´Ù¸é
-        if (EffectComponent.BurnQueue.TryPeek(out EffectBase burn))
+        // ë‚˜ ë§ê³ ë„ Burnì´ ë” ì¡´ìž¬í•œë‹¤ë©´
+        if (EffectComponent.StackableEffects[EffectData.ClassName].TryPeek(out EffectBase burn))
         {
             EffectComponent.ActiveEffects.Add(burn);
             burn.ApplyEffect();
@@ -38,6 +45,7 @@ public class Burn : DotBase
         return base.ClearEffect(clearType);
     }
 
+    #region Set Material
     protected override void SetOwnerMaterial()
     {
         base.SetOwnerMaterial();
@@ -49,7 +57,7 @@ public class Burn : DotBase
 
     protected override void ResetOwnerMaterial()
     {
-        if (EffectComponent.BurnQueue.Count > 0)
+        if (EffectComponent.StackableEffects[EffectData.ClassName].Count > 0)
             return;
 
         base.ResetOwnerMaterial();
@@ -58,4 +66,5 @@ public class Burn : DotBase
         Owner.SpriteRenderer.material.DisableKeyword("FADE_ON");
         Owner.SpriteRenderer.material.DisableKeyword("OUTBASE_ON");
     }
+    #endregion
 }

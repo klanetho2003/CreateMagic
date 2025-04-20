@@ -89,9 +89,9 @@ namespace Data
 		[XmlAttribute]
 		public float speed;
 		// DropData
-		// - ÀÏÁ¤ È®·ü·Î
-		// - ¾î¶² ¾ÆÀÌÅÛÀ» (º¸¼®, ½ºÅ³ °¡Â÷, °ñµå, °í±â)
-		// - ¸î °³ µå¶øÇÒÁö?
+		// - ì¼ì • í™•ë¥ ë¡œ
+		// - ì–´ë–¤ ì•„ì´í…œì„ (ë³´ì„, ìŠ¤í‚¬ ê°€ì°¨, ê³¨ë“œ, ê³ ê¸°)
+		// - ëª‡ ê°œ ë“œëí• ì§€?
 	}
 
     [Serializable, XmlRoot("MonsterDatas")]
@@ -154,7 +154,7 @@ namespace Data
 
 
     #region Creature Data
-    public class CreatureData //public string prefab; // ÀÌÁ¦ Prefab °æ·Î´Â ºÒÇÊ¿ä
+    public class CreatureData //public string prefab; // ì´ì œ Prefab ê²½ë¡œëŠ” ë¶ˆí•„ìš”
     {
         public int DataId;
         public string DescriptionTextID;
@@ -173,7 +173,7 @@ namespace Data
 
     #region Monster Data
     [Serializable]
-    public class MonsterData : CreatureData //public string prefab; // ÀÌÁ¦ Prefab °æ·Î´Â ºÒÇÊ¿ä
+    public class MonsterData : CreatureData //public string prefab; // ì´ì œ Prefab ê²½ë¡œëŠ” ë¶ˆí•„ìš”
     {
         public int DefaultSkillId;
         public int SkillAId;
@@ -197,9 +197,9 @@ namespace Data
 
     #region Student Data
     [Serializable]
-    public class StudentData : CreatureData //public string prefab; // ÀÌÁ¦ Prefab °æ·Î´Â ºÒÇÊ¿ä
+    public class StudentData : CreatureData //public string prefab; // ì´ì œ Prefab ê²½ë¡œëŠ” ë¶ˆí•„ìš”
     {
-        // Ãß°¡µÇ´Â ºÎºĞ
+        // ì¶”ê°€ë˜ëŠ” ë¶€ë¶„
         public int N1_DefaultSkillId;
         public int N2_DefaultSkillId;
         public int N3_DefaultSkillId;
@@ -214,7 +214,7 @@ namespace Data
         public int S_DefaultSkillId;
         public int D_DefaultSkillId;
 
-        public List<int> TempDevSkillsDataId; // ÃÊ±â µ¥ÀÌÅÍ ½ÃÆ®·Î ÀÌÀü ÇÊ¿ä
+        public List<int> TempDevSkillsDataId; // ì´ˆê¸° ë°ì´í„° ì‹œíŠ¸ë¡œ ì´ì „ í•„ìš”
 
         public int MaxMp;
         public float MpGaugeAmount;
@@ -342,7 +342,8 @@ namespace Data
         public string IconLabel;
         public string AnimName;
         public float DamageMultiplier;
-        public float SkillDuration;
+        public float TickCount;
+        public float TickTime;
         public string CastingSound;
         public float SkillRange;
         public int TargetCount;
@@ -353,6 +354,7 @@ namespace Data
         public float RangeMultipleY;
         public EEffectSize EffectSize;
         public float ActivateSkillDelay;
+        public float AfterSkillDelay;
     }
 
     #endregion
@@ -406,7 +408,7 @@ namespace Data
 
     #endregion
 
-    #region SkillInfoData - To Do Skill°ú ¸ÅÄª µÇµµ·Ï SheetºÎÅÍ ¼öÁ¤ ÇÊ¿ä
+    #region SkillInfoData - To Do Skillê³¼ ë§¤ì¹­ ë˜ë„ë¡ Sheetë¶€í„° ìˆ˜ì • í•„ìš”
     [Serializable]
     public class SkillInfoData
     {
@@ -446,9 +448,9 @@ namespace Data
         public string MaterialID;
         public string AnimatorDataID;
         public string PrefabLabel;
-        public float Duration;  // ¿Ö ¿Ã·È´Âµ¥ Àû¿ëÀÌ ¾È µÅ¿ä? 
+        public float Duration;  // ì™œ ì˜¬ë ¸ëŠ”ë° ì ìš©ì´ ì•ˆ ë¼ìš”? 
         public float HitSound;
-        public float ProjRange; //¾Æ ±×°Å Æ¯Á¤ skill ¿¡¼­¸¸ µÇ´Â °Å¿¡¿ä.
+        public float ProjRange; //ì•„ ê·¸ê±° íŠ¹ì • skill ì—ì„œë§Œ ë˜ëŠ” ê±°ì—ìš”.
         public float ProjSpeed;
         public float ReserveDestroyTime;
     }
@@ -632,8 +634,8 @@ namespace Data
     [Serializable]
     public class Information
     {
-        public EItemGrade Grade; // µî±Ş
-        public int Probability; // 100ºĞÀ²
+        public EItemGrade Grade; // ë“±ê¸‰
+        public int Probability; // 100ë¶„ìœ¨
     }
 
     [Serializable]
@@ -652,7 +654,7 @@ namespace Data
 
     #endregion
 
-    #region DropTable_¹Ì»ç¿ë
+    #region DropTable_ë¯¸ì‚¬ìš©
 
     [Serializable]
     public class DropTableData
@@ -665,7 +667,7 @@ namespace Data
     [Serializable]
     public class RewardData
     {
-        public int Probability; // 100ºĞÀ²
+        public int Probability; // 100ë¶„ìœ¨
         public int ItemTemplateId;
         // public int Count;
     }
@@ -695,16 +697,16 @@ namespace Data
         public string Name;
         public string DescriptionTextId;
         public EQuestPeriodType QuestPeriodType;
-        // public EQuestCondition Condition // Quest µîÀå Á¶°Ç ex. Level
+        // public EQuestCondition Condition // Quest ë“±ì¥ ì¡°ê±´ ex. Level
         public List<QuestTaskData> QuestTasks = new List<QuestTaskData>();
-        public List<QuestRewardData> Rewards = new List<QuestRewardData>(); // To Do. Reward Data ÅëÀÏ
+        public List<QuestRewardData> Rewards = new List<QuestRewardData>(); // To Do. Reward Data í†µì¼
     }
 
     [Serializable]
     public class QuestTaskData
     {
-        public EQuestObjectiveType ObjectiveType;   // ¸ñÀû
-        // public string DescriptionTextId;           // "{0}"¸¦ Ã³Ä¡ÇÏ¼¼¿ä -> Use String Format
+        public EQuestObjectiveType ObjectiveType;   // ëª©ì 
+        // public string DescriptionTextId;           // "{0}"ë¥¼ ì²˜ì¹˜í•˜ì„¸ìš” -> Use String Format
         public int ObjectiveDataId;
         public int ObjectiveCount;
     }
@@ -737,7 +739,7 @@ namespace Data
     [Serializable]
     public class InitGameData
     {
-        public int DataId; // ½ÃÀÛ ³­ÀÌµµ¿¡ µû¶ó ¾ò´Â °Ô ´Ù¸¦ ¼ö ÀÖÀ½
+        public int DataId; // ì‹œì‘ ë‚œì´ë„ì— ë”°ë¼ ì–»ëŠ” ê²Œ ë‹¤ë¥¼ ìˆ˜ ìˆìŒ
         public List<StartItemData> StartItems = new List<StartItemData>();
     }
 

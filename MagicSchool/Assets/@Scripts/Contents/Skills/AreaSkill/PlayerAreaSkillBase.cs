@@ -29,7 +29,7 @@ public class PlayerAreaSkillBase : PlayerSkillBase
         else
             _skillLookDir = (Owner.GenerateSkillPosition - Owner.CenterPosition).normalized;
 
-        // πÊ«‚ + µ˚∏• ∞°¡ﬂƒ° ø¨ªÍ
+        // Î∞©Ìñ• + Îî∞Î•∏ Í∞ÄÏ§ëÏπò Ïó∞ÏÇ∞
         Vector2 weight = Utils.ApplyPositionWeight(SkillData.RangeMultipleX, SkillData.RangeMultipleY, _skillLookDir);
         _skillcenterPosition = Owner.CenterPosition + (Vector3)weight;
     }
@@ -67,10 +67,10 @@ public class PlayerAreaSkillBase : PlayerSkillBase
     protected override void OnAttackEvent()
     {
         // Projectile
-        if (SkillData.ProjectileId != 0)
+        if (SkillData.ProjectileId >= 0)
             Projectile = GenerateProjectile(Owner, _skillcenterPosition);
 
-        // Damage ∆«¡§ π¸¿ß ø¨ªÍ
+        // Damage ÌåêÏ†ï Î≤îÏúÑ Ïó∞ÏÇ∞
         float radius = Utils.GetEffectRadius(SkillData.EffectSize);
         List<CreatureController> targets = Managers.Object.FindConeRangeTargets(Owner, _skillcenterPosition, _skillLookDir, radius, _angleRange);
 
@@ -86,5 +86,14 @@ public class PlayerAreaSkillBase : PlayerSkillBase
     protected override IEnumerator CoCountdownCooldown()
     {
         return base.CoCountdownCooldown();
+    }
+
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.green;
+
+        float radius = Utils.GetEffectRadius(SkillData.EffectSize);
+        Gizmos.DrawWireSphere(_skillcenterPosition, radius);
     }
 }

@@ -157,6 +157,7 @@ public static class Define
     #region Effect
     public enum EEffectSize
     {
+        None,
         CircleSmall,
         CircleNormal,
         CircleBig,
@@ -173,23 +174,24 @@ public static class Define
 
         Debuff,
         ExclusiveDeBuff,
+        StackableDebuff,
 
         CrowdControl, // CC
     }
 
     public enum EEffectSpawnType
     {
-        Skill, // Áö¼Ó½Ã°£ÀÌ ÀÖ´Â ±âº»ÀûÀÎ ÀÌÆåÆ® 
-        External, // ¿ÜºÎ(ÀåÆÇ½ºÅ³)¿¡¼­ ÀÌÆåÆ®¸¦ °ü¸®(Áö¼Ó½Ã°£¿¡ ¿µÇâÀ» ¹ŞÁö¾ÊÀ½)
+        Skill, // ì§€ì†ì‹œê°„ì´ ìˆëŠ” ê¸°ë³¸ì ì¸ ì´í™íŠ¸ 
+        External, // ì™¸ë¶€(ì¥íŒìŠ¤í‚¬)ì—ì„œ ì´í™íŠ¸ë¥¼ ê´€ë¦¬(ì§€ì†ì‹œê°„ì— ì˜í–¥ì„ ë°›ì§€ì•ŠìŒ)
     }
 
     public enum EEffectClearType
     {
-        TimeOut, // ½Ã°£ÃÊ°ú·Î ÀÎÇÑ Effect Á¾·á
-        ClearSkill, // Á¤È­ ½ºÅ³·Î ÀÎÇÑ Effect Á¾·á
-        TriggerOutAoE, // AoE½ºÅ³À» ¹ş¾î³­ Á¾·á
-        EndOfAirborne, // ¿¡¾îº»ÀÌ ³¡³­ °æ¿ì È£ÃâµÇ´Â Á¾·á
-        Despawn, // Clear ½Ã Á¾·á
+        TimeOut, // ì‹œê°„ì´ˆê³¼ë¡œ ì¸í•œ Effect ì¢…ë£Œ
+        ClearSkill, // ì •í™” ìŠ¤í‚¬ë¡œ ì¸í•œ Effect ì¢…ë£Œ
+        TriggerOutAoE, // AoEìŠ¤í‚¬ì„ ë²—ì–´ë‚œ ì¢…ë£Œ
+        EndOfAirborne, // ì—ì–´ë³¸ì´ ëë‚œ ê²½ìš° í˜¸ì¶œë˜ëŠ” ì¢…ë£Œ
+        Despawn, // Clear ì‹œ ì¢…ë£Œ
     }
 
     public enum EEffectClassName
@@ -239,7 +241,7 @@ public static class Define
         // StatBoost
         StatBoost,
 
-        // Æ¯¼ö Ãë±ŞÇØ¾ß ÇÏ´Â Item - °ø°İÇÒ ¶§¸¶´Ù ¹Ì»çÀÏÀ» ÇÏ³ª Spawn
+        // íŠ¹ìˆ˜ ì·¨ê¸‰í•´ì•¼ í•˜ëŠ” Item - ê³µê²©í•  ë•Œë§ˆë‹¤ ë¯¸ì‚¬ì¼ì„ í•˜ë‚˜ Spawn
             // To Do
         #endregion
 
@@ -256,7 +258,7 @@ public static class Define
 
     public enum EItemSubType
     {
-        // To Do ¾Æ¸£Ä«³ª·Î ±³Ã¼
+        // To Do ì•„ë¥´ì¹´ë‚˜ë¡œ êµì²´
 
         None,
 
@@ -295,10 +297,10 @@ public static class Define
     #region Quest
     public enum EQuestPeriodType
     {
-        Once, // ´Ü¹ß¼º
+        Once, // ë‹¨ë°œì„±
         Daily,
         Weekly,
-        Infinite, // ¹«ÇÑÀ¸·Î
+        Infinite, // ë¬´í•œìœ¼ë¡œ
     }
 
     public enum EQuestCondition
@@ -312,7 +314,7 @@ public static class Define
     public enum EQuestObjectiveType
     {
         KillMonster,
-        // Item ÅëÇÕ °í·Á
+        // Item í†µí•© ê³ ë ¤
         EarnMeat,
         SpendMeat,
         EarnWood,
@@ -339,7 +341,7 @@ public static class Define
 
     public enum EQuestState
     {
-        None, // UnKnown - ¹ŞÁöµµ ¾ÊÀ½
+        None, // UnKnown - ë°›ì§€ë„ ì•ŠìŒ
         Processing,
         Completed,
         Rewarded,

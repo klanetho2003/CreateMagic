@@ -41,8 +41,7 @@ public class MonsterController : CreatureController
                 Anim.Play($"Idle");
                 break;
             case CreatureState.DoSkill:
-                //Anim.Play($"DoSkill");
-                //Wait(1f); // Damege Animation + 후딜레이 재생 wait // To Do Animation RunTime Parsing
+                // Animation Play in Skill
                 break;
             case CreatureState.Dameged:
                 Anim.Play($"Dameged");
@@ -117,7 +116,7 @@ public class MonsterController : CreatureController
 
         LookAtTarget(Target);
 
-        StartWait(skill.SkillData.ActivateSkillDelay + skill.SkillData.SkillDuration);
+        StartWait(skill.SkillData.ActivateSkillDelay + skill.Remains + skill.SkillData.AfterSkillDelay);
     }
 
     protected override void UpdateDameged()

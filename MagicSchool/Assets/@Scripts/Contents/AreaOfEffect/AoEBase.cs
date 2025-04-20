@@ -59,9 +59,96 @@ public class AoEBase : BaseController
 		_collider.radius = _radius;
         if (Owner.Target.IsValid() == true)
             _skillDir = (Owner.Target.transform.position - Owner.transform.position).normalized;
+
+        SetAnimation(_aoEData.AnimatorDataID, _aoEData.SortingLayerName, SortingLayers.SKILL_EFFECT);
+
+        StartCoroutine(CoReserveDestroy());
+        StartCoroutine(CoDetectTargetsPeriodically());
     }
 
-	protected void ApplyEffectsInRange(int angle)
+    protected virtual IEnumerator CoDetectTargetsPeriodically()
+    {
+        while (true)
+        {
+            DetectTargets();
+            yield return new WaitForSeconds(1f); // To Do 적용 주기 파싱
+        }
+    }
+
+    protected virtual void DetectTargets()
+    {
+        List<CreatureController> rangeTargets = Managers.Object.FindCircleRangeTargets(Owner, transform.position, _radius);
+        List<CreatureController> removeTargets = new List<CreatureController>();
+
+        foreach (CreatureController rangeTarget in rangeTargets)
+        {
+            if (rangeTarget.IsValid() == false)
+            {
+                _targets.Remove(rangeTarget);
+                continue;
+            }
+
+            //_targets에 없으면 추가
+            if (_targets.Contains(rangeTarget) == false)
+                _targets.Add(rangeTarget);
+
+            List<EffectBase> effects = rangeTarget.Effects.GenerateEffects(_aoEData.EnemyEffects.ToArray(), EEffectSpawnType.Skill, _skillBase);
+            _activeEffects.AddRange(effects);
+        }
+
+        foreach (CreatureController target in _targets)
+        {
+            if (target.IsValid() == false || rangeTargets.Contains(target) == false)
+                removeTargets.Add(target);
+        }
+
+        foreach (var removeTarget in removeTargets)
+        {
+            // 범위 밖으로 나간 Creature 처리
+            // RemoveEffect(removeTarget); // AoE범위 밖으로 나갔을 때 즉시 Effect Remove
+            _targets.Remove(removeTarget);
+            
+        }
+    }
+
+    private void RemoveEffect(CreatureController target)
+    {
+        List<EffectBase> effectsToRemove = new List<EffectBase>();
+
+        foreach (var effect in _activeEffects)
+        {
+            if (target.Effects.ActiveEffects.Contains(effect))
+            {
+                effect.ClearEffect(EEffectClearType.TriggerOutAoE);
+                effectsToRemove.Add(effect);
+            }
+        }
+
+        foreach (var effect in effectsToRemove)
+        {
+            _activeEffects.Remove(effect);
+        }
+    }
+
+    protected virtual IEnumerator CoReserveDestroy()
+    {
+        yield return new WaitForSeconds(_aoEData.Duration);
+        DestroyAoE();
+    }
+
+    protected void DestroyAoE()
+    {
+        Managers.Object.Despawn(this);
+    }
+
+    /*private void OnDrawGizmos()
+	{
+		Gizmos.color = Color.green;
+		Gizmos.DrawWireSphere(transform.position, 3);
+	}*/
+
+    #region 현재 사용X _ 혹시 아군 적군 각각 다른 효과를 부여하고 싶을 때 참고해서 수정보완
+    protected void ApplyEffectsInRange(int angle)
 	{
 		// 아군에게 버프 적용
 		var allies = FindTargets(angle, true);
@@ -97,22 +184,5 @@ public class AoEBase : BaseController
 				t.OnDamaged(Owner, _skillBase);
 		}
 	}
-
-	protected virtual IEnumerator CoReserveDestroy()
-	{
-		yield return new WaitForSeconds(_aoEData.Duration);
-		DestroyAoE();
-	}
-
-	protected void DestroyAoE()
-	{
-		Managers.Object.Despawn(this);
-	}
-
-	/*private void OnDrawGizmos()
-	{
-		Gizmos.color = Color.green;
-		Gizmos.DrawWireSphere(transform.position, 3);
-	}*/
-
+    #endregion
 }

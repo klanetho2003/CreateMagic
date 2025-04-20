@@ -10,9 +10,9 @@ using static Define;
 
 public class InputMemorizer
 {
-    public LinkedList<KeyDownEvent> InputLinkedList { get; private set; } = new LinkedList<KeyDownEvent>(); // ÀÔ·Â ±â¾ï ½Ã½ºÅÛ
-    private int _maxSize; // ±â¾ï °¡´ÉÇÑ ÃÖ´ë Å©±â
-    private List<int> _usableSkill = new List<int>(); // ¸ÅÄªµÈ ¸®½ºÆ® ÀúÀå
+    public LinkedList<KeyDownEvent> InputLinkedList { get; private set; } = new LinkedList<KeyDownEvent>(); // ì…ë ¥ ê¸°ì–µ ì‹œìŠ¤í…œ
+    private int _maxSize; // ê¸°ì–µ ê°€ëŠ¥í•œ ìµœëŒ€ í¬ê¸°
+    private List<int> _usableSkill = new List<int>(); // ë§¤ì¹­ëœ ë¦¬ìŠ¤íŠ¸ ì €ì¥
 
     public InputMemorizer(int size)
     {
@@ -21,7 +21,7 @@ public class InputMemorizer
 
     public void AddInput(KeyDownEvent input)
     {
-        // ¿À·¡µÈ °ª remove
+        // ì˜¤ë˜ëœ ê°’ remove
         if (InputLinkedList.Count == _maxSize)
             InputLinkedList.RemoveFirst();
 
@@ -29,7 +29,7 @@ public class InputMemorizer
         InputLinkedList.AddLast(input);
     }
 
-    // List<int>¿Í ºñ±³ (¼ø¼­ Æ÷ÇÔ, ¿¬¼ÓµÈ °ª È®ÀÎ)
+    // List<int>ì™€ ë¹„êµ (ìˆœì„œ í¬í•¨, ì—°ì†ëœ ê°’ í™•ì¸)
     public bool TrySetUsableSkill(List<int> skillInputValues)
     {
         if (skillInputValues.Count == 0 || InputLinkedList.Count < skillInputValues.Count)
@@ -38,7 +38,7 @@ public class InputMemorizer
         int matchIndex = KMPMatch(InputLinkedList, skillInputValues);
         if (matchIndex != -1)
         {
-            _usableSkill = new List<int>(skillInputValues); // Á¶°Ç ¸¸Á· ½Ã ÀúÀå
+            _usableSkill = new List<int>(skillInputValues); // ì¡°ê±´ ë§Œì¡± ì‹œ ì €ì¥
             return true;
         }
         return false;
@@ -50,15 +50,15 @@ public class InputMemorizer
             return;
 
         int matchIndex = KMPMatch(InputLinkedList, _usableSkill);
-        if (matchIndex == -1) return; // ¸ÅÄªµÈ ÆĞÅÏÀÌ ¾øÀ¸¸é Á¾·á
+        if (matchIndex == -1) return; // ë§¤ì¹­ëœ íŒ¨í„´ì´ ì—†ìœ¼ë©´ ì¢…ë£Œ
 
         LinkedListNode<KeyDownEvent> current = InputLinkedList.First;
         for (int i = 0; i < matchIndex; i++)
         {
-            current = current.Next; // »èÁ¦ ½ÃÀÛ À§Ä¡ Ã£±â
+            current = current.Next; // ì‚­ì œ ì‹œì‘ ìœ„ì¹˜ ì°¾ê¸°
         }
 
-        // _resultÀÇ Å©±â¸¸Å­ ¿¬¼ÓµÈ °ª »èÁ¦
+        // _resultì˜ í¬ê¸°ë§Œí¼ ì—°ì†ëœ ê°’ ì‚­ì œ
         for (int i = 0; i < _usableSkill.Count && current != null; i++)
         {
             var next = current.Next;
@@ -67,7 +67,7 @@ public class InputMemorizer
         }
     }
 
-    // KMP ¾Ë°í¸®Áò Àû¿ë
+    // KMP ì•Œê³ ë¦¬ì¦˜ ì ìš©
     private int KMPMatch(LinkedList<KeyDownEvent> inputLinkedList, List<int> pattern)
     {
         if (pattern.Count == 0 || inputLinkedList.Count < pattern.Count)
@@ -78,7 +78,7 @@ public class InputMemorizer
 
         int i = 0, j = 0;
         KeyDownEvent[] inputArr = new KeyDownEvent[inputLinkedList.Count];
-        inputLinkedList.CopyTo(inputArr, 0); // LinkedList ¡æ ¹è¿­ º¯È¯ (O(N))
+        inputLinkedList.CopyTo(inputArr, 0); // LinkedList â†’ ë°°ì—´ ë³€í™˜ (O(N))
 
         while (i < inputArr.Length)
         {
@@ -89,25 +89,25 @@ public class InputMemorizer
 
                 if (j == patArray.Length)
                 {
-                    return i - j; // ¸ÅÄªµÈ ½ÃÀÛ ÀÎµ¦½º ¹İÈ¯
+                    return i - j; // ë§¤ì¹­ëœ ì‹œì‘ ì¸ë±ìŠ¤ ë°˜í™˜
                 }
             }
             else
             {
                 if (j != 0)
                 {
-                    j = lps[j - 1]; // LPS ¹è¿­À» ±â¹İÀ¸·Î Á¡ÇÁ
+                    j = lps[j - 1]; // LPS ë°°ì—´ì„ ê¸°ë°˜ìœ¼ë¡œ ì í”„
                 }
                 else
                 {
-                    i++; // ¸ÅÄªÀÌ ½ÇÆĞÇÏ¸é ÇÑ Ä­ ÀÌµ¿
+                    i++; // ë§¤ì¹­ì´ ì‹¤íŒ¨í•˜ë©´ í•œ ì¹¸ ì´ë™
                 }
             }
         }
         return -1;
     }
 
-    // KMP LPS ¹è¿­ »ı¼º
+    // KMP LPS ë°°ì—´ ìƒì„±
     private int[] ComputeLPSArray(int[] pattern)
     {
         int len = 0;
@@ -131,7 +131,7 @@ public class InputMemorizer
         return lps;
     }
 
-    // ÀúÀåµÈ result ¹İÈ¯
+    // ì €ì¥ëœ result ë°˜í™˜
     public List<int> GetUsableSkill()
     {
         return _usableSkill;
@@ -146,11 +146,11 @@ public class InputMemorizer
     {
         if (_usableSkill.Count == 0) return 0;
 
-        StringBuilder sb = new StringBuilder(InputLinkedList.Count * 3); // ¼º´É ÃÖÀûÈ­
+        StringBuilder sb = new StringBuilder(InputLinkedList.Count * 3); // ì„±ëŠ¥ ìµœì í™”
 
         foreach (var input in _usableSkill)
         {
-            sb.Append((int)input); // Enum -> Int º¯È¯ ÈÄ ¹®ÀÚ¿­·Î Ãß°¡
+            sb.Append((int)input); // Enum -> Int ë³€í™˜ í›„ ë¬¸ìì—´ë¡œ ì¶”ê°€
         }
 
         return int.Parse(sb.ToString());
@@ -160,12 +160,12 @@ public class InputMemorizer
     {
         if (InputLinkedList.Count == 0) return string.Empty;
 
-        StringBuilder sb = new StringBuilder(InputLinkedList.Count * 3); // ¼º´É ÃÖÀûÈ­
+        StringBuilder sb = new StringBuilder(InputLinkedList.Count * 3); // ì„±ëŠ¥ ìµœì í™”
 
-        bool first = true; // Ã¹ ¹øÂ° °ªÀÌ¸é " - " Á¦°Å
+        bool first = true; // ì²« ë²ˆì§¸ ê°’ì´ë©´ " - " ì œê±°
         foreach (var input in InputLinkedList)
         {
-            if (!first) sb.Append(" - "); // Ã¹ ¹øÂ° °ªÀÌ ¾Æ´Ï¸é " - " Ãß°¡
+            if (!first) sb.Append(" - "); // ì²« ë²ˆì§¸ ê°’ì´ ì•„ë‹ˆë©´ " - " ì¶”ê°€
             sb.Append(input);
             first = false;
         }
@@ -325,18 +325,18 @@ public class PlayerSkillBook : BaseSkillBook
 
                 case KeyDownEvent.space:
                     #region Skill Reward NPC Test
-                    // CompareWithList -> usableSkill °»½Å
+                    // CompareWithList -> usableSkill ê°±ì‹ 
                     // foreach (SkillBase skillTemp in SkillDict.Values)
                     // {
                     //     if (InputMemorizer.TrySetUsableSkill(skillTemp.SkillData.InputValues))
-                    //         Debug.Log($"»ç¿ë °¡´ÉÇÑ Skill : {skillTemp.SkillData.Name}"); // event ½÷¼­ UsableSkill °»½Å
+                    //         Debug.Log($"ì‚¬ìš© ê°€ëŠ¥í•œ Skill : {skillTemp.SkillData.Name}"); // event ì´ì„œ UsableSkill ê°±ì‹ 
                     // }
                     #endregion
                     _owner.CreatureState = TryDoSkill();
                     break;
             }
 
-            // Input Value °»½Å in Skill Navi
+            // Input Value ê°±ì‹  in Skill Navi
             RefreshSkillNavi();
         }
     }
@@ -357,11 +357,11 @@ public class PlayerSkillBook : BaseSkillBook
         // Add InputValue
         InputMemorizer.AddInput(inputValue);
 
-        // CompareWithList -> usableSkill °»½Å
+        // CompareWithList -> usableSkill ê°±ì‹ 
         foreach (PlayerSkillBase skillTemp in SkillDict.Values)
         {
             if (InputMemorizer.TrySetUsableSkill(skillTemp.PlayerSkillData.InputValues))
-                Debug.Log($"»ç¿ë °¡´ÉÇÑ Skill : {skillTemp.SkillData.Name}"); // event ½÷¼­ UsableSkill °»½Å
+                Debug.Log($"ì‚¬ìš© ê°€ëŠ¥í•œ Skill : {skillTemp.SkillData.Name}"); // event ì´ì„œ UsableSkill ê°±ì‹ 
         }
 
         return true;
@@ -388,7 +388,7 @@ public class PlayerSkillBook : BaseSkillBook
         {
             skill.ActivateSkillOrDelay();
 
-            _owner.StartWait(skill.SkillData.ActivateSkillDelay + skill.SkillData.SkillDuration);
+            _owner.StartWait(skill.SkillData.ActivateSkillDelay + skill.Remains + skill.SkillData.AfterSkillDelay);
             Debug.Log($"Do Skill Key : {skill.PlayerSkillData.InputValues} in ActivateSkillOrDelay");
 
             // Refrash Input Value

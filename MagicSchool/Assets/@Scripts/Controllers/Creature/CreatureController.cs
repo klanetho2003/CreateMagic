@@ -82,6 +82,7 @@ public class CreatureController : BaseController
     public Dictionary<ResistType, CreatureStat> CreatureResistDic = new Dictionary<ResistType, CreatureStat>();
 
     public EffectComponent Effects { get; set; }
+    public Sprite LastStateSprite { get; private set; }
 
     #region Stats
     // Temp
@@ -127,8 +128,8 @@ public class CreatureController : BaseController
         {
             if (_creatureState == value)
                 return;
-            /*if (_creatureState == CreatureState.Dead)
-                return;*/
+
+            LastStateSprite = SpriteRenderer.sprite;
 
             _creatureState = value;
             UpdateAnimation();

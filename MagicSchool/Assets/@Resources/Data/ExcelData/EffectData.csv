@@ -8,8 +8,8 @@ DataId,Name,ClassName,Description,AnimatorDataID,AnimName,MaterialID,SpriteID,So
 61002,공업디버프,AttackBuff,Amount + percent,,,,,Skill,,,0,-0.3,0,1,5,Debuff
 61003,중첩 가능 이속버프,MoveSpeedBuff,Amount + percent,,,,,Skill,,,0,0.2,0,1,5,Buff
 61004,중첩 가능 이속디버프,MoveSpeedBuff,Amount + percent,,,,,Skill,,,0,-0.9,0,1,5,Debuff
-61005,중첩 불가 이속버프,ExclusiveMoveSpeedBuff,Amount + percent,,,,,Skill,,,0,-0.9,0,1,5,Buff
-61006,중첩 불가 이속디버프,ExclusiveMoveSpeedBuff,Amount + percent,,,,,Skill,,,0,-0.9,0,1,5,Debuff
+61005,중첩 불가 이속버프,ExclusiveMoveSpeedBuff,Amount + percent,,,,,Skill,,,0,-0.9,0,1,5,ExclusiveBuff
+61006,중첩 불가 이속디버프,ExclusiveMoveSpeedBuff,Amount + percent,,,,,Skill,,,0,-0.9,0,1,5,ExclusiveDeBuff
 61007,공속버프,AttackSpeedBuff,Amount + percent,buff_attack_speed_SkeletonData,,,,Skill,,,0,0.5,0,1,5,Buff
 61008,공속디버프,AttackSpeedBuff,Amount + percent,,,,,Skill,,,0,-0.3,0,1,5,Debuff
 61009,흡혈량버프,LifeStealBuff,Amount + percent,buff_blood_up_SkeletonData,,,,Skill,,,0.3,0,0,1,5,Buff
@@ -27,9 +27,9 @@ DataId,Name,ClassName,Description,AnimatorDataID,AnimName,MaterialID,SpriteID,So
 60006,맹독확산1 Effect,DotBase,한틱당 3만큼 도트뎀 5초 유지,debuff_poison_1_SkeletonData,,,,Skill,,,3,0,0,1,5,Debuff
 60007,맹독확산2 Effect,DotBase,한틱당 3만큼 도트뎀 5초 유지,debuff_poison_1_SkeletonData,,,,Skill,,,3,0,0,1,5,Debuff
 60008,맹독확산3 Effect,DotBase,한틱당 3만큼 도트뎀 5초 유지,debuff_poison_1_SkeletonData,,,,Skill,,,3,0,0,1,5,Debuff
-60009,빙결1,DotBase,Duration 동안 스턴,debuff_freezing_SkeletonData,,,,Skill,,,0,0,0,1,1,Debuff
-60010,빙결2,DotBase,Duration 동안 스턴,debuff_freezing_SkeletonData,,,,Skill,,,0,0,0,1,2,Debuff
-60011,빙결3,DotBase,Duration 동안 스턴,debuff_freezing_SkeletonData,,,,Skill,,,0,0,0,1,3,Debuff
-60012,화상1,Burn,한틱당 최대체력 1% 도트뎀 5초유지,Burning_Animator,,,,Skill,,,0,0.2,0,1,3,Debuff
-60013,화상2,Burn,한틱당 최대체력 1% 도트뎀 5초유지,Burning_Animator,,,,Skill,,,0,0.4,0,1,6,Debuff
-60014,화상3,DotBase,한틱당 최대체력 1% 도트뎀 5초유지,debuff_burning_SkeletonData,,,,Skill,,,0,0.6,0,1,8,Debuff
+60009,빙결1,Freeze,3초동안 빙결,,,,,Skill,,,0,0,0,1,3,Debuff
+60010,빙결2,DotBase,Duration 동안 빙결,,,,,Skill,,,0,0,0,1,2,Debuff
+60011,빙결3,DotBase,Duration 동안 빙결,,,,,Skill,,,0,0,0,1,3,Debuff
+60012,화상1,Burn,한틱당 시전자 공격 20%만큼 도트뎀 3초유지,Burning_Animator,,,,Skill,,,0,0.2,0,1,3,StackableDebuff
+60013,화상2,Burn,한틱당 시전자 공격 20%만큼 도트뎀 6초유지,Burning_Animator,,,,Skill,,,0,0.2,0,1,6,StackableDebuff
+60014,화상3,DotBase,한틱당 시전자 공격 60%만큼 도트뎀 8초유지,debuff_burning_SkeletonData,,,,Skill,,,0,0.6,0,1,8,Debuff

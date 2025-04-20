@@ -15,7 +15,8 @@
       "IconLabel": null,
       "AnimName": "Casting",
       "DamageMultiplier": 0.5,
-      "SkillDuration": 0.0,
+      "TickCount": 0.0,
+      "TickTime": 0.0,
       "CastingSound": null,
       "SkillRange": 0.0,
       "TargetCount": 0,
@@ -26,8 +27,9 @@
       "AoEId": 0,
       "RangeMultipleX": 0.0,
       "RangeMultipleY": 0.0,
-      "EffectSize": 1,
-      "ActivateSkillDelay": 0.0
+      "EffectSize": 2,
+      "ActivateSkillDelay": 0.0,
+      "AfterSkillDelay": 0.0
     },
     {
       "InputValues": [
@@ -44,7 +46,8 @@
       "IconLabel": null,
       "AnimName": "Casting",
       "DamageMultiplier": 0.5,
-      "SkillDuration": 0.0,
+      "TickCount": 0.0,
+      "TickTime": 0.0,
       "CastingSound": null,
       "SkillRange": 0.0,
       "TargetCount": 0,
@@ -55,8 +58,9 @@
       "AoEId": 0,
       "RangeMultipleX": 0.0,
       "RangeMultipleY": 0.0,
-      "EffectSize": 1,
-      "ActivateSkillDelay": 0.0
+      "EffectSize": 2,
+      "ActivateSkillDelay": 0.0,
+      "AfterSkillDelay": 0.0
     },
     {
       "InputValues": [
@@ -73,7 +77,8 @@
       "IconLabel": null,
       "AnimName": "Casting",
       "DamageMultiplier": 0.5,
-      "SkillDuration": 0.0,
+      "TickCount": 0.0,
+      "TickTime": 0.0,
       "CastingSound": null,
       "SkillRange": 0.0,
       "TargetCount": 0,
@@ -84,8 +89,9 @@
       "AoEId": 0,
       "RangeMultipleX": 0.0,
       "RangeMultipleY": 0.0,
-      "EffectSize": 1,
-      "ActivateSkillDelay": 0.0
+      "EffectSize": 2,
+      "ActivateSkillDelay": 0.0,
+      "AfterSkillDelay": 0.0
     },
     {
       "InputValues": [
@@ -102,7 +108,8 @@
       "IconLabel": null,
       "AnimName": "Casting",
       "DamageMultiplier": 0.5,
-      "SkillDuration": 0.0,
+      "TickCount": 0.0,
+      "TickTime": 0.0,
       "CastingSound": null,
       "SkillRange": 0.0,
       "TargetCount": 0,
@@ -113,8 +120,9 @@
       "AoEId": 0,
       "RangeMultipleX": 0.0,
       "RangeMultipleY": 0.0,
-      "EffectSize": 1,
-      "ActivateSkillDelay": 0.0
+      "EffectSize": 2,
+      "ActivateSkillDelay": 0.0,
+      "AfterSkillDelay": 0.0
     },
     {
       "InputValues": [
@@ -131,7 +139,8 @@
       "IconLabel": null,
       "AnimName": "Casting",
       "DamageMultiplier": 0.5,
-      "SkillDuration": 0.0,
+      "TickCount": 0.0,
+      "TickTime": 0.0,
       "CastingSound": null,
       "SkillRange": 0.0,
       "TargetCount": 0,
@@ -140,8 +149,9 @@
       "AoEId": 80021,
       "RangeMultipleX": 2.0,
       "RangeMultipleY": 0.0,
-      "EffectSize": 1,
-      "ActivateSkillDelay": 0.0
+      "EffectSize": 0,
+      "ActivateSkillDelay": 0.0,
+      "AfterSkillDelay": 0.0
     },
     {
       "InputValues": [
@@ -160,7 +170,8 @@
       "IconLabel": "FireballIcon_01.sprite",
       "AnimName": "NormalAttack",
       "DamageMultiplier": 1.0,
-      "SkillDuration": 1.1,
+      "TickCount": 0.0,
+      "TickTime": 0.0,
       "CastingSound": "EnergyBolt_Start",
       "SkillRange": 0.0,
       "TargetCount": 20,
@@ -170,7 +181,8 @@
       "RangeMultipleX": 0.0,
       "RangeMultipleY": 0.0,
       "EffectSize": 0,
-      "ActivateSkillDelay": 0.0
+      "ActivateSkillDelay": 0.0,
+      "AfterSkillDelay": 1.1
     },
     {
       "InputValues": [
@@ -190,7 +202,8 @@
       "IconLabel": "FireBreathIcon_01.sprite",
       "AnimName": "NormalAttack",
       "DamageMultiplier": 1.0,
-      "SkillDuration": 0.5,
+      "TickCount": 0.0,
+      "TickTime": 0.0,
       "CastingSound": null,
       "SkillRange": 0.0,
       "TargetCount": 0,
@@ -202,8 +215,42 @@
       "AoEId": 0,
       "RangeMultipleX": 0.0,
       "RangeMultipleY": 0.0,
-      "EffectSize": 1,
-      "ActivateSkillDelay": 0.0
+      "EffectSize": 2,
+      "ActivateSkillDelay": 0.0,
+      "AfterSkillDelay": 0.5
+    },
+    {
+      "InputValues": [
+        2,
+        8,
+        12
+      ],
+      "InputDescription": "N2 - W - S",
+      "UsedMp": 5,
+      "DataId": 2812,
+      "Name": "IceBreath",
+      "ClassName": "IceBreath",
+      "Description": "�������� �ñ⸦ �վ��",
+      "ProjectileId": 80030,
+      "PrefabLabel": "none",
+      "IconLabel": "none",
+      "AnimName": "NormalAttack",
+      "DamageMultiplier": 0.8,
+      "TickCount": 0.5,
+      "TickTime": 1.0,
+      "CastingSound": null,
+      "SkillRange": 0.0,
+      "TargetCount": 0,
+      "SkillType": 2,
+      "EffectIds": [
+        0
+      ],
+      "AoEId": 80022,
+      "RangeMultipleX": 0.2,
+      "RangeMultipleY": 0.0,
+      "EffectSize": 2,
+      "ActivateSkillDelay": 0.0,
+      "AfterSkillDelay": 1.0
     }
   ]
 }

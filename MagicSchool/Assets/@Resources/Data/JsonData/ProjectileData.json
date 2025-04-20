@@ -139,6 +139,20 @@
       "ProjRange": 1.0,
       "ProjSpeed": 0.0,
       "ReserveDestroyTime": 0.5
+    },
+    {
+      "DataId": 80030,
+      "Name": "IceBreath_01",
+      "ClassName": "Projectile",
+      "ComponentName": null,
+      "MaterialID": null,
+      "AnimatorDataID": "IceBreath01AnimController",
+      "PrefabLabel": "projectilePrefab",
+      "Duration": 0.0,
+      "HitSound": 0.0,
+      "ProjRange": 0.0,
+      "ProjSpeed": 0.0,
+      "ReserveDestroyTime": 1.0
     }
   ]
 }

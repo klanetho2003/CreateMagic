@@ -13,7 +13,7 @@ public class EffectBase : BaseController
 	public EffectData EffectData;
 	public EEffectType EffectType;
 
-	protected float Remains { get; set; } = 0;
+	public float Remains { get; set; } = 0;
 	protected EEffectSpawnType _spawnType;
 	protected bool Loop { get; set; } = true;
 
@@ -54,7 +54,12 @@ public class EffectBase : BaseController
         });
     }
 
-	public virtual void ApplyEffect()
+    public virtual void ApplyStack()
+    {
+        // Stack이 추가되는 시점에 적용할 코드
+    }
+
+    public virtual void ApplyEffect()
 	{
 		ShowEffect();
 		StartCoroutine(CoStartTimer());

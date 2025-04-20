@@ -8,13 +8,15 @@ using static Define;
 using static AnimationEventManager;
 using Unity.VisualScripting;
 
-public abstract class SkillBase : MonoBehaviour // ½ºÅ³À» ½ºÆù > ActiveSkill ¹ßµ¿ >>> ½ºÅ³ ½ÃÀü
+public abstract class SkillBase : MonoBehaviour // ìŠ¤í‚¬ì„ ìŠ¤í° > ActiveSkill ë°œë™ >>> ìŠ¤í‚¬ ì‹œì „
 {
     public CreatureController Owner { get; set; }
     public float RemainCoolTime { get; set; }
 
     public Data.SkillData SkillData { get; protected set; }
     public SkillBase CurrentSkill { get; protected set; }
+
+    public float Remains { get; set; } = 0;
 
     public virtual void SetInfo(CreatureController owner, int skillTemplateID)
     {
@@ -28,9 +30,11 @@ public abstract class SkillBase : MonoBehaviour // ½ºÅ³À» ½ºÆù > ActiveSkill ¹ßµ
         // Handle AnimEvent
         if (Owner.Anim != null)
             BindEvent(Owner, OnAttackTargetHandler);
+
+        Remains = SkillData.TickTime * SkillData.TickCount;
     }
 
-    protected virtual void OnDisable() // °ÔÀÓ °­Á¾
+    protected virtual void OnDisable() // ê²Œìž„ ê°•ì¢…
     {
         Clear();
     }
@@ -40,7 +44,7 @@ public abstract class SkillBase : MonoBehaviour // ½ºÅ³À» ½ºÆù > ActiveSkill ¹ßµ
         if (Owner.CreatureState != CreatureState.DoSkill)
             return;
 
-        if (CurrentSkill != this) // OnAttackEvent¸¦ ±¸µ¶ÇÏ°í ÀÖ´Â skillµéÀÌ ÀÏ°ý »ç¿ëµÇ´Â ¹®Á¦ ÇØ°á Temp
+        if (CurrentSkill != this) // OnAttackEventë¥¼ êµ¬ë…í•˜ê³  ìžˆëŠ” skillë“¤ì´ ì¼ê´„ ì‚¬ìš©ë˜ëŠ” ë¬¸ì œ í•´ê²° Temp
             return;
 
         AnimatorStateInfo currentAnim = Owner.Anim.GetCurrentAnimatorStateInfo(0);
@@ -65,7 +69,7 @@ public abstract class SkillBase : MonoBehaviour // ½ºÅ³À» ½ºÆù > ActiveSkill ¹ßµ
 
     bool _init = false;
 
-    public virtual bool Init() // ÃÖÃÊ ½ÇÇàÀÏ ‹š´Â true¸¦ ¹ÝÈ¯, ÇÑ ¹øÀÌ¶óµµ ½ÇÇàÇÑ ³»¿ªÀÌ ÀÖÀ» °æ¿ì false¸¦ ¹ÝÈ¯
+    public virtual bool Init() // ìµœì´ˆ ì‹¤í–‰ì¼ ë–„ëŠ” trueë¥¼ ë°˜í™˜, í•œ ë²ˆì´ë¼ë„ ì‹¤í–‰í•œ ë‚´ì—­ì´ ìžˆì„ ê²½ìš° falseë¥¼ ë°˜í™˜
     {
         if (_init)
             return false;
@@ -81,17 +85,45 @@ public abstract class SkillBase : MonoBehaviour // ½ºÅ³À» ½ºÆù > ActiveSkill ¹ßµ
         CurrentSkill = this;
 
         if (delaySeconds == 0)
-            ActivateSkill();
+            StartSkill();
         else if (delaySeconds > 0)
-            OnSkillDelay(delaySeconds);
+            OnSkillDelay(StartSkill, delaySeconds);
     }
 
     #region Activate Skill Or Delay
 
+    public virtual void StartSkill()
+    {
+        StartCoroutine(CoStartSkill());
+    }
+
+    protected virtual IEnumerator CoStartSkill()
+    {
+        float sumTime = 0f;
+
+        ActivateSkill();
+
+        while (Remains > 0)
+        {
+            Remains -= Time.deltaTime;
+            sumTime += Time.deltaTime;
+
+            // í‹±ë§ˆë‹¤ ProcessDotTick í˜¸ì¶œ
+            if (sumTime >= SkillData.TickTime)
+            {
+                OnAttackEvent();
+                sumTime -= SkillData.TickTime;
+            }
+
+            yield return null;
+        }
+
+        Remains = SkillData.TickTime * SkillData.TickCount;
+    }
+
     public virtual void ActivateSkill()
     {
         Owner.CreatureState = CreatureState.DoSkill;
-        
 
         if (Owner.ObjectType == EObjectType.Monster && SkillData.AnimName != null)
         {
@@ -107,17 +139,17 @@ public abstract class SkillBase : MonoBehaviour // ½ºÅ³À» ½ºÆù > ActiveSkill ¹ßµ
         }
     }
 
-    // Skill »ç¿ë Àü ¼±µô·¹ÀÌ
+    // Skill ì‚¬ìš© ì „ ì„ ë”œë ˆì´
     protected Coroutine _coOnSkillDelay;
-    public virtual void OnSkillDelay(float delaySeconds)
+    public virtual void OnSkillDelay(Action action, float delaySeconds)
     {
         if (_coOnSkillDelay != null)
             return;
 
         Owner.CreatureState = CreatureState.FrontDelay;
-        _coOnSkillDelay = StartCoroutine(CoOnSkillDelay(delaySeconds));
+        _coOnSkillDelay = StartCoroutine(CoOnSkillDelay(action, delaySeconds));
     }
-    IEnumerator CoOnSkillDelay(float delaySeconds)
+    IEnumerator CoOnSkillDelay(Action action, float delaySeconds)
     {
         yield return new WaitForSeconds(delaySeconds);
 
@@ -128,7 +160,7 @@ public abstract class SkillBase : MonoBehaviour // ½ºÅ³À» ½ºÆù > ActiveSkill ¹ßµ
             yield return null;
         }
 
-        ActivateSkill();
+        action.Invoke();
         _coOnSkillDelay = null;
     }
 
@@ -159,7 +191,7 @@ public abstract class SkillBase : MonoBehaviour // ½ºÅ³À» ½ºÆù > ActiveSkill ¹ßµ
     {
         ProjectileController projectile = Managers.Object.Spawn<ProjectileController>(spawnPos, SkillData.ProjectileId);
 
-        // Ãæµ¹ÇÏ±â ½ÈÀº Ä£±¸µé settting
+        // ì¶©ëŒí•˜ê¸° ì‹«ì€ ì¹œêµ¬ë“¤ settting
         LayerMask excludeMask = 0;
         excludeMask.AddLayer(ELayer.Default);
         excludeMask.AddLayer(ELayer.Projectile);
@@ -197,14 +229,14 @@ public abstract class SkillBase : MonoBehaviour // ½ºÅ³À» ½ºÆù > ActiveSkill ¹ßµ
 
         string spawnLabel = (Managers.Data.AoEDic[id].PrefabLabel != null) ? Managers.Data.AoEDic[id].PrefabLabel : "AoE";
         GameObject go = Managers.Object.SpawnGameObject(spawnPos, spawnLabel);
-        go.name = Managers.Data.AoEDic[id].ClassName;
+        go.name = className;
         aoe = go.AddComponent(componentType) as AoEBase;
         aoe.SetInfo(SkillData.AoEId, Owner, this);
     }
 
     #region Skill Delay
 
-    //ÈÄµô
+    //í›„ë”œ
     public void CompleteSkillDelay(float waitSeconds)
     {
         if (waitSeconds == 0)

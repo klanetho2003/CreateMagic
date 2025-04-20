@@ -1,6 +1,7 @@
 TemplateID,DescriptionTextID,Label,ColliderOffSetX,ColliderOffsetY,ColliderRadius,AtkRange,SpawnDelaySeconds,IconImage,MaterialID,AnimatorDataID,SortingLayerName,N1_DefaultSkillId,N2_DefaultSkillId,N3_DefaultSkillId,N4_DefaultSkillId,Q_DefaultSkillId,W_DefaultSkillId,E_DefaultSkillId,R_DefaultSkillId,A_DefaultSkillId,S_DefaultSkillId,D_DefaultSkillId,TempDevSkillsDataId,MaxMp,MpGaugeAmount
 201000,Magicion_01,HeroPrefab,0,0.5,0.6,4,0,002.sprite,Magicion_01,Magicion01_Animator,Player,90002,90003,90001,90004,90002,90003,90001,90004,90005,90003,90001,1711,5,1
-,,,,,,,,,,,,,,,,,,,,,,,0,10,1
+,,,,,,,,,,,,,,,,,,,,,,,18912,,
+,,,,,,,,,,,,,,,,,,,,,,,2812,,
 201001,¿ö¸®¾î,HeroPrefab,0,0.5,0.6,1.8,0,001.sprite,Magicion_01,Magicion01_Animator,Player,10001,,,,,,,,,,,,,
 ,,,,,,,,,,,,,,,,,,,,,,,,,
 ,,,,,,float,,,,,,,,,,,,,,,,,,,
