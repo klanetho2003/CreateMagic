@@ -2,9 +2,9 @@
   "effects": [
     {
       "DataId": 60001,
-      "Name": "��Ʈ������",
+      "Name": "도트뎀출혈",
       "ClassName": "DotBase",
-      "DescriptionTextID": "��ƽ�� 4��ŭ ��Ʈ�� 5�� ����",
+      "DescriptionTextID": "한틱당 4만큼 도트뎀 5초 유지",
       "AnimatorDataID": null,
       "AnimName": null,
       "MaterialID": null,
@@ -17,13 +17,14 @@
       "PercentMult": 0.0,
       "TickTime": 1.0,
       "TickCount": 5.0,
-      "EffectType": 2
+      "EffectType": 2,
+      "NextEffectId": []
     },
     {
       "DataId": 60002,
-      "Name": "��Ʈ����",
+      "Name": "도트뎀독",
       "ClassName": "DotBase",
-      "DescriptionTextID": "��ƽ�� 3��ŭ ��Ʈ�� 5�� ����",
+      "DescriptionTextID": "한틱당 3만큼 도트뎀 5초 유지",
       "AnimatorDataID": "debuff_poison_1_SkeletonData",
       "AnimName": null,
       "MaterialID": null,
@@ -36,13 +37,14 @@
       "PercentMult": 0.0,
       "TickTime": 1.0,
       "TickCount": 5.0,
-      "EffectType": 2
+      "EffectType": 2,
+      "NextEffectId": []
     },
     {
       "DataId": 60003,
-      "Name": "ȭ��",
+      "Name": "화상",
       "ClassName": "DotBase",
-      "DescriptionTextID": "��ƽ�� �ִ�ü�� 1% ��Ʈ�� 5������",
+      "DescriptionTextID": "한틱당 최대체력 1% 도트뎀 5초유지",
       "AnimatorDataID": null,
       "AnimName": null,
       "MaterialID": null,
@@ -55,13 +57,14 @@
       "PercentMult": 0.0,
       "TickTime": 1.0,
       "TickCount": 5.0,
-      "EffectType": 2
+      "EffectType": 2,
+      "NextEffectId": []
     },
     {
       "DataId": 60004,
-      "Name": "��Ʈ��",
+      "Name": "도트힐",
       "ClassName": "DotBase",
-      "DescriptionTextID": "��ƽ�� �ִ�ü���� 2%�� 5�ʵ��� �÷��ش�",
+      "DescriptionTextID": "한틱당 최대체력의 2%를 5초동안 올려준다",
       "AnimatorDataID": "heal_1_SkeletonData",
       "AnimName": null,
       "MaterialID": null,
@@ -74,13 +77,14 @@
       "PercentMult": 0.0,
       "TickTime": 1.0,
       "TickCount": 5.0,
-      "EffectType": 2
+      "EffectType": 2,
+      "NextEffectId": []
     },
     {
       "DataId": 60005,
-      "Name": "��",
+      "Name": "힐",
       "ClassName": "DotBase",
-      "DescriptionTextID": "��ƽ�� ü�� 50��ŭ ȸ��",
+      "DescriptionTextID": "한틱당 체력 50만큼 회복",
       "AnimatorDataID": "heal_1_SkeletonData",
       "AnimName": null,
       "MaterialID": null,
@@ -93,11 +97,12 @@
       "PercentMult": 0.0,
       "TickTime": 1.0,
       "TickCount": 1.0,
-      "EffectType": 0
+      "EffectType": 0,
+      "NextEffectId": []
     },
     {
       "DataId": 61001,
-      "Name": "��������",
+      "Name": "공업버프",
       "ClassName": "AttackBuff",
       "DescriptionTextID": "Amount + percent",
       "AnimatorDataID": null,
@@ -112,11 +117,12 @@
       "PercentMult": 0.0,
       "TickTime": 1.0,
       "TickCount": 5.0,
-      "EffectType": 0
+      "EffectType": 0,
+      "NextEffectId": []
     },
     {
       "DataId": 61002,
-      "Name": "���������",
+      "Name": "공업디버프",
       "ClassName": "AttackBuff",
       "DescriptionTextID": "Amount + percent",
       "AnimatorDataID": null,
@@ -131,11 +137,12 @@
       "PercentMult": 0.0,
       "TickTime": 1.0,
       "TickCount": 5.0,
-      "EffectType": 2
+      "EffectType": 2,
+      "NextEffectId": []
     },
     {
       "DataId": 61003,
-      "Name": "��ø ���� �̼ӹ���",
+      "Name": "중첩 가능 이속버프",
       "ClassName": "MoveSpeedBuff",
       "DescriptionTextID": "Amount + percent",
       "AnimatorDataID": null,
@@ -150,11 +157,12 @@
       "PercentMult": 0.0,
       "TickTime": 1.0,
       "TickCount": 5.0,
-      "EffectType": 0
+      "EffectType": 0,
+      "NextEffectId": []
     },
     {
       "DataId": 61004,
-      "Name": "��ø ���� �̼ӵ����",
+      "Name": "중첩 가능 이속디버프",
       "ClassName": "MoveSpeedBuff",
       "DescriptionTextID": "Amount + percent",
       "AnimatorDataID": null,
@@ -169,11 +177,12 @@
       "PercentMult": 0.0,
       "TickTime": 1.0,
       "TickCount": 5.0,
-      "EffectType": 2
+      "EffectType": 2,
+      "NextEffectId": []
     },
     {
       "DataId": 61005,
-      "Name": "��ø �Ұ� �̼ӹ���",
+      "Name": "중첩 불가 이속버프",
       "ClassName": "ExclusiveMoveSpeedBuff",
       "DescriptionTextID": "Amount + percent",
       "AnimatorDataID": null,
@@ -188,11 +197,12 @@
       "PercentMult": 0.0,
       "TickTime": 1.0,
       "TickCount": 5.0,
-      "EffectType": 1
+      "EffectType": 1,
+      "NextEffectId": []
     },
     {
       "DataId": 61006,
-      "Name": "��ø �Ұ� �̼ӵ����",
+      "Name": "중첩 불가 이속디버프",
       "ClassName": "ExclusiveMoveSpeedBuff",
       "DescriptionTextID": "Amount + percent",
       "AnimatorDataID": null,
@@ -207,11 +217,12 @@
       "PercentMult": 0.0,
       "TickTime": 1.0,
       "TickCount": 5.0,
-      "EffectType": 3
+      "EffectType": 3,
+      "NextEffectId": []
     },
     {
       "DataId": 61007,
-      "Name": "���ӹ���",
+      "Name": "공속버프",
       "ClassName": "AttackSpeedBuff",
       "DescriptionTextID": "Amount + percent",
       "AnimatorDataID": "buff_attack_speed_SkeletonData",
@@ -226,11 +237,12 @@
       "PercentMult": 0.0,
       "TickTime": 1.0,
       "TickCount": 5.0,
-      "EffectType": 0
+      "EffectType": 0,
+      "NextEffectId": []
     },
     {
       "DataId": 61008,
-      "Name": "���ӵ����",
+      "Name": "공속디버프",
       "ClassName": "AttackSpeedBuff",
       "DescriptionTextID": "Amount + percent",
       "AnimatorDataID": null,
@@ -245,11 +257,12 @@
       "PercentMult": 0.0,
       "TickTime": 1.0,
       "TickCount": 5.0,
-      "EffectType": 2
+      "EffectType": 2,
+      "NextEffectId": []
     },
     {
       "DataId": 61009,
-      "Name": "����������",
+      "Name": "흡혈량버프",
       "ClassName": "LifeStealBuff",
       "DescriptionTextID": "Amount + percent",
       "AnimatorDataID": "buff_blood_up_SkeletonData",
@@ -264,11 +277,12 @@
       "PercentMult": 0.0,
       "TickTime": 1.0,
       "TickCount": 5.0,
-      "EffectType": 0
+      "EffectType": 0,
+      "NextEffectId": []
     },
     {
       "DataId": 61010,
-      "Name": "�����������",
+      "Name": "흡혈량디버프",
       "ClassName": "LifeStealBuff",
       "DescriptionTextID": "Amount + percent",
       "AnimatorDataID": null,
@@ -283,11 +297,12 @@
       "PercentMult": 0.0,
       "TickTime": 1.0,
       "TickCount": 5.0,
-      "EffectType": 2
+      "EffectType": 2,
+      "NextEffectId": []
     },
     {
       "DataId": 61011,
-      "Name": "�޴����ع���",
+      "Name": "받는피해버프",
       "ClassName": "ReduceDmgBuff",
       "DescriptionTextID": "Amount + percent",
       "AnimatorDataID": null,
@@ -302,11 +317,12 @@
       "PercentMult": 0.0,
       "TickTime": 1.0,
       "TickCount": 5.0,
-      "EffectType": 0
+      "EffectType": 0,
+      "NextEffectId": []
     },
     {
       "DataId": 61012,
-      "Name": "�޴����ص����",
+      "Name": "받는피해디버프",
       "ClassName": "ReduceDmgBuff",
       "DescriptionTextID": "Amount + percent",
       "AnimatorDataID": null,
@@ -321,13 +337,14 @@
       "PercentMult": 0.0,
       "TickTime": 1.0,
       "TickCount": 5.0,
-      "EffectType": 2
+      "EffectType": 2,
+      "NextEffectId": []
     },
     {
       "DataId": 61013,
-      "Name": "����",
+      "Name": "가시",
       "ClassName": "ThornsBuff",
-      "DescriptionTextID": "�� �������� ���۸�ŭ ������ �ݻ�",
+      "DescriptionTextID": "총 데미지의 몇퍼만큼 데미지 반사",
       "AnimatorDataID": null,
       "AnimName": null,
       "MaterialID": null,
@@ -340,13 +357,14 @@
       "PercentMult": 0.0,
       "TickTime": 1.0,
       "TickCount": 5.0,
-      "EffectType": 2
+      "EffectType": 2,
+      "NextEffectId": []
     },
     {
       "DataId": 62000,
-      "Name": "�˹�_��",
+      "Name": "넉백_약",
       "ClassName": "KnockBack",
-      "DescriptionTextID": "��ƽ�� �˹�",
+      "DescriptionTextID": "한틱에 넉백",
       "AnimatorDataID": null,
       "AnimName": null,
       "MaterialID": null,
@@ -359,13 +377,14 @@
       "PercentMult": 0.0,
       "TickTime": 0.0,
       "TickCount": 0.0,
-      "EffectType": 2
+      "EffectType": 2,
+      "NextEffectId": []
     },
     {
       "DataId": 62001,
-      "Name": "�˹�_��",
+      "Name": "넉백_강",
       "ClassName": "KnockBack",
-      "DescriptionTextID": "��ƽ�� �˹�",
+      "DescriptionTextID": "한틱에 넉백",
       "AnimatorDataID": null,
       "AnimName": null,
       "MaterialID": null,
@@ -378,13 +397,14 @@
       "PercentMult": 0.0,
       "TickTime": 0.0,
       "TickCount": 0.0,
-      "EffectType": 2
+      "EffectType": 2,
+      "NextEffectId": []
     },
     {
       "DataId": 62002,
-      "Name": "���",
+      "Name": "에어본",
       "ClassName": "Airborne",
-      "DescriptionTextID": "Duration���� ���",
+      "DescriptionTextID": "Duration동안 에어본",
       "AnimatorDataID": null,
       "AnimName": null,
       "MaterialID": null,
@@ -397,13 +417,14 @@
       "PercentMult": 0.0,
       "TickTime": 1.0,
       "TickCount": 1.0,
-      "EffectType": 5
+      "EffectType": 5,
+      "NextEffectId": []
     },
     {
       "DataId": 62003,
-      "Name": "�����",
+      "Name": "땡기기",
       "ClassName": "PullEffect",
-      "DescriptionTextID": "��ƽ�� ���ݾ� ���",
+      "DescriptionTextID": "한틱당 조금씩 댕김",
       "AnimatorDataID": null,
       "AnimName": null,
       "MaterialID": null,
@@ -416,13 +437,14 @@
       "PercentMult": 0.0,
       "TickTime": 0.5,
       "TickCount": 1.0,
-      "EffectType": 5
+      "EffectType": 5,
+      "NextEffectId": []
     },
     {
       "DataId": 62004,
-      "Name": "�ེ��",
+      "Name": "약스턴",
       "ClassName": "LightStun",
-      "DescriptionTextID": "Duration ���� ����",
+      "DescriptionTextID": "Duration 동안 스턴",
       "AnimatorDataID": null,
       "AnimName": null,
       "MaterialID": null,
@@ -435,13 +457,14 @@
       "PercentMult": 0.0,
       "TickTime": 1.0,
       "TickCount": 3.0,
-      "EffectType": 5
+      "EffectType": 5,
+      "NextEffectId": []
     },
     {
       "DataId": 62005,
-      "Name": "������",
+      "Name": "강스턴",
       "ClassName": "HeavyStun",
-      "DescriptionTextID": "Duration ���� ����",
+      "DescriptionTextID": "Duration 동안 스턴",
       "AnimatorDataID": null,
       "AnimName": null,
       "MaterialID": null,
@@ -454,13 +477,14 @@
       "PercentMult": 0.0,
       "TickTime": 1.0,
       "TickCount": 10.0,
-      "EffectType": 5
+      "EffectType": 5,
+      "NextEffectId": []
     },
     {
       "DataId": 62006,
-      "Name": "��ȭ",
+      "Name": "정화",
       "ClassName": "CleanDebuff",
-      "DescriptionTextID": "Duration ���� ����",
+      "DescriptionTextID": "Duration 동안 스턴",
       "AnimatorDataID": null,
       "AnimName": null,
       "MaterialID": null,
@@ -473,13 +497,14 @@
       "PercentMult": 0.0,
       "TickTime": 0.0,
       "TickCount": 0.0,
-      "EffectType": 0
+      "EffectType": 0,
+      "NextEffectId": []
     },
     {
       "DataId": 60006,
-      "Name": "�͵�Ȯ��1 Effect",
+      "Name": "맹독확산1 Effect",
       "ClassName": "DotBase",
-      "DescriptionTextID": "��ƽ�� 3��ŭ ��Ʈ�� 5�� ����",
+      "DescriptionTextID": "한틱당 3만큼 도트뎀 5초 유지",
       "AnimatorDataID": "debuff_poison_1_SkeletonData",
       "AnimName": null,
       "MaterialID": null,
@@ -492,13 +517,14 @@
       "PercentMult": 0.0,
       "TickTime": 1.0,
       "TickCount": 5.0,
-      "EffectType": 2
+      "EffectType": 2,
+      "NextEffectId": []
     },
     {
       "DataId": 60007,
-      "Name": "�͵�Ȯ��2 Effect",
+      "Name": "맹독확산2 Effect",
       "ClassName": "DotBase",
-      "DescriptionTextID": "��ƽ�� 3��ŭ ��Ʈ�� 5�� ����",
+      "DescriptionTextID": "한틱당 3만큼 도트뎀 5초 유지",
       "AnimatorDataID": "debuff_poison_1_SkeletonData",
       "AnimName": null,
       "MaterialID": null,
@@ -511,33 +537,15 @@
       "PercentMult": 0.0,
       "TickTime": 1.0,
       "TickCount": 5.0,
-      "EffectType": 2
+      "EffectType": 2,
+      "NextEffectId": []
     },
     {
       "DataId": 60008,
-      "Name": "�͵�Ȯ��3 Effect",
+      "Name": "맹독확산3 Effect",
       "ClassName": "DotBase",
-      "DescriptionTextID": "��ƽ�� 3��ŭ ��Ʈ�� 5�� ����",
+      "DescriptionTextID": "한틱당 3만큼 도트뎀 5초 유지",
       "AnimatorDataID": "debuff_poison_1_SkeletonData",
-      "AnimName": null,
-      "MaterialID": null,
-      "SpriteID": null,
-      "SortingLayerName": "Skill",
-      "IconLabel": null,
-      "SoundLabel": null,
-      "Amount": 3.0,
-      "PercentAdd": 0.0,
-      "PercentMult": 0.0,
-      "TickTime": 1.0,
-      "TickCount": 5.0,
-      "EffectType": 2
-    },
-    {
-      "DataId": 60009,
-      "Name": "����1",
-      "ClassName": "Freeze",
-      "DescriptionTextID": "3�ʵ��� ����",
-      "AnimatorDataID": null,
       "AnimName": null,
       "MaterialID": null,
       "SpriteID": null,
@@ -548,14 +556,37 @@
       "PercentAdd": 0.0,
       "PercentMult": 0.0,
       "TickTime": 1.0,
-      "TickCount": 3.0,
-      "EffectType": 2
+      "TickCount": 5.0,
+      "EffectType": 2,
+      "NextEffectId": []
+    },
+    {
+      "DataId": 60009,
+      "Name": "빙결1",
+      "ClassName": "Freeze",
+      "DescriptionTextID": "3초동안 빙결(25% 이동속도 하락)",
+      "AnimatorDataID": null,
+      "AnimName": null,
+      "MaterialID": null,
+      "SpriteID": null,
+      "SortingLayerName": "Skill",
+      "IconLabel": null,
+      "SoundLabel": null,
+      "Amount": 0.0,
+      "PercentAdd": -0.25,
+      "PercentMult": 0.0,
+      "TickTime": 1.0,
+      "TickCount": 10.0,
+      "EffectType": 4,
+      "NextEffectId": [
+        62005
+      ]
     },
     {
       "DataId": 60010,
-      "Name": "����2",
+      "Name": "빙결2",
       "ClassName": "DotBase",
-      "DescriptionTextID": "Duration ���� ����",
+      "DescriptionTextID": "Duration 동안 빙결",
       "AnimatorDataID": null,
       "AnimName": null,
       "MaterialID": null,
@@ -568,13 +599,14 @@
       "PercentMult": 0.0,
       "TickTime": 1.0,
       "TickCount": 2.0,
-      "EffectType": 2
+      "EffectType": 2,
+      "NextEffectId": []
     },
     {
       "DataId": 60011,
-      "Name": "����3",
+      "Name": "빙결3",
       "ClassName": "DotBase",
-      "DescriptionTextID": "Duration ���� ����",
+      "DescriptionTextID": "Duration 동안 빙결",
       "AnimatorDataID": null,
       "AnimName": null,
       "MaterialID": null,
@@ -587,13 +619,14 @@
       "PercentMult": 0.0,
       "TickTime": 1.0,
       "TickCount": 3.0,
-      "EffectType": 2
+      "EffectType": 2,
+      "NextEffectId": []
     },
     {
       "DataId": 60012,
-      "Name": "ȭ��1",
+      "Name": "화상1",
       "ClassName": "Burn",
-      "DescriptionTextID": "��ƽ�� ������ ���� 20%��ŭ ��Ʈ�� 3������",
+      "DescriptionTextID": "한틱당 시전자 공격 20%만큼 도트뎀 3초유지",
       "AnimatorDataID": "Burning_Animator",
       "AnimName": null,
       "MaterialID": null,
@@ -606,13 +639,14 @@
       "PercentMult": 0.0,
       "TickTime": 1.0,
       "TickCount": 3.0,
-      "EffectType": 4
+      "EffectType": 4,
+      "NextEffectId": []
     },
     {
       "DataId": 60013,
-      "Name": "ȭ��2",
+      "Name": "화상2",
       "ClassName": "Burn",
-      "DescriptionTextID": "��ƽ�� ������ ���� 20%��ŭ ��Ʈ�� 6������",
+      "DescriptionTextID": "한틱당 시전자 공격 20%만큼 도트뎀 6초유지",
       "AnimatorDataID": "Burning_Animator",
       "AnimName": null,
       "MaterialID": null,
@@ -625,13 +659,14 @@
       "PercentMult": 0.0,
       "TickTime": 1.0,
       "TickCount": 6.0,
-      "EffectType": 4
+      "EffectType": 4,
+      "NextEffectId": []
     },
     {
       "DataId": 60014,
-      "Name": "ȭ��3",
+      "Name": "화상3",
       "ClassName": "DotBase",
-      "DescriptionTextID": "��ƽ�� ������ ���� 60%��ŭ ��Ʈ�� 8������",
+      "DescriptionTextID": "한틱당 시전자 공격 60%만큼 도트뎀 8초유지",
       "AnimatorDataID": "debuff_burning_SkeletonData",
       "AnimName": null,
       "MaterialID": null,
@@ -644,7 +679,8 @@
       "PercentMult": 0.0,
       "TickTime": 1.0,
       "TickCount": 8.0,
-      "EffectType": 2
+      "EffectType": 2,
+      "NextEffectId": []
     }
   ]
 }

@@ -342,8 +342,8 @@ namespace Data
         public string IconLabel;
         public string AnimName;
         public float DamageMultiplier;
-        public float TickCount;
         public float TickTime;
+        public float TickCount;
         public string CastingSound;
         public float SkillRange;
         public int TargetCount;
@@ -492,6 +492,7 @@ namespace Data
         public float TickTime;
         public float TickCount;
         public EEffectType EffectType;
+        public List<int> NextEffectId;
     }
 
     [Serializable]

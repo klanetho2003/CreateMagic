@@ -1,10 +1,20 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
+using static Define;
 
 public class Freeze : CCBase
 {
-    Queue<EffectBase> _effects { get { return EffectComponent.StackableEffects[EffectData.ClassName]; } }
+    Queue<EffectBase> _effects
+    {
+        get
+        {
+            if (EffectComponent.StackableEffects.TryGetValue(EffectData.ClassName, out Queue<EffectBase> freezes))
+                return freezes;
+            return null;
+        }
+    }
 
     public override bool Init()
 	{
@@ -21,7 +31,7 @@ public class Freeze : CCBase
 		// Loop = false;
 		base.ApplyEffect();
 
-        Owner.SpriteRenderer.sprite = Owner.LastStateSprite;
+        AddModifier(Owner.MoveSpeed, this);
     }
 
     public override void ApplyStack()
@@ -32,22 +42,31 @@ public class Freeze : CCBase
         if (_effects.TryPeek(out EffectBase effect))
             effect.Remains = Remains;
 
-        // 1스택
-        // 2스택
-        // 3스택
+        Debug.Log(_effects.Count);
+
+        if (_effects.Count == 2)
+        {
+            AddModifier(Owner.MoveSpeed, this);
+        }
+        else if (_effects.Count >= 3)
+        {
+            EffectComponent.GenerateEffects(EffectData.NextEffectId.ToArray(), EEffectSpawnType.Skill, Skill);
+            Owner.SpriteRenderer.sprite = Owner.LastStateSprite;
+        }
     }
 
     public override bool ClearEffect(Define.EEffectClearType clearType)
     {
-        base.ClearEffect(clearType);
+        if (EffectComponent.StackableEffects[EffectData.ClassName].TryDequeue(out EffectBase self) == false)
+            return false;
 
-        _effects.Clear();
+        RemoveModifier(Owner.MoveSpeed, self);
+        Managers.Object.Despawn(self);
 
-        return true;
+        return self.ClearEffect(clearType);
     }
 
-
-    protected override void SetOwnerMaterial()
+    /*protected override void SetOwnerMaterial()
     {
         base.SetOwnerMaterial();
 
@@ -66,5 +85,5 @@ public class Freeze : CCBase
         Owner.SpriteRenderer.material.DisableKeyword("GLOW_ON");
         Owner.SpriteRenderer.material.DisableKeyword("FADE_ON");
         Owner.SpriteRenderer.material.DisableKeyword("OUTBASE_ON");
-    }
+    }*/
 }

@@ -7,8 +7,7 @@ public class PlayerAreaSkillBase : PlayerSkillBase
     protected SpellIndicator _indicator;
     protected Define.EIndicatorType _indicatorType = Define.EIndicatorType.Cone;
     protected int _angleRange = 360;
-
-    public ProjectileController Projectile { get; protected set; }
+    
     protected Vector2 _skillLookDir { get; set; }
     protected Vector3 _skillcenterPosition { get; set; }
 
@@ -67,7 +66,7 @@ public class PlayerAreaSkillBase : PlayerSkillBase
     protected override void OnAttackEvent()
     {
         // Projectile
-        if (SkillData.ProjectileId >= 0)
+        if (SkillData.ProjectileId >= 0 && Projectile == null)
             Projectile = GenerateProjectile(Owner, _skillcenterPosition);
 
         // Damage 판정 범위 연산

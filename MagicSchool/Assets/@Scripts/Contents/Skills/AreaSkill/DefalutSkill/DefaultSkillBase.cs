@@ -25,10 +25,10 @@ public class DefaultSkillBase : PlayerAreaSkillBase
 
     public override void ActivateSkill()
     {
-        // Casting State¿¡¼­µµ »ç¿ëÇÒ ¼ö ÀÖ´Â Skill
+        // Casting Stateì—ì„œë„ ì‚¬ìš©í•  ìˆ˜ ìˆëŠ” Skill
         if (Owner.ObjectType != EObjectType.Student)
         {
-            Debug.LogError("ÀÌ SkillÀº ¿ÀÁ÷ Player¸¸ »ç¿ëÇÒ ¼ö ÀÖµµ·Ï ¼³°èµÈ Skill ÀÔ´Ï´Ù. °³¹ßÀÚ¿¡°Ô ¹®ÀÇÇÏ¼¼¿ä.");
+            Debug.LogError("ì´ Skillì€ ì˜¤ì§ Playerë§Œ ì‚¬ìš©í•  ìˆ˜ ìˆë„ë¡ ì„¤ê³„ëœ Skill ì…ë‹ˆë‹¤. ê°œë°œìì—ê²Œ ë¬¸ì˜í•˜ì„¸ìš”.");
             return;
         }
 
@@ -37,17 +37,19 @@ public class DefaultSkillBase : PlayerAreaSkillBase
         else
             _skillLookDir = (Owner.GenerateSkillPosition - Owner.CenterPosition).normalized;
 
-        // ¹æÇâ + µû¸¥ °¡ÁßÄ¡ ¿¬»ê
+        // ë°©í–¥ + ë”°ë¥¸ ê°€ì¤‘ì¹˜ ì—°ì‚°
         Vector2 weight = Utils.ApplyPositionWeight(SkillData.RangeMultipleX, SkillData.RangeMultipleY, _skillLookDir);
         _skillcenterPosition = Owner.CenterPosition + (Vector3)weight;
 
-        // InputÇÏÀÚ¸¶ÀÚ Skill ½ÃÀü
+        // Inputí•˜ìë§ˆì Skill ì‹œì „
         OnAttackEvent();
     }
 
     protected override void OnAttackEvent()
     {
         base.OnAttackEvent();
+
+        Projectile = null;
     }
 
     protected override void Clear()

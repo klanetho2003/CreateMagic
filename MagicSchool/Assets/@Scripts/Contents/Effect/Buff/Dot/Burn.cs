@@ -21,8 +21,6 @@ public class Burn : DotBase
     public override void ApplyStack()
     {
         base.ApplyStack();
-        
-        Debug.Log($"{Owner.CreatureData.DescriptionTextID} , {EffectComponent.StackableEffects[EffectData.ClassName].Count}");
     }
 
     public override bool ClearEffect(Define.EEffectClearType clearType)

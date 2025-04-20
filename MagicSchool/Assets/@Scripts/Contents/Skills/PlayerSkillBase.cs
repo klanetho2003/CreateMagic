@@ -5,6 +5,7 @@ using UnityEngine;
 public class PlayerSkillBase : SkillBase
 {
     public Data.StudentSkillData PlayerSkillData { get { return (Data.StudentSkillData)SkillData; } }
+    public ProjectileController Projectile { get; set; }
 
     #region Init Method
     public override bool Init()
@@ -29,5 +30,10 @@ public class PlayerSkillBase : SkillBase
     protected override void OnAttackEvent()
     {
         // override
+    }
+
+    public override void CancelSkill()
+    {
+        base.CancelSkill();
     }
 }

@@ -168,7 +168,7 @@ public abstract class SkillBase : MonoBehaviour // 스킬을 스폰 > ActiveSkil
 
     public virtual void CancelSkill()
     {
-
+        StopAllCoroutines();
     }
 
     protected virtual IEnumerator CoCountdownCooldown()

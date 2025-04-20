@@ -9,7 +9,6 @@ public class EffectComponent : MonoBehaviour
 	public List<EffectBase> ActiveEffects = new List<EffectBase>();
 	public Dictionary<int, EffectBase> ExclusiveActiveEffects = new Dictionary<int, EffectBase>();
 	public Dictionary<string, Queue<EffectBase>> StackableEffects = new Dictionary<string, Queue<EffectBase>>();
-	// public Queue<EffectBase> BurnQueue = new Queue<EffectBase>();
     private CreatureController _owner;
 
 	public void SetInfo(CreatureController Owner)
@@ -50,7 +49,6 @@ public class EffectComponent : MonoBehaviour
                 }
 
                 StackableEffects[className].Enqueue(effect);
-                Debug.Log($"{_owner.CreatureData.DescriptionTextID} , {StackableEffects[className].Count} testetse");
                 effect.ApplyStack();
 
                 if (StackableEffects[className].Count > 1)

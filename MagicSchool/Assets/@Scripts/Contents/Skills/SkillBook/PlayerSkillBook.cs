@@ -187,6 +187,8 @@ public class PlayerSkillBook : BaseSkillBook
 
     public Action OnSkillValueChanged;
 
+    public PlayerSkillBase AcivingSkill = null;
+
     public InputMemorizer InputMemorizer { get; private set; }
 
     #region Init Method
@@ -378,7 +380,7 @@ public class PlayerSkillBook : BaseSkillBook
     {
         int inputValue = InputMemorizer.GetCombinedInputToInt();
 
-        if (SkillDict.TryGetValue(inputValue, out PlayerSkillBase skill) == false)
+        if (SkillDict.TryGetValue(inputValue, out AcivingSkill) == false)
         {
             Debug.Log($"Player Do not have --{inputValue}--");
 
@@ -386,10 +388,10 @@ public class PlayerSkillBook : BaseSkillBook
         }
         else
         {
-            skill.ActivateSkillOrDelay();
+            AcivingSkill.ActivateSkillOrDelay();
 
-            _owner.StartWait(skill.SkillData.ActivateSkillDelay + skill.Remains + skill.SkillData.AfterSkillDelay);
-            Debug.Log($"Do Skill Key : {skill.PlayerSkillData.InputValues} in ActivateSkillOrDelay");
+            _owner.StartWait(AcivingSkill.SkillData.ActivateSkillDelay + AcivingSkill.Remains + AcivingSkill.SkillData.AfterSkillDelay);
+            Debug.Log($"Do Skill Key : {AcivingSkill.PlayerSkillData.InputValues} in ActivateSkillOrDelay");
 
             // Refrash Input Value
             InputMemorizer.RemoveMatchingPattern();
