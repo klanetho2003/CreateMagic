@@ -10,7 +10,15 @@ public class HeavyStun : CCBase
         if (base.Init() == false)
             return false;
 
-        EffectType = Define.EEffectType.CrowdControl;
         return true;
+    }
+
+    public override void ApplyEffect()
+    {
+        base.ApplyEffect();
+
+        lastState = Owner.CreatureState;
+
+		Owner.CreatureState = CreatureState.Stun;
     }
 }

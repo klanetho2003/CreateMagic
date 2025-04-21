@@ -16,7 +16,11 @@ public class KnockBack : CCBase
 
     public override void ApplyEffect()
     {
-        base.ApplyEffect();
+        // base.ApplyEffect();
+        ShowEffect();
+        StartCoroutine(CoStartTimer());
+
+        Owner.CreatureState = CreatureState.PushingForce;
 
         StopCoroutine((DoKnockBack()));
         StartCoroutine(DoKnockBack());
@@ -42,7 +46,7 @@ public class KnockBack : CCBase
             yield return null;
         }
 
-        // ³Ë¹é »óÅÂ°¡ ³¡³­ ÈÄ »óÅÂ º¹±Í
+        // ë„‰ë°± ìƒíƒœê°€ ëë‚œ í›„ ìƒíƒœ ë³µê·€
         /*if (Owner.CreatureState == CreatureState.Dameged)
             Owner.CreatureState = CreatureState.Idle;*/
 
@@ -53,7 +57,19 @@ public class KnockBack : CCBase
 
     protected override IEnumerator CoStartTimer()
     {
-        //Airborne´Â Å¸ÀÌ¸Ó ¾øÀ½
+        //AirborneëŠ” íƒ€ì´ë¨¸ ì—†ìŒ
         yield break;
+    }
+
+    public override bool ClearEffect(EEffectClearType clearType)
+    {
+        if (Owner.CreatureState != CreatureState.PushingForce)
+        {
+            Debug.Log($"ClearEffect - {gameObject.name} {EffectData.ClassName} -> {clearType} in KnockBack");
+            EffectComponent.RemoveEffects(this, clearType);
+            return true;
+        }
+
+        return base.ClearEffect(clearType);
     }
 }

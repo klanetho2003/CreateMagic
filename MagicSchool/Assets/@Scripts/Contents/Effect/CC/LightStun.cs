@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using static Define;
 
 public class LightStun : CCBase
 {
@@ -10,8 +10,6 @@ public class LightStun : CCBase
 		if (base.Init() == false)
 			return false;
 
-		EffectType = Define.EEffectType.CrowdControl;
 		return true;
 	}
-
 }

@@ -105,8 +105,11 @@ public static class Define
         DoSkill,
         BackDelay,
         Dameged,
-        Stun,
         Dead,
+
+        // CC
+        PushingForce,
+        Stun,
     }
 
     public enum ResistType

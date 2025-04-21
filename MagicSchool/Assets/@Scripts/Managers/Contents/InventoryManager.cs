@@ -15,23 +15,23 @@ public class InventoryManager
     public List<Item> AllItems { get; } = new List<Item>();
 
     // Cache
-    Dictionary<int /*EquipSlot*/, Item> EquippedItems = new Dictionary<int, Item>(); // Àåºñ ÀÎº¥
-    List<Item> InventoryItems = new List<Item>(); // ÀÎº¥
-    Dictionary<int /*IntanceId*/, Item> UnknownItems = new Dictionary<int, Item>(); // µîÀåX
-    Dictionary<EItemGrade, HashSet<int/*TemplateId*/>> RewardItems = new Dictionary<EItemGrade, HashSet<int>>() // Stage Clear ½Ã µîÀåÇÒ ¼ö ÀÖ´Â Item
+    Dictionary<int /*EquipSlot*/, Item> EquippedItems = new Dictionary<int, Item>(); // ì¥ë¹„ ì¸ë²¤
+    List<Item> InventoryItems = new List<Item>(); // ì¸ë²¤
+    Dictionary<int /*IntanceId*/, Item> UnknownItems = new Dictionary<int, Item>(); // ë“±ì¥X
+    Dictionary<EItemGrade, HashSet<int/*TemplateId*/>> RewardItems = new Dictionary<EItemGrade, HashSet<int>>() // Stage Clear ì‹œ ë“±ì¥í•  ìˆ˜ ìˆëŠ” Item
     {
         { EItemGrade.Normal, new HashSet<int>() },
         { EItemGrade.Rare, new HashSet<int>() },
         { EItemGrade.Legendary, new HashSet<int>() },
         { EItemGrade.Epic, new HashSet<int>() },
-        // Ãß°¡µÇ¸é µî±Şº°·Î List¸¦ Ãß°¡ÇÒ °Í
+        // ì¶”ê°€ë˜ë©´ ë“±ê¸‰ë³„ë¡œ Listë¥¼ ì¶”ê°€í•  ê²ƒ
     };
 
     // Evnet
     public Action OnItemSlotChange;
 
     #region In Init Game or Load Game
-    // º¸À¯ÇÏÁö ¾ÊÀº Item Make
+    // ë³´ìœ í•˜ì§€ ì•Šì€ Item Make
     public Item MakeItem(int itemTemplateId, EEquipSlotType equipSlot = EEquipSlotType.UnknownItems, int count = 0)
     {
         int itemDbId = Managers.Game.GenerateItemDbId();
@@ -52,14 +52,14 @@ public class InventoryManager
         return AddItem(saveData);
     }
 
-    // SaveFile¿¡ ÀÖ´Â ItemÀ» In Game Data·Î º¯È¯
+    // SaveFileì— ìˆëŠ” Itemì„ In Game Dataë¡œ ë³€í™˜
     public Item AddItem(ItemSaveData itemInfo)
     {
         Item item = Item.MakeItem(itemInfo);
         if (item == null)
             return null;
 
-        // Áßº¹ Check
+        // ì¤‘ë³µ Check
         if (GetItem(item.InstanceId) != null)
             return null;
 
@@ -85,19 +85,19 @@ public class InventoryManager
         // UI Refresh
         OnItemSlotChange?.Invoke();
 
-        // Item.RemoveItemInDic(itemInfo); // ´Ù½Ã ¾òÀ» ¼ö ¾øµµ·Ï Dictionay¿¡¼­ »èÁ¦ -> RewardItem°ú ¿¬°è ÇÊ¿ä
+        // Item.RemoveItemInDic(itemInfo); // ë‹¤ì‹œ ì–»ì„ ìˆ˜ ì—†ë„ë¡ Dictionayì—ì„œ ì‚­ì œ -> RewardItemê³¼ ì—°ê³„ í•„ìš”
 
         return item;
     }
     #endregion
 
-    // Item È¹µæ
+    // Item íšë“
     public void GainItem(int instanceId, EEquipSlotType equipSlotType)
     {
         Item item = GetItem(instanceId);
         if (item == null)
         {
-            Debug.Log("¾ÆÀÌÅÛÁ¸Àç¾ÈÇÔ in AllItems");
+            Debug.Log("ì•„ì´í…œì¡´ì¬ì•ˆí•¨ in AllItems");
             return;
         }
 
@@ -108,11 +108,11 @@ public class InventoryManager
                 RewardItems[item.TemplateData.Grade].Remove(item.TemplateId);
         }
 
-        // ¾ÆÀÌÅÛ Gain in Inventory
+        // ì•„ì´í…œ Gain in Inventory
         if (item.EquipSlot == (int)EEquipSlotType.UnknownItems)
         {
-            item.EquipSlot = (int)EEquipSlotType.Inventory; // Save Data Àû¿ë
-            InventoryItems.Add(item);                       // In Game Dictionary¿¡ Àû¿ë
+            item.EquipSlot = (int)EEquipSlotType.Inventory; // Save Data ì ìš©
+            InventoryItems.Add(item);                       // In Game Dictionaryì— ì ìš©
 
             // Item Remove in UnknownItems
             UnknownItems.Remove(item.InstanceId);
@@ -125,7 +125,7 @@ public class InventoryManager
         OnItemSlotChange?.Invoke();
     }
 
-    // Item ¹ö¸®±â
+    // Item ë²„ë¦¬ê¸°
     public void WasteItem(int instanceId)
     {
         Item item = AllItems.Find(x => x.SaveData.InstanceId == instanceId);
@@ -179,7 +179,7 @@ public class InventoryManager
         if (item == null)
             return;
 
-        // Try Use //Àû¿ë ´ë»ó Á¾·ù°¡ ¸¹¾ÆÁö¸é ¼öÁ¤ ÇÊ¿ä like Skill
+        // Try Use //ì ìš© ëŒ€ìƒ ì¢…ë¥˜ê°€ ë§ì•„ì§€ë©´ ìˆ˜ì • í•„ìš” like Skill
         item.TryUseItem(_player);
     }
 
@@ -190,51 +190,51 @@ public class InventoryManager
 
         int tempCount = item.Count + amount;
 
-        // À½¼ö°¡ µÇ´Â °æ¿ì false
+        // ìŒìˆ˜ê°€ ë˜ëŠ” ê²½ìš° false
         if (tempCount < 0)
             return false;
 
-        // ÃÖ´ë°ªÀ» ³Ñ±ä °æ¿ì Á¶Á¤ ÈÄ true
+        // ìµœëŒ€ê°’ì„ ë„˜ê¸´ ê²½ìš° ì¡°ì • í›„ true
         item.Count = Mathf.Min(tempCount, item.TemplateData.MaxCount);
 
-        // MaxCount¿Í ¸ÂÁö ¾ÊÀ¸¸é Reward¿¡ Ãß°¡
+        // MaxCountì™€ ë§ì§€ ì•Šìœ¼ë©´ Rewardì— ì¶”ê°€
         if (item.IsMaxCount() == false)
             RewardItems[item.TemplateData.Grade].Add(item.TemplateId);
 
         return true;
     }
 
-    #region Å»Âø
-    // Item ÀåÂø
+    #region íƒˆì°©
+    // Item ì¥ì°©
     public void EquipItem(int instanceId, EEquipSlotType equipSlotType)
     {
         Item item = InventoryItems.Find(x => x.SaveData.InstanceId == instanceId);
         if (item == null)
         {
-            Debug.Log("¾ÆÀÌÅÛÁ¸Àç¾ÈÇÔ");
+            Debug.Log("ì•„ì´í…œì¡´ì¬ì•ˆí•¨");
             return;
         }
 
-        // ÀåÂø ºÒ°¡ Item ÆÇº°
+        // ì¥ì°© ë¶ˆê°€ Item íŒë³„
         if (item.IsEquippable() == false)
             return;
 
-        // ±âÁ¸ ¾ÆÀÌÅÛ ÇØÁ¦
+        // ê¸°ì¡´ ì•„ì´í…œ í•´ì œ
         if (EquippedItems.TryGetValue((int)equipSlotType, out Item prev))
             UnEquipItem(prev.InstanceId);
 
-        // ¾ÆÀÌÅÛ ÀåÂø
-        item.EquipSlot = (int)equipSlotType;        // Save Data Àû¿ë
-        EquippedItems[(int)equipSlotType] = item;   // In Game Dictionary¿¡ Àû¿ë
+        // ì•„ì´í…œ ì¥ì°©
+        item.EquipSlot = (int)equipSlotType;        // Save Data ì ìš©
+        EquippedItems[(int)equipSlotType] = item;   // In Game Dictionaryì— ì ìš©
 
-        // ¾ÆÀÌÅÛ Remove in Inventory
+        // ì•„ì´í…œ Remove in Inventory
         InventoryItems.Remove(item);
 
         // UI Refresh
         OnItemSlotChange?.Invoke();
     }
 
-    // Item ÀåÂø ÇØÁ¦
+    // Item ì¥ì°© í•´ì œ
     public void UnEquipItem(int instanceId, bool checkFull = true)
     {
         var item = EquippedItems.Values.Where(x => x.InstanceId == instanceId).FirstOrDefault();
@@ -259,7 +259,7 @@ public class InventoryManager
     }
     #endregion
 
-    // UI ÀÛ¾÷ ÁøÇàÇÒ ¶§ ¸¹ÀÌ »ç¿ëÇÒ Helper
+    // UI ì‘ì—… ì§„í–‰í•  ë•Œ ë§ì´ ì‚¬ìš©í•  Helper
     #region Helper
     // All
     public Item GetItem(int instanceId)

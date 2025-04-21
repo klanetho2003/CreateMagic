@@ -132,11 +132,6 @@ public class MonsterController : CreatureController
             //OnDead(); To Do 일단 CreatureController에 넣어두었다
     }
 
-    protected override void UpdateStun()
-    {
-        return;
-    }
-
     void CheckAttackTarget(/*float sqrMagnitude, */float attackRange)
     {
         Vector3 dir = (Target.transform.position - transform.position);

@@ -12,20 +12,32 @@ public class CCBase : EffectBase
 		if (base.Init() == false)
 			return false;
 
-		EffectType = EEffectType.CrowdControl;
+        // Already in SetIfo
+		// EffectType = EEffectType.CrowdControl;
+
 		return true;
 	}
 
-	public override void ApplyEffect()
+    /*protected virtual void SetRemain(EffectBase effect, ResistType resistType)
+    {
+        float resist = Owner.GetResistance(resistType);
+        float remains = Mathf.Clamp(Remains * (1f - resist), 0, Remains);
+
+        effect.Remains = remains;
+
+        Debug.Log($"Effect Remains : {effect.Remains}");
+    }*/
+
+    public override void ApplyEffect()
 	{
 		base.ApplyEffect();
 
         lastState = Owner.CreatureState;
-		if (lastState == CreatureState.Stun)
-			return;
 
-		Owner.CreatureState = CreatureState.Stun;
-	}
+        Owner.CreatureState = CreatureState.Stun;
+
+        // SetRemain(this, Skill.SkillData.SkillType);
+    }
 
 	public override bool ClearEffect(EEffectClearType clearType)
 	{

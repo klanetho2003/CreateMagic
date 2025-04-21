@@ -45,9 +45,6 @@ public class CreatureController : BaseController
             case CreatureState.Dead:
                 UpdateDead();
                 break;
-            case CreatureState.Stun:
-                UpdateStun();
-                break;
         }
     }
 
@@ -60,7 +57,6 @@ public class CreatureController : BaseController
     protected virtual void UpdateBackDelay() { }
     protected virtual void UpdateDameged() { }
     protected virtual void UpdateDead() { }
-    protected virtual void UpdateStun() { }
 
     #endregion
 

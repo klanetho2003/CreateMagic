@@ -6,7 +6,7 @@ using static Define;
 
 public class EffectComponent : MonoBehaviour
 {
-	public List<EffectBase> ActiveEffects = new List<EffectBase>();
+	public HashSet<EffectBase> ActiveEffects = new HashSet<EffectBase>();
 	public Dictionary<int, EffectBase> ExclusiveActiveEffects = new Dictionary<int, EffectBase>();
 	public Dictionary<string, Queue<EffectBase>> StackableEffects = new Dictionary<string, Queue<EffectBase>>();
     private CreatureController _owner;
@@ -73,14 +73,18 @@ public class EffectComponent : MonoBehaviour
 		return generatedEffects;
 	}
 
-	public void RemoveEffects(EffectBase effects)
+	public void RemoveEffects(EffectBase effect, EEffectClearType clearType)
 	{
+        // Debug.Log($"ClearEffect - {gameObject.name} {effect.EffectData.ClassName} -> {clearType} in EffectComponent");
+        ActiveEffects.Remove(effect);
+        Managers.Object.Despawn(effect);
 
-	}
+        Debug.Log($"ActiveEffects Count : {ActiveEffects.Count}, State : {_owner.CreatureState}");
+    }
 
 	public void ClearDebuffsBySkill()
 	{
-		foreach (var buff in ActiveEffects.ToArray())
+		foreach (var buff in ActiveEffects)
 		{
 			if (buff.EffectType != EEffectType.Buff || buff.EffectType != EEffectType.ExclusiveBuff)
 			{
@@ -99,16 +103,18 @@ public class EffectComponent : MonoBehaviour
 
     public void Clear()
     {
-        foreach (var buff in ActiveEffects.ToArray())
-        {
-            buff.ClearEffect(EEffectClearType.Despawn);
-        }
+        List<EffectBase> removeEffects = new List<EffectBase>();
+
+        foreach (var buff in ActiveEffects)
+            removeEffects.Add(buff);
+
+        foreach (var effects in removeEffects)
+            effects.ClearEffect(EEffectClearType.Despawn);
+
+        removeEffects.Clear();
+        ActiveEffects.Clear();
 
         foreach (var buff in ExclusiveActiveEffects.Values)
-        {
             buff.ClearEffect(EEffectClearType.Despawn);
-        }
-
-        ActiveEffects.Clear();
     }
 }

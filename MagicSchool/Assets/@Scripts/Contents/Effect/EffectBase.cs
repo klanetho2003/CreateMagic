@@ -117,30 +117,27 @@ public class EffectBase : BaseController
 			case EEffectClearType.TimeOut:
 			case EEffectClearType.TriggerOutAoE:
 			case EEffectClearType.EndOfAirborne:
-				Managers.Object.Despawn(this);
+                EffectComponent.RemoveEffects(this, clearType);
 				return true;
 
 			case EEffectClearType.ClearSkill:
 				// AoE범위 안에 있는경우 해제 X
 				if (_spawnType != EEffectSpawnType.External)
 				{
-					Managers.Object.Despawn(this);
-					return true;
+                    EffectComponent.RemoveEffects(this, clearType);
+                    return true;
 				}
 				break;
 
             case EEffectClearType.Despawn:
-                Managers.Object.Despawn(this);
+                EffectComponent.RemoveEffects(this, clearType);
                 return true;
         }
 
 		return false;
 	}
 
-	protected virtual void ProcessDot()
-	{
-
-	}
+	protected virtual void ProcessDot() { }
 
 
 	protected virtual IEnumerator CoStartTimer()
@@ -168,7 +165,7 @@ public class EffectBase : BaseController
         ClearEffect(EEffectClearType.TimeOut);
     }
 
-    void SetMaterial()
+    protected void SetMaterial()
     {
         if (Owner.IsValid() == false)
             return;

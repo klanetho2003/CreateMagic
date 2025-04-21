@@ -9,23 +9,13 @@ To Do :
 # ChangeInventory
 # KillMonster
 
+
+
+
 ★★★★★★★★★★★★★★★★★★★★★★★★★ To Day To Do
 
-1. 빙결
-- Define.EEffectType에 StackDebuff를 추가 한다.
-- StackDebuff들은 Dictionary<className, Queue<EffectBase>>로 관리한다.
-왜 className인가? > 같은 Effect여도, 적용되는 길이에 따라 다른 TemplateId를 지니기 때문이다.
+처음 Freeze는 잘 작동 하나, 2스택 적용부터 이상함 (바로 초기화 되는 듯함)
 
-Stun과 Freeze를 나눠야 하는가?
-- Animation에서 차이가 있다.
-> Stun은 Ondamage처리 Animation과 동일, Freeze는 OnDamage처리 Animation전 행동에서 Animation Frame을 유지
-Creature안에서 처리 해야하는가?
-> 한다면, 프로퍼티 안에 넣으면 됨. like Casting Animation
-
-
-
-2. 빙결 Animation 처리
-3. 빙결 스킬
 
 
 
