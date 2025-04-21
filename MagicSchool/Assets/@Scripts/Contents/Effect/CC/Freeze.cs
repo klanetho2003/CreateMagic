@@ -27,12 +27,8 @@ public class Freeze : CCBase
     void SetRemain(EffectBase firstEffect, ResistType resistType)
     {
         float resist = Owner.GetResistance(resistType);
-        float remains = firstEffect.Remains * (1f - resist);
+        float remains = Remains * (1f - resist);
         firstEffect.Remains = Mathf.Clamp(remains, 0, Remains);
-
-        // firstEffect.Remains = Remains;
-
-        Debug.Log($"_effects.Count : {_effects.Count}");
     }
 
     public override void ApplyEffect()

@@ -5,7 +5,7 @@ CreatureDataId,MaxHp,Atk,MoveSpeed,CriRate,CriDamageMult,ResistData.ResistType,R
 ,,,,,,Electric,0
 202002,500,2,3,0,0,Melee,0.3
 ,,,,,,Fire,0
-,,,,,,Ice,0
+,,,,,,Ice,0.5
 ,,,,,,Electric,0
 202003,40,2,4,0,1.5,Melee,0
 ,,,,,,Fire,0

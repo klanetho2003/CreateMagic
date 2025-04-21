@@ -252,6 +252,38 @@
       "EffectSize": 2,
       "ActivateSkillDelay": 0.0,
       "AfterSkillDelay": 1.0
+    },
+    {
+      "InputValues": [
+        2,
+        7,
+        8,
+        13
+      ],
+      "InputDescription": "N2 - Q - W - D",
+      "UsedMp": 5,
+      "DataId": 27813,
+      "Name": "HeavySnow",
+      "ClassName": "HeavySnow",
+      "Description": "�������� �ñ⸦ �վ��",
+      "ProjectileId": -1,
+      "PrefabLabel": "none",
+      "IconLabel": "none",
+      "AnimName": "NormalAttack",
+      "DamageMultiplier": 0.2,
+      "TickTime": 0.0,
+      "TickCount": 0.0,
+      "CastingSound": null,
+      "SkillRange": 0.0,
+      "TargetCount": 0,
+      "SkillType": 2,
+      "EffectIds": [],
+      "AoEId": 80030,
+      "RangeMultipleX": 3.5,
+      "RangeMultipleY": 0.0,
+      "EffectSize": 2,
+      "ActivateSkillDelay": 0.0,
+      "AfterSkillDelay": 1.0
     }
   ]
 }

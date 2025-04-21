@@ -408,8 +408,8 @@ public class PlayerController : CreatureController
         if (this.CreatureState == CreatureState.Dameged)
             return;
 
-        // base.OnDamaged(attacker, skill);
-        // PlayerSkills.ClearCastingValue();
+        base.OnDamaged(attacker, skill);
+        PlayerSkills.ClearCastingValue();
     }
 
     protected override void OnDead(BaseController attacker, SkillBase skill)

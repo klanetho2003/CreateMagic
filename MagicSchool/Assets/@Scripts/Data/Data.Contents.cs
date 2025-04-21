@@ -519,6 +519,7 @@ namespace Data
         public string ClassName;
         public string AnimatorDataID;
         public string SoundLabel;
+        public float TickTime;
         public float Duration;
         public List<int> AllyEffects = new List<int>();
         public List<int> EnemyEffects = new List<int>();

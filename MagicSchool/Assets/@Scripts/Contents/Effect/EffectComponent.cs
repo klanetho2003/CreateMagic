@@ -76,6 +76,7 @@ public class EffectComponent : MonoBehaviour
 	public void RemoveEffects(EffectBase effect, EEffectClearType clearType)
 	{
         // Debug.Log($"ClearEffect - {gameObject.name} {effect.EffectData.ClassName} -> {clearType} in EffectComponent");
+        effect.SetMaterial();
         ActiveEffects.Remove(effect);
         Managers.Object.Despawn(effect);
 

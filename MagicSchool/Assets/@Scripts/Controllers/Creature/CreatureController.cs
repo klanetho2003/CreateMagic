@@ -311,6 +311,21 @@ public class CreatureController : BaseController
         }
     }
 
+    public override void SumHp(BaseController attacker, SkillBase skill)
+    {
+        base.SumHp(attacker, skill);
+
+        CreatureController creature = attacker as CreatureController;
+        if (creature == null)
+            return;
+
+        float rawDamage = creature.Atk.Value * skill.SkillData.DamageMultiplier;
+        ResistType resisType = skill.SkillData.SkillType;
+        float finalDamage = rawDamage * (1f - GetResistance(resisType));
+        Hp = Hp - finalDamage; // Clamp in Property
+        Managers.Object.ShowDamageFont(CenterPosition, finalDamage, transform);
+    }
+
     public override void OnDamaged(BaseController attacker, SkillBase skill)
     {
         base.OnDamaged(attacker, skill);
@@ -320,16 +335,8 @@ public class CreatureController : BaseController
         if (this.IsValid() == false)
             return;
 
-        CreatureController creature = attacker as CreatureController;
-        if (creature == null)
-            return;
-
         // Sum Damage
-        float rawDamage = creature.Atk.Value * skill.SkillData.DamageMultiplier;
-        ResistType resisType = skill.SkillData.SkillType;
-        float finalDamage = rawDamage * (1f - GetResistance(resisType));
-        Hp = Hp - finalDamage; // Clamp in Property
-        Managers.Object.ShowDamageFont(CenterPosition, finalDamage, transform);
+        SumHp(attacker, skill);
 
         CreatureState = CreatureState.Dameged;
 

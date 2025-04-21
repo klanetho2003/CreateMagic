@@ -165,7 +165,7 @@ public class EffectBase : BaseController
         ClearEffect(EEffectClearType.TimeOut);
     }
 
-    protected void SetMaterial()
+    public void SetMaterial()
     {
         if (Owner.IsValid() == false)
             return;

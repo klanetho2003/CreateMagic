@@ -164,10 +164,10 @@ Material:
     - _InnerOutlineGlow: 4
     - _InnerOutlineThickness: 1
     - _LitAmount: 1
-    - _MaxXUV: 0.09038482
+    - _MaxXUV: 0.03508179
     - _MaxYUV: 0.5498784
-    - _MinXUV: 0.071467906
-    - _MinYUV: 0.31852782
+    - _MinXUV: 0.016164877
+    - _MinYUV: 0.3183034
     - _MotionBlurAngle: 0.1
     - _MotionBlurDist: 1.25
     - _MyDstMode: 10
@@ -188,7 +188,7 @@ Material:
     - _OutlineTexYSpeed: 0
     - _OutlineWidth: 0.004
     - _OverlayBlend: 1
-    - _OverlayGlow: 1.8
+    - _OverlayGlow: 0.7
     - _OverlayTextureScrollXSpeed: 0.25
     - _OverlayTextureScrollYSpeed: 0.25
     - _PinchUvAmount: 0.35

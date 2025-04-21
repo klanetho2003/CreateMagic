@@ -7,6 +7,7 @@
       "ClassName": "PoisonSpreadAoE",
       "AnimatorDataID": null,
       "SoundLabel": null,
+      "TickTime": 0.0,
       "Duration": 5.0,
       "AllyEffects": [],
       "EnemyEffects": [
@@ -22,6 +23,7 @@
       "ClassName": "PoisonSpreadAoE",
       "AnimatorDataID": null,
       "SoundLabel": null,
+      "TickTime": 0.0,
       "Duration": 5.0,
       "AllyEffects": [],
       "EnemyEffects": [
@@ -37,6 +39,7 @@
       "ClassName": "PoisonSpreadAoE",
       "AnimatorDataID": null,
       "SoundLabel": null,
+      "TickTime": 0.0,
       "Duration": 5.0,
       "AllyEffects": [],
       "EnemyEffects": [
@@ -52,6 +55,7 @@
       "ClassName": "ColdSpreadAoE",
       "AnimatorDataID": null,
       "SoundLabel": null,
+      "TickTime": 0.0,
       "Duration": 0.5,
       "AllyEffects": [],
       "EnemyEffects": [
@@ -67,6 +71,7 @@
       "ClassName": "ColdSpreadAoE",
       "AnimatorDataID": null,
       "SoundLabel": null,
+      "TickTime": 0.0,
       "Duration": 0.5,
       "AllyEffects": [],
       "EnemyEffects": [
@@ -82,6 +87,7 @@
       "ClassName": "ColdSpreadAoE",
       "AnimatorDataID": null,
       "SoundLabel": null,
+      "TickTime": 0.0,
       "Duration": 0.5,
       "AllyEffects": [],
       "EnemyEffects": [
@@ -97,6 +103,7 @@
       "ClassName": "ConeShapeAoE",
       "AnimatorDataID": null,
       "SoundLabel": null,
+      "TickTime": 0.0,
       "Duration": 1.0,
       "AllyEffects": [],
       "EnemyEffects": [
@@ -112,6 +119,7 @@
       "ClassName": "ConeShapeAoE",
       "AnimatorDataID": null,
       "SoundLabel": null,
+      "TickTime": 0.0,
       "Duration": 1.0,
       "AllyEffects": [],
       "EnemyEffects": [
@@ -127,6 +135,7 @@
       "ClassName": "ConeShapeAoE",
       "AnimatorDataID": null,
       "SoundLabel": null,
+      "TickTime": 0.0,
       "Duration": 1.0,
       "AllyEffects": [],
       "EnemyEffects": [
@@ -142,6 +151,7 @@
       "ClassName": "AoEBase",
       "AnimatorDataID": null,
       "SoundLabel": null,
+      "TickTime": 0.0,
       "Duration": 1.0,
       "AllyEffects": [],
       "EnemyEffects": [],
@@ -155,6 +165,7 @@
       "ClassName": "AoEBase",
       "AnimatorDataID": null,
       "SoundLabel": null,
+      "TickTime": 0.0,
       "Duration": 1.0,
       "AllyEffects": [],
       "EnemyEffects": [],
@@ -168,6 +179,7 @@
       "ClassName": "AoEBase",
       "AnimatorDataID": null,
       "SoundLabel": null,
+      "TickTime": 0.0,
       "Duration": 1.0,
       "AllyEffects": [],
       "EnemyEffects": [],
@@ -181,6 +193,7 @@
       "ClassName": "AoEBase",
       "AnimatorDataID": null,
       "SoundLabel": null,
+      "TickTime": 0.0,
       "Duration": 0.0,
       "AllyEffects": [],
       "EnemyEffects": [],
@@ -194,6 +207,7 @@
       "ClassName": "AoEBase",
       "AnimatorDataID": null,
       "SoundLabel": null,
+      "TickTime": 0.0,
       "Duration": 0.0,
       "AllyEffects": [],
       "EnemyEffects": [],
@@ -207,6 +221,7 @@
       "ClassName": "AoEBase",
       "AnimatorDataID": null,
       "SoundLabel": null,
+      "TickTime": 0.0,
       "Duration": 0.0,
       "AllyEffects": [],
       "EnemyEffects": [],
@@ -220,6 +235,7 @@
       "ClassName": "ConeShapeAoE",
       "AnimatorDataID": null,
       "SoundLabel": null,
+      "TickTime": 0.0,
       "Duration": 0.0,
       "AllyEffects": [],
       "EnemyEffects": [
@@ -235,6 +251,7 @@
       "ClassName": "ConeShapeAoE",
       "AnimatorDataID": null,
       "SoundLabel": null,
+      "TickTime": 0.0,
       "Duration": 0.0,
       "AllyEffects": [],
       "EnemyEffects": [
@@ -250,6 +267,7 @@
       "ClassName": "ConeShapeAoE",
       "AnimatorDataID": null,
       "SoundLabel": null,
+      "TickTime": 0.0,
       "Duration": 0.0,
       "AllyEffects": [],
       "EnemyEffects": [
@@ -265,6 +283,7 @@
       "ClassName": "AoEBase",
       "AnimatorDataID": null,
       "SoundLabel": null,
+      "TickTime": 0.0,
       "Duration": 0.0,
       "AllyEffects": [],
       "EnemyEffects": [],
@@ -278,6 +297,7 @@
       "ClassName": "AoEBase",
       "AnimatorDataID": null,
       "SoundLabel": null,
+      "TickTime": 0.0,
       "Duration": 0.0,
       "AllyEffects": [],
       "EnemyEffects": [],
@@ -291,7 +311,8 @@
       "ClassName": "AoEBase",
       "AnimatorDataID": "CastingImpact01AnimController",
       "SoundLabel": null,
-      "Duration": 3.0,
+      "TickTime": 1.0,
+      "Duration": 5.0,
       "AllyEffects": [],
       "EnemyEffects": [
         61006
@@ -306,12 +327,29 @@
       "ClassName": "FireExplosionAoE",
       "AnimatorDataID": null,
       "SoundLabel": null,
+      "TickTime": 1.1,
       "Duration": 1.0,
       "AllyEffects": [],
       "EnemyEffects": [
         60012
       ],
-      "AnimName": null,
+      "AnimName": "None",
+      "SortingLayerName": "Skill"
+    },
+    {
+      "DataId": 80030,
+      "Name": "HeavySnowAoE",
+      "PrefabLabel": "AoE",
+      "ClassName": "HeavySnowAoE",
+      "AnimatorDataID": "HeavySnowAoE01AnimController",
+      "SoundLabel": null,
+      "TickTime": 1.0,
+      "Duration": 5.0,
+      "AllyEffects": [],
+      "EnemyEffects": [
+        60009
+      ],
+      "AnimName": "None",
       "SortingLayerName": "Skill"
     }
   ]

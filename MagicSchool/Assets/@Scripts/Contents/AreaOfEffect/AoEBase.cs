@@ -11,7 +11,7 @@ public class AoEBase : BaseController
 
 	public CreatureController Owner;
 	protected HashSet<CreatureController> _targets = new HashSet<CreatureController>();
-	protected SkillBase _skillBase;
+	protected SkillBase _skill;
 	protected AoEData _aoEData;
 	protected Vector3 _skillDir;
 	protected float _radius;
@@ -53,7 +53,7 @@ public class AoEBase : BaseController
 		transform.localEulerAngles = Vector3.zero;
 		_aoEData = Managers.Data.AoEDic[dataId];
 		Owner = owner as CreatureController;
-		_skillBase = skill;
+		_skill = skill;
 		_effectSize = skill.SkillData.EffectSize;
 		_radius = Utils.GetEffectRadius(_effectSize);
 		_collider.radius = _radius;
@@ -71,7 +71,8 @@ public class AoEBase : BaseController
         while (true)
         {
             DetectTargets();
-            yield return new WaitForSeconds(1f); // To Do 적용 주기 파싱
+
+            yield return new WaitForSeconds(_aoEData.TickTime); // To Do 적용 주기 파싱
         }
     }
 
@@ -92,7 +93,8 @@ public class AoEBase : BaseController
             if (_targets.Contains(rangeTarget) == false)
                 _targets.Add(rangeTarget);
 
-            List<EffectBase> effects = rangeTarget.Effects.GenerateEffects(_aoEData.EnemyEffects.ToArray(), EEffectSpawnType.Skill, _skillBase);
+            rangeTarget.SumHp(Owner, _skill);
+            List<EffectBase> effects = rangeTarget.Effects.GenerateEffects(_aoEData.EnemyEffects.ToArray(), EEffectSpawnType.Skill, _skill);
             _activeEffects.AddRange(effects);
         }
 
@@ -141,11 +143,13 @@ public class AoEBase : BaseController
         Managers.Object.Despawn(this);
     }
 
-    /*private void OnDrawGizmos()
-	{
-		Gizmos.color = Color.green;
-		Gizmos.DrawWireSphere(transform.position, 3);
-	}*/
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.green;
+
+        float radius = Utils.GetEffectRadius(_skill.SkillData.EffectSize);
+        Gizmos.DrawWireSphere(CenterPosition, radius);
+    }
 
     #region 현재 사용X _ 혹시 아군 적군 각각 다른 효과를 부여하고 싶을 때 참고해서 수정보완
     protected void ApplyEffectsInRange(int angle)
@@ -178,10 +182,10 @@ public class AoEBase : BaseController
 			if (t.IsValid() == false)
 				continue;
 
-			t.Effects.GenerateEffects(effects, EEffectSpawnType.Skill, _skillBase);
+			t.Effects.GenerateEffects(effects, EEffectSpawnType.Skill, _skill);
 
 			if (applyDamage)
-				t.OnDamaged(Owner, _skillBase);
+				t.OnDamaged(Owner, _skill);
 		}
 	}
     #endregion

@@ -15,8 +15,6 @@ public class IceBreath : PlayerAreaSkillBase
     public override void ActivateSkill()
     {
         base.ActivateSkill();
-
-        Debug.Log("ActivateSkill");
     }
 
     protected override void OnAttackTargetHandler()
@@ -27,8 +25,6 @@ public class IceBreath : PlayerAreaSkillBase
     protected override void OnAttackEvent()
     {
         base.OnAttackEvent();
-
-        Debug.Log("OnAttackEvent");
 
         // Set Projectile Dir
         Projectile.transform.rotation = Quaternion.Euler(0, 0, Mathf.Atan2(_skillLookDir.y, _skillLookDir.x) * Mathf.Rad2Deg);

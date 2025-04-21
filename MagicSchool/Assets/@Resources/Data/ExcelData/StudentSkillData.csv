@@ -14,6 +14,11 @@ DataId,Name,ClassName,Description,ProjectileId,PrefabLabel,IconLabel,AnimName,Da
 2812,IceBreath,IceBreath,전방으로 냉기를 뿜어낸다,80030,none,none,NormalAttack,0.8,0.5,1,,0,,Ice,62001,,0.2,0,CircleNormal,,1,2,N2 - W - S,5
 ,,,,,,,,,,,,,,,60009,,,,,,,8,,
 ,,,,,,,,,,,,,,,,,,,,,,12,,
+27813,HeavySnow,HeavySnow,전방으로 냉기를 뿜어낸다,-1,none,none,NormalAttack,0.2,0,0,,0,,Ice,,80030,3.5,0,CircleNormal,,1,2,N2 - Q - W - D,5
+,,,,,,,,,,,,,,,,,,,,,,7,,
+,,,,,,,,,,,,,,,,,,,,,,8,,
+,,,,,,,,,,,,,,,,,,,,,,13,,
+,,,,,,,,,,,,,,,,,,,,,,,,
 ,,,,,,,,,,,,,,,,,,,,,,,,
 ,,,,,,,,,,,,,,,,,,,,,,,,
 ,,,,,,,,,,,,,,,,,,,,,,,,

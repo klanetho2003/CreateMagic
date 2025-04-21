@@ -107,17 +107,17 @@ public static class Utils
 
     public static bool IsIncludedList<T>(List<T> parentList, List<T>childList)
     {
-        // 1. ¸®½ºÆ® ±æÀÌ Ã¼Å© (ºü¸¥ Å»Ãâ)
+        // 1. ë¦¬ìŠ¤íŠ¸ ê¸¸ì´ ì²´í¬ (ë¹ ë¥¸ íƒˆì¶œ)
         if (childList.Count > parentList.Count)
             return false;
 
-        // 2. Ã¹ ¹øÂ° °ªÀÌ ÀÏÄ¡ÇÏ´Â °æ¿ì¸¸ ºñ±³ (ºü¸¥ ÇÊÅÍ¸µ)
+        // 2. ì²« ë²ˆì§¸ ê°’ì´ ì¼ì¹˜í•˜ëŠ” ê²½ìš°ë§Œ ë¹„êµ (ë¹ ë¥¸ í•„í„°ë§)
         if (!EqualityComparer<T>.Default.Equals(parentList[0], childList[0]))
             return false;
 
-        // 3. ºñ±³
+        // 3. ë¹„êµ
         if (parentList.Take(childList.Count).SequenceEqual(childList))
-            return true; // ÀÏÄ¡ÇÏ´Â ¸®½ºÆ® ¹ß°ß ½Ã ¹İÈ¯
+            return true; // ì¼ì¹˜í•˜ëŠ” ë¦¬ìŠ¤íŠ¸ ë°œê²¬ ì‹œ ë°˜í™˜
 
         return false;
     }
