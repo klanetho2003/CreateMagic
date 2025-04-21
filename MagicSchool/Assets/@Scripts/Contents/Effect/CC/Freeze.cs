@@ -39,6 +39,8 @@ public class Freeze : CCBase
         ShowEffect();
         StartCoroutine(CoStartTimer());
 
+        if (Owner.GetResistance(Skill.SkillData.SkillType) >= 1)
+            return;
         AddModifier(Owner.MoveSpeed, this);
     }
 
@@ -50,6 +52,9 @@ public class Freeze : CCBase
         if (_effects.TryPeek(out EffectBase effect))
             SetRemain(effect, Skill.SkillData.SkillType); // effect.Remains = Remains;
 
+        if (Owner.GetResistance(Skill.SkillData.SkillType) >= 1)
+            return;
+        
         if (_effects.Count == 2)
         {
             AddModifier(Owner.MoveSpeed, this);

@@ -34,7 +34,7 @@ public class Frozen : CCBase
     {
         base.ResetOwnerMaterial();
 
-        Owner.Anim.speed = _lastAnimSpeed;
+        Owner.Anim.speed = 1; // 문제 원인 > Haed Coding, Freeze의 스택 제한이 없어서 이 함수에 여러번 들어옴
 
         Owner.SpriteRenderer.material.DisableKeyword("OVERLAY_ON");
     }
