@@ -129,7 +129,7 @@ public class MonsterController : CreatureController
     {
         //if (_coWait == null) { }
 
-            //OnDead(); To Do 일단 CreatureController에 넣어두었다
+        //OnDead(); To Do 일단 CreatureController에 넣어두었다
     }
 
     void CheckAttackTarget(/*float sqrMagnitude, */float attackRange)
@@ -192,7 +192,6 @@ public class MonsterController : CreatureController
                     CreatureState = CreatureState.Idle;
                     break;
                 case CreatureState.Dead:
-                    CreatureState = CreatureState.Idle;
                     Managers.Object.Despawn(this);
                     break;
                 default:

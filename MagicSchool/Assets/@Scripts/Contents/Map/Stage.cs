@@ -282,7 +282,7 @@ public class Stage : MonoBehaviour
             {
                 case EObjectType.Monster:
                     MonsterController monster = Managers.Object.Spawn<MonsterController>(worldPos, info.DataId);
-                    monster.SetCellPos(cellPos, true);
+                    Managers.Map.MoveTo(monster, cellPos, forceMove: true);
                     _spawnObjects.Add(monster);
                     break;
                 case EObjectType.Npc:

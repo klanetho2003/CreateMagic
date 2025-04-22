@@ -93,9 +93,9 @@ public class AoEBase : BaseController
             if (_targets.Contains(rangeTarget) == false)
                 _targets.Add(rangeTarget);
 
-            rangeTarget.SumHp(Owner, _skill);
+            // rangeTarget.SumHp(Owner, _skill);
             List<EffectBase> effects = rangeTarget.Effects.GenerateEffects(_aoEData.EnemyEffects.ToArray(), EEffectSpawnType.Skill, _skill);
-            _activeEffects.AddRange(effects);
+            if (effects.Count != 0) _activeEffects.AddRange(effects);
         }
 
         foreach (CreatureController target in _targets)

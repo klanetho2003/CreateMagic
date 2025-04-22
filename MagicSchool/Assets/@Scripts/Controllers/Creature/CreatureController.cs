@@ -120,6 +120,7 @@ public class CreatureController : BaseController
         }
     }
 
+    [SerializeField]
     CreatureState _creatureState = CreatureState.Idle;
     public virtual CreatureState CreatureState
     {
@@ -311,9 +312,14 @@ public class CreatureController : BaseController
         }
     }
 
-    public override void SumHp(BaseController attacker, SkillBase skill)
+    public override void ApplyDamage(BaseController attacker, SkillBase skill)
     {
-        base.SumHp(attacker, skill);
+        base.ApplyDamage(attacker, skill);
+
+        if (this.IsValid() == false)
+            return;
+
+        CreatureState = CreatureState.Dameged;
 
         CreatureController creature = attacker as CreatureController;
         if (creature == null)
@@ -324,6 +330,15 @@ public class CreatureController : BaseController
         float finalDamage = rawDamage * (1f - GetResistance(resisType));
         Hp = Hp - finalDamage; // Clamp in Property
         Managers.Object.ShowDamageFont(CenterPosition, finalDamage, transform);
+
+        // OnDead
+        if (Hp <= 0)
+        {
+            Anim.speed = 1; // Hard? Dead Animation 안에 Despawn Event가 있기에 예외로 처리
+            CreatureState = CreatureState.Dead;
+            OnDead(attacker, skill);
+            return;
+        }
     }
 
     public override void OnDamaged(BaseController attacker, SkillBase skill)
@@ -332,25 +347,13 @@ public class CreatureController : BaseController
 
         if (attacker.IsValid() == false)
             return;
-        if (this.IsValid() == false)
-            return;
 
         // Sum Damage
-        SumHp(attacker, skill);
-
-        CreatureState = CreatureState.Dameged;
+        ApplyDamage(attacker, skill);
 
         // AOE
         if (skill != null && skill.SkillData.AoEId != 0)
             skill.GenerateAoE(transform.position);
-
-        // OnDead
-        if (Hp <= 0)
-        {
-            CreatureState = CreatureState.Dead;
-            OnDead(attacker, skill);
-            return;
-        }
 
         // Skill에 따른 Effect 적용
         if (skill.SkillData.EffectIds != null)

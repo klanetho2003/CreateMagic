@@ -125,7 +125,7 @@ public class BaseController : MonoBehaviour
 
     #region Battle
 
-    public virtual void SumHp(BaseController attacker, SkillBase skill) { }
+    public virtual void ApplyDamage(BaseController attacker, SkillBase skill) { }
 
     public virtual void OnDamaged(BaseController attacker, SkillBase skill) { }
 

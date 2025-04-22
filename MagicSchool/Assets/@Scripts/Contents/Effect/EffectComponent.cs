@@ -18,9 +18,12 @@ public class EffectComponent : MonoBehaviour
 
 	public List<EffectBase> GenerateEffects(IEnumerable<int> effectIds, EEffectSpawnType spawnType, SkillBase skill)
 	{
-		List<EffectBase> generatedEffects = new List<EffectBase>();
+        List<EffectBase> generatedEffects = new List<EffectBase>();
 
-		foreach (int id in effectIds)
+        if (_owner.IsValid() == false)
+            return generatedEffects;
+
+        foreach (int id in effectIds)
 		{
 			string className = Managers.Data.EffectDic[id].ClassName;
 			Type effectType = Type.GetType(className);

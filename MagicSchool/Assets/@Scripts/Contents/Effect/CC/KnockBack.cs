@@ -20,7 +20,7 @@ public class KnockBack : CCBase
         ShowEffect();
         StartCoroutine(CoStartTimer());
 
-        if (Owner.CreatureState == CreatureState.Stun) // Hard Coding
+        if (Owner.CreatureState != CreatureState.Stun) // Hard Coding
             Owner.CreatureState = CreatureState.PushingForce;
         
         StopCoroutine((DoKnockBack()));

@@ -28,7 +28,7 @@
     },
     {
       "CreatureDataId": 202002,
-      "MaxHp": 500.0,
+      "MaxHp": 50.0,
       "Atk": 2.0,
       "MoveSpeed": 3.0,
       "CriRate": 0.0,
