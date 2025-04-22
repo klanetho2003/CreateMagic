@@ -6,6 +6,8 @@ using static Define;
 
 public class Freeze : CCBase
 {
+    public List<EffectBase> NextEffects = new List<EffectBase>();
+
     Queue<EffectBase> _effects
     {
         get
@@ -27,8 +29,8 @@ public class Freeze : CCBase
     void SetRemain(EffectBase firstEffect, ResistType resistType)
     {
         float resist = Owner.GetResistance(resistType);
-        float remains = Remains * (1f - resist);
-        firstEffect.Remains = Mathf.Clamp(remains, 0, Remains);
+        float remains = firstEffect.EffectData.TickTime * firstEffect.EffectData.TickCount * (1f - resist);
+        firstEffect.Remains = Mathf.Max(remains, 0);
     }
 
     public override void ApplyEffect()
@@ -48,21 +50,32 @@ public class Freeze : CCBase
     {
         base.ApplyStack();
 
-        // 지속 시간 초기화
-        if (_effects.TryPeek(out EffectBase effect))
-            SetRemain(effect, Skill.SkillData.SkillType); // effect.Remains = Remains;
-
+        // 진짜 많이 더러운데, 복귀하면 깔끔하게 만들게요
         if (Owner.GetResistance(Skill.SkillData.SkillType) >= 1)
             return;
+
+        // 지속 시간 초기화
+        Freeze firstFreeze = null;
+        if (_effects.TryPeek(out EffectBase firstEffect))
+        {
+            SetRemain(firstEffect, Skill.SkillData.SkillType);
+            firstFreeze = (Freeze)firstEffect;
+        }
         
         if (_effects.Count == 2)
-        {
             AddModifier(Owner.MoveSpeed, this);
-        }
         else if (_effects.Count >= 3)
         {
-            if (EffectData.NextEffectId != null)
-                Owner.Effects.GenerateEffects(EffectData.NextEffectId.ToArray(), EEffectSpawnType.Skill, Skill);
+            if (firstFreeze.NextEffects.Count > 0)
+            {
+                foreach (EffectBase effect in firstFreeze.NextEffects)
+                    SetRemain(effect, Skill.SkillData.SkillType);
+            }
+            else
+            {
+                if (EffectData.NextEffectId != null)
+                    firstFreeze.NextEffects = Owner.Effects.GenerateEffects(EffectData.NextEffectId.ToArray(), EEffectSpawnType.Skill, Skill);
+            }
         }
     }
 
@@ -71,10 +84,14 @@ public class Freeze : CCBase
         if (EffectComponent.StackableEffects[EffectData.ClassName].TryDequeue(out EffectBase self) == false)
         {
             Remains = 0; // Clear in EffectBase.ClearEffect (Remains가 0이되면서 CoStartTimer에서 처리)
+
+            _effects.Clear();
+
             return true;
         }
 
         RemoveModifier(Owner.MoveSpeed, self);
+
         EffectComponent.RemoveEffects(self, clearType);
 
         return self.ClearEffect(clearType);

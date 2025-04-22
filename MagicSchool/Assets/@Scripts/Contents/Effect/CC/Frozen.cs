@@ -20,6 +20,11 @@ public class Frozen : CCBase
         base.ApplyEffect();
     }
 
+    public override bool ClearEffect(EEffectClearType clearType)
+    {
+        return base.ClearEffect(clearType);
+    }
+
     protected override void SetOwnerMaterial()
     {
         base.SetOwnerMaterial();

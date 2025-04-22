@@ -348,9 +348,6 @@ public class CreatureController : BaseController
         if (attacker.IsValid() == false)
             return;
 
-        // Sum Damage
-        ApplyDamage(attacker, skill);
-
         // AOE
         if (skill != null && skill.SkillData.AoEId != 0)
             skill.GenerateAoE(transform.position);
@@ -358,6 +355,9 @@ public class CreatureController : BaseController
         // Skill에 따른 Effect 적용
         if (skill.SkillData.EffectIds != null)
             Effects.GenerateEffects(skill.SkillData.EffectIds.ToArray(), EEffectSpawnType.Skill, skill);
+
+        // Sum Damage
+        ApplyDamage(attacker, skill);
     }
 
     public virtual bool CheckChangeMp(int amount)
